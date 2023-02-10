@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"com.babypatients.babysim_testapp","c":"Babysim_testapp","l":"Babysim_testapp()","u":"%3Cinit%3E()"},{"p":"com.babypatients.babysim_testapp","c":"main_panel","l":"main_panel()","u":"%3Cinit%3E()"},{"p":"com.babypatients.babysim_testapp","c":"Babysim_testapp","l":"main(String[])","u":"main(java.lang.String[])"}];updateSearchResults();
