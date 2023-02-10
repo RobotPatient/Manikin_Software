@@ -31,3 +31,4 @@
 *.out
 *.app
 /babysim_testapp/target/
+/Desktop_application/Flow_and_ToF_Testsuite/target/

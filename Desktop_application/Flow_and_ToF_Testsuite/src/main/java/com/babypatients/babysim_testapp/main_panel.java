@@ -26,6 +26,45 @@ import org.jfree.data.xy.Vector;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+
+
+class Serial_event_listener implements SerialPortDataListener{
+      char[] Flow = new char[6];
+      char[] ToF = new char[4];
+      boolean FirstString = true;
+      int iter2 = 0;
+      @Override
+      public int getListeningEvents() { return SerialPort.LISTENING_EVENT_DATA_AVAILABLE; }
+      @Override
+      public void serialEvent(SerialPortEvent event)
+      {
+        if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE)
+            return;
+        byte[] newData = new byte[selectedSerialPort.bytesAvailable()];
+        int numRead = selectedSerialPort.readBytes(newData, newData.length);
+        for(char p : ToF)
+             p ='\0';
+        for(int i =0; i< newData.length-1; i++){
+            if((char)newData[i] != ',' && FirstString)
+                Flow[i] = (char)newData[i];
+            else if ( (char)newData[i] != ',' && !FirstString)
+                ToF[iter2++] = (char)newData[i];
+            else
+                FirstString = false;
+        }
+                iter2 = 0;
+                FirstString = true;
+                ToF[3] = '\0';
+                String number = new String(ToF);
+                int val = Integer.parseInt(number.trim(), 10); 
+                float newDataFloat[] = new float[1];
+                newDataFloat[0] = val/10;
+                datasetSens1.advanceTime();
+                datasetSens1.appendData(newDataFloat);
+      }
+    DynamicTimeSeriesCollection datasetSens1;
+    SerialPort selectedSerialPort;
+}
 /**
  *
  * @author victor
@@ -268,7 +307,6 @@ public class main_panel extends javax.swing.JFrame {
         }
     }
     private void jConnectButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jConnectButtonMouseClicked
-        // TODO add your handling code here:
         int SelectedIndex = jComChooser.getSelectedIndex();
         if(selectedSerialPort != null){
             if(selectedSerialPort.isOpen()){
@@ -281,53 +319,22 @@ public class main_panel extends javax.swing.JFrame {
             jConnectionStatus.setText("Connected!");
             jConnectionStatus.setBackground(Color.green);
             String baudrateFieldText = jBaudRateField.getText();
+            int baudrate = 115200;
             try{
-            int baudrate = Integer.parseInt(baudrateFieldText);
-            selectedSerialPort.setBaudRate(baudrate);
-            selectedSerialPort.addDataListener(new SerialPortDataListener() {
-            char[] Flow = new char[6];
-            char[] ToF = new char[4];
-            boolean FirstString = true;
-            int iter2 = 0;
-             @Override
-             public int getListeningEvents() { return SerialPort.LISTENING_EVENT_DATA_AVAILABLE; }
-             @Override
-             public void serialEvent(SerialPortEvent event)
-              {
-                if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE)
-                 return;
-                byte[] newData = new byte[selectedSerialPort.bytesAvailable()];
-                int numRead = selectedSerialPort.readBytes(newData, newData.length);
-                for(char p : ToF)
-                    p ='\0';
-                for(int i =0; i< newData.length-1; i++){
-                    if((char)newData[i] != ',' && FirstString)
-                        Flow[i] = (char)newData[i];
-                    else if ( (char)newData[i] != ',' && !FirstString)
-                        ToF[iter2++] = (char)newData[i];
-                    else
-                        FirstString = false;
-                }
-                iter2 = 0;
-                FirstString = true;
-                ToF[3] = '\0';
-                String number = new String(ToF);
-                int val = Integer.parseInt(number.trim(), 10); 
-                float newDataFloat[] = new float[1];
-                newDataFloat[0] = val/10;
-                datasetSens1.advanceTime();
-                datasetSens1.appendData(newDataFloat);
-                
-              }
-              });
-              }
+            	baudrate = Integer.parseInt(baudrateFieldText);
+            }
             catch (NumberFormatException ex){
                 ex.printStackTrace();
             }     
+            selectedSerialPort.setBaudRate(baudrate);
+            Serial_event_listener SerialDataListener = new Serial_event_listener();
+            SerialDataListener.datasetSens1 = datasetSens1;
+            SerialDataListener.selectedSerialPort = selectedSerialPort;
+            selectedSerialPort.addDataListener(SerialDataListener);
         }
         else{
-            jConnectionStatus.setText("Fail!");
-            jConnectionStatus.setBackground(Color.red);
+           	jConnectionStatus.setText("Fail!");
+           	jConnectionStatus.setBackground(Color.red);
         }
     }//GEN-LAST:event_jConnectButtonMouseClicked
 
