@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Base64;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -29,10 +30,9 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 
 class Serial_event_listener implements SerialPortDataListener{
-      char[] Flow = new char[6];
-      char[] ToF = new char[4];
-      boolean FirstString = true;
-      int iter2 = 0;
+      short ToF =0;
+      short Flow = 0;
+      float newDataFloat[] = new float[1];
       @Override
       public int getListeningEvents() { return SerialPort.LISTENING_EVENT_DATA_AVAILABLE; }
       @Override
@@ -40,27 +40,17 @@ class Serial_event_listener implements SerialPortDataListener{
       {
         if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE)
             return;
-        byte[] newData = new byte[selectedSerialPort.bytesAvailable()];
-        int numRead = selectedSerialPort.readBytes(newData, newData.length);
-        for(char p : ToF)
-             p ='\0';
-        for(int i =0; i< newData.length-1; i++){
-            if((char)newData[i] != ',' && FirstString)
-                Flow[i] = (char)newData[i];
-            else if ( (char)newData[i] != ',' && !FirstString)
-                ToF[iter2++] = (char)newData[i];
-            else
-                FirstString = false;
-        }
-                iter2 = 0;
-                FirstString = true;
-                ToF[3] = '\0';
-                String number = new String(ToF);
-                int val = Integer.parseInt(number.trim(), 10); 
-                float newDataFloat[] = new float[1];
-                newDataFloat[0] = val/10;
-                datasetSens1.advanceTime();
-                datasetSens1.appendData(newDataFloat);
+        byte[] newData = new byte[7];
+        selectedSerialPort.readBytes(newData, 7);
+        if(newData[0] == 0 && newData[1] == 1){
+            ToF = (short)((newData[4] & 0xFF )| ((newData[5] & 0xFF) << 8)) ;
+            Flow = (short) ((newData[2] & 0xFF) | ((newData[3] & 0xFF) << 8));
+            System.out.println(ToF);
+            if(ToF != 0)
+               newDataFloat[0] = ToF/10;
+            datasetSens1.advanceTime();
+            datasetSens1.appendData(newDataFloat);
+        } 
       }
     DynamicTimeSeriesCollection datasetSens1;
     SerialPort selectedSerialPort;
