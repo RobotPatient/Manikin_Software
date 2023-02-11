@@ -4,57 +4,9 @@
  */
 package com.babypatients.babysim_testapp;
 import com.fazecast.jSerialComm.*;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.nio.CharBuffer;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Base64;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.ChartUtils;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.DateAxis;
-import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.data.time.DynamicTimeSeriesCollection;
 import org.jfree.data.time.Second;
-import org.jfree.data.xy.Vector;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-
-
-class Serial_event_listener implements SerialPortDataListener{
-      short ToF =0;
-      short Flow = 0;
-      float newDataFloat[] = new float[1];
-      @Override
-      public int getListeningEvents() { return SerialPort.LISTENING_EVENT_DATA_AVAILABLE; }
-      @Override
-      public void serialEvent(SerialPortEvent event)
-      {
-        if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE)
-            return;
-        byte[] newData = new byte[7];
-        selectedSerialPort.readBytes(newData, 7);
-        if(newData[0] == 0 && newData[1] == 1){
-            ToF = (short)((newData[4] & 0xFF )| ((newData[5] & 0xFF) << 8)) ;
-            Flow = (short) ((newData[2] & 0xFF) | ((newData[3] & 0xFF) << 8));
-            System.out.println(ToF);
-            if(ToF != 0)
-               newDataFloat[0] = ToF/10;
-            datasetSens1.advanceTime();
-            datasetSens1.appendData(newDataFloat);
-        } 
-      }
-    DynamicTimeSeriesCollection datasetSens1;
-    SerialPort selectedSerialPort;
-}
 /**
  *
  * @author victor
@@ -101,7 +53,7 @@ public class main_panel extends javax.swing.JFrame {
 
         jBaudLabel.setText("BAUD:");
 
-        jBaudRateField.setText("115200");
+        jBaudRateField.setText("250000");
 
         jConnectButton.setText("Connect");
         jConnectButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -260,42 +212,15 @@ public class main_panel extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    
     private void initGraphs(){
-            jGraphFrameSens1.setLayout(new java.awt.BorderLayout());
-        try{
-              datasetSens1 = new DynamicTimeSeriesCollection(1, 10000, new Second());
-              datasetSens1.setTimeBase(new Second(0, 0, 0, 23, 1, 2014));
-              datasetSens1.addSeries(new float[1], 0, "ToF");
-              jChartSensor1 = ChartFactory.createTimeSeriesChart(
-            "ToF", "Time", "ToF", datasetSens1, true, true, false);
-        final XYPlot plot = jChartSensor1.getXYPlot();
-        ValueAxis axis_val = plot.getRangeAxis();
-        axis_val.setRange(0.0,26.0);
-        
-        DateAxis axis = (DateAxis) plot.getDomainAxis();
-        axis.setFixedAutoRange(10000);
-        axis.setDateFormatOverride(new SimpleDateFormat("ss.SS"));
-        jSensorPlot1 = new ChartPanel(jChartSensor1) {
-
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension(320, 240);
-            }
-            };
-            jSensorPlot1.setMouseWheelEnabled(true);
-            add(jSensorPlot1);
-            setDefaultCloseOperation(EXIT_ON_CLOSE);
-            pack();
-
-            jGraphFrameSens1.add(jSensorPlot1, BorderLayout.CENTER);
-            jGraphFrameSens1.validate();
-            pack();
-            jGraphFrameSens1.setVisible(true);
-
-        } catch (Exception e) {
-            System.out.print("Chart exception:" + e);
-        }
+            GraphSensor1 = new SensorGraph();
+            GraphSensor1.init(jGraphFrameSens1);
+            GraphSensor2 = new SensorGraph();
+            GraphSensor2.init(jGraphFrameSens2);
     }
+    
     private void jConnectButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jConnectButtonMouseClicked
         int SelectedIndex = jComChooser.getSelectedIndex();
         if(selectedSerialPort != null){
@@ -343,7 +268,6 @@ public class main_panel extends javax.swing.JFrame {
 
     private void jDisconnectButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDisconnectButtonMouseClicked
         // TODO add your handling code here:
-        int SelectedIndex = jComChooser.getSelectedIndex();
         if(selectedSerialPort != null){
             if(selectedSerialPort.isOpen()){
                 System.out.println("Disconnecting Port: "+selectedSerialPort.getDescriptivePortName());
@@ -353,11 +277,12 @@ public class main_panel extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jDisconnectButtonMouseClicked
-    private DynamicTimeSeriesCollection datasetSens1;
+    private DynamicTimeSeriesCollection datasetSens1 = new DynamicTimeSeriesCollection(1, 100, new Second());
+    private DynamicTimeSeriesCollection datasetSens2 = new DynamicTimeSeriesCollection(1, 100, new Second());
     private SerialPort[] availableSerialPorts;
     private SerialPort selectedSerialPort;
-    private ChartPanel jSensorPlot1;
-    private JFreeChart jChartSensor1;
+    private SensorGraph GraphSensor1;
+    private SensorGraph GraphSensor2;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jBaudLabel;
     private javax.swing.JTextField jBaudRateField;
