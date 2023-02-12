@@ -22,12 +22,15 @@ class SensorResult{
     public boolean ValidateAndAddToDataset(DynamicTimeSeriesCollection dataset, short result){
         if(sensType == SensorType.sensor_type_ToF && ( result == 0 || result > 255) )
             return false;
-        else{
+        else if (sensType == SensorType.sensor_type_ToF){
             resultFloat[0] = result/10;
-            dataset.advanceTime();
-            dataset.appendData(resultFloat);
-            return true;
         }
+        else{
+            resultFloat[0] = result;
+        }
+        dataset.advanceTime();
+        dataset.appendData(resultFloat);
+        return true;
     }
     SensorType sensType;
     float resultFloat[] = new float[1];
@@ -49,7 +52,8 @@ class Serial_event_listener implements SerialPortDataListener{
               sens1Result = resSensor1.parseResult(newData[4], newData[5]);
               sens2Result = resSensor2.parseResult(newData[2], newData[3]);
               resSensor1.ValidateAndAddToDataset(datasetSens1, sens1Result);
-              //resSensor2.ValidateAndAddToDataset(datasetSens2, sens2Result);
+              resSensor2.ValidateAndAddToDataset(datasetSens2, sens2Result);
+              System.out.println(sens2Result);
         } 
       }
     byte[] newData = new byte[7];
@@ -58,6 +62,9 @@ class Serial_event_listener implements SerialPortDataListener{
     SensorResult resSensor1 = new SensorResult();
     SensorResult resSensor2 = new SensorResult();
     DynamicTimeSeriesCollection datasetSens1;
+    DynamicTimeSeriesCollection datasetSens2;
+    SensorType typeSensor1;
+    SensorType typeSensor2;
     SerialPort selectedSerialPort;
 }
 /**

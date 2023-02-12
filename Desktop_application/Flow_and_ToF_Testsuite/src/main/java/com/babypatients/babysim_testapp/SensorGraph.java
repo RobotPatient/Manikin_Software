@@ -6,7 +6,6 @@ package com.babypatients.babysim_testapp;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.PopupMenu;
 import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
@@ -27,10 +26,10 @@ public class SensorGraph {
     public void init(JPanel jGraphFrameSens){
         jGraphFrameSens.setLayout(new java.awt.BorderLayout());
         try{
-              datasetSens.setTimeBase(new Second(0, 0, 0, 11, 2, 2023));
-              datasetSens.addSeries(new float[1], 0, "ToF");
+              dataset.setTimeBase(new Second(0, 0, 0, 11, 2, 2023));
+              dataset.addSeries(new float[1], 0, "ToF");
               jChartSensor = ChartFactory.createTimeSeriesChart(
-            "ToF", "Time", "ToF", datasetSens, true, true, false);
+            "ToF", "Time", "ToF", dataset, true, true, false);
         final XYPlot plot = jChartSensor.getXYPlot();
         ValueAxis axis_val = plot.getRangeAxis();
         axis_val.setRange(0.0,26.0);
@@ -47,9 +46,39 @@ public class SensorGraph {
             System.out.print("Chart exception:" + e);
         }
     }
-    public void add(){
-        
+    public void setGraphTitleandLegend(SensorType Sensor){
+        if(Sensor == SensorType.sensor_type_ToF)
+            setGraphTitleAndLegendForToF();
+        else if(Sensor == SensorType.sensor_type_Flow)
+            setGraphTitleAndLegendForFlow();
     }
+    public void setMeasurementValRange(SensorType Sensor){
+        if(Sensor == SensorType.sensor_type_ToF)
+            setMeasurementValRangeForToF();
+        else if(Sensor == SensorType.sensor_type_Flow)
+            setMeasurementValRangeForFlow();
+    }
+    private void setGraphTitleAndLegendForToF(){
+        jChartSensor.removeLegend();
+        jChartSensor.setTitle("ToF");
+    }
+    private void setGraphTitleAndLegendForFlow(){
+        jChartSensor.removeLegend();
+        jChartSensor.setTitle("Flow");
+    }
+
+    private void setMeasurementValRangeForToF(){
+        final XYPlot plot = jChartSensor.getXYPlot();
+        ValueAxis axis_val = plot.getRangeAxis();
+        axis_val.setRange(0.0,26.0);
+    }
+
+    private void setMeasurementValRangeForFlow(){
+        final XYPlot plot = jChartSensor.getXYPlot();
+        ValueAxis axis_val = plot.getRangeAxis();
+        axis_val.setRange(-500,500);
+    }
+
     private ChartPanel createGraphChartPanel(JFreeChart chart){
         return new ChartPanel(chart) {
             @Override
@@ -61,7 +90,7 @@ public class SensorGraph {
         private void setChartPanelParameters(ChartPanel panel){
             panel.setMouseWheelEnabled(true);
     }
-    public DynamicTimeSeriesCollection datasetSens = new DynamicTimeSeriesCollection(1, 100, new Second());
-    public ChartPanel jSensorPlot;
+    public DynamicTimeSeriesCollection dataset = new DynamicTimeSeriesCollection(1, 100, new Second());
+    private ChartPanel jSensorPlot;
     private JFreeChart jChartSensor;
 }
