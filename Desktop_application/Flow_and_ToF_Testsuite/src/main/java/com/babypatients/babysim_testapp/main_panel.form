@@ -28,7 +28,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jGraphFrameSens1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="jSensorTypeLabelSens1" pref="188" max="32767" attributes="0"/>
+                      <Component id="jSensorTypeLabelSens1" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jSensorTypeSens1" max="32767" attributes="0"/>
                   </Group>
@@ -39,29 +39,29 @@
                   <Group type="102" attributes="0">
                       <Component id="jSensorTypeLabelSens2" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jSensorTypeSens2" pref="187" max="32767" attributes="0"/>
+                      <Component id="jSensorTypeSens2" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jComLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jComChooser" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jBaudLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jBaudRateField" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+              <Component id="jBaudrateBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Component id="jConnectButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jDisconnectButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="33" max="32767" attributes="0"/>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
               <Component id="jConnectionStatusLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jConnectionStatus" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
@@ -107,11 +107,11 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jComLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBaudLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBaudRateField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jConnectButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jConnectionStatusLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComChooser" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jDisconnectButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBaudrateBox" alignment="3" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -128,11 +128,6 @@
     <Component class="javax.swing.JLabel" name="jBaudLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="BAUD:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jBaudRateField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="250000"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jConnectButton">
@@ -279,6 +274,23 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jDisconnectButtonMouseClicked"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jBaudrateBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="250000"/>
+            <StringItem index="1" value="115200"/>
+            <StringItem index="2" value="9600"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBaudrateBoxActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

@@ -6,6 +6,7 @@ package com.babypatients.babysim_testapp;
 import com.fazecast.jSerialComm.*;
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import org.jfree.data.time.DynamicTimeSeriesCollection;
 import org.jfree.data.time.Second;
@@ -30,7 +31,6 @@ public class main_panel extends javax.swing.JFrame {
 
         jComLabel = new javax.swing.JLabel();
         jBaudLabel = new javax.swing.JLabel();
-        jBaudRateField = new javax.swing.JTextField();
         jConnectButton = new javax.swing.JButton();
         jGraphFrameSens1 = new javax.swing.JPanel();
         jGraphFrameSens2 = new javax.swing.JPanel();
@@ -44,14 +44,13 @@ public class main_panel extends javax.swing.JFrame {
         jConnectionStatusLabel = new javax.swing.JLabel();
         jComChooser = new javax.swing.JComboBox<>();
         jDisconnectButton = new javax.swing.JButton();
+        jBaudrateBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jComLabel.setText("COM:");
 
         jBaudLabel.setText("BAUD:");
-
-        jBaudRateField.setText("250000");
 
         jConnectButton.setText("Connect");
         jConnectButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -155,6 +154,13 @@ public class main_panel extends javax.swing.JFrame {
             }
         });
 
+        jBaudrateBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "250000", "115200", "9600" }));
+        jBaudrateBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBaudrateBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -164,7 +170,7 @@ public class main_panel extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jGraphFrameSens1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSensorTypeLabelSens1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                        .addComponent(jSensorTypeLabelSens1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSensorTypeSens1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(49, 49, 49)
@@ -173,7 +179,7 @@ public class main_panel extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jSensorTypeLabelSens2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSensorTypeSens2, 0, 187, Short.MAX_VALUE)))
+                        .addComponent(jSensorTypeSens2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(55, 55, 55))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -182,13 +188,13 @@ public class main_panel extends javax.swing.JFrame {
                 .addComponent(jComChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBaudLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBaudRateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(3, 3, 3)
+                .addComponent(jBaudrateBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jConnectButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDisconnectButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jConnectionStatusLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jConnectionStatus)
@@ -228,11 +234,11 @@ public class main_panel extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jComLabel)
                         .addComponent(jBaudLabel)
-                        .addComponent(jBaudRateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jConnectButton)
                         .addComponent(jConnectionStatusLabel)
                         .addComponent(jComChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jDisconnectButton)))
+                        .addComponent(jDisconnectButton)
+                        .addComponent(jBaudrateBox)))
                 .addContainerGap())
         );
 
@@ -241,15 +247,19 @@ public class main_panel extends javax.swing.JFrame {
 
     private void initGraph(JPanel panel, SensorGraph Graph, SensorType GraphType){
          Graph.init(panel);
-         Graph.setGraphTitleandLegend(GraphType);
-         Graph.setMeasurementValRange(GraphType);
+         Graph.setChartType(GraphType);
     }
     
-    private void updateGraph(SensorGraph Graph, SensorType GraphType){
-        Graph.setGraphTitleandLegend(GraphType);
-        Graph.setMeasurementValRange(GraphType);
+    private int getBaudrateFromComboBox(JComboBox combobox){
+            String baudrateFieldText= (String) combobox.getSelectedItem();
+            try{
+            	return Integer.parseInt(baudrateFieldText);
+            }
+            catch (NumberFormatException ex){
+                ex.printStackTrace();
+            }     
+            return DefaultBaudrate;
     }
-    
     private void jConnectButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jConnectButtonMouseClicked
         int SelectedIndex = jComChooser.getSelectedIndex();
         if(selectedSerialPort != null){
@@ -262,21 +272,14 @@ public class main_panel extends javax.swing.JFrame {
         if(selectedSerialPort.openPort()){
             jConnectionStatus.setText("Connected!");
             jConnectionStatus.setBackground(Color.green);
-            String baudrateFieldText = jBaudRateField.getText();
-            int baudrate = 115200;
-            try{
-            	baudrate = Integer.parseInt(baudrateFieldText);
-            }
-            catch (NumberFormatException ex){
-                ex.printStackTrace();
-            }     
+            int baudrate = getBaudrateFromComboBox(jBaudrateBox);
             selectedSerialPort.setBaudRate(baudrate);
             Serial_event_listener SerialDataListener = new Serial_event_listener();
             SerialDataListener.datasetSens1 = GraphSensor1.dataset;
             SerialDataListener.selectedSerialPort = selectedSerialPort;
             SerialDataListener.datasetSens2 = GraphSensor2.dataset;
-            SerialDataListener.typeSensor1  = SensorType.sensor_type_ToF;
-            SerialDataListener.typeSensor2 = SensorType.sensor_type_Flow;
+            SerialDataListener.typeSensor1  = GraphSensor1.getChartType();
+            SerialDataListener.typeSensor2 = GraphSensor2.getChartType();
             selectedSerialPort.addDataListener(SerialDataListener);
         }
         else{
@@ -295,11 +298,10 @@ public class main_panel extends javax.swing.JFrame {
     }//GEN-LAST:event_jComChooserAncestorAdded
 
     private void jConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConnectButtonActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jConnectButtonActionPerformed
 
     private void jDisconnectButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDisconnectButtonMouseClicked
-        // TODO add your handling code here:
         if(selectedSerialPort != null){
             if(selectedSerialPort.isOpen()){
                 System.out.println("Disconnecting Port: "+selectedSerialPort.getDescriptivePortName());
@@ -311,7 +313,6 @@ public class main_panel extends javax.swing.JFrame {
     }//GEN-LAST:event_jDisconnectButtonMouseClicked
 
     private void jGraphFrameSens1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jGraphFrameSens1AncestorAdded
-        // TODO add your handling code here:
         SensorType Sensor = (SensorType) jSensorTypeSens1.getSelectedItem();
         initGraph(jGraphFrameSens1, GraphSensor1,  Sensor);
     }//GEN-LAST:event_jGraphFrameSens1AncestorAdded
@@ -322,16 +323,18 @@ public class main_panel extends javax.swing.JFrame {
     }//GEN-LAST:event_jGraphFrameSens2AncestorAdded
 
     private void jSensorTypeSens1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSensorTypeSens1ActionPerformed
-        // TODO add your handling code here:
         SensorType Sensor = (SensorType) jSensorTypeSens1.getSelectedItem();
-        updateGraph(GraphSensor1, Sensor);
+        GraphSensor1.setChartType(Sensor);
     }//GEN-LAST:event_jSensorTypeSens1ActionPerformed
 
     private void jSensorTypeSens2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSensorTypeSens2ActionPerformed
-        // TODO add your handling code here:
         SensorType Sensor = (SensorType) jSensorTypeSens2.getSelectedItem();
-        updateGraph(GraphSensor2, Sensor);
+        GraphSensor2.setChartType(Sensor);
     }//GEN-LAST:event_jSensorTypeSens2ActionPerformed
+
+    private void jBaudrateBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBaudrateBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBaudrateBoxActionPerformed
     private DynamicTimeSeriesCollection datasetSens1 = new DynamicTimeSeriesCollection(1, 100, new Second());
     private DynamicTimeSeriesCollection datasetSens2 = new DynamicTimeSeriesCollection(1, 100, new Second());
     private SerialPort[] availableSerialPorts;
@@ -340,9 +343,10 @@ public class main_panel extends javax.swing.JFrame {
     private SensorGraph GraphSensor2 = new SensorGraph();
     private final DefaultComboBoxModel jComboBoxSensorType1Model = new DefaultComboBoxModel(SensorType.values());
     private final DefaultComboBoxModel jComboBoxSensorType2Model = new DefaultComboBoxModel(SensorType.values());
+    private final int DefaultBaudrate = 250000;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jBaudLabel;
-    private javax.swing.JTextField jBaudRateField;
+    private javax.swing.JComboBox<String> jBaudrateBox;
     private javax.swing.JComboBox<String> jComChooser;
     private javax.swing.JLabel jComLabel;
     private javax.swing.JButton jConnectButton;

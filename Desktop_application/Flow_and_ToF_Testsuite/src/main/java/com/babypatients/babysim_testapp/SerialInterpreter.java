@@ -46,11 +46,17 @@ class Serial_event_listener implements SerialPortDataListener{
         if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE)
             return;
         selectedSerialPort.readBytes(newData, 7);
-        resSensor1.sensType = SensorType.sensor_type_ToF;
-        resSensor2.sensType = SensorType.sensor_type_Flow;
+        resSensor1.sensType = typeSensor1;
+        resSensor2.sensType = typeSensor2;
         if(newData[0] == 0 && newData[1] == 1){
-              sens1Result = resSensor1.parseResult(newData[4], newData[5]);
-              sens2Result = resSensor2.parseResult(newData[2], newData[3]);
+              if(typeSensor1 == SensorType.sensor_type_Flow)
+                sens1Result = resSensor1.parseResult(newData[2], newData[3]);
+              else
+                 sens1Result = resSensor1.parseResult(newData[4], newData[5]);
+              if(typeSensor2 == SensorType.sensor_type_Flow)
+                sens2Result = resSensor2.parseResult(newData[2], newData[3]);
+              else
+                 sens2Result = resSensor2.parseResult(newData[4], newData[5]);
               resSensor1.ValidateAndAddToDataset(datasetSens1, sens1Result);
               resSensor2.ValidateAndAddToDataset(datasetSens2, sens2Result);
               System.out.println(sens2Result);

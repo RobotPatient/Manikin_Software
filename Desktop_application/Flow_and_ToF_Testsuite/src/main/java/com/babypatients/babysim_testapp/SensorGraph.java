@@ -46,6 +46,14 @@ public class SensorGraph {
             System.out.print("Chart exception:" + e);
         }
     }
+    public void setChartType(SensorType newType){
+        type = newType;
+        setGraphTitleandLegend(newType);
+        setMeasurementValRange(newType);
+    }
+    public SensorType getChartType(){
+        return type;
+    }
     public void setGraphTitleandLegend(SensorType Sensor){
         if(Sensor == SensorType.sensor_type_ToF)
             setGraphTitleAndLegendForToF();
@@ -95,4 +103,5 @@ public class SensorGraph {
     public DynamicTimeSeriesCollection dataset = new DynamicTimeSeriesCollection(1, 100, new Second());
     private ChartPanel jSensorPlot;
     private JFreeChart jChartSensor;
+    private SensorType type;
 }
