@@ -71,12 +71,14 @@ public class SensorGraph {
         final XYPlot plot = jChartSensor.getXYPlot();
         ValueAxis axis_val = plot.getRangeAxis();
         axis_val.setRange(0.0,26.0);
+        axis_val.setLabel("ToF");
     }
 
     private void setMeasurementValRangeForFlow(){
         final XYPlot plot = jChartSensor.getXYPlot();
         ValueAxis axis_val = plot.getRangeAxis();
         axis_val.setRange(-500,500);
+        axis_val.setLabel("Flow");
     }
 
     private ChartPanel createGraphChartPanel(JFreeChart chart){

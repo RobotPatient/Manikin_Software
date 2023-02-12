@@ -5,6 +5,8 @@
 package com.babypatients.babysim_testapp;
 import com.fazecast.jSerialComm.*;
 import java.awt.Color;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JPanel;
 import org.jfree.data.time.DynamicTimeSeriesCollection;
 import org.jfree.data.time.Second;
 
@@ -15,7 +17,6 @@ public class main_panel extends javax.swing.JFrame {
      */
     public main_panel() {
         initComponents();
-        initGraphs();
     }
 
     /**
@@ -65,6 +66,15 @@ public class main_panel extends javax.swing.JFrame {
         });
 
         jGraphFrameSens1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jGraphFrameSens1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jGraphFrameSens1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout jGraphFrameSens1Layout = new javax.swing.GroupLayout(jGraphFrameSens1);
         jGraphFrameSens1.setLayout(jGraphFrameSens1Layout);
@@ -78,6 +88,15 @@ public class main_panel extends javax.swing.JFrame {
         );
 
         jGraphFrameSens2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jGraphFrameSens2.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jGraphFrameSens2AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout jGraphFrameSens2Layout = new javax.swing.GroupLayout(jGraphFrameSens2);
         jGraphFrameSens2.setLayout(jGraphFrameSens2Layout);
@@ -90,7 +109,12 @@ public class main_panel extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jSensorTypeSens1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ToF", "Flow" }));
+        jSensorTypeSens1.setModel(jComboBoxSensorType1Model);
+        jSensorTypeSens1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSensorTypeSens1ActionPerformed(evt);
+            }
+        });
 
         jSensorTypeLabelSens2.setText("Sensor type:");
 
@@ -100,7 +124,12 @@ public class main_panel extends javax.swing.JFrame {
 
         jSensorTypeLabelSens1.setText("Sensor type:");
 
-        jSensorTypeSens2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Flow", "ToF" }));
+        jSensorTypeSens2.setModel(jComboBoxSensorType2Model);
+        jSensorTypeSens2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSensorTypeSens2ActionPerformed(evt);
+            }
+        });
 
         jConnectionStatus.setBackground(new java.awt.Color(255, 255, 255));
         jConnectionStatus.setText("Not connected");
@@ -210,14 +239,15 @@ public class main_panel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void initGraph(JPanel panel, SensorGraph Graph, SensorType GraphType){
+         Graph.init(panel);
+         Graph.setGraphTitleandLegend(GraphType);
+         Graph.setMeasurementValRange(GraphType);
+    }
     
-    private void initGraphs(){
-            GraphSensor1 = new SensorGraph();
-            GraphSensor1.init(jGraphFrameSens1);
-            GraphSensor2 = new SensorGraph();
-            GraphSensor2.init(jGraphFrameSens2);
-            GraphSensor2.setGraphTitleandLegend(SensorType.sensor_type_Flow);
-            GraphSensor2.setMeasurementValRange(SensorType.sensor_type_Flow);
+    private void updateGraph(SensorGraph Graph, SensorType GraphType){
+        Graph.setGraphTitleandLegend(GraphType);
+        Graph.setMeasurementValRange(GraphType);
     }
     
     private void jConnectButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jConnectButtonMouseClicked
@@ -279,12 +309,37 @@ public class main_panel extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jDisconnectButtonMouseClicked
+
+    private void jGraphFrameSens1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jGraphFrameSens1AncestorAdded
+        // TODO add your handling code here:
+        SensorType Sensor = (SensorType) jSensorTypeSens1.getSelectedItem();
+        initGraph(jGraphFrameSens1, GraphSensor1,  Sensor);
+    }//GEN-LAST:event_jGraphFrameSens1AncestorAdded
+
+    private void jGraphFrameSens2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jGraphFrameSens2AncestorAdded
+        SensorType Sensor = (SensorType) jSensorTypeSens1.getSelectedItem();
+        initGraph(jGraphFrameSens2, GraphSensor2,  Sensor);
+    }//GEN-LAST:event_jGraphFrameSens2AncestorAdded
+
+    private void jSensorTypeSens1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSensorTypeSens1ActionPerformed
+        // TODO add your handling code here:
+        SensorType Sensor = (SensorType) jSensorTypeSens1.getSelectedItem();
+        updateGraph(GraphSensor1, Sensor);
+    }//GEN-LAST:event_jSensorTypeSens1ActionPerformed
+
+    private void jSensorTypeSens2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSensorTypeSens2ActionPerformed
+        // TODO add your handling code here:
+        SensorType Sensor = (SensorType) jSensorTypeSens2.getSelectedItem();
+        updateGraph(GraphSensor2, Sensor);
+    }//GEN-LAST:event_jSensorTypeSens2ActionPerformed
     private DynamicTimeSeriesCollection datasetSens1 = new DynamicTimeSeriesCollection(1, 100, new Second());
     private DynamicTimeSeriesCollection datasetSens2 = new DynamicTimeSeriesCollection(1, 100, new Second());
     private SerialPort[] availableSerialPorts;
     private SerialPort selectedSerialPort;
-    private SensorGraph GraphSensor1;
-    private SensorGraph GraphSensor2;
+    private SensorGraph GraphSensor1 = new SensorGraph();
+    private SensorGraph GraphSensor2 = new SensorGraph();
+    private final DefaultComboBoxModel jComboBoxSensorType1Model = new DefaultComboBoxModel(SensorType.values());
+    private final DefaultComboBoxModel jComboBoxSensorType2Model = new DefaultComboBoxModel(SensorType.values());
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jBaudLabel;
     private javax.swing.JTextField jBaudRateField;
