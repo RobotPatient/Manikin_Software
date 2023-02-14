@@ -20,7 +20,7 @@ class SensorResult{
     }
     
     public boolean ValidateAndAddToDataset(DynamicTimeSeriesCollection dataset, short result){
-        if(sensType == SensorType.sensor_type_ToF && ( result == 0 || result > 255) )
+        if(sensType == SensorType.sensor_type_ToF && ( result == 0 || result > 255) ) 
             return false;
         else if (sensType == SensorType.sensor_type_ToF){
             resultFloat[0] = result/10;
