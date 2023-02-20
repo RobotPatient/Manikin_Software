@@ -6,6 +6,7 @@
 #include <SDP810.h>
 #include <RobotPatient_VL6180x.h>
 #include <ADS7138.hpp>
+#include <sensor_helper.hpp>
 
 #define VL6180X_ADDRESS 0x29
 
@@ -16,7 +17,6 @@ i2c_driver SDP810_Handle (&WireSensorA, i2c_speed_400KHz, SDP_addr);
 
 SDP810 sdp_sensor(&SDP810_Handle);
 RobotPatient_VL6180x VL8160_sensor(&VL6180_Handle);
-
 
 
 
@@ -52,7 +52,9 @@ void setup() {
   WireBackbone.begin();
   WireSensorA.begin();
   WireSensorB.begin();
-
+ // Serial.print(p);
+  sensor Connector1(&WireSensorA);
+  Connector1.setSensorType(Sensor_compression);
   InitI2CPins();
   reportDevicesOn(&WireSensorB, VL6180X_ADDRESS);
 }
