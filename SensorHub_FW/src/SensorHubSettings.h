@@ -1,3 +1,4 @@
+#ifdef __arm__
 #include "wiring_private.h"
 #include "Wire.h"
 
@@ -26,3 +27,4 @@ void InitI2CPins(){
   pinPeripheral(W1_SDA, PIO_SERCOM_ALT);
   pinPeripheral(W1_SCL, PIO_SERCOM_ALT);
 }
+#endif
