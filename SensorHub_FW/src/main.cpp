@@ -4,25 +4,24 @@
 #include <FreeRTOS.h>
 #endif
 
-#include <SensorHubSettings.h>
+#include <sensorhub_settings.hpp>
 #include <sensor_helper.hpp>
 
 void setup() {
   // put your setup code here, to run once:
-  #ifdef __arm__
+#ifdef __arm__
   Serial.begin(9600);
 
-  while (!Serial);
-  
+  while (!Serial)
+    continue;
   WireBackbone.begin();
   WireSensorA.begin();
   WireSensorB.begin();
   InitI2CPins();
-  #endif
- // Serial.print(p);
-  //sensor Connector1(&WireSensorA);
-  //Connector1.setSensorType(Sensor_compression);
-
+#endif
+  // Serial.print(p);
+  // sensor Connector1(&WireSensorA);
+  // Connector1.setSensorType(Sensor_compression);
 }
 
 void loop() {
@@ -30,9 +29,9 @@ void loop() {
 }
 
 #ifndef __arm__
-int main(){
+int main() {
   setup();
-  while(1){
+  while (1) {
     loop();
   }
 }

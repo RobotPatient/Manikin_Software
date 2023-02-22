@@ -7,35 +7,34 @@
 #include <sensors/sensor_fingerposition.hpp>
 
 class sensor{
-    public:
-     sensor(i2c_peripheral_t i2c_peripheral) : peripheral(i2c_peripheral){
-            fingerPosition = new fingerPositionSensor(peripheral);
-            diffPressure = new differentialPressureSensor(peripheral);
-            compression = new compressionSensor(peripheral);
-     }
-
-    void setSensorType(SensorTypes sensorType){
-        if(_sensor != nullptr)
-            _sensor->deinitialize();
-     switch(sensorType){
-         case Sensor_compression: 
+ public:
+  explicit sensor(i2c_peripheral_t i2c_peripheral) :
+                  peripheral(i2c_peripheral) {
+    fingerPosition = new fingerPositionSensor(peripheral);
+    diffPressure = new differentialPressureSensor(peripheral);
+    compression = new compressionSensor(peripheral);
+    }
+    void setSensorType(SensorTypes sensorType) {
+     if (_sensor != nullptr) _sensor->deinitialize();
+     switch (sensorType) {
+       case Sensor_compression:
          _sensor = compression;
          break;
          case Sensor_differentialpressure:
-         _sensor = diffPressure;
-         break;
-         case Sensor_fingerposition:
-         _sensor = fingerPosition;
-         break;
+           _sensor = diffPressure;
+          break;
+          case Sensor_fingerposition:
+            _sensor = fingerPosition;
+            break;
     }
-     }
-    private:
-    i2c_peripheral_t peripheral;
-    fingerPositionSensor* fingerPosition;
-    differentialPressureSensor* diffPressure;
-    compressionSensor* compression;
-    universal_sensor* _sensor = nullptr;
+  }
+ private:
+  i2c_peripheral_t peripheral;
+  fingerPositionSensor* fingerPosition;
+  differentialPressureSensor* diffPressure;
+  compressionSensor* compression;
+  universal_sensor* _sensor = nullptr;
 
 };
 
-#endif
+#endif  // SENSOR_HELPER_H
