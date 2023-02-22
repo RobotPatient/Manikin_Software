@@ -6,8 +6,8 @@
 class fingerPositionSensor : public universal_sensor{
     public:
     fingerPositionSensor(i2c_peripheral_t i2c_peripheral) : universal_sensor(i2c_peripheral){
-          //static i2c_driver i2c_handle = i2c_driver(i2c_peripheral, i2c_speed_400KHz, i2c_addr);
-          //ADS = new ADS7138(&i2c_handle);
+          i2c_handle = new i2c_driver(i2c_peripheral, i2c_speed_400KHz, i2c_addr);
+          ADS = new ADS7138(i2c_handle);
     }
     void initialize();
     
@@ -19,6 +19,7 @@ class fingerPositionSensor : public universal_sensor{
         deinitialize();
     }
     private:  
+    i2c_driver* i2c_handle;
     SensorData sensData;
     const uint8_t i2c_addr = 0x29;
     ADS7138* ADS;
