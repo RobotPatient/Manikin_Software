@@ -9,17 +9,12 @@ class fingerPositionSensor : public universal_sensor{
           //static i2c_driver i2c_handle = i2c_driver(i2c_peripheral, i2c_speed_400KHz, i2c_addr);
           //ADS = new ADS7138(&i2c_handle);
     }
-    void initialize(){
-        ;
-    }
-    SensorData getSensorData(){
-        sensData.numOfBytes = 8;
-        memset(sensData.buffer, 0, sensData.numOfBytes);
-        return sensData;
-    }
-    void deinitialize(){
-        ;
-    }
+    void initialize();
+    
+    SensorData getSensorData();
+
+    void deinitialize();
+
     ~fingerPositionSensor(){
         deinitialize();
     }

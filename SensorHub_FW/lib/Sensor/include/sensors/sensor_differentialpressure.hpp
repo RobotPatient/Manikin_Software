@@ -10,17 +10,12 @@ class differentialPressureSensor : public universal_sensor{
           i2c_handle = new i2c_driver(i2c_peripheral, i2c_speed_400KHz, i2c_addr);
           diffPressure = new SDP810(i2c_handle);
     }
-    void initialize(){
-        ;
-    }
-    SensorData getSensorData(){
-        sensData.numOfBytes = 1;
-        memset(sensData.buffer, 0, sensData.numOfBytes);
-        return sensData;
-    }
-    void deinitialize(){
-        ;
-    }
+    void initialize();
+
+    SensorData getSensorData();
+
+    void deinitialize();
+    
     ~differentialPressureSensor(){
         deinitialize();
     }

@@ -1,5 +1,11 @@
 {
     "name":"Sensor",
+    "build": {
+        "includeDir": ".",
+        "flags": [
+          "-I include"
+        ]
+    },
     "dependencies":
     [
         {
@@ -10,6 +16,9 @@
         },
         {
             "name":"SDP810"
+        },
+        {
+            "name":"ADS7138"
         },
         {
             "name":"googletest"
