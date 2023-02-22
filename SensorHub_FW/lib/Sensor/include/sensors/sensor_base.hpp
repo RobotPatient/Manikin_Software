@@ -16,7 +16,7 @@ uint8_t numOfBytes;
 }SensorData;
 
 
-class universal_sensor{
+class universal_sensor {
  public:
   explicit universal_sensor(i2c_peripheral_t i2c_peripheral) {}
   virtual void initialize() = 0;
