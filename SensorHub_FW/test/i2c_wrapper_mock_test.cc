@@ -6,6 +6,8 @@ using ::testing::Return;
 using ::testing::InSequence;
 using ::testing::Invoke;
 
+uint8_t kTestingBytes[8] = {0x10, 0x40, 0x30, 0x20, 0x10, 0xFF, 0x50, 0x01};
+
 TEST(I2CWrapperTest, initCallsRightMethods) {
   const uint8_t kI2C_Address = 0x29;
   i2c_testClass i2c_peripheral_mock;
@@ -135,8 +137,7 @@ TEST(I2CWrapperTest, read_reg16CallsRightMethods) {
 }
 
 size_t CopyTestArray(uint8_t *buffer, size_t length) {
-  const uint8_t testing_bytes[8] = {0x10, 0x40, 0x30, 0x20, 0x10, 0xFF, 0x50, 0x01};
-  memcpy(buffer, testing_bytes, length);
+  memcpy(buffer, kTestingBytes, length);
   return sizeof(length);
 }
 
@@ -146,8 +147,6 @@ TEST(I2CWrapperTest, readBytesCallsRightMethods) {
   i2c_testClass i2c_peripheral_mock;
   I2CDriver driver_handle = I2CDriver(&i2c_peripheral_mock,
                                       i2c_speed_100KHz, kI2C_Address);
-  /* Parameters used in this test*/
-  const uint8_t testing_bytes[8] = {0x10, 0x40, 0x30, 0x20, 0x10, 0xFF, 0x50, 0x01};
   /* Generate mock method input parameters*/
   const uint8_t request_amount_of_bytes = 8;
   const bool request_stop_bit = true;
@@ -161,7 +160,7 @@ TEST(I2CWrapperTest, readBytesCallsRightMethods) {
   driver_handle.read_bytes(test_buffer, request_amount_of_bytes);
   /* Check if returned value matched the value that mock function returned*/
   for (uint8_t i = 0; i < request_amount_of_bytes; i++)
-    EXPECT_EQ(test_buffer[i], testing_bytes[i]);
+    EXPECT_EQ(test_buffer[i], kTestingBytes[i]);
 }
 
 TEST(I2CWrapperTest, sendBytesCallsRightMethods) {
@@ -171,17 +170,16 @@ TEST(I2CWrapperTest, sendBytesCallsRightMethods) {
   I2CDriver driver_handle = I2CDriver(&i2c_peripheral_mock,
                                       i2c_speed_100KHz, kI2C_Address);
   /* Parameters used in this test*/
-  uint8_t testing_bytes[8] = {0x10, 0x40, 0x30, 0x20, 0x10, 0xFF, 0x50, 0x01};
   const uint8_t request_amount_of_bytes = 8;
   /* Generate mock method input parameters*/
   const bool request_stop_bit = true;
 
   /* The expected function calls*/
   EXPECT_CALL(i2c_peripheral_mock, beginTransmission(kI2C_Address));
-  EXPECT_CALL(i2c_peripheral_mock, write(testing_bytes, request_amount_of_bytes));
+  EXPECT_CALL(i2c_peripheral_mock, write(kTestingBytes, request_amount_of_bytes));
   EXPECT_CALL(i2c_peripheral_mock, endTransmission(request_stop_bit));
   /* The object method which calls to mock methods under the hood*/
-  driver_handle.send_bytes(testing_bytes, request_amount_of_bytes);
+  driver_handle.send_bytes(kTestingBytes, request_amount_of_bytes);
 }
 
 int main(int argc, char **argv) {
