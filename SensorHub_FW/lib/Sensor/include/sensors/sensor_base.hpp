@@ -6,10 +6,9 @@
 #include <i2c_helper.h>
 
 typedef struct {
-uint16_t buffer[8];
-uint8_t numOfBytes;
-}SensorData;
-
+  uint16_t buffer[8];
+  uint8_t numOfBytes;
+} SensorData;
 
 class UniversalSensor {
  public:

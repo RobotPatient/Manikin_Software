@@ -6,7 +6,7 @@
 class FingerPositionSensor : public UniversalSensor {
  public:
   explicit FingerPositionSensor(i2c_peripheral_t i2c_peripheral)
-                                : UniversalSensor(i2c_peripheral) {
+      : UniversalSensor(i2c_peripheral) {
     i2c_handle_ = new I2CDriver(i2c_peripheral, i2c_speed_400KHz, kSensorI2CAddress_);
     ads7138_handle_ = new ADS7138(i2c_handle_);
   }
@@ -18,8 +18,8 @@ class FingerPositionSensor : public UniversalSensor {
   }
  private:
   const uint8_t kSensorI2CAddress_ = 0x29;
-  I2CDriver* i2c_handle_;
+  I2CDriver *i2c_handle_;
   SensorData sensor_data_{};
-  ADS7138* ads7138_handle_;
+  ADS7138 *ads7138_handle_;
 };
 #endif  // SENSOR_FINGERPOSITION_H

@@ -7,7 +7,7 @@
 class DifferentialPressureSensor : public UniversalSensor {
  public:
   explicit DifferentialPressureSensor(i2c_peripheral_t i2c_peripheral)
-                                      : UniversalSensor(i2c_peripheral) {
+      : UniversalSensor(i2c_peripheral) {
     i2c_handle_ = new I2CDriver(i2c_peripheral, i2c_speed_400KHz, kSensorI2CAddress_);
     sdp810_handle_ = new SDP810(i2c_handle_);
   }
@@ -19,8 +19,8 @@ class DifferentialPressureSensor : public UniversalSensor {
   }
  private:
   const uint8_t kSensorI2CAddress_ = 0x29;
-  I2CDriver* i2c_handle_;
-  SDP810* sdp810_handle_;
+  I2CDriver *i2c_handle_;
+  SDP810 *sdp810_handle_;
   SensorData sensor_data_{};
 };
 #endif  // SENSOR_DIFFERENTIALPRESSURE_H
