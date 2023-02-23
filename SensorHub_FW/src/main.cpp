@@ -1,38 +1,33 @@
 #ifdef __arm__
 #include <Arduino.h>
-#include <Wire.h>
-#include <FreeRTOS.h>
-#endif
 
 #include <sensorhub_settings.hpp>
 #include <sensor_helper.hpp>
+/* Create handle for sensor connector PORT_A.
+ * This will be used in setup() and loop()*/
+Sensor connector_port_a(&wireSensorA);
 
 void setup() {
   // put your setup code here, to run once:
-#ifdef __arm__
   Serial.begin(9600);
 
   while (!Serial)
     continue;
-  WireBackbone.begin();
-  WireSensorA.begin();
-  WireSensorB.begin();
+  wireBackbone.begin();
+  wireSensorA.begin();
+  wireSensorB.begin();
   InitI2CPins();
-#endif
-  // Serial.print(p);
-  // sensor Connector1(&WireSensorA);
-  // Connector1.setSensorType(Sensor_compression);
+  connector_port_a.SetSensorType(SensorTypes::kCompressionSensor);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+
 }
 
-#ifndef __arm__
+#else
 int main() {
-  setup();
-  while (1) {
-    loop();
-  }
+  while (1)
+    continue;
 }
 #endif

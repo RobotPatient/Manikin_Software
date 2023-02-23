@@ -2,24 +2,24 @@
 #define SENSOR_FINGERPOSITION_H
 
 #include <sensors/sensor_base.hpp>
-#include "../../../ADS7138/include/ads7138.hpp"
-class fingerPositionSensor : public universal_sensor {
+#include "../../../ADS7138/include/ADS7138.hpp"
+class FingerPositionSensor : public UniversalSensor {
  public:
-  explicit fingerPositionSensor(i2c_peripheral_t i2c_peripheral)
-                                : universal_sensor(i2c_peripheral) {
-    i2c_handle = new i2c_driver(i2c_peripheral, i2c_speed_400KHz, i2c_addr);
-    ADS = new ads7138(i2c_handle);
+  explicit FingerPositionSensor(i2c_peripheral_t i2c_peripheral)
+                                : UniversalSensor(i2c_peripheral) {
+    i2c_handle_ = new I2CDriver(i2c_peripheral, i2c_speed_400KHz, kSensorI2CAddress_);
+    ads7138_handle_ = new ADS7138(i2c_handle_);
   }
-  void initialize() override;
-  SensorData getSensorData() override;
-  void deinitialize() override;
-  ~fingerPositionSensor() {
-    deinitialize();
+  void Initialize() override;
+  SensorData GetSensorData() override;
+  void Uninitialize() override;
+  ~FingerPositionSensor() {
+    Uninitialize();
   }
  private:
-  i2c_driver* i2c_handle;
-  SensorData sensData{};
-  const uint8_t i2c_addr = 0x29;
-  ads7138* ADS;
+  const uint8_t kSensorI2CAddress_ = 0x29;
+  I2CDriver* i2c_handle_;
+  SensorData sensor_data_{};
+  ADS7138* ads7138_handle_;
 };
 #endif  // SENSOR_FINGERPOSITION_H

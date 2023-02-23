@@ -1,12 +1,12 @@
 #include <sensors/sensor_differentialpressure.hpp>
 
-void differentialPressureSensor::initialize() {}
+void DifferentialPressureSensor::Initialize() {}
 
-SensorData differentialPressureSensor::getSensorData() {
-  sensData.numOfBytes = 1;
-  memset(sensData.buffer, 0, sensData.numOfBytes);
-  return sensData;
+SensorData DifferentialPressureSensor::GetSensorData() {
+  sensor_data_.numOfBytes = 1;
+  memset(sensor_data_.buffer, 0, sensor_data_.numOfBytes);
+  return sensor_data_;
 }
 
-void differentialPressureSensor::deinitialize() {}
+void DifferentialPressureSensor::Uninitialize() {}
 

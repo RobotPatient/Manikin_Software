@@ -8,8 +8,8 @@ using ::testing::InSequence;
 
 TEST(I2CWrapperTest, initCallsRightMethods) {
     i2c_testClass i2c_peripheral_mock;
-    i2c_driver driver_handle = i2c_driver(&i2c_peripheral_mock,
-                                          i2c_speed_100KHz, Mock_addr);
+    I2CDriver driver_handle = I2CDriver(&i2c_peripheral_mock,
+                                        i2c_speed_100KHz, Mock_addr);
     EXPECT_CALL(i2c_peripheral_mock, begin());
     driver_handle.init();
 }
@@ -17,8 +17,8 @@ TEST(I2CWrapperTest, initCallsRightMethods) {
 TEST(I2CWrapperTest, write_regCallsRightMethods) {
     /* Mock class and i2c_driver instantiation*/
     i2c_testClass i2c_peripheral_mock;
-    i2c_driver driver_handle = i2c_driver(&i2c_peripheral_mock,
-                                          i2c_speed_100KHz, Mock_addr);
+    I2CDriver driver_handle = I2CDriver(&i2c_peripheral_mock,
+                                        i2c_speed_100KHz, Mock_addr);
     /* Parameters used in this test*/
     const uint16_t reg = 0x0530;
     const uint16_t data = 0x30;
@@ -41,8 +41,8 @@ TEST(I2CWrapperTest, write_regCallsRightMethods) {
 TEST(I2CWrapperTest, write_reg16CallsRightMethods) {
     /* Mock class and i2c_driver instantiation*/
     i2c_testClass i2c_peripheral_mock;
-    i2c_driver driver_handle = i2c_driver(&i2c_peripheral_mock,
-                                          i2c_speed_100KHz, Mock_addr);
+    I2CDriver driver_handle = I2CDriver(&i2c_peripheral_mock,
+                                        i2c_speed_100KHz, Mock_addr);
     /* Parameters used in this test*/
     const uint16_t reg = 0x0510;
     const uint16_t data = 0x3050;
@@ -68,8 +68,8 @@ TEST(I2CWrapperTest, write_reg16CallsRightMethods) {
 TEST(I2CWrapperTest, read_regCallsRightMethods) {
     /* Mock class and i2c_driver instantiation*/
     i2c_testClass i2c_peripheral_mock;
-    i2c_driver driver_handle = i2c_driver(&i2c_peripheral_mock,
-                                          i2c_speed_100KHz, Mock_addr);
+    I2CDriver driver_handle = I2CDriver(&i2c_peripheral_mock,
+                                        i2c_speed_100KHz, Mock_addr);
     /* Parameters used in this test*/
     const uint16_t reg = 0x05;
     const uint8_t data_to_return = 0x53;
@@ -98,8 +98,8 @@ TEST(I2CWrapperTest, read_regCallsRightMethods) {
 TEST(I2CWrapperTest, read_reg16CallsRightMethods) {
     /* Mock class and i2c_driver instantiation*/
     i2c_testClass i2c_peripheral_mock;
-    i2c_driver driver_handle = i2c_driver(&i2c_peripheral_mock,
-                                          i2c_speed_100KHz, Mock_addr);
+    I2CDriver driver_handle = I2CDriver(&i2c_peripheral_mock,
+                                        i2c_speed_100KHz, Mock_addr);
     /* Parameters used in this test*/
     const uint16_t reg = 0x0520;
     const uint16_t data_to_return = 0x5320;

@@ -1,12 +1,12 @@
 #include <sensors/sensor_compression.hpp>
 
-void compressionSensor::initialize() {}
+void CompressionSensor::Initialize() {}
 
-SensorData compressionSensor::getSensorData() {
-  sensData.numOfBytes = 1;
-  memset(sensData.buffer, 0, sensData.numOfBytes);
-  return sensData;
+SensorData CompressionSensor::GetSensorData() {
+  sensor_data_.numOfBytes = 1;
+  memset(sensor_data_.buffer, 0, sensor_data_.numOfBytes);
+  return sensor_data_;
 }
 
-void compressionSensor::deinitialize() {}
+void CompressionSensor::Uninitialize() {}
 

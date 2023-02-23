@@ -1,12 +1,12 @@
 #include <sensors/sensor_fingerposition.hpp>
 
-void fingerPositionSensor::initialize() {}
+void FingerPositionSensor::Initialize() {}
 
-SensorData fingerPositionSensor::getSensorData() {
-  sensData.numOfBytes = 1;
-  memset(sensData.buffer, 0, sensData.numOfBytes);
-  return sensData;
+SensorData FingerPositionSensor::GetSensorData() {
+  sensor_data_.numOfBytes = 1;
+  memset(sensor_data_.buffer, 0, sensor_data_.numOfBytes);
+  return sensor_data_;
 }
 
-void fingerPositionSensor::deinitialize() {}
+void FingerPositionSensor::Uninitialize() {}
 

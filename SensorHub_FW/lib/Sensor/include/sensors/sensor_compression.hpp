@@ -4,23 +4,23 @@
 #include <sensors/sensor_base.hpp>
 #include <RobotPatient_VL6180x.h>
 
-class compressionSensor : public universal_sensor {
+class CompressionSensor : public UniversalSensor {
  public:
-  explicit compressionSensor(i2c_peripheral_t i2c_peripheral)
-                              : universal_sensor(i2c_peripheral) {
-    i2c_handle = new i2c_driver(i2c_peripheral, i2c_speed_400KHz, i2c_addr);
+  explicit CompressionSensor(i2c_peripheral_t i2c_peripheral)
+                              : UniversalSensor(i2c_peripheral) {
+    i2c_handle = new I2CDriver(i2c_peripheral, i2c_speed_400KHz, kSensorI2CAddress_);
     Tof = new RobotPatient_VL6180x(i2c_handle);
   }
-  void initialize() override;
-  SensorData getSensorData() override;
-  void deinitialize() override;
-  ~compressionSensor() {
-    deinitialize();
+  void Initialize() override;
+  SensorData GetSensorData() override;
+  void Uninitialize() override;
+  ~CompressionSensor() {
+    Uninitialize();
   }
  private:
-  SensorData sensData {};
-  const uint8_t i2c_addr = 0x29;
-  i2c_driver* i2c_handle;
+  const uint8_t kSensorI2CAddress_ = 0x29;
+  SensorData sensor_data_ {};
+  I2CDriver* i2c_handle;
   RobotPatient_VL6180x *Tof;
 };
 #endif  // SENSOR_COMPRESSION_HPP
