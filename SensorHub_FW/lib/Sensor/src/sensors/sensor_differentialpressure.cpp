@@ -1,10 +1,13 @@
 #include <sensors/sensor_differentialpressure.hpp>
 
-void DifferentialPressureSensor::Initialize() {}
+void DifferentialPressureSensor::Initialize() {
+  sdp810_handle_->begin();
+}
 
 SensorData DifferentialPressureSensor::GetSensorData() {
-  sensor_data_.numOfBytes = 1;
-  memset(sensor_data_.buffer, 0, sensor_data_.numOfBytes);
+  sdp810_handle_->read();
+  sensor_data_.numOfBytes = 2;
+  sensor_data_.buffer[0] = sdp810_handle_->getRaw();
   return sensor_data_;
 }
 

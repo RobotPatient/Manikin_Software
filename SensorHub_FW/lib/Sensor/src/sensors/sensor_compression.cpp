@@ -1,10 +1,14 @@
 #include <sensors/sensor_compression.hpp>
 
-void CompressionSensor::Initialize() {}
+void CompressionSensor::Initialize() {
+  Tof_->init();
+  Tof_->VL6180xDefautSettings();
+}
 
 SensorData CompressionSensor::GetSensorData() {
+  uint8_t distance = Tof_->getDistance();
   sensor_data_.numOfBytes = 1;
-  memset(sensor_data_.buffer, 0, sensor_data_.numOfBytes);
+  sensor_data_.buffer[0] = distance;
   return sensor_data_;
 }
 
