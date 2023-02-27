@@ -26,7 +26,7 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
 endif()
 
-
+set(CMAKE_BUILD_TYPE Release)
 # Testing only available if this is the main app
 # Emergency override MODERN_CMAKE_BUILD_TESTING provided as well
 if((CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME OR MODERN_CMAKE_BUILD_TESTING)
@@ -35,11 +35,11 @@ if((CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME OR MODERN_CMAKE_BUILD_TESTING)
 endif()
 
 
-include(CMakeListsPIO.txt)
+#include(CMakeListsPIO.txt)
 
-add_custom_target(
-    Production ALL
-    COMMAND pio run
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-)
+#add_custom_target(
+#    Production ALL
+#    COMMAND pio run
+#    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+#)
 
