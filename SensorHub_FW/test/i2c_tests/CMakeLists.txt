@@ -13,8 +13,7 @@ set(Sources
 add_executable(${This} ${Sources})
 target_link_libraries(${This} PUBLIC gtest_main gmock_main)
 
-target_include_directories(${This} PUBLIC ${PROJECT_SOURCE_DIR}/test
-                                          ${PROJECT_SOURCE_DIR}/.pio/libdeps/adafruit_feather_m0_express/I2C_Wrapper/src)
+target_include_directories(${This} PUBLIC ${PROJECT_SOURCE_DIR}/.pio/libdeps/adafruit_feather_m0_express/I2C_Wrapper/src)
 add_test(
         NAME ${This}
         COMMAND ${This}
