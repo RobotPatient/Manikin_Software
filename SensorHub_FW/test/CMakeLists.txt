@@ -11,9 +11,7 @@ FetchContent_Declare(
   URL https://github.com/google/googletest/archive/5376968f6948923e2411081fd9372e71a59d8e77.zip
   DOWNLOAD_EXTRACT_TIMESTAMP true
 )
-FetchContent_MakeAvailable(googletest)
 
-if(WIN32)
-    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-endif()
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
 add_subdirectory(i2c_tests)
