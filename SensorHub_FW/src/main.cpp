@@ -5,7 +5,7 @@
 #include <sensor_helper.hpp>
 /* Create handle for sensor connector PORT_A.
  * This will be used in setup() and loop()*/
-Sensor connector_port_a(&wireSensorA);
+UniversalSensor *connector_port_a;
 
 void printResults(SensorData data){
   for(int i =0; i< data.numOfBytes/2; i++) {
@@ -26,12 +26,13 @@ void setup() {
   wireSensorA.begin();
   wireSensorB.begin();
   InitI2CPins();
-  connector_port_a.SetSensorType(SensorTypes::kFingerPositionSensor);
+  connector_port_a = new CompressionSensor(&wireSensorA);
+  
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  SensorData result = connector_port_a.GetSensorData();
+  SensorData result = connector_port_a->GetSensorData();
   printResults(result);
   delay(100);
 }
