@@ -2,7 +2,7 @@
 #define SENSOR_FINGERPOSITION_H
 
 #include <sensors/sensor_base.hpp>
-#include "../../../ADS7138/include/ADS7138.hpp"
+#include "ADS7138.hpp"
 class FingerPositionSensor : public UniversalSensor {
  public:
   explicit FingerPositionSensor(i2c_peripheral_t i2c_peripheral)

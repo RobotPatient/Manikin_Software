@@ -26,7 +26,7 @@ void setup() {
   wireSensorA.begin();
   wireSensorB.begin();
   InitI2CPins();
-  connector_port_a.SetSensorType(SensorTypes::kDifferentialPressureSensor);
+  connector_port_a.SetSensorType(SensorTypes::kFingerPositionSensor);
 }
 
 void loop() {
