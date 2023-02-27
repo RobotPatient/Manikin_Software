@@ -138,7 +138,7 @@ TEST(I2CWrapperTest, read_reg16CallsRightMethods) {
 
 size_t CopyTestArray(uint8_t *buffer, size_t length) {
   memcpy(buffer, kTestingBytes, length);
-  return sizeof(length);
+  return length;
 }
 
 TEST(I2CWrapperTest, readBytesCallsRightMethods) {

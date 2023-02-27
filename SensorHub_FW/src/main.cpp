@@ -7,6 +7,15 @@
  * This will be used in setup() and loop()*/
 Sensor connector_port_a(&wireSensorA);
 
+void printResults(SensorData data){
+  for(int i =0; i< data.numOfBytes/2; i++) {
+    Serial.print("R:");
+    Serial.print(data.buffer[i]);
+  }
+  Serial.print("\n");
+
+}
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -17,12 +26,14 @@ void setup() {
   wireSensorA.begin();
   wireSensorB.begin();
   InitI2CPins();
-  connector_port_a.SetSensorType(SensorTypes::kCompressionSensor);
+  connector_port_a.SetSensorType(SensorTypes::kDifferentialPressureSensor);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  SensorData result = connector_port_a.GetSensorData();
+  printResults(result);
+  delay(100);
 }
 
 #else

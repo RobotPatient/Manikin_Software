@@ -21,7 +21,6 @@ class Sensor {
   DifferentialPressureSensor *differential_pressure_sensor_ = nullptr;
   CompressionSensor *compression_sensor_ = nullptr;
   UniversalSensor *current_sensor_ = nullptr;
-
 };
 
 #endif  // SENSOR_HELPER_H

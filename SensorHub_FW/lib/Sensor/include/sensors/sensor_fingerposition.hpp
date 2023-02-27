@@ -17,7 +17,7 @@ class FingerPositionSensor : public UniversalSensor {
     Uninitialize();
   }
  private:
-  const uint8_t kSensorI2CAddress_ = 0x29;
+  const uint8_t kSensorI2CAddress_ = 0x10;
   I2CDriver *i2c_handle_;
   SensorData sensor_data_{};
   ADS7138 *ads7138_handle_;

@@ -18,7 +18,7 @@ class DifferentialPressureSensor : public UniversalSensor {
     Uninitialize();
   }
  private:
-  const uint8_t kSensorI2CAddress_ = 0x29;
+  const uint8_t kSensorI2CAddress_ = 0x25;
   I2CDriver *i2c_handle_;
   SDP810 *sdp810_handle_;
   SensorData sensor_data_{};
