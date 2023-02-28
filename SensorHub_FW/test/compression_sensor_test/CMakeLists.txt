@@ -9,6 +9,7 @@ set(Sources
         ${PROJECT_SOURCE_DIR}/.pio/libdeps/samd21/Sensor/modules/hal_sensors/sensor_compression/sensor_compression.cpp
         ${PROJECT_SOURCE_DIR}/.pio/libdeps/samd21/Sensor/modules/hal_sensors/sensor_base/sensor_base.hpp
         compression_sensor_mock_test.cc
+        compression_sen_testclass.hpp
         )
 
 # We need this directory, and users of our library will need it too
