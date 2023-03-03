@@ -1,23 +1,13 @@
-#include <i2c_helper.hpp>
-#include <sensor_compression.hpp>
+#include "./test_code/sensor_compression.hpp"
 #include "compression_sen_testclass.hpp"
 
-TEST(CompressionSensor, initCalls) {
-  CompressionSenTestclass compr_sen_mock;
-  EXPECT_CALL(compr_sen_mock, Uninitialize());
-  compr_sen_mock.Uninitialize();
-}
+TEST(compressionTest, initCalls) {
+  RobotPatient_VL6180x_mock tof;
+  CompressionSensor_test ctest(&tof); 
 
-TEST(CompressionSensor, GetSensorData) {
-  CompressionSenTestclass compr_sen_mock;
-  EXPECT_CALL(compr_sen_mock, GetSensorData());
-  compr_sen_mock.GetSensorData();
-}
-
-TEST(CompressionSensor, Uninitialize) {
-  CompressionSenTestclass compr_sen_mock;
-  EXPECT_CALL(compr_sen_mock, Uninitialize());
-  compr_sen_mock.Uninitialize();
+  EXPECT_CALL(tof, init());
+  EXPECT_CALL(tof, VL6180xDefautSettings());
+  ctest.Initialize();
 }
 
 int main(int argc, char **argv) {
