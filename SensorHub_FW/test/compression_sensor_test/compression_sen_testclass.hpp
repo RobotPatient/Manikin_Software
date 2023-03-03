@@ -19,7 +19,6 @@ enum vl6180x_als_gain
   GAIN_40,     // Actual ALS Gain of 40
 
 };
-
 struct VL6180xIdentification
 {
   uint8_t idModel;
@@ -30,7 +29,6 @@ struct VL6180xIdentification
   uint16_t idDate;
   uint16_t idTime;
 };
-
 
 class RobotPatient_VL6180x_mock {
  public:
