@@ -6,6 +6,7 @@
 /* Create handle for sensor connector PORT_A.
  * This will be used in setup() and loop()*/
 UniversalSensor *connector_port_a;
+I2CDriver i2c_handle_port_a = I2CDriver(&wireSensorA, ki2cSpeed_400KHz);
 
 void printResults(SensorData data){
   for(int i =0; i< data.numOfBytes/2; i++) {
@@ -26,7 +27,7 @@ void setup() {
   wireSensorA.begin();
   wireSensorB.begin();
   InitI2CPins();
-  connector_port_a = new CompressionSensor(&wireSensorA);
+  connector_port_a = new CompressionSensor(&i2c_handle_port_a);
   
 }
 
