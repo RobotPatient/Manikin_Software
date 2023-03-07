@@ -31,6 +31,7 @@ endif()
 if((CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME OR MODERN_CMAKE_BUILD_TESTING)
         AND BUILD_TESTING)
     add_subdirectory(test)
+    add_subdirectory(${PROJECT_SOURCE_DIR}/.pio/libdeps/samd21/Sensor)
 endif()
 
 
