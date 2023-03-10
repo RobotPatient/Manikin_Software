@@ -7,15 +7,15 @@
  * This will be used in setup() and loop()*/
 UniversalSensor *connector_port_a;
 UniversalSensor *connector_port_b;
-I2CDriver i2c_handle_port_a = I2CDriver(&wireSensorA, ki2cSpeed_100KHz);
-I2CDriver i2c_handle_port_b = I2CDriver(&wireSensorB, ki2cSpeed_100KHz);
+I2CDriver i2c_handle_port_a = I2CDriver(&wireSensorA, kI2cSpeed_100KHz);
+I2CDriver i2c_handle_port_b = I2CDriver(&wireSensorB, kI2cSpeed_100KHz);
 
 void printResults(String Prefix, SensorData data){
-  for(int i =0; i< data.numOfBytes/2; i++) {
+  for(int i =0; i< data.num_of_bytes/2; i++) {
     Serial.print(Prefix+"R:");
     Serial.print(data.buffer[i]);
   }
-  if(data.numOfBytes == 1){
+  if(data.num_of_bytes == 1){
     Serial.print(data.buffer[0]);
   }
   Serial.print("\n");
@@ -30,8 +30,8 @@ void setup() {
     continue;
   wireBackbone.begin();
   InitI2CPins();
-  i2c_handle_port_a.init();
-  i2c_handle_port_b.init();
+  i2c_handle_port_a.Init();
+  i2c_handle_port_b.Init();
   connector_port_a = new FingerPositionSensor(&i2c_handle_port_a);
   connector_port_a->Initialize();
   connector_port_b = new DifferentialPressureSensor(&i2c_handle_port_a);
