@@ -1,0 +1,68 @@
+@startuml ClassDesign
+
+left to right direction
+
+skinparam backgroundColor #DAFAF3FF
+
+class LogicaCreator {
+    Discriping:
+    This class will create the logical
+    input for the ControlClass, that will 
+    create the pattern of the movements etc,
+    according to the measurements from the 
+    sensors
+    FunctionsToBeAdded()
+}
+
+class Control {
+    Discriping:
+    This class will control
+    the ChestClass and the ...Class
+    according to the logic input.
+    The logical input will be 
+    chosen according to the measured 
+    values from the sensors
+    FunctionsToBeAdded...()
+}
+
+class Chest {
+    Discriping:
+    This class will have the control
+    of the motor that will make the 
+    chest moving. The pattern off the
+    movement will be chosen from the ControlClass
+    FunctionsToBeAdded()
+}
+
+class Unknown {
+
+}
+
+class Motor {
+    Discriping:
+    This class will control the motor
+    that should move the chest of the
+    baby. The class will get input from
+    the ChestClass to make certain 
+    chestMovements
+    FunctionsToBeAdded()
+}
+
+class Pomb {
+    Discriping:
+    This class wil control the pomb
+    that should pomb the air outside 
+    the nose of the baby with a 
+    certine speed. The class will get
+    input from the ...Class to determine 
+    the pattern of the airPonmbing 
+    FunctionsToBeAdded()
+}
+
+LogicaCreator ---> Control : Logica of ControlAttribute
+Control ---> Chest : Pattern of Chestmovements
+Control ---> Unknown : Pattern of AirPombing
+Chest   ---> Motor : Control Motorchest according to received pattern
+Unknown ---> Pomb : Control Pomb according to received pattern
+
+@enduml
