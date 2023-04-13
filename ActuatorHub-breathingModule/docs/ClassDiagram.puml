@@ -34,21 +34,13 @@ package Manikin_Software_Libraries {
     namespace Actuators {
         class Motor {
             Description:
-            This class will Breathingcontrol the motor
-            that should move the Compression of the
-            baby. The class will get input from
-            the CompressionClass to make certain 
-            CompressionMovements
+            This class controls a single motor.
+            This motor moves the chest up and down
         }
 
         class Pump {
             Description:
-            This class wil Breathingcontrol the pump
-            that should pump the air outside 
-            the nose of the baby with a 
-            certine speed. The class will get
-            input from the ...Class to determine 
-            the pattern of the airPonmbing 
+            This class controls a single air pump.
         }
     }
     namespace I2C {
