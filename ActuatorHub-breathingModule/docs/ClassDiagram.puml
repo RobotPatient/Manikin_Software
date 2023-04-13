@@ -5,36 +5,28 @@ left to right direction
 skinparam backgroundColor #DAFAF3FF
 
 package Manikin_Software {
-    class LogicaCreator {
+    class BreathingControl {
         Description:
-        This class will create the logical
-        input for the ControlClass, that will 
-        create the pattern of the movements etc,
-        according to the measurements from the sensors
-    }
-
-    class Control {
-        Description:
-        This class will control
-        the ChestClass and the CompressionsClass
+        This class will Breathingcontrol
+        the CompressionClass and the BreathingClass
         according to the logic input.
         The logical input will be 
         chosen according to the measured 
         values from the sensors
     }
 
-    class Chest {
+    class Compression {
         Description:
-        This class will have the control
+        This class will have the Breathingcontrol
         of the motor that will make the 
-        chest moving. The pattern off the
-        movement will be chosen from the ControlClass
+        Compression moving. The pattern off the
+        movement will be chosen from the BreathingControlClass
     }
 
-    class Compressions {
+    class Breathing {
         Description:
         This class Uses the incoming datapoints
-        to control the Chest Compression with the Motor class
+        to Breathingcontrol the Compression Compression with the Motor class
     }
 }
 
@@ -42,16 +34,16 @@ package Manikin_Software_Libraries {
     namespace Actuators {
         class Motor {
             Description:
-            This class will control the motor
-            that should move the chest of the
+            This class will Breathingcontrol the motor
+            that should move the Compression of the
             baby. The class will get input from
-            the ChestClass to make certain 
-            chestMovements
+            the CompressionClass to make certain 
+            CompressionMovements
         }
 
         class Pump {
             Description:
-            This class wil control the pump
+            This class wil Breathingcontrol the pump
             that should pump the air outside 
             the nose of the baby with a 
             certine speed. The class will get
@@ -59,12 +51,29 @@ package Manikin_Software_Libraries {
             the pattern of the airPonmbing 
         }
     }
+    namespace I2C {
+        class I2CDriver {
+            Description:
+            Base class for I2C protocol
+        }
+
+        class BreathingModuleI2C {
+            Description:
+            Class used for in the BreathingModule for communication to the main board,
+            This data includes:
+            "- A start signal"
+            "- A stop signal"
+            "- (optional) A datastream for different breathing patterns"            
+        }
+
+        BreathingModuleI2C <|-- I2CDriver
+    }
 }
 
-LogicaCreator --> Control : Logica of ControlAttribute
-Control o-- Chest : Pattern of Chestmovements
-Control o-- Compressions : Pattern of AirPumping
-Chest   *-- Actuators.Motor : Control Motorchest according to received pattern
-Compressions *-- Actuators.Pump : Control Pump according to received pattern
+I2C.BreathingModuleI2C --* BreathingControl 
+BreathingControl o-- Compression : Pattern of Compressionmovements
+BreathingControl o-- Breathing : Pattern of AirPumping
+Compression   *-- Actuators.Motor : BreathingControl MotorCompression according to received pattern
+Breathing *-- Actuators.Pump : BreathingControl Pump according to received pattern
 
 @enduml
