@@ -1,36 +1,34 @@
 @startuml ClassDesign
 
-left to right direction
-
-skinparam backgroundColor #DAFAF3FF
+set separator ::
 
 package Manikin_Software {
     class BreathingControl {
         Description:
-        This class will Breathingcontrol
-        the CompressionClass and the BreathingClass
-        according to the logic input.
-        The logical input will be 
-        chosen according to the measured 
-        values from the sensors
+        This class takes the incoming datapoints and
+        sends them to the Compression and Breathing class.
+        It also makes sure the 2 keep in sync
     }
 
     class Compression {
         Description:
-        This class will have the Breathingcontrol
-        of the motor that will make the 
-        Compression moving. The pattern off the
-        movement will be chosen from the BreathingControlClass
+        This class converst the incoming datapoints
+        to usable values for to actuate the motor
     }
 
     class Breathing {
         Description:
-        This class Uses the incoming datapoints
-        to Breathingcontrol the Compression Compression with the Motor class
+        This class converst the incoming datapoints
+        to usable values for to actuate the pump
     }
 }
 
 package Manikin_Software_Libraries {
+    namespace hal::ringbuf {
+        class ringbuf {
+
+        }
+    }
     namespace Actuators {
         class Motor {
             Description:
@@ -41,31 +39,27 @@ package Manikin_Software_Libraries {
         class Pump {
             Description:
             This class controls a single air pump.
+            For the purpose of breating
         }
     }
-    namespace I2C {
-        class I2CDriver {
-            Description:
-            Base class for I2C protocol
-        }
-
-        class BreathingModuleI2C {
+    namespace hal::i2c {
+        class i2c_breathingmod {
             Description:
             Class used for in the BreathingModule for communication to the main board,
             This data includes:
+            See Manikin_Software_Libraries/modules/hal_i2c/docs/ClassDiagram.puml
+            for the full implementation of the I2C library
             "- A start signal"
             "- A stop signal"
-            "- (optional) A datastream for different breathing patterns"            
+            "- (optional) A datastream for different breathing patterns"
         }
-
-        BreathingModuleI2C <|-- I2CDriver
     }
 }
 
-I2C.BreathingModuleI2C --* BreathingControl 
-BreathingControl o-- Compression : Pattern of Compressionmovements
-BreathingControl o-- Breathing : Pattern of AirPumping
-Compression   *-- Actuators.Motor : BreathingControl MotorCompression according to received pattern
-Breathing *-- Actuators.Pump : BreathingControl Pump according to received pattern
+hal::i2c::i2c_breathingmod --* BreathingControl 
+BreathingControl *-- Compression : Pattern of Compressionmovements
+BreathingControl *-- Breathing : Pattern of AirPumping
+Compression   *-- Actuators::Motor : BreathingControl MotorCompression according to received pattern
+Breathing *-- Actuators::Pump : BreathingControl Pump according to received pattern
 
 @enduml
