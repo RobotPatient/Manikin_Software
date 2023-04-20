@@ -1,4 +1,0 @@
-/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/opt/clion/bin/ninja/linux/ninja -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -G Ninja -S /home/victor/Manikin_Software/Testsuite -B /home/victor/Manikin_Software/Testsuite/build
--- Configuring done (0.0s)
--- Generating done (0.0s)
--- Build files have been written to: /home/victor/Manikin_Software/Testsuite/build

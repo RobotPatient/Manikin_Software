@@ -1,6 +1,0 @@
-/home/victor/Manikin_Software/Testsuite/build/CMakeFiles/imgui.dir
-/home/victor/Manikin_Software/Testsuite/build/CMakeFiles/imgui_core.dir
-/home/victor/Manikin_Software/Testsuite/build/CMakeFiles/implot.dir
-/home/victor/Manikin_Software/Testsuite/build/CMakeFiles/app.dir
-/home/victor/Manikin_Software/Testsuite/build/CMakeFiles/edit_cache.dir
-/home/victor/Manikin_Software/Testsuite/build/CMakeFiles/rebuild_cache.dir
