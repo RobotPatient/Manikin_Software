@@ -7,6 +7,8 @@ set(OpenGL_GL_PREFERENCE "GLVND")
 # OpenGL
 find_package(OpenGL REQUIRED)
 
+add_subdirectory(libs/Boost)
+
 file(GLOB header_list_imgui CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/libs/imgui/")
 file(GLOB header_list_imgui_backend CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/libs/imgui/backends/")
 set(imgui_header_list "${PROJECT_SOURCE_DIR}/libs/imgui/imgui_internal.h"
@@ -49,3 +51,5 @@ target_link_libraries(app PRIVATE GL)
 target_link_libraries(app PUBLIC imgui)
 
 target_link_libraries(app PUBLIC implot)
+target_link_libraries(app PUBLIC boost_chrono)
+target_link_libraries(app PRIVATE boost_asio)

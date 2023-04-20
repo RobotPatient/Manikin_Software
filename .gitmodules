@@ -160,3 +160,9 @@
 [submodule "Testsuite/libs/Boost/tools/cmake"]
 	path = Testsuite/libs/Boost/tools/cmake
 	url = https://github.com/boostorg/cmake.git
+[submodule "Testsuite/libs/Boost/libs/describe"]
+	path = Testsuite/libs/Boost/libs/describe
+	url = https://github.com/boostorg/describe.git
+[submodule "Testsuite/libs/Boost/libs/functional"]
+	path = Testsuite/libs/Boost/libs/functional
+	url = https://github.com/boostorg/functional.git

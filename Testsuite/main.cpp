@@ -4,7 +4,7 @@
 // Read online: https://github.com/ocornut/imgui/tree/master/docs
 
 #include "gui_setup.h"
-
+#include <boost/asio.hpp>
 int main(int, char **) {
 
 
@@ -105,6 +105,7 @@ int main(int, char **) {
         show_another_window = false;
       ImGui::End();
     }
+
 
     // Rendering
     ImGui::Render();
