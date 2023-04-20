@@ -1,0 +1,68 @@
+[
+{
+  "directory": "/home/victor/Manikin_Software/Testsuite/build",
+  "command": "/usr/bin/g++ -I/home/victor/Manikin_Software/Testsuite/libs/imgui -I/home/victor/Manikin_Software/Testsuite/libs/imgui/backends -isystem /usr/include/SDL2 -g -o CMakeFiles/imgui.dir/libs/imgui/backends/imgui_impl_sdl2.cpp.o -c /home/victor/Manikin_Software/Testsuite/libs/imgui/backends/imgui_impl_sdl2.cpp",
+  "file": "/home/victor/Manikin_Software/Testsuite/libs/imgui/backends/imgui_impl_sdl2.cpp",
+  "output": "CMakeFiles/imgui.dir/libs/imgui/backends/imgui_impl_sdl2.cpp.o"
+},
+{
+  "directory": "/home/victor/Manikin_Software/Testsuite/build",
+  "command": "/usr/bin/g++ -I/home/victor/Manikin_Software/Testsuite/libs/imgui -I/home/victor/Manikin_Software/Testsuite/libs/imgui/backends -isystem /usr/include/SDL2 -g -o CMakeFiles/imgui.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o -c /home/victor/Manikin_Software/Testsuite/libs/imgui/backends/imgui_impl_opengl3.cpp",
+  "file": "/home/victor/Manikin_Software/Testsuite/libs/imgui/backends/imgui_impl_opengl3.cpp",
+  "output": "CMakeFiles/imgui.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o"
+},
+{
+  "directory": "/home/victor/Manikin_Software/Testsuite/build",
+  "command": "/usr/bin/g++ -g -o CMakeFiles/imgui_core.dir/libs/imgui/imgui.cpp.o -c /home/victor/Manikin_Software/Testsuite/libs/imgui/imgui.cpp",
+  "file": "/home/victor/Manikin_Software/Testsuite/libs/imgui/imgui.cpp",
+  "output": "CMakeFiles/imgui_core.dir/libs/imgui/imgui.cpp.o"
+},
+{
+  "directory": "/home/victor/Manikin_Software/Testsuite/build",
+  "command": "/usr/bin/g++ -g -o CMakeFiles/imgui_core.dir/libs/imgui/imgui_draw.cpp.o -c /home/victor/Manikin_Software/Testsuite/libs/imgui/imgui_draw.cpp",
+  "file": "/home/victor/Manikin_Software/Testsuite/libs/imgui/imgui_draw.cpp",
+  "output": "CMakeFiles/imgui_core.dir/libs/imgui/imgui_draw.cpp.o"
+},
+{
+  "directory": "/home/victor/Manikin_Software/Testsuite/build",
+  "command": "/usr/bin/g++ -g -o CMakeFiles/imgui_core.dir/libs/imgui/imgui_demo.cpp.o -c /home/victor/Manikin_Software/Testsuite/libs/imgui/imgui_demo.cpp",
+  "file": "/home/victor/Manikin_Software/Testsuite/libs/imgui/imgui_demo.cpp",
+  "output": "CMakeFiles/imgui_core.dir/libs/imgui/imgui_demo.cpp.o"
+},
+{
+  "directory": "/home/victor/Manikin_Software/Testsuite/build",
+  "command": "/usr/bin/g++ -g -o CMakeFiles/imgui_core.dir/libs/imgui/imgui_tables.cpp.o -c /home/victor/Manikin_Software/Testsuite/libs/imgui/imgui_tables.cpp",
+  "file": "/home/victor/Manikin_Software/Testsuite/libs/imgui/imgui_tables.cpp",
+  "output": "CMakeFiles/imgui_core.dir/libs/imgui/imgui_tables.cpp.o"
+},
+{
+  "directory": "/home/victor/Manikin_Software/Testsuite/build",
+  "command": "/usr/bin/g++ -g -o CMakeFiles/imgui_core.dir/libs/imgui/imgui_widgets.cpp.o -c /home/victor/Manikin_Software/Testsuite/libs/imgui/imgui_widgets.cpp",
+  "file": "/home/victor/Manikin_Software/Testsuite/libs/imgui/imgui_widgets.cpp",
+  "output": "CMakeFiles/imgui_core.dir/libs/imgui/imgui_widgets.cpp.o"
+},
+{
+  "directory": "/home/victor/Manikin_Software/Testsuite/build",
+  "command": "/usr/bin/g++ -I/home/victor/Manikin_Software/Testsuite/libs/implot -I/home/victor/Manikin_Software/Testsuite/libs/imgui -I/home/victor/Manikin_Software/Testsuite/libs/imgui/backends -isystem /usr/include/SDL2 -g -o CMakeFiles/implot.dir/libs/implot/implot.cpp.o -c /home/victor/Manikin_Software/Testsuite/libs/implot/implot.cpp",
+  "file": "/home/victor/Manikin_Software/Testsuite/libs/implot/implot.cpp",
+  "output": "CMakeFiles/implot.dir/libs/implot/implot.cpp.o"
+},
+{
+  "directory": "/home/victor/Manikin_Software/Testsuite/build",
+  "command": "/usr/bin/g++ -I/home/victor/Manikin_Software/Testsuite/libs/implot -I/home/victor/Manikin_Software/Testsuite/libs/imgui -I/home/victor/Manikin_Software/Testsuite/libs/imgui/backends -isystem /usr/include/SDL2 -g -o CMakeFiles/implot.dir/libs/implot/implot_items.cpp.o -c /home/victor/Manikin_Software/Testsuite/libs/implot/implot_items.cpp",
+  "file": "/home/victor/Manikin_Software/Testsuite/libs/implot/implot_items.cpp",
+  "output": "CMakeFiles/implot.dir/libs/implot/implot_items.cpp.o"
+},
+{
+  "directory": "/home/victor/Manikin_Software/Testsuite/build",
+  "command": "/usr/bin/g++ -I/home/victor/Manikin_Software/Testsuite/libs/implot -I/home/victor/Manikin_Software/Testsuite/libs/imgui -I/home/victor/Manikin_Software/Testsuite/libs/imgui/backends -isystem /usr/include/SDL2 -g -o CMakeFiles/implot.dir/libs/implot/implot_demo.cpp.o -c /home/victor/Manikin_Software/Testsuite/libs/implot/implot_demo.cpp",
+  "file": "/home/victor/Manikin_Software/Testsuite/libs/implot/implot_demo.cpp",
+  "output": "CMakeFiles/implot.dir/libs/implot/implot_demo.cpp.o"
+},
+{
+  "directory": "/home/victor/Manikin_Software/Testsuite/build",
+  "command": "/usr/bin/g++ -I/home/victor/Manikin_Software/Testsuite/libs/imgui -I/home/victor/Manikin_Software/Testsuite/libs/imgui/backends -I/home/victor/Manikin_Software/Testsuite/libs/implot -isystem /usr/include/SDL2 -g -o CMakeFiles/app.dir/main.cpp.o -c /home/victor/Manikin_Software/Testsuite/main.cpp",
+  "file": "/home/victor/Manikin_Software/Testsuite/main.cpp",
+  "output": "CMakeFiles/app.dir/main.cpp.o"
+}
+]
