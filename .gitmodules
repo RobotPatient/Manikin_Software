@@ -4,6 +4,159 @@
 [submodule "Testsuite/libs/implot"]
 	path = Testsuite/libs/implot
 	url = https://github.com/epezent/implot.git
-[submodule "Testsuite/libs/serial"]
-	path = Testsuite/libs/serial
-	url = https://github.com/wjwwood/serial.git
+[submodule "Testsuite/libs/Boost/libs/algorithm"]
+	path = Testsuite/libs/Boost/libs/algorithm
+	url = https://github.com/boostorg/algorithm.git
+[submodule "Testsuite/libs/Boost/libs/align"]
+	path = Testsuite/libs/Boost/libs/align
+	url = https://github.com/boostorg/align.git
+[submodule "Testsuite/libs/Boost/libs/array"]
+	path = Testsuite/libs/Boost/libs/array
+	url = https://github.com/boostorg/array.git
+[submodule "Testsuite/libs/Boost/libs/asio"]
+	path = Testsuite/libs/Boost/libs/asio
+	url = https://github.com/boostorg/asio.git
+[submodule "Testsuite/libs/Boost/libs/assert"]
+	path = Testsuite/libs/Boost/libs/assert
+	url = https://github.com/boostorg/assert.git
+[submodule "Testsuite/libs/Boost/libs/bind"]
+	path = Testsuite/libs/Boost/libs/bind
+	url = https://github.com/boostorg/bind.git
+[submodule "Testsuite/libs/Boost/libs/chrono"]
+	path = Testsuite/libs/Boost/libs/chrono
+	url = https://github.com/boostorg/chrono.git
+[submodule "Testsuite/libs/Boost/libs/concept_check"]
+	path = Testsuite/libs/Boost/libs/concept_check
+	url = https://github.com/boostorg/concept_check.git
+[submodule "Testsuite/libs/Boost/libs/config"]
+	path = Testsuite/libs/Boost/libs/config
+	url = https://github.com/boostorg/config.git
+[submodule "Testsuite/libs/Boost/libs/container"]
+	path = Testsuite/libs/Boost/libs/container
+	url = https://github.com/boostorg/container.git
+[submodule "Testsuite/libs/Boost/libs/container_hash"]
+	path = Testsuite/libs/Boost/libs/container_hash
+	url = https://github.com/boostorg/container_hash.git
+[submodule "Testsuite/libs/Boost/libs/context"]
+	path = Testsuite/libs/Boost/libs/context
+	url = https://github.com/boostorg/context.git
+[submodule "Testsuite/libs/Boost/libs/conversion"]
+	path = Testsuite/libs/Boost/libs/conversion
+	url = https://github.com/boostorg/conversion.git
+[submodule "Testsuite/libs/Boost/libs/core"]
+	path = Testsuite/libs/Boost/libs/core
+	url = https://github.com/boostorg/core.git
+[submodule "Testsuite/libs/Boost/libs/coroutine"]
+	path = Testsuite/libs/Boost/libs/coroutine
+	url = https://github.com/boostorg/coroutine.git
+[submodule "Testsuite/libs/Boost/libs/date_time"]
+	path = Testsuite/libs/Boost/libs/date_time
+	url = https://github.com/boostorg/date_time.git
+[submodule "Testsuite/libs/Boost/libs/detail"]
+	path = Testsuite/libs/Boost/libs/detail
+	url = https://github.com/boostorg/detail.git
+[submodule "Testsuite/libs/Boost/libs/exception"]
+	path = Testsuite/libs/Boost/libs/exception
+	url = https://github.com/boostorg/exception.git
+[submodule "Testsuite/libs/Boost/libs/function"]
+	path = Testsuite/libs/Boost/libs/function
+	url = https://github.com/boostorg/function.git
+[submodule "Testsuite/libs/Boost/libs/function_types"]
+	path = Testsuite/libs/Boost/libs/function_types
+	url = https://github.com/boostorg/function_types.git
+[submodule "Testsuite/libs/Boost/libs/fusion"]
+	path = Testsuite/libs/Boost/libs/fusion
+	url = https://github.com/boostorg/fusion.git
+[submodule "Testsuite/libs/Boost/libs/integer"]
+	path = Testsuite/libs/Boost/libs/integer
+	url = https://github.com/boostorg/integer.git
+[submodule "Testsuite/libs/Boost/libs/intrusive"]
+	path = Testsuite/libs/Boost/libs/intrusive
+	url = https://github.com/boostorg/intrusive.git
+[submodule "Testsuite/libs/Boost/libs/io"]
+	path = Testsuite/libs/Boost/libs/io
+	url = https://github.com/boostorg/io.git
+[submodule "Testsuite/libs/Boost/libs/iterator"]
+	path = Testsuite/libs/Boost/libs/iterator
+	url = https://github.com/boostorg/iterator.git
+[submodule "Testsuite/libs/Boost/libs/lexical_cast"]
+	path = Testsuite/libs/Boost/libs/lexical_cast
+	url = https://github.com/boostorg/lexical_cast.git
+[submodule "Testsuite/libs/Boost/libs/move"]
+	path = Testsuite/libs/Boost/libs/move
+	url = https://github.com/boostorg/move.git
+[submodule "Testsuite/libs/Boost/libs/mp11"]
+	path = Testsuite/libs/Boost/libs/mp11
+	url = https://github.com/boostorg/mp11.git
+[submodule "Testsuite/libs/Boost/libs/mpl"]
+	path = Testsuite/libs/Boost/libs/mpl
+	url = https://github.com/boostorg/mpl.git
+[submodule "Testsuite/libs/Boost/libs/numeric_conversion"]
+	path = Testsuite/libs/Boost/libs/numeric_conversion
+	url = https://github.com/boostorg/numeric_conversion.git
+[submodule "Testsuite/libs/Boost/libs/optional"]
+	path = Testsuite/libs/Boost/libs/optional
+	url = https://github.com/boostorg/optional.git
+[submodule "Testsuite/libs/Boost/libs/pool"]
+	path = Testsuite/libs/Boost/libs/pool
+	url = https://github.com/boostorg/pool.git
+[submodule "Testsuite/libs/Boost/libs/predef"]
+	path = Testsuite/libs/Boost/libs/predef
+	url = https://github.com/boostorg/predef.git
+[submodule "Testsuite/libs/Boost/libs/preprocessor"]
+	path = Testsuite/libs/Boost/libs/preprocessor
+	url = https://github.com/boostorg/preprocessor.git
+[submodule "Testsuite/libs/Boost/libs/range"]
+	path = Testsuite/libs/Boost/libs/range
+	url = https://github.com/boostorg/range.git
+[submodule "Testsuite/libs/Boost/libs/ratio"]
+	path = Testsuite/libs/Boost/libs/ratio
+	url = https://github.com/boostorg/ratio.git
+[submodule "Testsuite/libs/Boost/libs/rational"]
+	path = Testsuite/libs/Boost/libs/rational
+	url = https://github.com/boostorg/rational.git
+[submodule "Testsuite/libs/Boost/libs/regex"]
+	path = Testsuite/libs/Boost/libs/regex
+	url = https://github.com/boostorg/regex.git
+[submodule "Testsuite/libs/Boost/libs/smart_ptr"]
+	path = Testsuite/libs/Boost/libs/smart_ptr
+	url = https://github.com/boostorg/smart_ptr.git
+[submodule "Testsuite/libs/Boost/libs/static_assert"]
+	path = Testsuite/libs/Boost/libs/static_assert
+	url = https://github.com/boostorg/static_assert.git
+[submodule "Testsuite/libs/Boost/libs/system"]
+	path = Testsuite/libs/Boost/libs/system
+	url = https://github.com/boostorg/system.git
+[submodule "Testsuite/libs/Boost/libs/throw_exception"]
+	path = Testsuite/libs/Boost/libs/throw_exception
+	url = https://github.com/boostorg/throw_exception.git
+[submodule "Testsuite/libs/Boost/libs/tokenizer"]
+	path = Testsuite/libs/Boost/libs/tokenizer
+	url = https://github.com/boostorg/tokenizer.git
+[submodule "Testsuite/libs/Boost/libs/tuple"]
+	path = Testsuite/libs/Boost/libs/tuple
+	url = https://github.com/boostorg/tuple.git
+[submodule "Testsuite/libs/Boost/libs/type_index"]
+	path = Testsuite/libs/Boost/libs/type_index
+	url = https://github.com/boostorg/type_index.git
+[submodule "Testsuite/libs/Boost/libs/type_traits"]
+	path = Testsuite/libs/Boost/libs/type_traits
+	url = https://github.com/boostorg/type_traits.git
+[submodule "Testsuite/libs/Boost/libs/typeof"]
+	path = Testsuite/libs/Boost/libs/typeof
+	url = https://github.com/boostorg/typeof.git
+[submodule "Testsuite/libs/Boost/libs/unordered"]
+	path = Testsuite/libs/Boost/libs/unordered
+	url = https://github.com/boostorg/unordered.git
+[submodule "Testsuite/libs/Boost/libs/utility"]
+	path = Testsuite/libs/Boost/libs/utility
+	url = https://github.com/boostorg/utility.git
+[submodule "Testsuite/libs/Boost/libs/variant2"]
+	path = Testsuite/libs/Boost/libs/variant2
+	url = https://github.com/boostorg/variant2.git
+[submodule "Testsuite/libs/Boost/libs/winapi"]
+	path = Testsuite/libs/Boost/libs/winapi
+	url = https://github.com/boostorg/winapi.git
+[submodule "Testsuite/libs/Boost/tools/cmake"]
+	path = Testsuite/libs/Boost/tools/cmake
+	url = https://github.com/boostorg/cmake.git
