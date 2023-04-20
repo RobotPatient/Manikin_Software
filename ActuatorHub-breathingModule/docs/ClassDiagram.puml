@@ -2,7 +2,7 @@
 
 set separator ::
 
-package Manikin_Software {
+package Manikin_Software <<frame>> {
     class BreathingControl {
         Description:
         This class takes the incoming datapoints and
@@ -23,7 +23,7 @@ package Manikin_Software {
     }
 }
 
-package Manikin_Software_Libraries {
+package Manikin_Software_Libraries <<frame>> {
     namespace hal::ringbuf {
         class ringbuf {
 

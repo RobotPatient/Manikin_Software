@@ -25,27 +25,14 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  ***********************************************************************************************/
-#ifndef BREATHINGCONTROL_HPP
-#define BREATHINGCONTROL_HPP
+#ifndef BREATHING_HPP
+#define BREATHING_HPP
 
-#include <Arduino.h>
-#include <RingBuffer.h>
-
-#include "Compression.hpp"
-#include "Breathing.hpp"
-
-/// @brief
-class BreathingControl
+class Breathing
 {
 public:
-    BreathingControl(Compression *compression, Breathing *breathing) : compression_(compression), breathing_(breathing) {}
-
-    ~BreathingControl();
-
-private:
-    // uint8_t breathingPattern[]; //ringbuf??
-    Compression *compression_;
-    Breathing *breathing_;
+    Breathing() {}
+    ~Breathing();
 };
 
 #endif
