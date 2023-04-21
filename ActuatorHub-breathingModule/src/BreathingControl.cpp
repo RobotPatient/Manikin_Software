@@ -25,20 +25,15 @@
  *OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  *OR OTHER DEALINGS IN THE SOFTWARE.
  ***********************************************************************************************/
-#ifndef BREATHING_HPP
-#define BREATHING_HPP
 
-#include "Breathing.hpp"
-#include "Compression.hpp"
+#include "BreathingControl.hpp"
 
-class Breathing {
- public:
-  Breathing() {}
-  ~Breathing();
+#include <FlashStorage.h>
+#include <RingBuffer.h>
 
- private:
-  Breathing *breathing_;
-  Compression *compression_;
-};
+BreathingControl::BreathingControl() {
+  breathing_ = new Breathing();
+  compression_ = new Compression();
+}
 
-#endif
+void BreathingControl::loop() {}

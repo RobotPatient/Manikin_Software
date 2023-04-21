@@ -25,20 +25,24 @@
  *OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  *OR OTHER DEALINGS IN THE SOFTWARE.
  ***********************************************************************************************/
-#ifndef BREATHING_HPP
-#define BREATHING_HPP
+#ifndef BREATHINGDATA_HPP
+#define BREATHINGDATA_HPP
 
-#include "Breathing.hpp"
-#include "Compression.hpp"
+#include <RingBuffer.h>
 
-class Breathing {
+#define SIZEOF_DATA
+
+struct SampleData {
+  uint8_t index;
+  uint16_t breathingPoints;
+  uint16_t compressionPoints;
+};
+
+class BreathingData {
  public:
-  Breathing() {}
-  ~Breathing();
+  BreathingData() {}
 
  private:
-  Breathing *breathing_;
-  Compression *compression_;
 };
 
 #endif

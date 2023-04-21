@@ -7,9 +7,9 @@
  * of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction,
  *
- * including without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
- * is furnished to do so,
+ * including without limitation the rights to use, copy, modify, merge, publish,
+ *distribute, sublicense, and/or sell copies of the Software, and to permit
+ *persons to whom the Software is furnished to do so,
  *
  * subject to the following conditions:
  *
@@ -21,9 +21,9 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  *
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ *OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+ *OR OTHER DEALINGS IN THE SOFTWARE.
  ***********************************************************************************************/
 #ifndef BREATHINGCONTROL_HPP
 #define BREATHINGCONTROL_HPP
@@ -31,21 +31,22 @@
 #include <Arduino.h>
 #include <RingBuffer.h>
 
-#include "Compression.hpp"
 #include "Breathing.hpp"
+#include "Compression.hpp"
 
 /// @brief
-class BreathingControl
-{
-public:
-    BreathingControl(Compression *compression, Breathing *breathing) : compression_(compression), breathing_(breathing) {}
+class BreathingControl {
+ public:
+  BreathingControl();
 
-    ~BreathingControl();
+  ~BreathingControl();
 
-private:
-    // uint8_t breathingPattern[]; //ringbuf??
-    Compression *compression_;
-    Breathing *breathing_;
+  void loop();
+
+ private:
+  // uint8_t breathingPattern[]; //ringbuf??
+  Compression *compression_;
+  Breathing *breathing_;
 };
 
 #endif

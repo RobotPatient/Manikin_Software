@@ -1,9 +1,9 @@
 #include <Arduino.h>
 
-void setup()
-{
-}
+#include "BreathingControl.hpp"
 
-void loop()
-{
-}
+BreathingControl *control;
+
+void setup() { control = new BreathingControl(); }
+
+void loop() { control->loop(); }
