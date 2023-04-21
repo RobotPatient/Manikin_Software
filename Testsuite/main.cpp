@@ -1,46 +1,10 @@
-// Dear ImGui: standalone example application for SDL2 + OpenGL
-// (SDL is a cross-platform general purpose library for handling windows, inputs, OpenGL/Vulkan/Metal graphics context creation, etc.)
-// If you are new to Dear ImGui, read documentation from the docs/ folder + read the top of imgui.cpp.
-// Read online: https://github.com/ocornut/imgui/tree/master/docs
-
-#include "gui_setup.h"
-#include <boost/asio.hpp>
-#include <boost/filesystem.hpp>
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
 #include <communication.hpp>
+#include <serial.h>
+#include "gui_setup.h"
+#include <stdio.h>
 
 CommunicationManagerWindow::CommunicationData CommData;
 
-typedef boost::shared_ptr<boost::asio::serial_port> mSerialPortPtr;
-mSerialPortPtr mSerialPort;
-boost::asio::io_service mIOService;
-
-namespace fs = boost::filesystem;
-
-std::vector<std::string> get_available_ports() {
-  std::vector<std::string> port_names;
-
-  fs::path p("/dev/serial/by-id");
-  try {
-    if (!exists(p)) {
-      //throw std::runtime_error(p.generic_string() + " does not exist");
-    } else {
-      for (fs::directory_entry &de : fs::directory_iterator(p)) {
-        if (is_symlink(de.symlink_status())) {
-          fs::path symlink_points_at = read_symlink(de);
-          fs::path canonical_path = fs::canonical(symlink_points_at, p);
-          port_names.push_back(canonical_path.generic_string());
-        }
-      }
-    }
-  } catch (const fs::filesystem_error &ex) {
-    std::cout << ex.what() << '\n';
-  }
-  std::sort(port_names.begin(), port_names.end());
-  return port_names;
-}
 
 int main(int, char **) {
   setup_gui_renderer();
@@ -65,10 +29,7 @@ int main(int, char **) {
   bool done = false;
   bool show_demo_window = true;
   bool show_another_window = false;
-  mSerialPort = mSerialPortPtr(new boost::asio::serial_port(mIOService));
-  CommData.AvailableSerialPorts = get_available_ports();
-  for(auto &p : CommData.AvailableSerialPorts)
-    printf("%s\n",p.c_str());
+  CommData.AvailableSerialPorts = Serial::get_available_ports();
   while (!done) {
     // Poll and handle events (inputs, window resize, etc.)
     // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
@@ -84,18 +45,13 @@ int main(int, char **) {
           && event.window.windowID == SDL_GetWindowID(window))
         done = true;
     }
-
     // Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
-
     ImGui::ShowDemoWindow(&show_demo_window);
-
-
+    // Create communication manager window
     CommunicationManagerWindow::Create(&CommData);
-
-
     // Rendering
     ImGui::Render();
     glViewport(0, 0, (int) io.DisplaySize.x, (int) io.DisplaySize.y);
@@ -107,18 +63,18 @@ int main(int, char **) {
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     SDL_GL_SwapWindow(window);
   }
-  uint8_t counter = 0;
-  for(auto &i : CommData.DeviceProperties) {
-    printf("Device: %d\n",counter++);
-    if(i.InterfaceMethod == CommunicationManagerWindow::kSerial){
+  // Print settings from the Communication Manager Window
+  int counter = 0;
+  for (auto &device : CommData.DeviceProperties) {
+    printf("Device: %d\n", counter++);
+    if (device.InterfaceMethod == CommunicationManagerWindow::kSerial) {
       printf("Interfacemethod: Serial\n");
     } else {
       printf("Interfacemethod: TCP\n");
     }
-    printf("InterfacePath: %s\n", i.InterfacePath.c_str());
+    printf("InterfacePath: %s\n", device.InterfacePath.c_str());
 
   }
-
   // Cleanup
   ImGui_ImplOpenGL3_Shutdown();
   ImGui_ImplSDL2_Shutdown();
@@ -126,7 +82,6 @@ int main(int, char **) {
   SDL_GL_DeleteContext(gl_context);
   SDL_DestroyWindow(window);
   SDL_Quit();
-  mSerialPort->close();
 
   return 0;
 }
