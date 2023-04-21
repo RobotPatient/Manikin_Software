@@ -42,7 +42,8 @@ target_include_directories(implot PUBLIC "${PROJECT_SOURCE_DIR}/libs/implot")
 
 target_link_libraries(implot PRIVATE imgui)
 
-add_executable(app main.cpp gui_setup.h)
+add_executable(app main.cpp gui_setup.h src/communication.cpp src/communication.hpp)
+target_include_directories(app PUBLIC src)
 
 # Link to the actual SDL2 library. SDL2::SDL2 is the shared SDL library, SDL2::SDL2-static is the static SDL libarary.
 target_link_libraries(app PRIVATE SDL2::SDL2)
@@ -51,5 +52,6 @@ target_link_libraries(app PRIVATE GL)
 target_link_libraries(app PUBLIC imgui)
 
 target_link_libraries(app PUBLIC implot)
+target_link_libraries(app PUBLIC boost_filesystem)
 target_link_libraries(app PUBLIC boost_chrono)
 target_link_libraries(app PRIVATE boost_asio)

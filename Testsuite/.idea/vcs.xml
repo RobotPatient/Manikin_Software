@@ -18,10 +18,12 @@
     <mapping directory="$PROJECT_DIR$/libs/Boost/libs/core" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/Boost/libs/coroutine" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/Boost/libs/date_time" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/Boost/libs/describe" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/Boost/libs/detail" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/Boost/libs/exception" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/Boost/libs/function" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/Boost/libs/function_types" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/Boost/libs/functional" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/Boost/libs/fusion" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/Boost/libs/integer" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/Boost/libs/intrusive" vcs="Git" />
