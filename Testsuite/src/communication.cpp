@@ -43,7 +43,7 @@ void Create(CommunicationData *data) {
                      (const char *const *) data->AvailableSerialPorts.data(),
                      data->AvailableSerialPorts.size(),
                      -1);
-        if(data->AvailableSerialPorts.size())
+        if (data->AvailableSerialPorts.size())
           device.InterfacePath = data->AvailableSerialPorts.at(selectedItem);
       } else {
         ImGui::InputText("IP", tempIPAddr, 100, 0);
