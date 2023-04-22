@@ -1,5 +1,5 @@
 #include <communication.hpp>
-#include <serial.h>
+#include <serial.hpp>
 #include "gui_setup.h"
 #include <stdio.h>
 
@@ -73,7 +73,6 @@ int main(int, char **) {
       printf("Interfacemethod: TCP\n");
     }
     printf("InterfacePath: %s\n", device.InterfacePath.c_str());
-
   }
   // Cleanup
   ImGui_ImplOpenGL3_Shutdown();
