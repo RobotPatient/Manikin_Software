@@ -34,7 +34,7 @@ void setup() {
   i2c_handle_port_b.Init();
   connector_port_a = new FingerPositionSensor(&i2c_handle_port_a);
   connector_port_a->Initialize();
-  connector_port_b = new DifferentialPressureSensor(&i2c_handle_port_a);
+  connector_port_b = new DifferentialPressureSensor(&i2c_handle_port_b);
   connector_port_b->Initialize();
 }
 
