@@ -53,8 +53,9 @@ class BreathingData {
  public:
   BreathingData() {
     for (int i = 0; i < SIZEOF_DATA; i++) {
-      breathingBuffer_.push(newDataPoint(i));
+      breathingBuffer_.push(newDefaultDataPoint(i));
     }
+    breathingBuffer_.resetRead();
   }
 
   SampleData& nextDataPoint() {
@@ -64,7 +65,7 @@ class BreathingData {
   SampleData& getCurrent() { return currentDataPoint_; }
 
  protected:
-  SampleData newDataPoint(int i) {
+  SampleData newDefaultDataPoint(int i) {
     struct SampleData defaultData;
     defaultData.index = i;
     defaultData.breathingPoints = i % 100;
