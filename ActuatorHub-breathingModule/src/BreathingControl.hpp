@@ -29,9 +29,11 @@
 #define BREATHINGCONTROL_HPP
 
 #include <Arduino.h>
-#include <RingBuffer.h>
+
+#include <gpio.hpp>
 
 #include "Breathing.hpp"
+#include "BreathingData.hpp"
 #include "Compression.hpp"
 
 /// @brief
@@ -44,7 +46,7 @@ class BreathingControl {
   void loop();
 
  private:
-  // uint8_t breathingPattern[]; //ringbuf??
+  BreathingData *breathingData_;
   Compression *compression_;
   Breathing *breathing_;
 };

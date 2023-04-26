@@ -28,12 +28,15 @@
 
 #include "BreathingControl.hpp"
 
-#include <FlashStorage.h>
 #include <RingBuffer.h>
 
 BreathingControl::BreathingControl() {
+  breathingData_ = new BreathingData();
   breathing_ = new Breathing();
   compression_ = new Compression();
 }
 
-void BreathingControl::loop() {}
+void BreathingControl::loop() {
+  Serial.print("Index: ");
+  Serial.println(breathingData_->nextDataPoint().index);
+}

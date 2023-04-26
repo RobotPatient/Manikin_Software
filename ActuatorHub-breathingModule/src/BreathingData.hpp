@@ -28,21 +28,53 @@
 #ifndef BREATHINGDATA_HPP
 #define BREATHINGDATA_HPP
 
-#include <RingBuffer.h>
+#include <Arduino.h>
 
-#define SIZEOF_DATA
+// I don't know why but for some reason platformIO doesn't wanna update the
+// include path so here we are
+#include <ringbuffer/src/ringbuffer.hpp>
 
-struct SampleData {
-  uint8_t index;
-  uint16_t breathingPoints;
-  uint16_t compressionPoints;
-};
+/**
+ * @brief SIZEOF_DATA needs to be changed according to the amount of data that
+ * the Infant CPR Simulator needs in order to have a single cycle through its
+ * breathing loop.
+ */
+#define SIZEOF_DATA 100
+
+typedef uint16_t datapoint_t;
+
+typedef struct SampleData {
+  uint16_t index;
+  datapoint_t breathingPoints;
+  datapoint_t compressionPoints;
+} SampleData;
 
 class BreathingData {
  public:
-  BreathingData() {}
+  BreathingData() {
+    for (int i = 0; i < SIZEOF_DATA; i++) {
+      breathingBuffer_.push(newDataPoint(i));
+    }
+  }
+
+  SampleData& nextDataPoint() {
+    return currentDataPoint_ = breathingBuffer_.read();
+  }
+
+  SampleData& getCurrent() { return currentDataPoint_; }
+
+ protected:
+  SampleData newDataPoint(int i) {
+    struct SampleData defaultData;
+    defaultData.index = i;
+    defaultData.breathingPoints = i % 100;
+    defaultData.compressionPoints = i % 100;
+    return defaultData;
+  }
 
  private:
+  RingBufferT<SampleData, SIZEOF_DATA> breathingBuffer_;
+  SampleData currentDataPoint_;
 };
 
 #endif

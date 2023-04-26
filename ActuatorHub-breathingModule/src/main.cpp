@@ -4,6 +4,14 @@
 
 BreathingControl *control;
 
-void setup() { control = new BreathingControl(); }
+void setup() {
+  Serial.begin(9600);
+  Serial.println("Start");
+  control = new BreathingControl();
+}
 
-void loop() { control->loop(); }
+void loop() {
+  Serial.println("Loop");
+  control->loop();
+  delay(1000);
+}

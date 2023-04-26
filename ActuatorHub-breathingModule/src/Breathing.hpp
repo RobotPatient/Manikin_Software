@@ -37,8 +37,6 @@ class Breathing {
   ~Breathing();
 
  private:
-  Breathing *breathing_;
-  Compression *compression_;
 };
 
 #endif
