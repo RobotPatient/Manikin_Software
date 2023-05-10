@@ -28,14 +28,23 @@
 #ifndef COMPRESSION_HPP
 #define COMPRESSION_HPP
 
+#include <Arduino.h>
+
+// I don't know why but for some reason platformIO doesn't wanna update the
+// include path so here we are
+#include <hal_actuators/act_motor/src/motor.hpp>
+
 class Compression {
  public:
   /**
    * @brief Construct a new Compression object
    *
    */
-  Compression() {}
+  Compression();
   ~Compression();
+
+ private:
+  actuator::Motor *motor_;
 };
 
 #endif

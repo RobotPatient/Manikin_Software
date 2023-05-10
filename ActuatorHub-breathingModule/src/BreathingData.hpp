@@ -65,6 +65,12 @@ class BreathingData {
   SampleData& getCurrent() { return currentDataPoint_; }
 
  protected:
+  /**
+   * @brief Helper function to create a new sample data point on index [i] Only
+   * used if no data points are present (mostly for testing)
+   * @param i the index of the new data point
+   * @return A new SampleData point
+   */
   SampleData newDefaultDataPoint(int i) {
     struct SampleData defaultData;
     defaultData.index = i;

@@ -26,23 +26,11 @@
  *OR OTHER DEALINGS IN THE SOFTWARE.
  ***********************************************************************************************/
 
-#include "BreathingControl.hpp"
+#include "Compression.hpp"
 
-#include <RingBuffer.h>
-
-BreathingControl::BreathingControl() {
-  breathingData_ = new BreathingData();
-  breathing_ = new Breathing();
-  compression_ = new Compression();
+Compression::Compression() {
+  uint8_t test = 15;
+  motor_ = new actuator::Motor(hal::gpio::GPIOPort::kGPIOPortA, test);
 }
 
-BreathingControl::~BreathingControl() {
-  delete breathingData_;
-  delete breathing_;
-  delete compression_;
-}
-
-void BreathingControl::loop() {
-  Serial.print("Index: ");
-  Serial.println(breathingData_->nextDataPoint().index);
-}
+Compression::~Compression() { delete motor_; }
