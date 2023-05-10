@@ -1,4 +1,8 @@
 #include <Arduino.h>
+// This needs to be included after the arduino include because of build reasons
+// see issue
+// [#23](https://github.com/RobotPatient/Manikin_Software_Libraries/issues/23)
+#include <SdFat.h>
 
 #include "BreathingControl.hpp"
 
