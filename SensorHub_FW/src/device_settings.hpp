@@ -9,9 +9,17 @@
 #include <SdFat.h>
 #include <Adafruit_SPIFlash.h>
 #include <i2c_helper.hpp>
+#include <sensor_helper.hpp>
+#include <Status.hpp>
+#include <measurement_grabber.hpp>
+#ifdef ENABLE_LOGGER
 #include <hal_log.hpp>
 
 using namespace hal::log;
+#endif
+
+
+inline constexpr uint8_t kDeviceType = 0x01; // This device is a sensorhub (val 0x01)
 
 // i2c system bus
 const uint8_t kW0_SCL = 27;  // PA22
@@ -27,16 +35,13 @@ TwoWire wireBackbone(&sercom3, kW0_SDA, kW0_SCL);  // Main
 TwoWire wireSensorA(&sercom1, kW1_SDA, kW1_SCL);  // Sensor A
 TwoWire wireSensorB(&sercom4, kW2_SDA, kW2_SCL);  // Sensor B
 
-I2CDriver i2c_handle_port_a = I2CDriver(&wireSensorA, kI2cSpeed_100KHz);
-I2CDriver i2c_handle_port_b = I2CDriver(&wireSensorB, kI2cSpeed_100KHz);
+I2CDriver i2c_handle_port_a(&wireSensorA, kI2cSpeed_100KHz);
+I2CDriver i2c_handle_port_b(&wireSensorB, kI2cSpeed_100KHz);
 
 inline constexpr uint8_t kSpiFramMisoPin = 2;
 inline constexpr uint8_t kSpiFramMosiPin = 4;
 inline constexpr uint8_t kSpiFramClkPin = 3;
 inline constexpr uint8_t kSpiFramSSPin = 9;
-
-Adafruit_FlashTransport_SPI flashTransport(kSpiFramSSPin, &SPI1);
-Adafruit_SPIFlash flash(&flashTransport);
 
 
 void InitI2CPins() {
@@ -50,6 +55,12 @@ void InitI2CPins() {
   pinPeripheral(kW1_SCL, PIO_SERCOM_ALT);
 }
 
+
+static DeviceManager DevMgr;
+#ifdef ENABLE_LOGGER
+
+Adafruit_FlashTransport_SPI flashTransport(kSpiFramSSPin, &SPI1);
+Adafruit_SPIFlash flash(&flashTransport);
 void InitSerialLogger(Logger* log_inst, LoggerSettings *log_settings, Serial_* serial_obj) {
   log_settings->CommHandle.SerialHandle = serial_obj;
   log_settings->CommMethod = communicationMethod::Serial;
@@ -89,14 +100,8 @@ void InitFlashLogger(Logger* log_inst, LoggerSettings *log_settings, const char*
   log_settings->CommMethod = communicationMethod::Flash;
   log_inst = new FlashLogger(log_settings);
   log_inst->init();
-  // logflash->init();
-  // logflash->setcursorpos(0);
-  // File32* flash_handle = logflash->getnativehandle().FlashHandle;
-
-  // uint32_t filesize = flash_handle->size();
-  // Serial.printf("Size: %d \n",filesize);
 }
-
+#endif
 
 #endif
 #endif  // SENSORHUB_FW_SRC_SENSORHUB_SETTINGS_HPP_
