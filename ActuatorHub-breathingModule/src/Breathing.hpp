@@ -31,12 +31,20 @@
 #include "Breathing.hpp"
 #include "Compression.hpp"
 
+#define BREATHING_PORT hal::gpio::GPIOPort::kGPIOPortA
+#define BREATHING_PIN 11
+
 class Breathing {
  public:
-  Breathing() {}
+  Breathing();
   ~Breathing();
 
+  void init();
+  void startBreathing(datapoint_t);
+  void stopBreathing();
+
  private:
+  actuator::Motor *motor_;
 };
 
 #endif

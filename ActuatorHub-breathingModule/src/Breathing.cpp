@@ -25,27 +25,25 @@
  *OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  *OR OTHER DEALINGS IN THE SOFTWARE.
  ***********************************************************************************************/
+#include "Breathing.hpp"
 
-#include "Compression.hpp"
-
-Compression::Compression() {
-  motor_ = new actuator::Motor(COMPRESSION_PORT, COMPRESSION_PIN);
-  servo_ = new Servo();  // Might use Servo lib for this?
+Breathing::Breathing() {
+  motor_ = new actuator::Motor(BREATHING_PORT, BREATHING_PIN);
 }
 
-Compression::~Compression() { delete motor_; }
-
-void Compression::init() {
-  motor_->stopRotate();
-  // TODO: wait for Compression signal to zero out motor
+Breathing::~Breathing() {
+  stopBreathing();
+  delete motor_;
 }
 
-void Compression::loop(datapoint_t nextPoint) {
-  // TODO: some timing? maybe use servo?
-  nextPoint;
-  uint16_t pwm;
-  motor_->startRotate(pwm);
+void Breathing::init() {}
 
+void Breathing::startBreathing(datapoint_t nextPoint) {
+  // nextPoint --> speed of motor/amount of exhaling? (0-100) --> (0-255)
+  motor_->startRotate((nextPoint / 100) * 255);
+}
+
+void Breathing::stopBreathing() {
   motor_->stopRotate();
-  // analogWrite(11, 255);
+  // TODO: motor_->releaseRotate
 }

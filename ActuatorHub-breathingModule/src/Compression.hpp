@@ -29,10 +29,14 @@
 #define COMPRESSION_HPP
 
 #include <Arduino.h>
+#include <Servo.h>
 
-// I don't know why but for some reason platformIO doesn't wanna update the
-// include path so here we are
-#include <hal_actuators/act_motor/src/motor.hpp>
+#include <motor.hpp>
+
+#include "BreathingData.hpp"
+
+#define COMPRESSION_PORT hal::gpio::GPIOPort::kGPIOPortA
+#define COMPRESSION_PIN 7
 
 class Compression {
  public:
@@ -43,8 +47,13 @@ class Compression {
   Compression();
   ~Compression();
 
+  void init();
+  void loop(datapoint_t);
+
  private:
   actuator::Motor *motor_;
+  Servo *servo_;
+  SampleData CurrentDepthPoint_;
 };
 
 #endif

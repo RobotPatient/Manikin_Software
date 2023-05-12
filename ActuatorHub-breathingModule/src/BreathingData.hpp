@@ -30,9 +30,7 @@
 
 #include <Arduino.h>
 
-// I don't know why but for some reason platformIO doesn't wanna update the
-// include path so here we are
-#include <ringbuffer/src/ringbuffer.hpp>
+#include <ringbuffer.hpp>
 
 /**
  * @brief SIZEOF_DATA needs to be changed according to the amount of data that
@@ -45,8 +43,8 @@ typedef uint16_t datapoint_t;
 
 typedef struct SampleData {
   uint16_t index;
-  datapoint_t breathingPoints;
-  datapoint_t compressionPoints;
+  datapoint_t breathingPoint;
+  datapoint_t compressionPoint;
 } SampleData;
 
 class BreathingData {
@@ -74,8 +72,8 @@ class BreathingData {
   SampleData newDefaultDataPoint(int i) {
     struct SampleData defaultData;
     defaultData.index = i;
-    defaultData.breathingPoints = i % 100;
-    defaultData.compressionPoints = i % 100;
+    defaultData.breathingPoint = i % 100;
+    defaultData.compressionPoint = i % 100;
     return defaultData;
   }
 
