@@ -27,13 +27,16 @@ void setup() {
   InitI2CPins();
   i2c_handle_port_a.Init();
   i2c_handle_port_b.Init();
-  //DevMgr.SetupI2C(SensorPortA, &i2c_handle_port_a);
-  DevMgr.SetupI2C(SensorPortB, &i2c_handle_port_b);
-  //DevMgr.AssignSensorToI2CPort(SensorPortA, TypeCompressionSensor);
-  DevMgr.AssignSensorToI2CPort(SensorPortB, TypefingerPositionSensor);
+  ServiceProtocolQueue = xQueueCreateStatic( QUEUE_LENGTH, ITEM_SIZE, ucQueueStorageArea, &StaticServiceProtocolQueueStruct );
+  PortAMgr.Init(Sensors_objPool1);
+  PortBMgr.Init(Sensors_objPool2);
+  PortBMgr.SetupI2C(&i2c_handle_port_b, &ServiceProtocolQueue);
+  PortAMgr.SetupI2C(&i2c_handle_port_a, &ServiceProtocolQueue);
+  PortAMgr.AssignSensorToI2CPort(TypefingerPositionSensor);
+  PortBMgr.AssignSensorToI2CPort(TypeDifferentialPressureSensor);
   #ifdef ENABLE_LOGGER
-  hal::exception::Init();
   InitSerialLogger(log_inst, &Log_module_settings, &Serial);
+  //InitFlashLogger(log_inst, &Log_module_settings, "test.txt");
   hal::exception::attachLogger(log_inst);
   #endif
   usb_service_protocol::Init(USBRegisters, kNumOfRegisters);

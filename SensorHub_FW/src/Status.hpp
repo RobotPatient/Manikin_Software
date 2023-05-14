@@ -19,35 +19,11 @@ typedef enum {
 
 
 
-static CompressionSensor CompressionSens;
-static DifferentialPressureSensor DiffSensor;
-static FingerPositionSensor FingerposSensor;
-
-/* The queue is to be created to hold a maximum of 10 uint64_t
-variables. */
-#define QUEUE_LENGTH    5
-#define ITEM_SIZE       sizeof( SensorData )
-uint8_t ucQueueStorageArea[ QUEUE_LENGTH * ITEM_SIZE ];
-
-/* The variable used to hold the queue's data structure. */
-static StaticQueue_t StaticServiceProtocolQueueStruct;
-QueueHandle_t ServiceProtocolQueue;
-static MeasurementGrabber PortAGrabber;
-static xTaskHandle PortAGrabTask;
-
-UniversalSensor* Sensors[3] = {&CompressionSens, &DiffSensor, &FingerposSensor};
-
-
 typedef struct{
 I2CDriver* I2CPort;
 UniversalSensor* SensorHandle;
 }I2CDevices;
 
-typedef enum {
-    SensorPortA,
-    SensorPortB,
-    MainBoardPort
-} DevicePorts;
 
 typedef struct{
     uint8_t DeviceType;
@@ -59,43 +35,50 @@ typedef struct{
 
 class DeviceManager {
  public:
+ void Init(UniversalSensor* obj_pool[3]){
+  Sensors = obj_pool;
+ }
   DeviceStatus GetDeviceStatus() {
     DeviceStatus Status;
     Status.DeviceType = SENSORHUB;
-    if(Devices[SensorPortA].SensorHandle == NULL){
+    if(I2CDevice_.SensorHandle == NULL){
       Status.PortASensorType = 0;
       Status.PortBSensorType = 0;
     } else {
-     Status.PortASensorType = Devices[SensorPortA].SensorHandle->GetSensorType();
-     Status.PortBSensorType = Devices[SensorPortB].SensorHandle->GetSensorType();
+     Status.PortASensorType = I2CDevice_.SensorHandle->GetSensorType();
+     Status.PortBSensorType = I2CDevice_.SensorHandle->GetSensorType();
     }
     return Status;
   }
-  void SetupI2C(DevicePorts Port, I2CDriver* i2c_handle){
-    Devices[Port].I2CPort = i2c_handle;
-    ServiceProtocolQueue = xQueueCreateStatic( QUEUE_LENGTH, ITEM_SIZE, ucQueueStorageArea, &StaticServiceProtocolQueueStruct );
+  void SetupI2C(I2CDriver* i2c_handle, QueueHandle_t* SensorQueue){
+    I2CDevice_.I2CPort = i2c_handle;
+    SensorQueue_ = SensorQueue;
   }
-  void AssignSensorToI2CPort(DevicePorts Port, SensorTypes Device) {
-    if( Devices[Port].SensorHandle != NULL && Devices[Port].SensorHandle != Sensors[Device]){
-        PortAGrabber.ChangeSensor(Sensors[Device]);
-        Devices[Port].SensorHandle = Sensors[Device];
-        Devices[Port].SensorHandle->Initialize(Devices[Port].I2CPort);
-        PortAGrabber.ResumePollingTask();
-    } else if (Devices[Port].SensorHandle == NULL) {
-        Devices[Port].SensorHandle = Sensors[Device];
-        Devices[Port].SensorHandle->Initialize(Devices[Port].I2CPort);
-        PortAGrabber.SetupPollTask(Devices[Port].SensorHandle, 10, &ServiceProtocolQueue, &PortAGrabTask);
+  void AssignSensorToI2CPort(SensorTypes Device) {
+    if( I2CDevice_.SensorHandle != NULL && I2CDevice_.SensorHandle != Sensors[Device]){
+        PortGrabber.ChangeSensor(Sensors[Device]);
+        I2CDevice_.SensorHandle = Sensors[Device];
+        I2CDevice_.SensorHandle->Initialize(I2CDevice_.I2CPort);
+        PortGrabber.ResumePollingTask();
+    } else if (I2CDevice_.SensorHandle == NULL) {
+        I2CDevice_.SensorHandle = Sensors[Device];
+        I2CDevice_.SensorHandle->Initialize(I2CDevice_.I2CPort);
+        PortGrabber.SetupPollTask(I2CDevice_.SensorHandle, 10, SensorQueue_, &PortGrabTask);
     }
   }
   void SetSampleTime(const uint8_t sample_time){
-    PortAGrabber.SetSampleTime(sample_time);
+    PortGrabber.SetSampleTime(sample_time);
   }
 
   uint8_t GetSampleTime(){
-      return PortAGrabber.GetSampleTime();
+      return PortGrabber.GetSampleTime();
   }
  private:
-  I2CDevices Devices[3];
+  I2CDevices I2CDevice_;
+  MeasurementGrabber PortGrabber;
+  xTaskHandle PortGrabTask;
+  QueueHandle_t *SensorQueue_;
+  UniversalSensor **Sensors;
 };
 
 

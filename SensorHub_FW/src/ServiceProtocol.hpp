@@ -22,7 +22,7 @@ const char kHelpUsageString[] = "**********************************HELP*********
                                 "      STREAM - Stream current sensor measurements to this console\r";
 
 
-    static char MessageBuffer[1024];
+static char MessageBuffer[1024];
 inline constexpr uint8_t kNumOfRegisters = 6;
 
 void ComposeJsonDataReq(SensorData *data){
@@ -38,7 +38,7 @@ snprintf(MessageBuffer+cnt, 1024-cnt, "]}");
 
 
 const char* CMD_STATUS_CB(char** args, int num_of_args) {
-  DeviceStatus Status = DevMgr.GetDeviceStatus();
+  DeviceStatus Status = PortAMgr.GetDeviceStatus();
   snprintf(MessageBuffer, 128, kStatusFormatString, status, 
                          Status.DeviceType, Status.PortASensorType, Status.PortBSensorType,
                          Status.PortASampleTime, Status.PortBSampleTime);
@@ -67,7 +67,7 @@ const char* CMD_STREAM_CB(char** args, int num_of_args) {
   return "!E can't receive message from queue";
 }
 
-const char* CMD_HELP_CB(char** agrs, int num_of_args) {
+const char* CMD_HELP_CB(char** args, int num_of_args) {
 return kHelpUsageString;
 }
 

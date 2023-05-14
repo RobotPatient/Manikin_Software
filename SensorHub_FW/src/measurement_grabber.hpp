@@ -6,6 +6,8 @@
 #include <queue.h>
 #include <Arduino.h>
 
+#define STACK_SIZE 150
+
 typedef struct{
 UniversalSensor* Sensor;
 uint8_t SampleTime;
@@ -25,7 +27,6 @@ void printResults(String Prefix, SensorData data){
 
 }
 
-
 void MeasurementGrabberTask(void *PvParameter){
     MeasurementGrabberData* Data = (MeasurementGrabberData *) PvParameter;
     SensorData data;
@@ -40,16 +41,6 @@ void MeasurementGrabberTask(void *PvParameter){
         vTaskDelay(Data->SampleTime / portTICK_PERIOD_MS);
     }
 }
-
-#define STACK_SIZE 400
-
-/* Structure that will hold the TCB of the task being created. */
-StaticTask_t xTaskBuffer;
-
-/* Buffer that the task being created will use as its stack.  Note this is
-    an array of StackType_t variables.  The size of StackType_t is dependent on
-    the RTOS port. */
-StackType_t xStack[STACK_SIZE];
 
 
 class MeasurementGrabber{
@@ -99,6 +90,12 @@ private:
  uint8_t SampleTime_;
  MeasurementGrabberData Data_;
  xTaskHandle* Task_;
+/* Structure that will hold the TCB of the task being created. */
+StaticTask_t xTaskBuffer;
+/* Buffer that the task being created will use as its stack.  Note this is
+    an array of StackType_t variables.  The size of StackType_t is dependent on
+    the RTOS port. */
+StackType_t xStack[STACK_SIZE];
 };
 
 #endif

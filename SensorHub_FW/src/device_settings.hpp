@@ -1,6 +1,6 @@
 #ifndef SENSORHUB_FW_SRC_SENSORHUB_SETTINGS_HPP_
 #define SENSORHUB_FW_SRC_SENSORHUB_SETTINGS_HPP_
-
+#define ENABLE_LOGGER
 #ifdef __arm__
 #include <Arduino.h>
 #include "wiring_private.h"
@@ -56,7 +56,8 @@ void InitI2CPins() {
 }
 
 
-static DeviceManager DevMgr;
+static DeviceManager PortAMgr;
+static DeviceManager PortBMgr;
 #ifdef ENABLE_LOGGER
 
 Adafruit_FlashTransport_SPI flashTransport(kSpiFramSSPin, &SPI1);
@@ -102,6 +103,30 @@ void InitFlashLogger(Logger* log_inst, LoggerSettings *log_settings, const char*
   log_inst->init();
 }
 #endif
+
+/* The queue is to be created to hold a maximum of 10 uint64_t
+variables. */
+#define QUEUE_LENGTH    5
+#define ITEM_SIZE       sizeof( SensorData )
+uint8_t ucQueueStorageArea[ QUEUE_LENGTH * ITEM_SIZE ];
+
+/* The variable used to hold the queue's data structure. */
+static StaticQueue_t StaticServiceProtocolQueueStruct;
+QueueHandle_t ServiceProtocolQueue;
+
+
+static CompressionSensor CompressionSens1;
+static DifferentialPressureSensor DiffSensor1;
+static FingerPositionSensor FingerposSensor1;
+
+UniversalSensor* Sensors_objPool1[3] = {&CompressionSens1, &DiffSensor1, &FingerposSensor1};
+
+static CompressionSensor CompressionSens2;
+static DifferentialPressureSensor DiffSensor2;
+static FingerPositionSensor FingerposSensor2;
+
+UniversalSensor* Sensors_objPool2[3] = {&CompressionSens2, &DiffSensor2, &FingerposSensor2};
+
 
 #endif
 #endif  // SENSORHUB_FW_SRC_SENSORHUB_SETTINGS_HPP_
