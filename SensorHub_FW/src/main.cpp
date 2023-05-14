@@ -5,7 +5,6 @@
 #include <FreeRTOS.h>
 #include <ringbuffer.hpp>
 #include <Status.hpp>
-#include <task.h>
 #ifdef ENABLE_LOGGER
 #include <hal_exception.hpp>
 
