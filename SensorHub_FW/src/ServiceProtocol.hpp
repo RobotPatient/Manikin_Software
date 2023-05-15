@@ -26,7 +26,7 @@ static char MessageBuffer[1024];
 inline constexpr uint8_t kNumOfRegisters = 6;
 
 void ComposeJsonDataReq(SensorData *data){
-  uint8_t num_of_shorts = (data->num_of_bytes)/2;
+  uint8_t num_of_shorts = data->num_of_bytes > 1 ? (data->num_of_bytes)/2 : 1;
   int cnt = snprintf(MessageBuffer, 1024, kStreamFormatString, num_of_shorts, data->sample_num, data->sensor_id);
 for(uint8_t i = 0; i < num_of_shorts; i++) {
 cnt += snprintf(MessageBuffer+cnt, 1024-cnt, kStreamDataFormatString, data->buffer[i]);

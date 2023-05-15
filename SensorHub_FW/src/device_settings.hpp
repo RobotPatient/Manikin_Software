@@ -1,6 +1,5 @@
 #ifndef SENSORHUB_FW_SRC_SENSORHUB_SETTINGS_HPP_
 #define SENSORHUB_FW_SRC_SENSORHUB_SETTINGS_HPP_
-#define ENABLE_LOGGER
 #ifdef __arm__
 #include <Arduino.h>
 #include "wiring_private.h"
@@ -23,14 +22,15 @@ using namespace hal::log;
 inline constexpr uint8_t kDeviceType = 0x01; // This device is a sensorhub (val 0x01)
 
 // i2c system bus
-inline constexpr uint8_t kW0_SCL = 27;  // PA23
 inline constexpr uint8_t kW0_SDA = 26;  // PA22
+inline constexpr uint8_t kW0_SCL = 27;  // PA23
 
-inline constexpr uint8_t kW1_SCL = 39;  // PA13
 inline constexpr uint8_t kW1_SDA = 28;  // PA12
+inline constexpr uint8_t kW1_SCL = 39;  // PA13
 
-inline constexpr uint8_t kW2_SCL = 13;  // PA17
 inline constexpr uint8_t kW2_SDA = 11;  // PA16
+inline constexpr uint8_t kW2_SCL = 13;  // PA17
+
 
 inline constexpr uint8_t kSpiFramMisoPin = 2;
 inline constexpr uint8_t kSpiFramMosiPin = 4;
@@ -38,8 +38,8 @@ inline constexpr uint8_t kSpiFramClkPin = 3;
 inline constexpr uint8_t kSpiFramSSPin = 9;
 
 TwoWire wireBackbone(&sercom3, kW0_SDA, kW0_SCL);  // Main
-TwoWire wireSensorA(&sercom4, kW1_SDA, kW1_SCL);  // Sensor A
-TwoWire wireSensorB(&sercom1, kW2_SDA, kW2_SCL);  // Sensor B
+TwoWire wireSensorA(&sercom1, kW1_SDA, kW1_SCL);  // Sensor A
+TwoWire wireSensorB(&sercom4, kW2_SDA, kW2_SCL);  // Sensor B
 
 
 void InitI2CPins() {
