@@ -18,5 +18,5 @@ void loop() {
   // TODO: check when to stop and start breathing proces
   Serial.println("Loop");
   control->loop();
-  delay(1000);
+  // delay(1000);
 }

@@ -47,4 +47,6 @@ void BreathingControl::loop() {
   Serial.println(breathingData_->nextDataPoint().index);
   compression_->loop(breathingData_->getCurrent().compressionPoint);
   breathing_->startBreathing(breathingData_->getCurrent().breathingPoint);
+  delay(1000);
+  breathing_->stopBreathing();
 }

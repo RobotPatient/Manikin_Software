@@ -31,8 +31,18 @@
 #include "Breathing.hpp"
 #include "Compression.hpp"
 
+/**
+ * D4_FLASHMOSI PA08
+ * D2_FLASHMISO PA09
+ * D3_FLASHSCK PA14
+ *
+ * PA20 ACT1
+ * PA18 ACT2
+ * PA19 ACT3
+ * PA21 ACT4
+ */
 #define BREATHING_PORT hal::gpio::GPIOPort::kGPIOPortA
-#define BREATHING_PIN 11
+#define BREATHING_PIN 19
 
 class Breathing {
  public:

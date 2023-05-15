@@ -39,6 +39,17 @@
  */
 #define SIZEOF_DATA 100
 
+/**
+ * D4_FLASHMOSI PA08
+ * D2_FLASHMISO PA09
+ * D3_FLASHSCK PA14
+ *
+ * PA20 ACT1
+ * PA18 ACT2
+ * PA19 ACT3
+ * PA21 ACT4
+ */
+
 typedef uint16_t datapoint_t;
 
 typedef struct SampleData {
