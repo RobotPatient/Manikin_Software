@@ -16,24 +16,27 @@ static LoggerSettings Log_module_settings;
 #endif
 
 static xTaskHandle PollTask;
+I2CDriver  i2c_handle_port_a = I2CDriver(&wireSensorA, kI2cSpeed_100KHz);
+I2CDriver  i2c_handle_port_b = I2CDriver(&wireSensorB, kI2cSpeed_100KHz);
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
 
+  //i2c_handle_port_b.Init();
+  Serial.begin(9600);
   while (!Serial)
     continue;
-  wireBackbone.begin();
   InitI2CPins();
   i2c_handle_port_a.Init();
-  i2c_handle_port_b.Init();
+  //delay(100);
+
   ServiceProtocolQueue = xQueueCreateStatic( QUEUE_LENGTH, ITEM_SIZE, ucQueueStorageArea, &StaticServiceProtocolQueueStruct );
   PortAMgr.Init(Sensors_objPool1);
-  PortBMgr.Init(Sensors_objPool2);
-  PortBMgr.SetupI2C(&i2c_handle_port_b, &ServiceProtocolQueue);
+  //PortBMgr.Init(Sensors_objPool2);
   PortAMgr.SetupI2C(&i2c_handle_port_a, &ServiceProtocolQueue);
+  //PortBMgr.SetupI2C(&i2c_handle_port_b, &ServiceProtocolQueue);
   PortAMgr.AssignSensorToI2CPort(TypefingerPositionSensor);
-  PortBMgr.AssignSensorToI2CPort(TypeDifferentialPressureSensor);
+  //PortBMgr.AssignSensorToI2CPort(TypeDifferentialPressureSensor);
   #ifdef ENABLE_LOGGER
   InitSerialLogger(log_inst, &Log_module_settings, &Serial);
   //InitFlashLogger(log_inst, &Log_module_settings, "test.txt");
@@ -45,10 +48,12 @@ void setup() {
 }
 
 void loop() {
-  // SensorData ResultSensA = connector_port_a->GetSensorData();
+  // SensorData ResultSensA = FingerposSensor1.GetSensorData();
   // printResults("A_",ResultSensA);
-  // SensorData ResultSensB = connector_port_b->GetSensorData();
+  // SensorData ResultSensB = DiffSensor2.GetSensorData();
   // printResults("B_",ResultSensB);
+  //Serial.println("Hello world!");
+  delay(100);
 }
 
 #else

@@ -14,6 +14,7 @@
 #include <measurement_grabber.hpp>
 #ifdef ENABLE_LOGGER
 #include <hal_log.hpp>
+#include <gpio.hpp>
 
 using namespace hal::log;
 #endif
@@ -22,37 +23,36 @@ using namespace hal::log;
 inline constexpr uint8_t kDeviceType = 0x01; // This device is a sensorhub (val 0x01)
 
 // i2c system bus
-const uint8_t kW0_SCL = 27;  // PA22
-const uint8_t kW0_SDA = 26;  // PA23
+inline constexpr uint8_t kW0_SCL = 27;  // PA23
+inline constexpr uint8_t kW0_SDA = 26;  // PA22
 
-const uint8_t kW1_SCL = 39;  // PA13
-const uint8_t kW1_SDA = 28;  // PA12
+inline constexpr uint8_t kW1_SCL = 39;  // PA13
+inline constexpr uint8_t kW1_SDA = 28;  // PA12
 
-const uint8_t kW2_SCL = 13;  // PA17
-const uint8_t kW2_SDA = 11;  // PA16
-
-TwoWire wireBackbone(&sercom3, kW0_SDA, kW0_SCL);  // Main
-TwoWire wireSensorA(&sercom1, kW1_SDA, kW1_SCL);  // Sensor A
-TwoWire wireSensorB(&sercom4, kW2_SDA, kW2_SCL);  // Sensor B
-
-I2CDriver i2c_handle_port_a(&wireSensorA, kI2cSpeed_100KHz);
-I2CDriver i2c_handle_port_b(&wireSensorB, kI2cSpeed_100KHz);
+inline constexpr uint8_t kW2_SCL = 13;  // PA17
+inline constexpr uint8_t kW2_SDA = 11;  // PA16
 
 inline constexpr uint8_t kSpiFramMisoPin = 2;
 inline constexpr uint8_t kSpiFramMosiPin = 4;
 inline constexpr uint8_t kSpiFramClkPin = 3;
 inline constexpr uint8_t kSpiFramSSPin = 9;
 
+TwoWire wireBackbone(&sercom3, kW0_SDA, kW0_SCL);  // Main
+TwoWire wireSensorA(&sercom4, kW1_SDA, kW1_SCL);  // Sensor A
+TwoWire wireSensorB(&sercom1, kW2_SDA, kW2_SCL);  // Sensor B
+
 
 void InitI2CPins() {
-  pinPeripheral(kW0_SDA, PIO_SERCOM);
-  pinPeripheral(kW0_SCL, PIO_SERCOM);
+   pinPeripheral(kW0_SDA, PIO_SERCOM);
+   pinPeripheral(kW0_SCL, PIO_SERCOM);
 
-  pinPeripheral(kW2_SDA, PIO_SERCOM);
-  pinPeripheral(kW2_SCL, PIO_SERCOM);
+   pinPeripheral(kW1_SDA, PIO_SERCOM_ALT);
+   pinPeripheral(kW1_SCL, PIO_SERCOM_ALT);
 
-  pinPeripheral(kW1_SDA, PIO_SERCOM_ALT);
-  pinPeripheral(kW1_SCL, PIO_SERCOM_ALT);
+   pinPeripheral(kW2_SDA, PIO_SERCOM);
+   pinPeripheral(kW2_SCL, PIO_SERCOM);
+
+
 }
 
 
@@ -60,48 +60,48 @@ static DeviceManager PortAMgr;
 static DeviceManager PortBMgr;
 #ifdef ENABLE_LOGGER
 
-Adafruit_FlashTransport_SPI flashTransport(kSpiFramSSPin, &SPI1);
-Adafruit_SPIFlash flash(&flashTransport);
+Adafruit_FlashTransport_SPI flashTransport(kSpiFramSSPin, &SPI);
+//Adafruit_SPIFlash flash(&flashTransport);
 void InitSerialLogger(Logger* log_inst, LoggerSettings *log_settings, Serial_* serial_obj) {
   log_settings->CommHandle.SerialHandle = serial_obj;
   log_settings->CommMethod = communicationMethod::Serial;
   log_inst = new SerialLogger(log_settings);
 }
 
-FatVolume fatfs;
+// FatVolume fatfs;
 
-static const SPIFlash_Device_t my_flash_devices[] = {
-    MB85RS2MTA
-};
+// static const SPIFlash_Device_t my_flash_devices[] = {
+//     MB85RS2MTA
+// };
 
-static char FlashLoggerFilepath[kMaxFilePathSize];
-const char* kLoggerFilePathPrefix = "/LOG/";
+// static char FlashLoggerFilepath[kMaxFilePathSize];
+// const char* kLoggerFilePathPrefix = "/LOG/";
 
-void InitFlashLogger(Logger* log_inst, LoggerSettings *log_settings, const char* filename) {
-   if (!flash.begin(my_flash_devices, 1)) {
-    Serial.println(F("Error, failed to initialize flash chip!"));
-    while(1) yield();
-  }
+// void InitFlashLogger(Logger* log_inst, LoggerSettings *log_settings, const char* filename) {
+//    if (!flash.begin(my_flash_devices, 1)) {
+//     Serial.println(F("Error, failed to initialize flash chip!"));
+//     while(1) yield();
+//   }
   
-  if (!fatfs.begin(&flash)) {
-    Serial.println(F("Error, failed to mount newly formatted filesystem!"));
-    Serial.println(F("Was the flash chip formatted with the SdFat_format example?"));
-    while(1) yield();
-  };
+//   if (!fatfs.begin(&flash)) {
+//     Serial.println(F("Error, failed to mount newly formatted filesystem!"));
+//     Serial.println(F("Was the flash chip formatted with the SdFat_format example?"));
+//     while(1) yield();
+//   };
 
-  if (!fatfs.exists("/LOG")) {
-    Serial.println(F("LOG directory not found, creating..."));
-    fatfs.mkdir("/LOG");
-  }
+//   if (!fatfs.exists("/LOG")) {
+//     Serial.println(F("LOG directory not found, creating..."));
+//     fatfs.mkdir("/LOG");
+//   }
 
-  strcat(FlashLoggerFilepath, kLoggerFilePathPrefix);
-  strcat(FlashLoggerFilepath, filename);
-  log_settings->CommHandle.FlashHandle.FatHandle = &fatfs;
-  log_settings->CommHandle.FlashHandle.FilePath = FlashLoggerFilepath;
-  log_settings->CommMethod = communicationMethod::Flash;
-  log_inst = new FlashLogger(log_settings);
-  log_inst->init();
-}
+//   strcat(FlashLoggerFilepath, kLoggerFilePathPrefix);
+//   strcat(FlashLoggerFilepath, filename);
+//   log_settings->CommHandle.FlashHandle.FatHandle = &fatfs;
+//   log_settings->CommHandle.FlashHandle.FilePath = FlashLoggerFilepath;
+//   log_settings->CommMethod = communicationMethod::Flash;
+//   log_inst = new FlashLogger(log_settings);
+//   log_inst->init();
+// }
 #endif
 
 /* The queue is to be created to hold a maximum of 10 uint64_t

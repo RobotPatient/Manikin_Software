@@ -6,7 +6,7 @@
 #include <queue.h>
 #include <Arduino.h>
 
-#define STACK_SIZE 150
+#define STACK_SIZE 250
 
 typedef struct{
 UniversalSensor* Sensor;
