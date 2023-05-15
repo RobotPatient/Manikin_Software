@@ -1,5 +1,6 @@
 #ifndef SENSORHUB_FW_SRC_SENSORHUB_SETTINGS_HPP_
 #define SENSORHUB_FW_SRC_SENSORHUB_SETTINGS_HPP_
+#define ENABLE_LOGGER
 #ifdef __arm__
 #include <Arduino.h>
 #include "wiring_private.h"
@@ -61,47 +62,47 @@ static DeviceManager PortBMgr;
 #ifdef ENABLE_LOGGER
 
 Adafruit_FlashTransport_SPI flashTransport(kSpiFramSSPin, &SPI);
-//Adafruit_SPIFlash flash(&flashTransport);
+Adafruit_SPIFlash flash(&flashTransport);
 void InitSerialLogger(Logger* log_inst, LoggerSettings *log_settings, Serial_* serial_obj) {
   log_settings->CommHandle.SerialHandle = serial_obj;
   log_settings->CommMethod = communicationMethod::Serial;
   log_inst = new SerialLogger(log_settings);
 }
 
-// FatVolume fatfs;
+FatVolume fatfs;
 
-// static const SPIFlash_Device_t my_flash_devices[] = {
-//     MB85RS2MTA
-// };
+static const SPIFlash_Device_t my_flash_devices[] = {
+    MB85RS2MTA
+};
 
-// static char FlashLoggerFilepath[kMaxFilePathSize];
-// const char* kLoggerFilePathPrefix = "/LOG/";
+static char FlashLoggerFilepath[kMaxFilePathSize];
+const char* kLoggerFilePathPrefix = "/LOG/";
 
-// void InitFlashLogger(Logger* log_inst, LoggerSettings *log_settings, const char* filename) {
-//    if (!flash.begin(my_flash_devices, 1)) {
-//     Serial.println(F("Error, failed to initialize flash chip!"));
-//     while(1) yield();
-//   }
+void InitFlashLogger(Logger* log_inst, LoggerSettings *log_settings, const char* filename) {
+   if (!flash.begin(my_flash_devices, 1)) {
+    Serial.println(F("Error, failed to initialize flash chip!"));
+    while(1) yield();
+  }
   
-//   if (!fatfs.begin(&flash)) {
-//     Serial.println(F("Error, failed to mount newly formatted filesystem!"));
-//     Serial.println(F("Was the flash chip formatted with the SdFat_format example?"));
-//     while(1) yield();
-//   };
+  if (!fatfs.begin(&flash)) {
+    Serial.println(F("Error, failed to mount newly formatted filesystem!"));
+    Serial.println(F("Was the flash chip formatted with the SdFat_format example?"));
+    while(1) yield();
+  };
 
-//   if (!fatfs.exists("/LOG")) {
-//     Serial.println(F("LOG directory not found, creating..."));
-//     fatfs.mkdir("/LOG");
-//   }
+  if (!fatfs.exists("/LOG")) {
+    Serial.println(F("LOG directory not found, creating..."));
+    fatfs.mkdir("/LOG");
+  }
 
-//   strcat(FlashLoggerFilepath, kLoggerFilePathPrefix);
-//   strcat(FlashLoggerFilepath, filename);
-//   log_settings->CommHandle.FlashHandle.FatHandle = &fatfs;
-//   log_settings->CommHandle.FlashHandle.FilePath = FlashLoggerFilepath;
-//   log_settings->CommMethod = communicationMethod::Flash;
-//   log_inst = new FlashLogger(log_settings);
-//   log_inst->init();
-// }
+  strcat(FlashLoggerFilepath, kLoggerFilePathPrefix);
+  strcat(FlashLoggerFilepath, filename);
+  log_settings->CommHandle.FlashHandle.FatHandle = &fatfs;
+  log_settings->CommHandle.FlashHandle.FilePath = FlashLoggerFilepath;
+  log_settings->CommMethod = communicationMethod::Flash;
+  log_inst = new FlashLogger(log_settings);
+  log_inst->init();
+}
 #endif
 
 /* The queue is to be created to hold a maximum of 10 uint64_t

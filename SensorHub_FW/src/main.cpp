@@ -20,9 +20,6 @@ I2CDriver  i2c_handle_port_a = I2CDriver(&wireSensorA, kI2cSpeed_400KHz);
 I2CDriver  i2c_handle_port_b = I2CDriver(&wireSensorB, kI2cSpeed_100KHz);
 
 void setup() {
-  // put your setup code here, to run once:
-
-  //i2c_handle_port_b.Init();
   Serial.begin(9600);
   while (!Serial)
     continue;
@@ -30,7 +27,6 @@ void setup() {
   i2c_handle_port_a.Init();
   i2c_handle_port_b.Init();
   InitI2CPins();
-  //delay(100);
 
   ServiceProtocolQueue = xQueueCreateStatic( QUEUE_LENGTH, ITEM_SIZE, ucQueueStorageArea, &StaticServiceProtocolQueueStruct );
   PortAMgr.Init(Sensors_objPool1);
@@ -49,13 +45,7 @@ void setup() {
   vTaskStartScheduler();
 }
 
-void loop() {
-  // SensorData ResultSensA = FingerposSensor1.GetSensorData();
-  // printResults("A_",ResultSensA);
-  // SensorData ResultSensB = DiffSensor2.GetSensorData();
-  // printResults("B_",ResultSensB);
-  //Serial.println("Hello world!");
-}
+void loop() {}
 
 #else
 int main() {
