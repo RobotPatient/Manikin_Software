@@ -4,9 +4,8 @@
 #include <device_settings.hpp>
 #include <measurement_grabber.hpp>
 
-typedef enum { UNDEFINED, SENSORHUB, ACTUATORHUB } DeviceTypes;
-
 typedef enum {
+  TypeNone,
   TypeCompressionSensor,
   TypeDifferentialPressureSensor,
   TypefingerPositionSensor
@@ -37,7 +36,6 @@ class DeviceManager {
       PortGrabber.SetupPollTask(I2CDevice_.SensorHandle, 10, SensorQueue_,
                                 &PortGrabTask);
     }
-    currentSampleTime = PortGrabber.GetSampleTime();
     currentSensorType = Device;
   }
   void SetSampleTime(const uint8_t sample_time) {
@@ -55,7 +53,6 @@ class DeviceManager {
 
  private:
   uint8_t currentSensorType;
-  uint8_t currentSampleTime;
   I2CDevices I2CDevice_;
   MeasurementGrabber PortGrabber;
   xTaskHandle PortGrabTask;

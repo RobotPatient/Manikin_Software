@@ -23,6 +23,7 @@ const char kHelpUsageString[] = "**********************************HELP*********
 const char kSetPortFormatString[] = "!OK Port A set to: %d, Port B set to: %d, Port BB set to: %d";
 const char kInvalidArgumentValues[] = "!E Invalid arguments entered!";
 const char kSetIDFormatString[] = "!OK Device id is set to: %d";
+const char kSetSampleTimeFormatString[] = "!OK Sampletime on Port A set to: %d, Port B set to: %d";
 
 inline constexpr int MessageBufferSize = 1024;
 static char MessageBuffer[MessageBufferSize];
@@ -30,7 +31,7 @@ inline constexpr int kUpperRangeArgSetPort = 0x03;
 inline constexpr int kLowerRangeArgSetPort = 0x00;
 
 
-inline constexpr uint8_t kNumOfRegisters = 6;
+inline constexpr uint8_t kNumOfRegisters = 7;
 inline constexpr uint8_t ParseOK = 1;
 inline constexpr uint8_t ParseFail = 0;
 
@@ -99,8 +100,6 @@ const char* CMD_SETID_CB(char** args, int num_of_args) {
 }
 
 const char* CMD_STREAM_CB(char** args, int num_of_args) {
-  // PortAMgr.ResumeSensor();
-  // PortBMgr.ResumeSensor();
   memset(MessageBuffer, '\0', MessageBufferSize);
   SensorData data;
   while(1) {
@@ -112,8 +111,6 @@ const char* CMD_STREAM_CB(char** args, int num_of_args) {
         return MessageBuffer;
   }
   }
-  // PortAMgr.PauseSensor();
-  // PortBMgr.PauseSensor();
   return "!E can't receive message from queue";
 }
 
@@ -121,10 +118,25 @@ const char* CMD_HELP_CB(char** args, int num_of_args) {
 return kHelpUsageString;
 }
 
+const char* CMD_SETSR_CB(char** args, int num_of_args) {
+  memset(MessageBuffer, '\0', MessageBufferSize);
+  int argBuffer[2];
+  const ArgSpecs SetIDSpecs = {2, 1000, 10};
+  if(ParseEnteredArgumentsToInt(args, argBuffer, SetIDSpecs)) {
+    PortAMgr.SetSampleTime(argBuffer[0]);
+    PortBMgr.SetSampleTime(argBuffer[1]);
+    snprintf(MessageBuffer, 1024, kSetSampleTimeFormatString, argBuffer[0], argBuffer[1]);
+    return MessageBuffer;
+  } else {
+    return kInvalidArgumentValues;
+  }
+}
+
 static USBServiceProtocolRegisters USBRegisters[kNumOfRegisters]{{"STATUS", 0, false, CMD_STATUS_CB},
                                                {"SETPORT", 3, false, CMD_SETPORT_CB},
                                                {"SETID", 1, false, CMD_SETID_CB},
                                                {"STREAM", 0, true, CMD_STREAM_CB},
+                                               {"SETSR", 2, false, CMD_SETSR_CB},
                                                {"HELP", 0, false, CMD_HELP_CB}};
 
 #endif
