@@ -10,18 +10,15 @@
 #include <Adafruit_SPIFlash.h>
 #include <i2c_helper.hpp>
 #include <sensor_helper.hpp>
-#include <Status.hpp>
+#include <DeviceManager.hpp>
 #include <measurement_grabber.hpp>
+#include <Status.hpp>
 #ifdef ENABLE_LOGGER
 #include <hal_log.hpp>
 #include <gpio.hpp>
 
 using namespace hal::log;
 #endif
-
-
-inline constexpr uint8_t kDeviceType = 0x01; // This device is a sensorhub (val 0x01)
-
 // i2c system bus
 inline constexpr uint8_t kW0_SDA = 26;  // PA22
 inline constexpr uint8_t kW0_SCL = 27;  // PA23
@@ -32,7 +29,6 @@ inline constexpr uint8_t kW1_SCL = 39;  // PA13
 inline constexpr uint8_t kW2_SDA = 11;  // PA16
 inline constexpr uint8_t kW2_SCL = 13;  // PA17
 
-
 inline constexpr uint8_t kSpiFramMisoPin = 2;
 inline constexpr uint8_t kSpiFramMosiPin = 4;
 inline constexpr uint8_t kSpiFramClkPin = 3;
@@ -42,6 +38,8 @@ TwoWire wireBackbone(&sercom3, kW0_SDA, kW0_SCL);  // Main
 TwoWire wireSensorA(&sercom1, kW1_SDA, kW1_SCL);  // Sensor A
 TwoWire wireSensorB(&sercom4, kW2_SDA, kW2_SCL);  // Sensor B
 
+I2CDriver i2c_handle_port_a = I2CDriver(&wireSensorA, kI2cSpeed_400KHz);
+I2CDriver i2c_handle_port_b = I2CDriver(&wireSensorB, kI2cSpeed_100KHz);
 
 void InitI2CPins() {
    pinPeripheral(kW0_SDA, PIO_SERCOM);
@@ -59,6 +57,7 @@ void InitI2CPins() {
 
 static DeviceManager PortAMgr;
 static DeviceManager PortBMgr;
+static Status DevStatus;
 #ifdef ENABLE_LOGGER
 
 Adafruit_FlashTransport_SPI flashTransport(kSpiFramSSPin, &SPI);

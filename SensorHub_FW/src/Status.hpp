@@ -1,86 +1,62 @@
 #ifndef STATUS_HPP
 #define STATUS_HPP
-#include <stdint.h>
-#include <device_settings.hpp>
-#include <measurement_grabber.hpp>
+#include <FlashAsEEPROM.h>
+#include <DeviceManager.hpp>
 
-typedef enum {
-UNDEFINED,
-SENSORHUB,
-ACTUATORHUB
-} DeviceTypes;
+const char kStatusFormatString[] = "{\"Status\": \"%s\", \"DeviceType\": %d, \"DeviceID:\": %d, \"PortASenType\": %d, "
+                                    "\"PORTBSENTYPE\": %d, \"PORTASAMPLETIME\": %d, \"PORTBSAMPLETIME\": %d}";
+inline constexpr uint32_t kDeviceIDEEPROMIndex = 0;
+inline constexpr char kUninitializedStatus[] = "Unitialized";
+inline constexpr char kInitializedStatus[] = "Initialized";
 
+inline constexpr uint8_t DeviceInitialized = 1;
+inline constexpr uint8_t DeviceUnitialized = 0;
 
-typedef enum {
-    TypeCompressionSensor,
-    TypeDifferentialPressureSensor,
-    TypefingerPositionSensor
-} SensorTypes;
+// Some specifications of the device
+inline constexpr uint8_t kDeviceType = SENSORHUB; 
+inline constexpr uint8_t kNumOfI2CPorts = 3;
+inline constexpr uint8_t kNumOfSensorPorts = 2;
 
-
-
-typedef struct{
-I2CDriver* I2CPort;
-UniversalSensor* SensorHandle;
-}I2CDevices;
-
-
-typedef struct{
-    uint8_t DeviceType;
-    uint8_t PortASensorType;
-    uint8_t PortBSensorType;
-    uint8_t PortASampleTime;
-    uint8_t PortBSampleTime;
-}DeviceStatus;
-
-class DeviceManager {
+class Status {
  public:
- void Init(UniversalSensor* obj_pool[3]){
-  Sensors = obj_pool;
- }
-  DeviceStatus GetDeviceStatus() {
-    DeviceStatus Status;
-    Status.DeviceType = SENSORHUB;
-    if(I2CDevice_.SensorHandle == NULL){
-      Status.PortASensorType = 0;
-      Status.PortBSensorType = 0;
-    } else {
-     Status.PortASensorType = I2CDevice_.SensorHandle->GetSensorType();
-     Status.PortBSensorType = I2CDevice_.SensorHandle->GetSensorType();
-    }
-    return Status;
-  }
-  void SetupI2C(I2CDriver* i2c_handle, QueueHandle_t* SensorQueue){
-    I2CDevice_.I2CPort = i2c_handle;
-    SensorQueue_ = SensorQueue;
-  }
-  void AssignSensorToI2CPort(SensorTypes Device) {
-    if( I2CDevice_.SensorHandle != NULL && I2CDevice_.SensorHandle != Sensors[Device]){
-        PortGrabber.ChangeSensor(Sensors[Device]);
-        I2CDevice_.SensorHandle = Sensors[Device];
-        I2CDevice_.SensorHandle->Initialize(I2CDevice_.I2CPort);
-        PortGrabber.ResumePollingTask();
-    } else if (I2CDevice_.SensorHandle == NULL) {
-        I2CDevice_.SensorHandle = Sensors[Device];
-        I2CDevice_.SensorHandle->Initialize(I2CDevice_.I2CPort);
-        PortGrabber.SetupPollTask(I2CDevice_.SensorHandle, 10, SensorQueue_, &PortGrabTask);
-    }
-  }
-  void SetSampleTime(const uint8_t sample_time){
-    PortGrabber.SetSampleTime(sample_time);
+  void SetDeviceID(uint8_t ID) { EEPROM.write(kDeviceIDEEPROMIndex, ID); }
+
+  uint8_t GetDeviceID() { return EEPROM.read(kDeviceIDEEPROMIndex); }
+
+  void GetDeviceStatus(char* write_buffer, const uint32_t write_buffer_size) {
+     uint8_t DeviceStatus = DeviceInitialized;
+      if(num_of_devices < kNumOfSensorPorts) {
+        DeviceStatus = DeviceUnitialized;
+      }
+      uint8_t DeviceId = 0;
+      uint8_t DeviceType = kDeviceType;
+      uint8_t sampletime[kNumOfSensorPorts];
+      uint8_t sensortype[kNumOfSensorPorts];
+      for(uint8_t i =0; i < num_of_devices; i++) {
+        const bool DeviceInitialized = (Devices[i] != NULL);
+        if(DeviceInitialized){
+            sampletime[i] = Devices[i]->GetSampleTime();
+            sensortype[i] = Devices[i]->GetSensorType();
+        } else {
+            sampletime[i] = 0;
+            sensortype[i] = 0;
+        }
+      }
+      const char *status_string = DeviceStatus ? kInitializedStatus : kUninitializedStatus;
+      snprintf(write_buffer, write_buffer_size, kStatusFormatString, status_string,
+                         DeviceType, DeviceId, sensortype[0], sensortype[1],
+                         sampletime[0], sampletime[1]);
   }
 
-  uint8_t GetSampleTime(){
-      return PortGrabber.GetSampleTime();
+  void AddDeviceManager(DeviceManager* devMgr) {
+    if(num_of_devices < kNumOfSensorPorts && devMgr != NULL) {
+        Devices[num_of_devices] = devMgr;
+        num_of_devices++;
+    }
   }
+
  private:
-  I2CDevices I2CDevice_;
-  MeasurementGrabber PortGrabber;
-  xTaskHandle PortGrabTask;
-  QueueHandle_t *SensorQueue_;
-  UniversalSensor **Sensors;
+  uint8_t num_of_devices = 0;
+  DeviceManager *Devices[kNumOfSensorPorts];
 };
-
-
-
 #endif

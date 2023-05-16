@@ -4,7 +4,6 @@
 #include <ServiceProtocol.hpp>
 #include <FreeRTOS.h>
 #include <ringbuffer.hpp>
-#include <Status.hpp>
 #ifdef ENABLE_LOGGER
 #include <hal_exception.hpp>
 
@@ -16,8 +15,6 @@ static LoggerSettings Log_module_settings;
 #endif
 
 static xTaskHandle PollTask;
-I2CDriver  i2c_handle_port_a = I2CDriver(&wireSensorA, kI2cSpeed_400KHz);
-I2CDriver  i2c_handle_port_b = I2CDriver(&wireSensorB, kI2cSpeed_100KHz);
 
 void setup() {
   Serial.begin(9600);
@@ -27,7 +24,6 @@ void setup() {
   i2c_handle_port_a.Init();
   i2c_handle_port_b.Init();
   InitI2CPins();
-
   ServiceProtocolQueue = xQueueCreateStatic( QUEUE_LENGTH, ITEM_SIZE, ucQueueStorageArea, &StaticServiceProtocolQueueStruct );
   PortAMgr.Init(Sensors_objPool1);
   PortBMgr.Init(Sensors_objPool2);
@@ -35,6 +31,8 @@ void setup() {
   PortBMgr.SetupI2C(&i2c_handle_port_b, &ServiceProtocolQueue);
   PortAMgr.AssignSensorToI2CPort(TypeCompressionSensor);
   PortBMgr.AssignSensorToI2CPort(TypeDifferentialPressureSensor);
+  DevStatus.AddDeviceManager(&PortAMgr);
+  DevStatus.AddDeviceManager(&PortBMgr);
   #ifdef ENABLE_LOGGER
   InitSerialLogger(log_inst, &Log_module_settings, &Serial);
   //InitFlashLogger(log_inst, &Log_module_settings, "test.txt");
@@ -45,7 +43,9 @@ void setup() {
   vTaskStartScheduler();
 }
 
-void loop() {}
+void loop() {
+
+}
 
 #else
 int main() {

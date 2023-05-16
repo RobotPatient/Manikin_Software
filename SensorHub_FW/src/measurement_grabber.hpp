@@ -4,29 +4,24 @@
 #include <FreeRTOS.h>
 #include <task.h>
 #include <queue.h>
-#include <Arduino.h>
 
 #define STACK_SIZE 250
 
+/**
+ * @brief Struct type used internally to pass arguments 
+ *        between class and MeasurementGrabberTask
+*/
 typedef struct{
 UniversalSensor* Sensor;
 uint8_t SampleTime;
 xQueueHandle* queue;
 }MeasurementGrabberData;
 
-
-void printResults(String Prefix, SensorData data){
-  for(int i =0; i< data.num_of_bytes/2; i++) {
-    Serial.print(Prefix+"R:");
-    Serial.print(data.buffer[i]);
-  }
-  if(data.num_of_bytes == 1){
-    Serial.print(data.buffer[0]);
-  }
-  Serial.print("\n");
-
-}
-
+/**
+ * @brief MeasurementGrabberTask which reads the sensor measurements
+ *        and sends the results to the queue assigned in the MeasurementGrabberData 
+ *        in the arguments (void *PvParameter).
+*/
 void MeasurementGrabberTask(void *PvParameter){
     MeasurementGrabberData* Data = (MeasurementGrabberData *) PvParameter;
     SensorData data;
@@ -42,7 +37,10 @@ void MeasurementGrabberTask(void *PvParameter){
     }
 }
 
-
+/**
+ * @brief MeasurementGrabberTask gives uniform interface for the sensor..
+ *        This way parameters like sampletime, measurementqueue and sensortype can be set.
+*/
 class MeasurementGrabber{
  public:
   void SetupPollTask(UniversalSensor* Sensor, uint8_t SampleTime, xQueueHandle* queue, xTaskHandle* Task){
@@ -83,9 +81,6 @@ class MeasurementGrabber{
     Data_.SampleTime = SampleTime;
     ResumePollingTask();
   }
-
-  void Subscribe() {}
-  void Unsubscribe() {}
 private:
  uint8_t SampleTime_;
  MeasurementGrabberData Data_;
