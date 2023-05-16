@@ -26,11 +26,13 @@ void MeasurementGrabberTask(void* PvParameter) {
   MeasurementGrabberData* Data = (MeasurementGrabberData*)PvParameter;
   SensorData data;
   while (1) {
-    data = Data->Sensor->GetSensorData();
-    if (xQueueSend(*(Data->queue), (void*)&data, (TickType_t)10) != pdPASS) {
-      /* Failed to post the message, even after 10 ticks. */
+    if (Data->Sensor != NULL) {
+      data = Data->Sensor->GetSensorData();
+      if (xQueueSend(*(Data->queue), (void*)&data, (TickType_t)10) != pdPASS) {
+        /* Failed to post the message, even after 10 ticks. */
+      }
+      vTaskDelay(Data->SampleTime / portTICK_PERIOD_MS);
     }
-    vTaskDelay(Data->SampleTime / portTICK_PERIOD_MS);
   }
 }
 
