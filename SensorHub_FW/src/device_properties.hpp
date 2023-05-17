@@ -37,7 +37,7 @@ class DeviceProperties {
   I2CDriver* DeviceI2CPort_;
   UniversalSensor* SensorHandle_;
   uint8_t CurrentSensorType_;
-  MeasurementGrabber PortGrabber_;
+  module::measurement_grabber::MeasurementGrabber PortGrabber_;
   xTaskHandle PortGrabTask_;
   QueueHandle_t* SensorQueue_;
   UniversalSensor** SensorObjPool_;

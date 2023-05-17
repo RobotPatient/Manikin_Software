@@ -5,6 +5,7 @@
 #include <task.h>
 #include <sensor_helper.hpp>
 
+namespace module::measurement_grabber {
 inline constexpr uint8_t kSensorPollingTaskStackSize =  150;
 
 /**
@@ -103,5 +104,5 @@ class MeasurementGrabber {
   StaticTask_t xTaskBuffer;
   StackType_t xStack[kSensorPollingTaskStackSize];
 };
-
+}
 #endif

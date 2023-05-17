@@ -1,14 +1,8 @@
 #ifdef __arm__
 #include <Arduino.h>
-#include <FreeRTOS.h>
 #include <device_settings.hpp>
 #include <hal_exception.hpp>
 #include <service_protocol.hpp>
-
-using namespace hal::exception;
-using namespace hal::log;
-using namespace module::status;
-static xTaskHandle PollTask;
 
 void setup() {
   Serial.begin(9600);
@@ -35,7 +29,7 @@ void setup() {
   systemStatus.AttachFlashLogger(statusLoggerInst);
   hal::exception::attachLogger(exceptionLoggerInst);
   usb_service_protocol::Init(USBRegisters, kNumOfRegisters);
-  usb_service_protocol::SetPollingTask(&PollTask);
+  usb_service_protocol::SetPollingTask(&USBServiceProtocolReadTask);
   vTaskStartScheduler();
 }
 

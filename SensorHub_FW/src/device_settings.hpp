@@ -49,6 +49,7 @@ void InitI2CPins() {
  *        These are interfaces to get sensors, set sensortype and certain
  *        measuring characteristics (like sample rate).
  */
+static xTaskHandle USBServiceProtocolReadTask;
 static DeviceProperties portAProperties;
 static DeviceProperties portBProperties;
 static module::status::DeviceStatus systemStatus;

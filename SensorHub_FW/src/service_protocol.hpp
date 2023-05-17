@@ -7,8 +7,6 @@
 #include <ringbuffer.hpp>
 #include <usb_service_protocol.hpp>
 
-using namespace usb_service_protocol;
-
 inline constexpr char status[] = "OK";
 
 const char kStreamFormatString[] = "{\"NumOfShorts\": %d, \"SampleNum\": %d, \"Sensor\": %d, \"Buf\": [";
@@ -132,7 +130,7 @@ const char* CMD_SETSR_CB(char** args, int num_of_args) {
   }
 }
 
-static USBServiceProtocolRegisters USBRegisters[kNumOfRegisters]{
+static usb_service_protocol::USBServiceProtocolRegisters USBRegisters[kNumOfRegisters]{
     {"STATUS", 0, false, CMD_STATUS_CB}, {"SETPORT", 3, false, CMD_SETPORT_CB}, {"SETID", 1, false, CMD_SETID_CB},
     {"STREAM", 0, true, CMD_STREAM_CB},  {"SETSR", 2, false, CMD_SETSR_CB},     {"HELP", 0, false, CMD_HELP_CB}};
 

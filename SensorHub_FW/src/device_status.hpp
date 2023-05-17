@@ -45,19 +45,45 @@ inline constexpr uint8_t kBBPortIndex = 2;
 
 class DeviceStatus {
  public:
+  /**
+   * @brief Set the device type (SensorHub, ActuatorHub, etc.)
+   * @param device_type The device type to set (see the above listed DeviceTypes enum)
+  */
   void SetDeviceType(DeviceTypes device_type) { device_type_ = device_type; }
+
+  /**
+   * @brief Set the unique device id (will write it to flash memory)
+   * @param ID The ID to write to flash/set
+  */
   void SetDeviceID(const uint8_t ID) {
-    log_->setcursorpos(kIDLocationInFlash);
-    log_->writebyte(ID);
+    if (log_ != NULL) {
+      log_->setcursorpos(kIDLocationInFlash);
+      log_->writebyte(ID);
+    }
   }
 
+  /**
+   * @brief Get the unique device id (read from flash)
+   * @return The ID read from flash
+  */
   uint8_t GetDeviceID() {
-    char ID;
-    log_->setcursorpos(kIDLocationInFlash);
-    log_->readbyte(&ID);
-    return ID;
+    if (log_ != NULL) {
+      char ID;
+      log_->setcursorpos(kIDLocationInFlash);
+      log_->readbyte(&ID);
+      return ID;
+    } else {
+      return 0;
+    }
   }
 
+  /**
+   * @brief Get the device status, collected from other functions of this class and 
+   *        the DeviceProperties class.
+   * 
+   * @param write_buffer The write_buffer to write the parsed status string in to!
+   * @param write_buffer_size The size of the write_buffer array passed in to the arguments
+  */
   void GetDeviceStatus(char* write_buffer, const uint32_t write_buffer_size) {
     uint8_t DeviceStatus = kDeviceInitialized;
     if (num_of_devices < kNumOfSensorPorts) {
@@ -77,25 +103,36 @@ class DeviceStatus {
         sensortype[port_index] = 0;
       }
     }
-    const char* status_string = DeviceStatus ? kInitializedStatus : kUninitializedStatus;
+    const char* status_string = (DeviceStatus == kDeviceInitialized) ? kInitializedStatus : kUninitializedStatus;
     snprintf(write_buffer, write_buffer_size, kStatusFormatString, status_string, device_type, device_id,
              sensortype[kSensorPortAIndex], sensortype[kSensorPortBIndex], sample_rate[kSensorPortAIndex],
              sample_rate[kSensorPortBIndex]);
   }
 
+  /**
+   * @brief Add the device properties classes, as this provides easier access to the
+   *        properties like sample rate, sensortype's etc. It will add this to an internal 
+   *        array.
+   * @param device_properties A pointer to a device_properties instance.
+  */
   void AddDeviceManager(DeviceProperties* device_properties) {
     if (num_of_devices < kNumOfSensorPorts && device_properties != NULL) {
       devices_[num_of_devices] = device_properties;
       num_of_devices++;
     }
   }
-
+  
+  /**
+   * @brief Attach a logger object to this class. So the DeviceID functions can read and write
+   *        the id to/from flash.
+   * @param log_module A pointer to a logger instance
+  */
   void AttachFlashLogger(hal::log::Logger* log_module) { log_ = log_module; }
 
  private:
   uint8_t num_of_devices = 0;
   DeviceTypes device_type_;
-  hal::log::Logger* log_;
+  hal::log::Logger* log_ = NULL;
   DeviceProperties* devices_[kNumOfSensorPorts];
 };
 }  // namespace module::status
