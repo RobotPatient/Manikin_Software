@@ -5,7 +5,7 @@
 #include <task.h>
 #include <sensor_helper.hpp>
 
-#define STACK_SIZE 250
+inline constexpr uint8_t kSensorPollingTaskStackSize =  150;
 
 /**
  * @brief Struct type used internally to pass arguments 
@@ -42,6 +42,9 @@ void MeasurementGrabberTask(void* PvParameter) {
 */
 class MeasurementGrabber {
  public:
+ /**
+  * @brief Initialize the polling task for reading the sensor with set sample time..
+ */
   void SetupPollTask(UniversalSensor* Sensor, uint8_t SampleTime,
                      xQueueHandle* queue, xTaskHandle* Task) {
     Data_ = {Sensor, SampleTime, queue};
@@ -49,26 +52,40 @@ class MeasurementGrabber {
     *Task = xTaskCreateStatic(
         MeasurementGrabberTask,     /* Function that implements the task. */
         "Measurement grabber task", /* Text name for the task. */
-        STACK_SIZE,                 /* Number of indexes in the xStack array. */
+        kSensorPollingTaskStackSize, /* Number of indexes in the xStack array. */
         (void*)&Data_,              /* Parameter passed into the task. */
         (2 | portPRIVILEGE_BIT),    /* Priority at which the task is created. */
         xStack,                     /* Array to use as the task's stack. */
         &xTaskBuffer); /* Variable to hold the task's data structure. */
     Task_ = Task;
   }
-
+  /**
+   * @brief Suspend the created polling task
+  */
   void SuspendPollingTask() { vTaskSuspend(*Task_); }
 
+  /**
+   * @brief Resume the created polling task
+  */
   void ResumePollingTask() { vTaskResume(*Task_); }
 
+  /**
+   * @brief Change the current sensor to a new given one
+  */
   void ChangeSensor(UniversalSensor* Sensor) {
     SuspendPollingTask();
     Sensor->Uninitialize();
     Data_.Sensor = Sensor;
   }
 
+  /**
+   * @brief Get the currently set sampletime
+  */
   uint8_t GetSampleTime() { return SampleTime_; }
 
+  /**
+   * @brief Set a new sampletime
+  */
   void SetSampleTime(const uint8_t SampleTime) {
     SampleTime_ = SampleTime;
     SuspendPollingTask();
@@ -77,15 +94,14 @@ class MeasurementGrabber {
   }
 
  private:
+  /**
+   * @note Keep local copy of SampleTime_ that isn't accessed by the task
+  */
   uint8_t SampleTime_;
   MeasurementGrabberData Data_;
   xTaskHandle* Task_;
-  /* Structure that will hold the TCB of the task being created. */
   StaticTask_t xTaskBuffer;
-  /* Buffer that the task being created will use as its stack.  Note this is
-    an array of StackType_t variables.  The size of StackType_t is dependent on
-    the RTOS port. */
-  StackType_t xStack[STACK_SIZE];
+  StackType_t xStack[kSensorPollingTaskStackSize];
 };
 
 #endif
