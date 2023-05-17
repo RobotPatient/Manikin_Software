@@ -12,6 +12,7 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Start");
   control = new BreathingControl();
+  control->start();
 }
 
 void loop() {

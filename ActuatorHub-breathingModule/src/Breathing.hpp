@@ -42,7 +42,7 @@
  * PA21 ACT4
  */
 #define BREATHING_PORT hal::gpio::GPIOPort::kGPIOPortA
-#define BREATHING_PIN 19
+#define BREATHING_PIN 20
 
 class Breathing {
  public:
@@ -50,8 +50,9 @@ class Breathing {
   ~Breathing();
 
   void init();
-  void startBreathing(datapoint_t);
+  void startBreathing();
   void stopBreathing();
+  void setDutyCyle(int dutyCycle);
 
  private:
   actuator::Motor *motor_;

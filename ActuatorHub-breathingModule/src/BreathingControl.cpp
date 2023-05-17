@@ -42,11 +42,19 @@ BreathingControl::~BreathingControl() {
   delete compression_;
 }
 
+void BreathingControl::start() {
+  breathing_->startBreathing();
+  compression_->StartCompression();
+}
+
 void BreathingControl::loop() {
   Serial.print("Index: ");
-  Serial.println(breathingData_->nextDataPoint().index);
-  compression_->loop(breathingData_->getCurrent().compressionPoint);
-  breathing_->startBreathing(breathingData_->getCurrent().breathingPoint);
+  Serial.print(breathingData_->nextDataPoint().index);
+  Serial.print(" Bpoint = ");
+  Serial.print(breathingData_->getCurrent().breathingPoint);
+  Serial.print(" Cpoint = ");
+  Serial.println(breathingData_->getCurrent().compressionPoint);
+  compression_->setDutyCycle(breathingData_->getCurrent().compressionPoint);
+  breathing_->setDutyCyle(breathingData_->getCurrent().breathingPoint);
   delay(1000);
-  breathing_->stopBreathing();
 }

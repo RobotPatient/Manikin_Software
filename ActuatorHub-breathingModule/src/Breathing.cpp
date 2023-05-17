@@ -38,14 +38,14 @@ Breathing::~Breathing() {
 
 void Breathing::init() {}
 
-void Breathing::startBreathing(datapoint_t nextPoint) {
-  // nextPoint --> speed of motor/amount of exhaling? (0-100) --> (0-255)
-  // motor_->startRotate((nextPoint / 100) * 255);
-  motor_->startRotate(nextPoint);
-  // motor_->stopRotate();
-}
+void Breathing::startBreathing() { motor_->startRotate(); }
 
 void Breathing::stopBreathing() {
   motor_->stopRotate();
   // TODO: motor_->releaseRotate
+}
+
+void Breathing::setDutyCyle(int dutyCycle) {
+  motor_->setDuctyCycle(dutyCycle);
+  //  t
 }

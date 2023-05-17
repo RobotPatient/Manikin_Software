@@ -36,7 +36,7 @@
 #include "BreathingData.hpp"
 
 #define COMPRESSION_PORT hal::gpio::GPIOPort::kGPIOPortA
-#define COMPRESSION_PIN 7
+#define COMPRESSION_PIN 21
 
 class Compression {
  public:
@@ -48,7 +48,8 @@ class Compression {
   ~Compression();
 
   void init();
-  void loop(datapoint_t);
+  void StartCompression();
+  void setDutyCycle(int);
 
  private:
   actuator::Motor *motor_;

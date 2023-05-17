@@ -43,6 +43,8 @@ class BreathingControl {
 
   ~BreathingControl();
 
+  void start();
+
   void loop();
 
  private:

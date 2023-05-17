@@ -35,17 +35,12 @@ Compression::Compression() {
 
 Compression::~Compression() { delete motor_; }
 
-void Compression::init() {
-  motor_->stopRotate();
+void Compression::StartCompression() {
+  motor_->startRotate();
   // TODO: wait for Compression signal to zero out motor
 }
 
-void Compression::loop(datapoint_t nextPoint) {
+void Compression::setDutyCycle(int dutyCycle) {
   // TODO: some timing? maybe use servo?
-  nextPoint;
-  uint16_t pwm;
-  motor_->startRotate(pwm);
-
-  motor_->stopRotate();
-  // analogWrite(11, 255);
+  motor_->setDuctyCycle(dutyCycle);
 }
