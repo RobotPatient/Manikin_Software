@@ -1,5 +1,4 @@
 #ifdef __arm__
-#include <Arduino.h>
 #include <device_settings.hpp>
 #include <hal_exception.hpp>
 #include <service_protocol.hpp>
