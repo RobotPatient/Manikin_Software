@@ -11,6 +11,7 @@
 #include <hal_log.hpp>
 #include <i2c_helper.hpp>
 #include <measurement_grabber.hpp>
+#include <device_sensor_lib_settings.hpp>
 #include <sensor_helper.hpp>
 #include "Wire.h"
 #include "wiring_private.h"
@@ -165,19 +166,18 @@ QueueHandle_t serviceProtocolQueue;
  *        created
  *
 */
-inline constexpr uint8_t kNumOfSensorTypes = 4;
 static CompressionSensor compressionSens1;
 static DifferentialPressureSensor ventilationSensor1;
 static FingerPositionSensor fingerPositionSensor1;
 
-UniversalSensor* sensorsObjPool1[kNumOfSensorTypes] = {NULL, &compressionSens1, &ventilationSensor1,
+UniversalSensor* sensorsObjPool1[kNumOfSupportedSensors] = {NULL, &compressionSens1, &ventilationSensor1,
                                                       &fingerPositionSensor1};
 
 static CompressionSensor compressionSensor2;
 static DifferentialPressureSensor ventilationSensor2;
 static FingerPositionSensor fingerPositionSensor2;
 
-UniversalSensor* sensorsObjPool2[kNumOfSensorTypes] = {NULL, &compressionSensor2, &ventilationSensor2,
+UniversalSensor* sensorsObjPool2[kNumOfSupportedSensors] = {NULL, &compressionSensor2, &ventilationSensor2,
                                                       &fingerPositionSensor2};
 
 #endif
