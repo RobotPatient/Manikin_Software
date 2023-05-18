@@ -13,20 +13,18 @@
 */
 const char kStreamFormatString[] = "{\"NumOfShorts\": %d, \"SampleNum\": %d, \"Sensor\": %d, \"Buf\": [";
 const char kStreamDataFormatString[] = "{ \"Val\": %d}";
-const char kHelpUsageString[] =
-    "**********************************HELP************************************"
-    "\r\n"
-    "CMDS: STATUS - Prints: status of the system, connected devices and "
-    "sampletime\r\n"
-    "      SETPORT [DeviceType portA] [DeviceType portB] [DeviceType BackBone] "
-    "\r\n"
-    "             - Setup (sensor) software drivers on the selected port in "
-    "argument\r\n"
-    "      SETID [UniqueDeviceID] - Sets a unique identifier for the system\r\n"
-    "      STREAM - Stream current sensor measurements to this console\r\n"
-    "      SETSR [Sample rate port a] [Sample rate port b] - Sets the sample rate for \r\n"
-    "                                         port a in b in milliseconds (10-1000 ms)\r";
-
+const char kHelpUsageString[] = "**********************************HELP************************************"
+                                "\r\n"
+                                "CMDS: STATUS - Prints: status of the system, connected devices and "
+                                "sampletime\r\n"
+                                "      SETPORT [DeviceType portA] [DeviceType portB] [DeviceType BackBone] "
+                                "\r\n"
+                                "             - Setup (sensor) software drivers on the selected port in "
+                                "argument\r\n"
+                                "      SETID [UniqueDeviceID] - Sets a unique identifier for the system\r\n"
+                                "      STREAM - Stream current sensor measurements to this console\r\n"
+                                "      SETSR [Sample rate port a] [Sample rate port b] - Sets the sample rate for \r\n"
+                                "                                         port a in b in milliseconds (10-1000 ms)\r";
 const char kSetPortFormatString[] = "!OK Port A set to: %d, Port B set to: %d, Port BB set to: %d";
 const char kInvalidArgumentValues[] = "!E Invalid arguments entered!";
 const char kSetIDFormatString[] = "!OK Device id is set to: %d";
@@ -90,9 +88,9 @@ typedef struct {
  * 
 */
 uint8_t ParseEnteredArgumentsToInt(char** argument, int* buffer, const ArgSpecs ArgSpec) {
-  for (uint8_t i = 0; i < ArgSpec.num_of_arguments; i++) {
-    buffer[i] = atoi(argument[i]);
-    if (buffer[i] < ArgSpec.lower_range || buffer[i] > ArgSpec.upper_range) {
+  for (uint8_t arg_num = 0; arg_num < ArgSpec.num_of_arguments; arg_num++) {
+    buffer[arg_num] = atoi(argument[arg_num]);
+    if (buffer[arg_num] < ArgSpec.lower_range || buffer[arg_num] > ArgSpec.upper_range) {
       return ParseFail;
     }
   }
@@ -108,9 +106,9 @@ void ComposeJsonFormattedStringOfSensorData(SensorData* data) {
   memset(MessageBuffer, '\0', kMessageBufferSize);
   uint8_t num_of_shorts = data->num_of_bytes > 1 ? (data->num_of_bytes) / 2 : 1;
   int writecnt = snprintf(MessageBuffer, kMessageBufferSize, kStreamFormatString, num_of_shorts, data->sample_num, data->sensor_id);
-  for (uint8_t i = 0; i < num_of_shorts; i++) {
-    writecnt += snprintf(MessageBuffer + writecnt, kMessageBufferSize - writecnt, kStreamDataFormatString, data->buffer[i]);
-    if (i != num_of_shorts - 1)
+  for (uint8_t sensor_short_num = 0; sensor_short_num < num_of_shorts; sensor_short_num++) {
+    writecnt += snprintf(MessageBuffer + writecnt, kMessageBufferSize - writecnt, kStreamDataFormatString, data->buffer[sensor_short_num]);
+    if (sensor_short_num != num_of_shorts - 1)
       writecnt += snprintf(MessageBuffer + writecnt, kMessageBufferSize - writecnt, ",");
   }
   snprintf(MessageBuffer + writecnt, kMessageBufferSize - writecnt, "]}");
@@ -196,6 +194,7 @@ const char* CMD_STREAM_CB(char** args, int num_of_args) {
   memset(MessageBuffer, '\0', kMessageBufferSize);
   SensorData data;
   while (1) {
+    // Receive the SensorData from the message queue
     if (xQueueReceive(serviceProtocolQueue, &(data), (TickType_t)10) == pdPASS) {
       ComposeJsonFormattedStringOfSensorData
     (&data);
