@@ -20,9 +20,9 @@ void setup() {
   /**
    * @note Create command queue for transmitting sensordata from grabber task to the service protocol cb methods
   */
-  serviceProtocolQueue = xQueueCreateStatic( kServiceProtocolQueueLength, kServiceProtocolQueueItemSize,
+  serviceProtocolQueue = xQueueCreateStatic(kServiceProtocolQueueLength, kServiceProtocolQueueItemSize,
                                             serviceProtocolQueueStorageArea, &staticServiceProtocolQueueStruct);
-  
+
   /**
    * @note Initiate the sensorports, assign i2c ports with message queue and assign initial sensor!
   */
@@ -57,9 +57,7 @@ void setup() {
   vTaskStartScheduler();
 }
 
-void loop() {
-
-}
+void loop() {}
 
 #else
 int main() {
