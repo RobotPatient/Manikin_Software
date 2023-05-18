@@ -56,6 +56,7 @@ class DeviceProperties {
    * @brief Suspend sensor measurements polling task
   */
   void PauseSensor() { PortGrabber_.SuspendPollingTask(); }
+
   /**
    * @brief Get the current sample rate
    * @return sample rate in milliseconds
@@ -70,7 +71,7 @@ class DeviceProperties {
 
  private:
   /**
-   * @note The handles used to create the and control the polling task
+   * @note The handles used to create and control the polling task
   */
   I2CDriver* DeviceI2CPort_;
   UniversalSensor* SensorHandle_;

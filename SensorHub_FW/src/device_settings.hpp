@@ -15,33 +15,43 @@
 #include "Wire.h"
 #include "wiring_private.h"
 
-// i2c system bus
+/**
+ * @brief Constants for the I2C bus
+*/
 inline constexpr uint8_t kNumOfI2CPorts = 3;
-inline constexpr uint8_t kW0_SDA = 26;  // PA22
-inline constexpr uint8_t kW0_SCL = 27;  // PA23
+inline constexpr uint8_t kBackBonePortSDA = 26;  // PA22
+inline constexpr uint8_t kBackBonePortSCL = 27;  // PA23
 
-inline constexpr uint8_t kW1_SDA = 28;  // PA12
-inline constexpr uint8_t kW1_SCL = 39;  // PA13
+inline constexpr uint8_t kSensorPortASDA = 28;  // PA12
+inline constexpr uint8_t kSensorPortASCL = 39;  // PA13
 
-inline constexpr uint8_t kW2_SDA = 11;  // PA16
-inline constexpr uint8_t kW2_SCL = 13;  // PA17
+inline constexpr uint8_t kSensorPortBSDA = 11;  // PA16
+inline constexpr uint8_t kSensorPortBSCL = 13;  // PA17
 
-TwoWire wireBackbone(&sercom3, kW0_SDA, kW0_SCL);  // Main
-TwoWire wireSensorA(&sercom1, kW1_SDA, kW1_SCL);   // Sensor A
-TwoWire wireSensorB(&sercom4, kW2_SDA, kW2_SCL);   // Sensor B
+TwoWire wireBackbone(&sercom3, kBackBonePortSDA, kBackBonePortSCL);  // Main
+TwoWire wireSensorA(&sercom1, kSensorPortASDA, kSensorPortASCL);   // Sensor A
+TwoWire wireSensorB(&sercom4, kSensorPortBSDA, kSensorPortBSCL);   // Sensor B
 
 I2CDriver i2c_handle_port_a = I2CDriver(&wireSensorA, kI2cSpeed_400KHz);
 I2CDriver i2c_handle_port_b = I2CDriver(&wireSensorB, kI2cSpeed_100KHz);
 
+/**
+ * @brief This function sets the internal pin mux in the samd to the
+ *        right SERCOM peripherals.
+ * 
+ * @note This function needs to be run after initializing the peripherals.
+ *       If ran first, it will either freeze the device, cause undefined behaviour or 
+ *       the I2C will not work at all! 
+*/
 void InitI2CPins() {
-  pinPeripheral(kW0_SDA, PIO_SERCOM);
-  pinPeripheral(kW0_SCL, PIO_SERCOM);
+  pinPeripheral(kBackBonePortSDA, PIO_SERCOM);
+  pinPeripheral(kBackBonePortSCL, PIO_SERCOM);
 
-  pinPeripheral(kW1_SDA, PIO_SERCOM_ALT);
-  pinPeripheral(kW1_SCL, PIO_SERCOM_ALT);
+  pinPeripheral(kSensorPortASDA, PIO_SERCOM_ALT);
+  pinPeripheral(kSensorPortASCL, PIO_SERCOM_ALT);
 
-  pinPeripheral(kW2_SDA, PIO_SERCOM);
-  pinPeripheral(kW2_SCL, PIO_SERCOM);
+  pinPeripheral(kSensorPortBSDA, PIO_SERCOM);
+  pinPeripheral(kSensorPortBSCL, PIO_SERCOM);
 }
 
 /**
@@ -65,6 +75,9 @@ static hal::log::LoggerSettings statusLoggerSettings;
 hal::log::Logger* exceptionLoggerInst;
 static hal::log::LoggerSettings exceptionLoggerSettings;
 
+/**
+ * @brief This function initializes the Serial logger for the exception module.
+*/
 void InitSerialExceptionLogger() {
   exceptionLoggerSettings.CommHandle.SerialHandle = &Serial;
   exceptionLoggerSettings.CommMethod = hal::log::communicationMethod::Serial;
@@ -72,15 +85,17 @@ void InitSerialExceptionLogger() {
   exceptionLoggerInst->init();
 }
 
+/** 
+ * @brief All the handles for flash initialization and control
+*/
 inline constexpr uint8_t kSpiFramSSPin = 9;
-
 Adafruit_FlashTransport_SPI flashTransport(kSpiFramSSPin, &SPI);
 Adafruit_SPIFlash flash(&flashTransport);
 FatVolume fatfs;
-
 static const SPIFlash_Device_t my_flash_devices[] = {MB85RS2MTA};
-
 static char flashLoggerFilepath[hal::log::kMaxFilePathSize];
+
+
 constexpr const char* kLoggerFilePathPrefix = "/LOG/";
 
 void InitExternalFlashMemory() {
