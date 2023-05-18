@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <FreeRTOS.h>
 #include <queue.h>
+#include <device_settings.hpp>
 #include <device_status.hpp>
 #include <ringbuffer.hpp>
 #include <usb_service_protocol.hpp>
@@ -74,6 +75,20 @@ typedef struct {
   int lower_range;
 } ArgSpecs;
 
+/**
+ * @brief This function will convert the string type arguments to an integer
+ *        and check if the argument value falls within the given Argspec range
+ * 
+ * @param argument An two dimensional array containing the string argument values.
+ * @param buffer An integer buffer to save the parsed arguments to.
+ * @param ArgSpec A struct containing the number of arguments to parse, 
+ *                the permitted max value of the argument and 
+ *                the permitted min value of the argument
+ * @return 1 on Succes! 0 on Fail!
+ * 
+ * @note All arguments are checked with the same upper and lower range from the ArgSpec struct!
+ * 
+*/
 uint8_t ParseEnteredArgumentsToInt(char** argument, int* buffer, const ArgSpecs ArgSpec) {
   for (uint8_t i = 0; i < ArgSpec.num_of_arguments; i++) {
     buffer[i] = atoi(argument[i]);
@@ -84,11 +99,15 @@ uint8_t ParseEnteredArgumentsToInt(char** argument, int* buffer, const ArgSpecs 
   return ParseOK;
 }
 
-void ComposeJsonDataReq(SensorData* data) {
+/**
+ * @brief This function will compose a Json formatted string of the sensordata and put it in to the messagebuffer
+ * 
+ * @param data The SensorData to convert to Json String
+*/
+void ComposeJsonFormattedStringOfSensorData(SensorData* data) {
   memset(MessageBuffer, '\0', kMessageBufferSize);
   uint8_t num_of_shorts = data->num_of_bytes > 1 ? (data->num_of_bytes) / 2 : 1;
-  int writecnt = snprintf(MessageBuffer, kMessageBufferSize, kStreamFormatString, num_of_shorts, data->sample_num,
-                     data->sensor_id);
+  int writecnt = snprintf(MessageBuffer, kMessageBufferSize, kStreamFormatString, num_of_shorts, data->sample_num, data->sensor_id);
   for (uint8_t i = 0; i < num_of_shorts; i++) {
     writecnt += snprintf(MessageBuffer + writecnt, kMessageBufferSize - writecnt, kStreamDataFormatString, data->buffer[i]);
     if (i != num_of_shorts - 1)
@@ -97,12 +116,31 @@ void ComposeJsonDataReq(SensorData* data) {
   snprintf(MessageBuffer + writecnt, kMessageBufferSize - writecnt, "]}");
 }
 
+/**
+ * @brief Callback function for the STATUS command. This function will be ran when STATUS command is entered.
+ *        The STATUS command return the status of the system in a formatted JSON string.
+ * 
+ * @param args A two dimensional array containing the arguments entered after the command
+ * @param num_of_args The number of arguments entered after the command
+ * 
+ * @return Command response string, which will be a json formatted status string.
+*/
 const char* CMD_STATUS_CB(char** args, int num_of_args) {
   memset(MessageBuffer, '\0', kMessageBufferSize);
   systemStatus.GetDeviceStatus(MessageBuffer, kMessageBufferSize);
   return MessageBuffer;
 }
 
+/**
+ * @brief Callback function for the SETPORT command. This function will be ran when SETPORT command is entered.
+ *        The SETPORT command sets the sensortypes for the given ports..
+ * 
+ * @param args A two dimensional array containing the arguments entered after the command
+ * @param num_of_args The number of arguments entered after the command
+ * 
+ * @return Command response string, which will be a !OK ..[confirmation of entered arguments] if arguments where valid numbers
+ *         !E Invalid arguments entered if the arguments where not valid!
+*/
 const char* CMD_SETPORT_CB(char** args, int num_of_args) {
   memset(MessageBuffer, '\0', kMessageBufferSize);
   int argBuffer[kNumOfI2CPorts];
@@ -119,6 +157,17 @@ const char* CMD_SETPORT_CB(char** args, int num_of_args) {
   }
 }
 
+/**
+ * @brief Callback function for the SETID command. This function will be ran when SETID command is entered.
+ *        The SETID command sets an unique identifier for this subsystem (ID will be written to external flash!).
+ *        ID can be read using STATUS command!
+ * 
+ * @param args A two dimensional array containing the arguments entered after the command
+ * @param num_of_args The number of arguments entered after the command
+ * 
+ * @return Command response string, which will be a !OK ..[confirmation of entered arguments] if arguments where valid numbers
+ *         !E Invalid arguments entered if the arguments where not valid!
+*/
 const char* CMD_SETID_CB(char** args, int num_of_args) {
   memset(MessageBuffer, '\0', kMessageBufferSize);
   int argBuffer[kNumOfArgumentsSetID];
@@ -133,22 +182,52 @@ const char* CMD_SETID_CB(char** args, int num_of_args) {
   }
 }
 
+/**
+ * @brief Callback function for the STREAM command. This function will be ran when STREAM command is entered.
+ *        This command is an stream command, meaning it will run repeatedly until \r (ENTER) is detected in serial console.
+ *        The Stream command returns the sensordata of each sensor in a formatted json string.
+ * 
+ * @param args A two dimensional array containing the arguments entered after the command
+ * @param num_of_args The number of arguments entered after the command
+ * 
+ * @return Command response string, which will be a json formatted string!
+*/
 const char* CMD_STREAM_CB(char** args, int num_of_args) {
   memset(MessageBuffer, '\0', kMessageBufferSize);
   SensorData data;
   while (1) {
     if (xQueueReceive(serviceProtocolQueue, &(data), (TickType_t)10) == pdPASS) {
-      ComposeJsonDataReq(&data);
+      ComposeJsonFormattedStringOfSensorData
+    (&data);
       return MessageBuffer;
     }
   }
   return "!E can't receive message from queue";
 }
 
+/**
+ * @brief Callback function for the HELP command. This function will be ran when HELP command is entered.
+ *        The HELP command return the usage of the console in a formatted string.
+ * 
+ * @param args A two dimensional array containing the arguments entered after the command
+ * @param num_of_args The number of arguments entered after the command
+ * 
+ * @return Command response string, which will be a formatted string explaining how to use this console!
+*/
 const char* CMD_HELP_CB(char** args, int num_of_args) {
   return kHelpUsageString;
 }
 
+/**
+ * @brief Callback function for the SETSR command. This function will be ran when SETSR command is entered.
+ *        The SETSR command sets the sample rate for the sensorports.
+ * 
+ * @param args A two dimensional array containing the arguments entered after the command
+ * @param num_of_args The number of arguments entered after the command
+ * 
+ * @return Command response string, which will be a !OK ..[confirmation of entered arguments] if arguments where valid numbrs
+ *         !E Invalid arguments entered if the arguments where not valid!
+*/
 const char* CMD_SETSR_CB(char** args, int num_of_args) {
   memset(MessageBuffer, '\0', kMessageBufferSize);
   int argBuffer[kNumOfArgumentsSetSR];
@@ -164,8 +243,15 @@ const char* CMD_SETSR_CB(char** args, int num_of_args) {
   }
 }
 
-static usb_service_protocol::USBServiceProtocolRegisters USBRegisters[kNumOfRegisters]{
-    {"STATUS", 0, false, CMD_STATUS_CB}, {"SETPORT", kNumOfArgumentsSetPort, false, CMD_SETPORT_CB}, {"SETID", kNumOfArgumentsSetID, false, CMD_SETID_CB},
-    {"STREAM", 0, true, CMD_STREAM_CB},  {"SETSR", kNumOfArgumentsSetSR, false, CMD_SETSR_CB},     {"HELP", 0, false, CMD_HELP_CB}};
-
+/**
+ * @brief STATIC declaration of all the CB methods and command information
+ * @note The format of the struct is { "String of the command", Number of Arguments, Command is stream command, Pointer to callback method}
+ * @note Stream command means that command will be ran repeatedly when entered. Command can be stopped by pressing enter key or '\r' character
+*/
+static usb_service_protocol::USBServiceProtocolRegisters USBRegisters[kNumOfRegisters]{ {"STATUS", 0, false, CMD_STATUS_CB}, 
+                                                                                        {"SETPORT", kNumOfArgumentsSetPort, false, CMD_SETPORT_CB}, 
+                                                                                        {"SETID", kNumOfArgumentsSetID, false, CMD_SETID_CB},
+                                                                                        {"STREAM", 0, true, CMD_STREAM_CB}, 
+                                                                                        {"SETSR", kNumOfArgumentsSetSR, false, CMD_SETSR_CB}, 
+                                                                                        {"HELP", 0, false, CMD_HELP_CB}};
 #endif
