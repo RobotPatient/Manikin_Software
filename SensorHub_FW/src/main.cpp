@@ -5,7 +5,7 @@
 #include <service_protocol.hpp>
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   while (!Serial)
     continue;
 
@@ -48,7 +48,7 @@ void setup() {
    * @note Initiate the Exception module
   */
   hal::exception::attachLogger(exceptionLoggerInst);
-  
+
   /**
    * @note Initiate the USB service protocol
   */
