@@ -58,6 +58,16 @@ inline constexpr int kLowerRangeArgSetSR = 10;
 inline constexpr uint8_t ParseOK = 1;
 inline constexpr uint8_t ParseFail = 0;
 
+/**
+ * @brief Struct used to pass options for 
+ *        argument parsing between methods
+ * 
+ * @note num_of_arguments is the number of arguments to check
+ * @note upper_range is the highest integer number the argument can be
+ * @note lower_range is the lowest integer number the argument can be
+ * 
+ * @note The argument has to be in between these two numbers!
+*/
 typedef struct {
   uint8_t num_of_arguments;
   int upper_range;
@@ -97,7 +107,8 @@ const char* CMD_SETPORT_CB(char** args, int num_of_args) {
   memset(MessageBuffer, '\0', kMessageBufferSize);
   int argBuffer[kNumOfI2CPorts];
   const ArgSpecs SetPortSpecs = {kNumOfI2CPorts, kUpperRangeArgSetPort, kLowerRangeArgSetPort};
-  if (ParseEnteredArgumentsToInt(args, argBuffer, SetPortSpecs)) {
+  const bool ArgumentsAreValid = ParseEnteredArgumentsToInt(args, argBuffer, SetPortSpecs);
+  if (ArgumentsAreValid) {
     portAProperties.AssignSensorToI2CPort((SensorTypes)argBuffer[module::status::kSensorPortAIndex]);
     portBProperties.AssignSensorToI2CPort((SensorTypes)argBuffer[module::status::kSensorPortBIndex]);
     snprintf(MessageBuffer, kMessageBufferSize, kSetPortFormatString, argBuffer[module::status::kSensorPortAIndex],
@@ -112,7 +123,8 @@ const char* CMD_SETID_CB(char** args, int num_of_args) {
   memset(MessageBuffer, '\0', kMessageBufferSize);
   int argBuffer[kNumOfArgumentsSetID];
   const ArgSpecs SetIDSpecs = {kNumOfArgumentsSetID, kUpperRangeArgSetID, kLowerRangeArgSetID};
-  if (ParseEnteredArgumentsToInt(args, argBuffer, SetIDSpecs)) {
+  const bool ArgumentsAreValid = ParseEnteredArgumentsToInt(args, argBuffer, SetIDSpecs);
+  if (ArgumentsAreValid) {
     systemStatus.SetDeviceID(argBuffer[0]);
     snprintf(MessageBuffer, kMessageBufferSize, kSetIDFormatString, argBuffer[0]);
     return MessageBuffer;
@@ -141,7 +153,8 @@ const char* CMD_SETSR_CB(char** args, int num_of_args) {
   memset(MessageBuffer, '\0', kMessageBufferSize);
   int argBuffer[kNumOfArgumentsSetSR];
   const ArgSpecs SetIDSpecs = {kNumOfArgumentsSetSR, kUpperRangeArgSetSR, kLowerRangeArgSetSR};
-  if (ParseEnteredArgumentsToInt(args, argBuffer, SetIDSpecs)) {
+  const bool ArgumentsAreValid = ParseEnteredArgumentsToInt(args, argBuffer, SetIDSpecs);
+  if (ArgumentsAreValid) {
     portAProperties.SetSampleTime(argBuffer[0]);
     portBProperties.SetSampleTime(argBuffer[1]);
     snprintf(MessageBuffer, kMessageBufferSize, kSetSampleTimeFormatString, argBuffer[0], argBuffer[1]);

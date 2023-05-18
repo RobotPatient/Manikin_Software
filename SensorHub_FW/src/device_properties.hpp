@@ -27,7 +27,7 @@ class DeviceProperties {
    * @brief Change the sensor.
    * @param Device The Sensortype to change to
   */
-  void AssignSensorToI2CPort(SensorTypes Device) {
+  void AssignSensorToI2CPort(uint8_t Device) {
     if (SensorHandle_ != NULL && SensorHandle_ != SensorObjPool_[Device]) {
       PortGrabber_.ChangeSensor(SensorObjPool_[Device]);
       SensorHandle_ = SensorObjPool_[Device];
