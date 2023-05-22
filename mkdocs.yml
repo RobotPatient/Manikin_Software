@@ -1,0 +1,13 @@
+site_name: Manikin Software
+plugins:
+  - mkdoxy:
+      projects:
+        SensorHub: # name of project must be alphanumeric + numbers (without spaces)
+          src-dirs: SensorHub_FW/src
+          full-doc: True
+          doxy-cfg:
+            FILE_PATTERNS: "*.cpp *.h*"
+            RECURSIVE: True
+            EXTRACT_ALL: True
+theme: readthedocs
+
