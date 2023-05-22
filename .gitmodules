@@ -1,0 +1,3 @@
+[submodule "SensorHub_FW/test/googletest"]
+	path = SensorHub_FW/test/googletest
+	url = https://github.com/google/googletest.git
