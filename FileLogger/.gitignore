@@ -1,0 +1,5 @@
+_Temp/
+/streamData.csv
+/streamData.xlsx
+**/__pycache__/
+*.py[cod]
