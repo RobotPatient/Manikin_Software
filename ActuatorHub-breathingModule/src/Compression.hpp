@@ -35,8 +35,26 @@
 
 #include "BreathingData.hpp"
 
+/**
+ * D4_FLASHMOSI PA08
+ * D2_FLASHMISO PA09
+ * D3_FLASHSCK PA14
+ *
+ * PA20 ACT1
+ * PA18 ACT2
+ * PA19 ACT3
+ * PA21 ACT4
+ */
+
+/*
+ * Use PA19, funtion?
+ * GCLK?, TC?
+ */
 #define COMPRESSION_PORT hal::gpio::GPIOPort::kGPIOPortA
 #define COMPRESSION_PIN 21
+#define COMPRESSION_FUNC
+#define COMPRESSION_GCLKx
+#define COMPRESSION_TCx
 
 class Compression {
  public:

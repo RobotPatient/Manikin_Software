@@ -41,8 +41,16 @@
  * PA19 ACT3
  * PA21 ACT4
  */
+
+/*
+ * Use PA20, funtion F
+ * GCLK4, TCC0
+ */
 #define BREATHING_PORT hal::gpio::GPIOPort::kGPIOPortA
 #define BREATHING_PIN 20
+#define BREATHING_FUNC hal::gpio::GPIOPinFunction::kGPIOFunctionF
+#define BREATHING_GCLKx 4
+#define BREATHING_TCCx 0
 
 class Breathing {
  public:

@@ -28,7 +28,12 @@
 #include "Breathing.hpp"
 
 Breathing::Breathing() {
-  motor_ = new actuator::Motor(BREATHING_PORT, BREATHING_PIN);
+  /*
+   * Use PA20, funtion F
+   * GCLK4, TCC0
+   */
+  motor_ = new actuator::Motor(BREATHING_PORT, BREATHING_PIN, BREATHING_FUNC,
+                               BREATHING_GCLKx, BREATHING_TCCx);
 }
 
 Breathing::~Breathing() {
