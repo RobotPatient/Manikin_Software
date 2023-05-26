@@ -51,7 +51,7 @@
  * GCLK?, TC3/WO[1]
  */
 #define COMPRESSION_PORT hal::gpio::GPIOPort::kGPIOPortA
-#define COMPRESSION_PIN 21
+#define COMPRESSION_PIN 19
 #define COMPRESSION_FUNC hal::gpio::GPIOPinFunction::kGPIOFunctionE
 #define COMPRESSION_GCLKx 3
 #define COMPRESSION_TCx 3

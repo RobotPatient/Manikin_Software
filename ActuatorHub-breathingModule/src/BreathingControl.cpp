@@ -54,7 +54,7 @@ void BreathingControl::loop() {
   Serial.print(breathingData_->getCurrent().breathingPoint);
   Serial.print(" Cpoint = ");
   Serial.println(breathingData_->getCurrent().compressionPoint);
-  compression_->setDutyCycle(breathingData_->getCurrent().breathingPoint);
+  compression_->setDutyCycle(breathingData_->getCurrent().compressionPoint);
   breathing_->setDutyCyle(breathingData_->getCurrent().breathingPoint);
   delay(1000);
 }
