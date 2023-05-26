@@ -33,7 +33,7 @@ Breathing::Breathing() {
    * GCLK4, TCC0
    */
   motor_ = new actuator::Motor(BREATHING_PORT, BREATHING_PIN, BREATHING_FUNC,
-                               BREATHING_GCLKx, BREATHING_TCCx);
+                               BREATHING_GCLKx, BREATHING_TCCx, BREATHING_WOx);
 }
 
 Breathing::~Breathing() {

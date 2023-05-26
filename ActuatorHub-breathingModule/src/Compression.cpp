@@ -29,8 +29,10 @@
 #include "Compression.hpp"
 
 Compression::Compression() {
-  // motor_ = new actuator::Motor(COMPRESSION_PORT, COMPRESSION_PIN);
-  servo_ = new Servo();  // Might use Servo lib for this?
+  motor_ =
+      new actuator::Motor(COMPRESSION_PORT, COMPRESSION_PIN, COMPRESSION_FUNC,
+                          COMPRESSION_GCLKx, COMPRESSION_TCx, COMPRESSION_WOx);
+  // servo_ = new Servo();  // Might use Servo lib for this?
 }
 
 Compression::~Compression() { delete motor_; }

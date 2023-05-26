@@ -44,13 +44,14 @@
 
 /*
  * Use PA20, funtion F
- * GCLK4, TCC0
+ * GCLK4, TCC0/WO[6]
  */
 #define BREATHING_PORT hal::gpio::GPIOPort::kGPIOPortA
 #define BREATHING_PIN 20
 #define BREATHING_FUNC hal::gpio::GPIOPinFunction::kGPIOFunctionF
 #define BREATHING_GCLKx 4
 #define BREATHING_TCCx 0
+#define BREATHING_WOx 6
 
 class Breathing {
  public:

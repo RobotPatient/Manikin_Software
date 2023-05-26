@@ -33,18 +33,18 @@
 BreathingControl::BreathingControl() {
   breathingData_ = new BreathingData();
   breathing_ = new Breathing();
-  // compression_ = new Compression();
+  compression_ = new Compression();
 }
 
 BreathingControl::~BreathingControl() {
   delete breathingData_;
   delete breathing_;
-  // delete compression_;
+  delete compression_;
 }
 
 void BreathingControl::start() {
   breathing_->startBreathing();
-  // compression_->StartCompression();
+  compression_->StartCompression();
 }
 
 void BreathingControl::loop() {
@@ -54,7 +54,7 @@ void BreathingControl::loop() {
   Serial.print(breathingData_->getCurrent().breathingPoint);
   Serial.print(" Cpoint = ");
   Serial.println(breathingData_->getCurrent().compressionPoint);
-  // compression_->setDutyCycle(breathingData_->getCurrent().compressionPoint);
+  compression_->setDutyCycle(breathingData_->getCurrent().breathingPoint);
   breathing_->setDutyCyle(breathingData_->getCurrent().breathingPoint);
   delay(1000);
 }

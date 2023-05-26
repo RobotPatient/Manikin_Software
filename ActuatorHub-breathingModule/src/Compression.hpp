@@ -47,14 +47,15 @@
  */
 
 /*
- * Use PA19, funtion?
- * GCLK?, TC?
+ * Use PA19, funtion E
+ * GCLK?, TC3/WO[1]
  */
 #define COMPRESSION_PORT hal::gpio::GPIOPort::kGPIOPortA
 #define COMPRESSION_PIN 21
-#define COMPRESSION_FUNC
-#define COMPRESSION_GCLKx
-#define COMPRESSION_TCx
+#define COMPRESSION_FUNC hal::gpio::GPIOPinFunction::kGPIOFunctionE
+#define COMPRESSION_GCLKx 3
+#define COMPRESSION_TCx 3
+#define COMPRESSION_WOx 1
 
 class Compression {
  public:
