@@ -45,12 +45,6 @@ void Breathing::init() {}
 
 void Breathing::startBreathing() { motor_->startRotate(); }
 
-void Breathing::stopBreathing() {
-  motor_->stopRotate();
-  // TODO: motor_->releaseRotate
-}
+void Breathing::stopBreathing() { motor_->stopRotate(); }
 
-void Breathing::setDutyCyle(int dutyCycle) {
-  motor_->setDuctyCycle(dutyCycle);
-  //  t
-}
+void Breathing::setDutyCyle(int dutyCycle) { motor_->setDuctyCycle(dutyCycle); }

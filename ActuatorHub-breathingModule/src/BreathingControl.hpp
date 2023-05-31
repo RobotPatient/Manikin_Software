@@ -28,6 +28,8 @@
 #ifndef BREATHINGCONTROL_HPP
 #define BREATHINGCONTROL_HPP
 
+#define DEBUG_SERIAL
+
 #include <Arduino.h>
 
 #include <gpio.hpp>
@@ -51,6 +53,7 @@ class BreathingControl {
   BreathingData *breathingData_;
   Compression *compression_;
   Breathing *breathing_;
+  volatile bool isBreathing_ = true;
 };
 
 #endif

@@ -24,22 +24,15 @@ package Manikin_Software <<frame>> {
 }
 
 package Manikin_Software_Libraries <<frame>> {
-    namespace hal::ringbuf {
-        class ringbuf {
+    namespace hal::ringbufferT {
+        class ringbufferT {
 
         }
     }
     namespace Actuators {
         class Motor {
             Description:
-            This class controls a single motor.
-            This motor moves the chest up and down
-        }
-
-        class Pump {
-            Description:
-            This class controls a single air pump.
-            For the purpose of breating
+            This class controls the Rotation of a motor and pump.
         }
     }
     namespace hal::i2c {
@@ -59,7 +52,6 @@ package Manikin_Software_Libraries <<frame>> {
 hal::i2c::i2c_breathingmod --* BreathingControl 
 BreathingControl *-- Compression : Pattern of Compressionmovements
 BreathingControl *-- Breathing : Pattern of AirPumping
-Compression   *-- Actuators::Motor : BreathingControl MotorCompression according to received pattern
-Breathing *-- Actuators::Pump : BreathingControl Pump according to received pattern
+Compression   *-- Actuators::Motor : BreathingControl according to received pattern
 
 @enduml

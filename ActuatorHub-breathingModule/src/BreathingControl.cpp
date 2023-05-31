@@ -48,13 +48,19 @@ void BreathingControl::start() {
 }
 
 void BreathingControl::loop() {
+  if (!isBreathing_) {
+    return;
+  }
+#ifdef DEBUG_SERIAL
   Serial.print("Index: ");
   Serial.print(breathingData_->nextDataPoint().index);
   Serial.print(" Bpoint = ");
   Serial.print(breathingData_->getCurrent().breathingPoint);
   Serial.print(" Cpoint = ");
   Serial.println(breathingData_->getCurrent().compressionPoint);
+#endif
+
+  // TODO(Thomas): check when to stop and start breathing process
   compression_->setDutyCycle(breathingData_->getCurrent().compressionPoint);
   breathing_->setDutyCyle(breathingData_->getCurrent().breathingPoint);
-  delay(1000);
 }
