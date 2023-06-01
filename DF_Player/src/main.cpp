@@ -19,8 +19,8 @@ void setup() {
   myDfPlayer.dfPlayerReset();
   myDfPlayer.dfPlayerSetSource(2);
 
-  myDfPlayer.dfPlayerSetVolume(0);
-  myDfPlayer.dfPlayerPlay(5);
+  myDfPlayer.dfPlayerSetVolume(29);
+  myDfPlayer.dfPlayerPlay(6);
 
 }
 

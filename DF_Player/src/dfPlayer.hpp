@@ -2,26 +2,20 @@
 #include "variant.h"
 
 
-/***************************************************************************************************/
-/*
-   This is an Arduino library for DFPlayer Mini MP3 module
-
-   written by : Zein Sabbagh
-
-   DFPlayer Mini features:
-   - 3.2v..5.0v, typical 4.2v
-   - 15mA without flash drive, typical 24mA
-   - micro SD-card, up to 32GB (FAT16, FAT32)
-   - USB-Disk up to 32GB (FAT16, FAT32)
-   - supports mp3 sampling rate 8KHz, 11.025KHz, 12KHz, 16KHz, 22.05KHz, 24KHz, 32KHz, 44.1KHz, 48KHz
-   - supports up to 100 folders, each folder can be assigned to 001..255 songs
-   - built-in 3W mono amplifier, NS8002 AB-Class with standby function
-   - UART to communicate, 9600bps (parity:none, data bits:8, stop bits:1, flow control:none)
-
-   NOTE:
-   - if you hear a loud noise, add a 1K resistor in series with DFPlayer TX-pin
-*/
-/***************************************************************************************************/
+   /***************************************************************************************************
+    *This is an Arduino library for DFPlayer Mini MP3 module.
+    *written by : Zein Sabbagh.
+    *DFPlayer Mini features:
+    *3.2v..5.0v, typical 4.2v.
+    *15mA without flash drive, typical 24mA.
+    *micro SD-card, up to 32GB (FAT16, FAT32).
+    *USB-Disk up to 32GB (FAT16, FAT32).
+    *supports mp3 sampling rate 8KHz, 11.025KHz, 12KHz, 16KHz, 22.05KHz, 24KHz, 32KHz, 44.1KHz, 48KHz.
+    *supports up to 100 folders, each folder can be assigned to 001..255 songs.
+    *built-in 3W mono amplifier, NS8002 AB-Class with standby function.
+    *UART to communicate, 9600bps (parity:none, data bits:8, stop bits:1, flow control:none).
+    *if you hear a loud noise, add a 1K resistor in series with DFPlayer TX-pin.
+    ***************************************************************************************************/
 
 
 
@@ -93,6 +87,10 @@ public:
     // The desired baudRate for the dfPlayer
     static constexpr uint16_t DF_PLAYER_BAUD_RATE{9600};
     
+    /** 
+     * An class enum.
+     * This class enum is for reading the dedails from the module.
+     */
     enum class dfPlayereDetails_t {
         SerialEstablished,
         SerialError,
@@ -111,42 +109,59 @@ public:
         FD_PlayerIsAdvertising
     };
 
-    // Copy constructor is deleted
+    /**
+     * @brief A delete copy constructor for preventing copying objects.
+     * @param dfPlayer object from the class dfPlyer.
+     */
     dfPlayer(const dfPlayer&) = delete;
-    // Delete equal operator is deleted
+
+    /**
+     * @brief A delete copy equal operator to prevent copying objects.
+     * @param dfPlayer object from the class dfPlyer.
+     */
     dfPlayer& operator =(const dfPlayer&) = delete;
 
-    // A function for creating an instance
+    /**
+     * @brief A function for creating an instance.
+     */
     static dfPlayer& dfPlayerGetInstance();
 
-    // A function for initializing the dfPlayer
+    /**
+     * @brief A function for initializing the dfPlayer.
+     * @param Uart instance to the serial communication object.
+     */
     const dfPlayereDetails_t begin(Uart &);
 
-    // A funtion to stop the player
+    /**
+     *A funtion to stop the player.
+     */
     void dfPlayerStop();
 
-    // A function for ending the serialCommunication and reseting the dfPlayer
+    /**
+     * A function for ending the serialCommunication and reseting the dfPlayer.
+     */
     void dfPlayerEnd();
-
-    // A function for reseting the dfPlayer
+    
+    /**
+     * A function for reseting the dfPlayer.
+     */
     void dfPlayerReset();
 
     
-    /*Set playback source
+    /**Set playback source
+     * @param source to select the desired source.
+     * @brief source:
+     * 1=USB-Disk.
+     * 2=TF-Card.
+     * 3=Aux.
+     * 4=sleep (for YX5200)/NOR-Flash (for GD3200).
+     * 5=NOR-Flash.
+     * 6=Sleep.
+     * source 3..6 may not be supported by some modules.
 
-    NOTE:
-    - source:
-      - 1=USB-Disk
-      - 2=TF-Card
-      - 3=Aux
-      - 4=sleep (for YX5200)/NOR-Flash (for GD3200)
-      - 5=NOR-Flash
-      - 6=Sleep
-    - source 3..6 may not be supported by some modules!!!
-
-    - module automatically detect source if source is on-line
-    - module automatically enter standby after setting source
-    - this command interrupt playback!!!
+     * module automatically detect source if source is on-line
+     * module automatically enter standby after setting source
+     * this command interrupt playback!!!
     - wait 200ms to select source*/
     void dfPlayerSetSource(const uint8_t src);
 
