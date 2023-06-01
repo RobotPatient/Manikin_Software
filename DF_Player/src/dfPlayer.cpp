@@ -6,9 +6,9 @@ dfPlayer& dfPlayer::dfPlayerGetInstance()  {
 }
 
 const dfPlayer::dfPlayereDetails_t dfPlayer::begin(Uart &serial) {
-    Serial = &serial;
-    Serial->begin(DF_PLAYER_BAUD_RATE);
-    if(!Serial)
+    serial_ = &serial;
+    serial_->begin(DF_PLAYER_BAUD_RATE);
+    if(!serial_)
         return dfPlayereDetails_t::SerialError;
 
     delay(DFPLAYER_BOOT_DELAY);
@@ -37,7 +37,7 @@ void dfPlayer::dfPlayerReset() {
 void dfPlayer::dfPlayerEnd() {
     dfPlayerStop();
     dfPlayerReset();
-    Serial->end();
+    serial_->end();
 }
 
 void dfPlayer::dfPlayerSetSource(const uint8_t src) {
@@ -75,9 +75,9 @@ const int dfPlayer::fdPlayerGetVolume() { // To be tested
     const uint8_t data[2] = {0x00, 0x00};
     serialSendData(DFPLAYER_GET_VOL, data);
     
-    while(!Serial->available());
+    while(!serial_->available());
 
-    return Serial->read();
+    return serial_->read();
 }
 
 void dfPlayer::dfPlayerPlay(const uint16_t mp3File) {
@@ -159,5 +159,5 @@ void dfPlayer::serialSendData(const uint8_t cmd, const uint8_t *data) {
         DFPLAYER_UART_END_BYTE
     };
 
-    Serial->write(buff, (DFPLAYER_UART_FRAME_SIZE - 2));
+    serial_->write(buff, (DFPLAYER_UART_FRAME_SIZE - 2));
 }

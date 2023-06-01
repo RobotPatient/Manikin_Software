@@ -2,20 +2,20 @@
 #include "variant.h"
 
 
-   /***************************************************************************************************
-    *This is an Arduino library for DFPlayer Mini MP3 module.
-    *written by : Zein Sabbagh.
-    *DFPlayer Mini features:
-    *3.2v..5.0v, typical 4.2v.
-    *15mA without flash drive, typical 24mA.
-    *micro SD-card, up to 32GB (FAT16, FAT32).
-    *USB-Disk up to 32GB (FAT16, FAT32).
-    *supports mp3 sampling rate 8KHz, 11.025KHz, 12KHz, 16KHz, 22.05KHz, 24KHz, 32KHz, 44.1KHz, 48KHz.
-    *supports up to 100 folders, each folder can be assigned to 001..255 songs.
-    *built-in 3W mono amplifier, NS8002 AB-Class with standby function.
-    *UART to communicate, 9600bps (parity:none, data bits:8, stop bits:1, flow control:none).
-    *if you hear a loud noise, add a 1K resistor in series with DFPlayer TX-pin.
-    ***************************************************************************************************/
+/***************************************************************************************************
+ *This is an Arduino library for DFPlayer Mini MP3 module.
+ *written by : Zein Sabbagh.
+ *DFPlayer Mini features:
+ *3.2v..5.0v, typical 4.2v.
+ *15mA without flash drive, typical 24mA.
+ *micro SD-card, up to 32GB (FAT16, FAT32).
+ *USB-Disk up to 32GB (FAT16, FAT32).
+ *supports mp3 sampling rate 8KHz, 11.025KHz, 12KHz, 16KHz, 22.05KHz, 24KHz, 32KHz, 44.1KHz, 48KHz.
+ *supports up to 100 folders, each folder can be assigned to 001..255 songs.
+ *built-in 3W mono amplifier, NS8002 AB-Class with standby function.
+ *UART to communicate, 9600bps (parity:none, data bits:8, stop bits:1, flow control:none).
+ *if you hear a loud noise, add a 1K resistor in series with DFPlayer TX-pin.
+ ***************************************************************************************************/
 
 
 
@@ -118,39 +118,42 @@ public:
     /**
      * @brief A delete copy equal operator to prevent copying objects.
      * @param dfPlayer object from the class dfPlyer.
+     * @return an object or instance from the class dfPlayer.
      */
     dfPlayer& operator =(const dfPlayer&) = delete;
 
     /**
      * @brief A function for creating an instance.
+     * @return A static object or instance from the class dfPlayer.
      */
     static dfPlayer& dfPlayerGetInstance();
 
     /**
      * @brief A function for initializing the dfPlayer.
      * @param Uart instance to the serial communication object.
+     * @return the state of the communication.
      */
     const dfPlayereDetails_t begin(Uart &);
 
     /**
-     *A funtion to stop the player.
+     * @brief A funtion to stop the player.
      */
     void dfPlayerStop();
 
     /**
-     * A function for ending the serialCommunication and reseting the dfPlayer.
+     * @brief A function for ending the serialCommunication and reseting the dfPlayer.
      */
     void dfPlayerEnd();
     
     /**
-     * A function for reseting the dfPlayer.
+     * @brief A function for reseting the dfPlayer.
      */
     void dfPlayerReset();
 
     
-    /**Set playback source
-     * @param source to select the desired source.
-     * @brief source:
+    /**
+     * @brief A function for selecting the desired source.
+     * @param src is the selected source.
      * 1=USB-Disk.
      * 2=TF-Card.
      * 3=Aux.
@@ -158,74 +161,121 @@ public:
      * 5=NOR-Flash.
      * 6=Sleep.
      * source 3..6 may not be supported by some modules.
-
-     * module automatically detect source if source is on-line
-     * module automatically enter standby after setting source
+     * module automatically detect source if source is on-line.
+     * module automatically enter standby after setting source.
      * this command interrupt playback!!!
-    - wait 200ms to select source*/
+     * wait 200ms to select source. 
+     */
     void dfPlayerSetSource(const uint8_t src);
 
-    /*Set equalizer
-
-    NOTE:
-    - 0=Off, 1=Pop, 2=Rock, 3=Jazz, 4=Classic, 5=Bass
-    - feature may not be supported by some modules!!!*/
+    /**
+     * @brief A function for setting the equalizer for the dfPlayer.
+     * @param EQ The desired equalizer
+     * 0=Off, 1=Pop, 2=Rock, 3=Jazz, 4=Classic, 5=Bass
+     */
     void dfPlayerSetEQ(const uint8_t EQ);
 
-    // A function for setting the volume
+    /**
+     * @brief A function for setting the volume for the dfPlayer.
+     * @param volume the desired volume. 
+    */
     void dfPlayerSetVolume(const uint8_t volume);
 
     // A function for increasing the volume
+    /**
+     * @brief A function for increasing the volume.
+    */
     void dfPlayerVolumeUp();
 
-    // A function for decreasing the volume
+    /**
+     * @brief A function for decreasing the volume.
+    */
     void dfPlayerVolumeDown();
 
-    // A function for getting the volume
+    /**
+     * @brief A function for getting the volume.
+    */
     const int fdPlayerGetVolume();
 
-    // A function for playing a specifice mp3file
+    /**
+     * @brief A function for playing a specifice mp3file
+     * @param mp3File the mp3 file to be played
+    */
     void dfPlayerPlay(const uint16_t mp3File);
 
-    // A function for playing the previous mp3File in the folder
+    /**
+     * @brief A function for playing the previous mp3File in the folder.
+    */
     void dfPlayerPlayPrevious();
 
-    // A function for playing the next mp3File in the folder
+    /**
+     * @brief A function for playing the next mp3File in the folder.
+    */
     void dfPlayerPlayNext();
 
-    // A function for playing the whole mp3Files in a specifice folder
+    /**
+     * @brief A function for playing the whole mp3Files in a specifice folder.
+     * @param folderName is the name of the folder where the mp3 file.
+     * @param mp3file is the mp3 file to be played.
+    */
     void dfPlayerPlayFolder(const uint8_t folderName, const uint8_t mp3File);
 
-    // A funtion for stop playing the current mp3File
+    /**
+     * @brief A funtion for stop playing the current mp3File.
+    */
     void dfPlayerStopPlaying();
 
-    // A function for pausing the played mp3File
+    /**
+     * @brief A function for pausing the played mp3File.
+    */
     void dfPlayerPause();
 
-    // A function for resume playing the played mp3File
+    /**
+     * @brief A function for resume playing the played mp3File.
+    */
     void dfPlayerResume();
 
-    // A function for repeat playing the last cosen mp3File
+    /**
+     * @brief A function for repeat playing the last cosen mp3File.
+    */
     void dfPlayerRepeat(const bool repeat);
 
-    // A function for repeat play....
+    /**
+     * @brief A function for repeat play....
+     * @param folderName 
+    */
     void dfPlayerRepeatFolder(const uint8_t folderName);
 
-    // A function for making the dfPlayer sleeping
+    /**
+     * @brief A function for making the dfPlayer sleeping.
+    */
     void dfPlayerSleep();
 
-    // A function for waking up the dfPlayer after sleeping 
+    /**
+     * @brief A function for waking up the dfPlayer after sleeping.
+    */
     void dfPlayerWakeUp();
 
-    // A helpFunction for sending data and commands to the dfPlayer
+    /**
+     * @brief A helpFunction for sending data and commands to the dfPlayer.
+     * @param cmd is the command to be sended to the dfPlayer
+     * @param data is an array of data to be sended to the dfPlayer
+    */
     void serialSendData(const uint8_t cmd, const uint8_t *data);
 
 private:
-    // Default constructor
+    /**
+     * @brief A default constructor
+    */
     dfPlayer() = default;
-    // Default destructor
+
+    /**
+     * @brief A default destructor
+    */
     ~dfPlayer() = default;
 
-    // An atribute holding the SerialCommunication
-    Uart* Serial;
+    /**
+     * @brief An atribute holding the SerialCommunication object
+    */
+    Uart* serial_;
 };
