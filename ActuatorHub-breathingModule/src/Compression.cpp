@@ -42,6 +42,8 @@ void Compression::StartCompression() {
   // TODO: wait for Compression signal to zero out motor
 }
 
+void Compression::stopCompression() { motor_->stopRotate(); }
+
 void Compression::setDutyCycle(int dutyCycle) {
   // TODO: some timing? maybe use servo?
   motor_->setDuctyCycle(dutyCycle);

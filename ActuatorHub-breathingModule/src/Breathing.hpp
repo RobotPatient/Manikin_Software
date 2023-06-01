@@ -58,10 +58,9 @@ class Breathing {
   Breathing();
   ~Breathing();
 
-  void init();
   void startBreathing();
   void stopBreathing();
-  void setDutyCyle(int dutyCycle);
+  void setDutyCyle(datapoint_t dutyCycle);
 
  private:
   actuator::Motor *motor_;

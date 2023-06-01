@@ -49,11 +49,14 @@ void BreathingControl::start() {
 
 void BreathingControl::loop() {
   if (!isBreathing_) {
+    breathing_->stopBreathing();
+    compression_->stopCompression();
     return;
   }
+  breathingData_->nextDataPoint();
 #ifdef DEBUG_SERIAL
   Serial.print("Index: ");
-  Serial.print(breathingData_->nextDataPoint().index);
+  Serial.print(breathingData_->getCurrent().index);
   Serial.print(" Bpoint = ");
   Serial.print(breathingData_->getCurrent().breathingPoint);
   Serial.print(" Cpoint = ");

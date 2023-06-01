@@ -66,7 +66,7 @@ class Compression {
   Compression();
   ~Compression();
 
-  void init();
+  void stopCompression();
   void StartCompression();
   void setDutyCycle(int);
 

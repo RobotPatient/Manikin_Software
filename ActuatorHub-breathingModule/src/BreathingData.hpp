@@ -83,7 +83,7 @@ class BreathingData {
   SampleData newDefaultDataPoint(int i) {
     struct SampleData defaultData;
     defaultData.index = i;
-    defaultData.breathingPoint = 100 - i % 100;
+    defaultData.breathingPoint = /*100 -*/ i % 100;
     defaultData.compressionPoint = i % 100;
     return defaultData;
   }

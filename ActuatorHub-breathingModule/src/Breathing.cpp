@@ -41,10 +41,10 @@ Breathing::~Breathing() {
   delete motor_;
 }
 
-void Breathing::init() {}
-
 void Breathing::startBreathing() { motor_->startRotate(); }
 
 void Breathing::stopBreathing() { motor_->stopRotate(); }
 
-void Breathing::setDutyCyle(int dutyCycle) { motor_->setDuctyCycle(dutyCycle); }
+void Breathing::setDutyCyle(datapoint_t dutyCycle) {
+  motor_->setDuctyCycle(static_cast<uint8_t>(dutyCycle));
+}
