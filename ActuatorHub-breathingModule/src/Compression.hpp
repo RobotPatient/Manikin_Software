@@ -48,7 +48,7 @@
 
 /*
  * Use PA19, funtion E
- * GCLK?, TC3/WO[1]
+ * GCLK3, TC3/WO[1]
  */
 #define COMPRESSION_PORT hal::gpio::GPIOPort::kGPIOPortA
 #define COMPRESSION_PIN 19
