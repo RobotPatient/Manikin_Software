@@ -117,14 +117,13 @@ public:
      * This class enum is for reading the dedails from the module.
      */
     enum class dfPlayereDetails_t {
-        SerialEstablished,
+        DF_PlayerIsAvailable,
         SerialError,
         DF_PlayerTimeOut,
         DF_PlayerWrongStack,
         SD_CardIsInserted,
         SD_CardIsRemoved,
         SD_CardIsAvailable,
-        DF_PlayerIsAvailable,
         CardNotFound,
         DF_PlayerIsFinished,
         DF_PlayerIsSleeping,

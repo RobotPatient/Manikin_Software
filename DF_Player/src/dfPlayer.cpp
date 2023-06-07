@@ -35,22 +35,23 @@ dfPlayer& dfPlayer::dfPlayerGetInstance()  {
     return dfPlayerInstance;
 }
 
-const dfPlayer::dfPlayereDetails_t dfPlayer::begin(Uart &serial) {
+const dfPlayer::dfPlayereDetails_t dfPlayer::begin(Uart &serial) { // def
     serial_ = &serial;
     serial_->begin(DF_PLAYER_BAUD_RATE);
+
     if(!serial_)
         return dfPlayereDetails_t::SerialError;
 
     delay(DFPLAYER_BOOT_DELAY);
 
+    // def
+    dfPlayerStop();
+    dfPlayerReset();
+    dfPlayerSetSource(2);
+    dfPlayerSetEQ(0);
+    dfPlayerSetVolume(0);
 
-    //dfPlayerStop();
-    //dfPlayerReset();
-    //dfPlayerSetSource(2);
-
-    //dfPlayerSetVolume(0);
-
-    return dfPlayereDetails_t::SerialEstablished;
+    return dfPlayereDetails_t::DF_PlayerIsAvailable; // is available
 }
 
 void dfPlayer::dfPlayerStop() {
@@ -71,23 +72,18 @@ void dfPlayer::dfPlayerEnd() {
 }
 
 void dfPlayer::dfPlayerSetSource(const uint8_t src) {
-    const uint8_t data[2] = {0x00, src};
+    const uint8_t data[2] = {0x00, constrain(src, 1, 6)};
     serialSendData(DFPLAYER_SET_PLAY_SRC, data);
-    delay(200);
+    delay(DFPLAYER_BOOT_DELAY);
 }
 
 void dfPlayer::dfPlayerSetEQ(const uint8_t EQ) {
-    if(EQ < 0 || EQ > 5)
-        return;
-    const uint8_t data[2] = {0x00, EQ};
+    const uint8_t data[2] = {0x00, constrain(EQ, 0, 5)};
     serialSendData(DFPLAYER_SET_EQ, data);
 }
 
 void dfPlayer::dfPlayerSetVolume(const uint8_t volume) {
-    if(volume < 0 || volume > 30)
-        return;
-
-    const uint8_t data[2] = {0x00, volume};
+    const uint8_t data[2] = {0x00, uint8_t(constrain(volume, 0, 30))};
     serialSendData(DFPLAYER_SET_VOL, data);
 }
 
@@ -129,12 +125,7 @@ void dfPlayer::dfPlayerPlayNext() {
 }
 
 void dfPlayer::dfPlayerPlayFolder(const uint8_t folderName, const uint8_t mp3File) {
-    if(folderName < 1 || folderName > 99)
-        return;
-    if(mp3File < 1 || mp3File > 255)
-        return;
-
-    const uint8_t data[2] = {folderName, mp3File};
+    const uint8_t data[2] = {constrain(folderName, 1, 99), constrain(mp3File, 1, 255)};
     serialSendData(DFPLAYER_PLAY_NEXT, data);
 }
 
@@ -143,7 +134,7 @@ void dfPlayer::dfPlayerStopPlaying() {
     serialSendData(DFPLAYER_STOP_PLAYBACK, data);
 }
 
-void dfPlayer::dfPlayerPause() {
+void dfPlayer::dfPlayerPause() { 
     const uint8_t data[2] = {0x00, 0x00};
     serialSendData(DFPLAYER_PAUSE, data);
 }
@@ -160,10 +151,7 @@ void dfPlayer::dfPlayerRepeat(const bool repeat) {
 }
 
 void dfPlayer::dfPlayerRepeatFolder(const uint8_t folderName) {
-    if(folderName < 1 || folderName > 99)
-        return;
-
-    const uint8_t data[2] = {0x00, folderName};
+    const uint8_t data[2] = {0x00, constrain(folderName, 1, 99)};
     serialSendData(DFPLAYER_REPEAT_FOLDER, data);    
     
 }
@@ -190,4 +178,7 @@ void dfPlayer::serialSendData(const uint8_t cmd, const uint8_t *data) {
     };
 
     serial_->write(buff, (DFPLAYER_UART_FRAME_SIZE - 2));
+
+    unsigned long timeOut = millis() + DFPLAYER_CMD_DELAY;
+    while(millis() < timeOut);
 }

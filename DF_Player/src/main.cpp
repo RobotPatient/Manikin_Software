@@ -10,17 +10,21 @@ void setup() {
   Serial.begin(9600);
   //while(!Serial);
 
-  if(myDfPlayer.begin(Serial1) == dfPlayer::dfPlayereDetails_t::SerialEstablished) 
-    Serial.println("Serial is established");
+  if(myDfPlayer.begin(Serial1) == dfPlayer::dfPlayereDetails_t::DF_PlayerIsAvailable) 
+    Serial.println("dfPlayer is available");
   else 
-    Serial.println("Serial is not established");
+    Serial.println("Serial error");
 
-  myDfPlayer.dfPlayerStop();
-  myDfPlayer.dfPlayerReset();
-  myDfPlayer.dfPlayerSetSource(2);
+  myDfPlayer.dfPlayerSetVolume(4);
 
-  myDfPlayer.dfPlayerSetVolume(29);
-  myDfPlayer.dfPlayerPlay(6);
+  
+
+//  myDfPlayer.dfPlayerPlay(2);
+  //delay(6000);
+  //myDfPlayer.dfPlayerPlay(3);
+  //delay(6000);
+  //myDfPlayer.dfPlayerPlay(4);
+ // myDfPlayer.dfPlayerSetVolume(0);
 
 }
 
