@@ -46,14 +46,22 @@ class BreathingControl {
   ~BreathingControl();
 
   void start();
+  void stop();
 
   void loop();
 
+  void setStartStopBit(bool);
+
  private:
+  bool startStop();
+  void printData();
+
   BreathingData *breathingData_;
   Compression *compression_;
   Breathing *breathing_;
   volatile bool isBreathing_ = true;
+  volatile bool start_;
+  volatile bool stop_;
 };
 
 #endif

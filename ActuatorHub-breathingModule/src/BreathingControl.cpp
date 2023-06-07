@@ -25,7 +25,6 @@
  *OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  *OR OTHER DEALINGS IN THE SOFTWARE.
  ***********************************************************************************************/
-
 #include "BreathingControl.hpp"
 
 #include <RingBuffer.h>
@@ -43,17 +42,53 @@ BreathingControl::~BreathingControl() {
 }
 
 void BreathingControl::start() {
+  stop_ = false;
   breathing_->startBreathing();
   compression_->StartCompression();
+  start_ = true;
+}
+
+void BreathingControl::stop() {
+  start_ = false;
+  breathing_->stopBreathing();
+  compression_->stopCompression();
+  stop_ = true;
 }
 
 void BreathingControl::loop() {
-  if (!isBreathing_) {
-    breathing_->stopBreathing();
-    compression_->stopCompression();
+  if (startStop()) {
     return;
   }
+
   breathingData_->nextDataPoint();
+
+  printData();
+
+  compression_->setDutyCycle(breathingData_->getCurrent().compressionPoint);
+  breathing_->setDutyCyle(breathingData_->getCurrent().breathingPoint);
+}
+
+void BreathingControl::setStartStopBit(bool isBreathing) {
+  isBreathing_ = isBreathing;
+}
+
+bool BreathingControl::startStop() {
+  // Refractor this function
+  if (isBreathing_) {
+    if (!start_) {
+      start();
+      breathingData_->firstDataPoint();
+    }
+    return false;
+  } else {
+    if (!stop_) {
+      stop();
+    }
+    return true;
+  }
+}
+
+void BreathingControl::printData() {
 #ifdef DEBUG_SERIAL
   Serial.print("Index: ");
   Serial.print(breathingData_->getCurrent().index);
@@ -62,8 +97,4 @@ void BreathingControl::loop() {
   Serial.print(" Cpoint = ");
   Serial.println(breathingData_->getCurrent().compressionPoint);
 #endif
-
-  // TODO(Thomas): check when to stop and start breathing process
-  compression_->setDutyCycle(breathingData_->getCurrent().compressionPoint);
-  breathing_->setDutyCyle(breathingData_->getCurrent().breathingPoint);
 }

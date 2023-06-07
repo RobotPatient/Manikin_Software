@@ -35,6 +35,10 @@
 
 BreathingControl *control;
 
+#ifdef DEBUG_SERIAL
+char input;
+#endif
+
 void setup() {
 #ifdef DEBUG_SERIAL
   Serial.begin(9600);
@@ -47,6 +51,10 @@ void setup() {
 void loop() {
 #ifdef DEBUG_SERIAL
   Serial.println("Loop");
+  if (Serial.available()) {
+    input = (Serial.read() == '1') ? true : false;
+    control->setStartStopBit(input);
+  }
 #endif
   control->loop();
   delay(1000);

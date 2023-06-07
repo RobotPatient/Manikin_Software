@@ -36,8 +36,11 @@
  * @brief SIZEOF_DATA needs to be changed according to the amount of data that
  * the Infant CPR Simulator needs in order to have a single cycle through its
  * breathing loop.
+ * default 60 is chosen for 60 datapoints per minute
  */
-#define SIZEOF_DATA 100
+#ifndef SIZEOF_DATA
+#define SIZEOF_DATA 60
+#endif
 
 /**
  * D4_FLASHMOSI PA08
@@ -73,6 +76,8 @@ class BreathingData {
 
   SampleData& getCurrent() { return currentDataPoint_; }
 
+  void firstDataPoint() { breathingBuffer_.resetRead(); }
+
  protected:
   /**
    * @brief Helper function to create a new sample data point on index [i] Only
@@ -83,8 +88,10 @@ class BreathingData {
   SampleData newDefaultDataPoint(int i) {
     struct SampleData defaultData;
     defaultData.index = i;
-    defaultData.breathingPoint = /*100 -*/ i % 100;
-    defaultData.compressionPoint = i % 100;
+    defaultData.breathingPoint =
+        100 - (i % 3) * 50;  // breath out about once every 3 seconds
+    defaultData.compressionPoint =
+        80;  // continues breathing with current implementation of hardware
     return defaultData;
   }
 
