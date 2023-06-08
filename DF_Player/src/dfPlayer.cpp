@@ -35,7 +35,7 @@ dfPlayer& dfPlayer::dfPlayerGetInstance()  {
     return dfPlayerInstance;
 }
 
-const dfPlayer::dfPlayereDetails_t dfPlayer::begin(Uart &serial) { // def
+const dfPlayer::dfPlayereDetails_t dfPlayer::begin(Uart &serial) { 
     serial_ = &serial;
     serial_->begin(DF_PLAYER_BAUD_RATE);
 
@@ -44,7 +44,6 @@ const dfPlayer::dfPlayereDetails_t dfPlayer::begin(Uart &serial) { // def
 
     delay(DFPLAYER_BOOT_DELAY);
 
-    // def
     dfPlayerStop();
     dfPlayerReset();
     dfPlayerSetSource(2);
@@ -62,7 +61,6 @@ void dfPlayer::dfPlayerStop() {
 void dfPlayer::dfPlayerReset() {
     const uint8_t data[2] = {0x00, 0x00};
     serialSendData(DFPLAYER_RESET, data);
-    delay(DFPLAYER_BOOT_DELAY);
 }
 
 void dfPlayer::dfPlayerEnd() {
@@ -129,6 +127,11 @@ void dfPlayer::dfPlayerPlayFolder(const uint8_t folderName, const uint8_t mp3Fil
     serialSendData(DFPLAYER_PLAY_NEXT, data);
 }
 
+void dfPlayer::dfPlayerPlayRandom() {
+    const uint8_t data[2] = {0x00, 0x00};
+    serialSendData(DFPLAYER_RANDOM_ALL_FILES, nullptr);
+}
+
 void dfPlayer::dfPlayerStopPlaying() {
     const uint8_t data[2] = {0x00, 0x00};
     serialSendData(DFPLAYER_STOP_PLAYBACK, data);
@@ -181,4 +184,8 @@ void dfPlayer::serialSendData(const uint8_t cmd, const uint8_t *data) {
 
     unsigned long timeOut = millis() + DFPLAYER_CMD_DELAY;
     while(millis() < timeOut);
+}
+
+const dfPlayer::dfPlayereDetails_t dfPlayer::serialReadData(uint8_t *data) {
+    
 }

@@ -105,8 +105,6 @@ static constexpr auto DFPLAYER_BOOT_DELAY{3000};           //average player boot
 static constexpr auto DFPLAYER_CMD_DELAY{350};             //average read command timeout 200msec..300msec for YX5200/AAxxxx chip & 350msec..500msec for GD3200B/MH2024K chip
 
 
-
-
 class dfPlayer{
 public: 
     // The desired baudRate for the dfPlayer
@@ -119,6 +117,7 @@ public:
     enum class dfPlayereDetails_t {
         DF_PlayerIsAvailable,
         SerialError,
+        SrialDataIsReceived,
         DF_PlayerTimeOut,
         DF_PlayerWrongStack,
         SD_CardIsInserted,
@@ -160,7 +159,7 @@ public:
     const dfPlayereDetails_t begin(Uart &);
 
     /**
-     * @brief A funtion to stop the player.
+     * @brief A funtion to stop the dfPlayer.
      */
     void dfPlayerStop();
 
@@ -245,6 +244,11 @@ public:
     void dfPlayerPlayFolder(const uint8_t folderName, const uint8_t mp3File);
 
     /**
+     * @brief A function for playing the songs randomly
+    */
+    void dfPlayerPlayRandom();
+
+    /**
      * @brief A funtion for stop playing the current mp3File.
     */
     void dfPlayerStopPlaying();
@@ -286,6 +290,8 @@ public:
      * @param data is an array of data to be sended to the dfPlayer
     */
     void serialSendData(const uint8_t cmd, const uint8_t *data);
+    const dfPlayereDetails_t serialReadData(uint8_t *data);
+
 
 private:
     /**
