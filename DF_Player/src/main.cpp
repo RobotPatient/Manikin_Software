@@ -10,7 +10,7 @@ void setup() {
   Serial.begin(9600);
   //while(!Serial);
 
-  if(myDfPlayer.begin(Serial1) == dfPlayer::dfPlayereDetails_t::DF_PlayerIsAvailable) 
+  if(myDfPlayer.begin(Serial1)) 
     Serial.println("dfPlayer is available");
   else 
     Serial.println("Serial error");

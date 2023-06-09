@@ -109,28 +109,6 @@ class dfPlayer{
 public: 
     // The desired baudRate for the dfPlayer
     static constexpr uint16_t DF_PLAYER_BAUD_RATE{9600};
-    
-    /** 
-     * An class enum.
-     * This class enum is for reading the dedails from the module.
-     */
-    enum class dfPlayereDetails_t {
-        DF_PlayerIsAvailable,
-        SerialError,
-        SrialDataIsReceived,
-        DF_PlayerTimeOut,
-        DF_PlayerWrongStack,
-        SD_CardIsInserted,
-        SD_CardIsRemoved,
-        SD_CardIsAvailable,
-        CardNotFound,
-        DF_PlayerIsFinished,
-        DF_PlayerIsSleeping,
-        DF_PlayerSerialWrongStack,
-        DF_PlayerFileIndexOut,
-        DF_PlayerCheckSumNotMatch,
-        FD_PlayerIsAdvertising
-    };
 
     /**
      * @brief A delete copy constructor for preventing copying objects.
@@ -156,7 +134,7 @@ public:
      * @param Uart instance to the serial communication object.
      * @return the state of the communication.
      */
-    const dfPlayereDetails_t begin(Uart &);
+    const bool begin(Uart &);
 
     /**
      * @brief A funtion to stop the dfPlayer.
@@ -290,8 +268,6 @@ public:
      * @param data is an array of data to be sended to the dfPlayer
     */
     void serialSendData(const uint8_t cmd, const uint8_t *data);
-    const dfPlayereDetails_t serialReadData(uint8_t *data);
-
 
 private:
     /**

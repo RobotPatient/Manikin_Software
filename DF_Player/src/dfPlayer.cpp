@@ -35,12 +35,12 @@ dfPlayer& dfPlayer::dfPlayerGetInstance()  {
     return dfPlayerInstance;
 }
 
-const dfPlayer::dfPlayereDetails_t dfPlayer::begin(Uart &serial) { 
+const bool dfPlayer::begin(Uart &serial) { 
     serial_ = &serial;
     serial_->begin(DF_PLAYER_BAUD_RATE);
 
     if(!serial_)
-        return dfPlayereDetails_t::SerialError;
+        return false;
 
     delay(DFPLAYER_BOOT_DELAY);
 
@@ -50,7 +50,7 @@ const dfPlayer::dfPlayereDetails_t dfPlayer::begin(Uart &serial) {
     dfPlayerSetEQ(0);
     dfPlayerSetVolume(0);
 
-    return dfPlayereDetails_t::DF_PlayerIsAvailable; // is available
+    return true;
 }
 
 void dfPlayer::dfPlayerStop() {
@@ -184,8 +184,4 @@ void dfPlayer::serialSendData(const uint8_t cmd, const uint8_t *data) {
 
     unsigned long timeOut = millis() + DFPLAYER_CMD_DELAY;
     while(millis() < timeOut);
-}
-
-const dfPlayer::dfPlayereDetails_t dfPlayer::serialReadData(uint8_t *data) {
-    
 }
