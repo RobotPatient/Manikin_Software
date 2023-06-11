@@ -1,14 +1,11 @@
 #include <Arduino.h>
-//#include "wiring_private.h"
-//#include "DFRobotDFPlayerMini.h"
 #include "dfPlayer.hpp"
 
-//DFRobotDFPlayerMini myDFPlayer;
+
 dfPlayer &myDfPlayer = dfPlayer::dfPlayerGetInstance();
 
 void setup() {
   Serial.begin(9600);
-  //while(!Serial);
 
   if(myDfPlayer.begin(Serial1)) 
     Serial.println("dfPlayer is available");
@@ -31,9 +28,6 @@ void setup() {
   myDfPlayer.dfPlayerPlayNext();
   delay(6000);
   myDfPlayer.dfPlayerPlayPrevious();
-  
-
-
 }
 
 void loop() {

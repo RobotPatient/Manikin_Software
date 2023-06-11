@@ -171,8 +171,8 @@ public:
 
     /**
      * @brief A function for setting the equalizer for the dfPlayer.
-     * @param EQ The desired equalizer
-     * 0=Off, 1=Pop, 2=Rock, 3=Jazz, 4=Classic, 5=Bass
+     * @param EQ The desired equalizer.
+     * 0=Off, 1=Pop, 2=Rock, 3=Jazz, 4=Classic, 5=Bass.
      */
     void dfPlayerSetEQ(const uint8_t EQ);
 
@@ -180,23 +180,23 @@ public:
      * @brief A function for setting the volume for the dfPlayer.
      * @param volume the desired volume. 
     */
-    void dfPlayerSetVolume(const uint8_t volume);
+    const int &dfPlayerSetVolume(const uint8_t volume);
 
     // A function for increasing the volume
     /**
      * @brief A function for increasing the volume.
     */
-    void dfPlayerVolumeUp();
+    const int &dfPlayerVolumeUp();
 
     /**
      * @brief A function for decreasing the volume.
     */
-    void dfPlayerVolumeDown();
+    const int &dfPlayerVolumeDown();
 
     /**
      * @brief A function for getting the volume.
     */
-    const int fdPlayerGetVolume();
+    const int &fdPlayerGetVolume();
 
     /**
      * @brief A function for playing a specifice mp3file
@@ -222,7 +222,7 @@ public:
     void dfPlayerPlayFolder(const uint8_t folderName, const uint8_t mp3File);
 
     /**
-     * @brief A function for playing the songs randomly
+     * @brief A function for playing the songs randomly.
     */
     void dfPlayerPlayRandom();
 
@@ -247,7 +247,7 @@ public:
     void dfPlayerRepeat(const bool repeat);
 
     /**
-     * @brief A function for repeat play....
+     * @brief A function for repeat play.
      * @param folderName 
     */
     void dfPlayerRepeatFolder(const uint8_t folderName);
@@ -264,24 +264,29 @@ public:
 
     /**
      * @brief A helpFunction for sending data and commands to the dfPlayer.
-     * @param cmd is the command to be sended to the dfPlayer
-     * @param data is an array of data to be sended to the dfPlayer
+     * @param cmd is the command to be sended to the dfPlayer.
+     * @param data is an array of data to be sended to the dfPlayer.
     */
     void serialSendData(const uint8_t cmd, const uint8_t *data);
 
 private:
     /**
-     * @brief A default constructor
+     * @brief A default constructor.
     */
     dfPlayer() = default;
 
     /**
-     * @brief A default destructor
+     * @brief A default destructor.
     */
     ~dfPlayer() = default;
 
     /**
-     * @brief An atribute holding the SerialCommunication object
+     * @brief An atribute holding the SerialCommunication object.
     */
     Uart* serial_;
+
+    /**
+     * @brief An atribute holding the value of the current volume.
+    */
+    int volume_;
 };

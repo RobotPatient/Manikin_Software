@@ -80,28 +80,32 @@ void dfPlayer::dfPlayerSetEQ(const uint8_t EQ) {
     serialSendData(DFPLAYER_SET_EQ, data);
 }
 
-void dfPlayer::dfPlayerSetVolume(const uint8_t volume) {
+const int  &dfPlayer::dfPlayerSetVolume(const uint8_t volume) {
     const uint8_t data[2] = {0x00, uint8_t(constrain(volume, 0, 30))};
     serialSendData(DFPLAYER_SET_VOL, data);
+    return volume_ = volume;
 }
 
-void dfPlayer::dfPlayerVolumeUp() {
+const int &dfPlayer::dfPlayerVolumeUp() {
     const uint8_t data[2] = {0x00, 0x00};
     serialSendData(DFPLAYER_SET_VOL_UP, data);
+    if(volume_ < 30)
+        return volume_ = volume_ + 1;
+    
+    return volume_;
 }
 
-void dfPlayer::dfPlayerVolumeDown() {
+const int &dfPlayer::dfPlayerVolumeDown() {  
     const uint8_t data[2] = {0x00, 0x00};
     serialSendData(DFPLAYER_SET_VOL_DOWN, data);
+    if(volume_ > 0)
+        return volume_ = volume_ - 1;
+
+    return volume_;
 }
 
-const int dfPlayer::fdPlayerGetVolume() { // To be tested
-    const uint8_t data[2] = {0x00, 0x00};
-    serialSendData(DFPLAYER_GET_VOL, data);
-    
-    while(!serial_->available());
-
-    return serial_->read();
+const int &dfPlayer::fdPlayerGetVolume() {
+    return volume_;
 }
 
 void dfPlayer::dfPlayerPlay(const uint16_t mp3File) {
@@ -128,7 +132,7 @@ void dfPlayer::dfPlayerPlayFolder(const uint8_t folderName, const uint8_t mp3Fil
 }
 
 void dfPlayer::dfPlayerPlayRandom() {
-    const uint8_t data[2] = {0x00, 0x00};
+    const uint8_t data[2] = {0x00, 0x00}; ///////
     serialSendData(DFPLAYER_RANDOM_ALL_FILES, nullptr);
 }
 
