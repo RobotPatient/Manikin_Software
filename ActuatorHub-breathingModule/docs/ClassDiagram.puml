@@ -4,37 +4,128 @@ set separator ::
 
 package Manikin_Software <<frame>> {
     class BreathingControl {
-        Description:
-        This class takes the incoming datapoints and
-        sends them to the Compression and Breathing class.
-        It also makes sure the 2 keep in sync
+        +void start()
+        +void stop()
+        +void loop()
+        +void setStartStopBit(bool)
+
+        -bool startStop()
+        -void printData()
+        -BreathingData *breathingData_
+        -Compression *compression_
+        -Breathing *breathing_
+        -volatile bool isBreathing_
+        -volatile bool start_
+        -volatile bool stop_
     }
 
     class Compression {
-        Description:
-        This class converst the incoming datapoints
-        to usable values for to actuate the motor
+        +void stopComptession()
+        +void StartCompression()
+        +void setDutyCycle(int dutyCycle)
+
+        -actuator::Motor *motor_;
     }
 
     class Breathing {
-        Description:
-        This class converst the incoming datapoints
-        to usable values for to actuate the pump
+        +void startBreathing()
+        +void stopBreathing()
+        +void setDutyCyle(datapoint_t dutyCycle)
+
+        -actuator::Motor *motor_
+    }
+
+    class BreathingData {
+        +SampleData& nextDataPoint()
+        +SampleData& getCurrent()
+        +void firstDataPoint()
+
+        #SampleData newDefaultDataPoint(int i)
+
+        -RingBufferT<SampleData, SIZEOF_DATA> breathingbuffer_
+        -SampleData currentDataPoint_
+    }
+
+    struct SampleData {
+        uint16_t index
+        datapoint_t breathingPoint
+        datapoint_t compressionPoint
     }
 }
 
 package Manikin_Software_Libraries <<frame>> {
-    namespace hal::ringbufferT {
-        class ringbufferT {
+    class RingBufferT <<typename T, size_t Capacity>> {
+        +void push(const T& item)
+        +T& front()
+        +T& back()
+        +T& read()
+        +void pop()
+        +void resetRead()
+        +void fill(const T& value)
+        +size_t size()
+        +bool empty() const
+        +T operator[](const unsigned int index)
 
-        }
+        -T buffer_[Capacity]
+        -size_t head_
+        -size_t tail_
+        -size_t size_
+        -size_t read_
     }
     namespace Actuators {
         class Motor {
-            Description:
-            This class controls the Rotation of a motor and pump.
+            +void startRotate()
+            +void stopRotate()
+            +void setDuctyCycle(uint8_t dutyCycle)
+
+            -void initPwmPin()
+            -hal::pwm::pwm_base* pwm_
+            -const hal::gpio::GPIOPort motorPort_
+            -const uint8_t motorPin_
+            -hal::gpio::GPIOPinFunction motorFunction_
         }
     }
+
+    namespace hal::pwm {
+        Interface pwm_base {
+            +void start()
+            +void stop()
+            +void setDutyCycle(uint32_t)
+            +void init()
+
+            #void initTimer()
+            #void initTcTcc()
+
+            #uint8_t gclk_
+            #uint32_t tc_tcc_connector_mask_
+            #uint16_t wo_
+            #const uint8_t period_
+
+            -bool checkFlag()
+
+        }
+
+        class pwm_tc {
+            +viod start()
+            +void stop()
+            +void setDuctyCycle(uint32_t dutyCycle)
+
+            -void initTcTcc()
+            -void selectTx(uint8_t)
+            -Tc* tc_;
+        }
+
+        class pwm_tcc {
+            +viod start()
+            +void stop()
+            +void setDuctyCycle(uint32_t dutyCycle)
+
+            -void initTcTcc()
+            -void selectTx(uint8_t)
+            -Tcc* tcc_;
+        }
+    }
+
     namespace hal::i2c {
         class i2c_breathingmod {
             Description:
@@ -52,6 +143,13 @@ package Manikin_Software_Libraries <<frame>> {
 hal::i2c::i2c_breathingmod --* BreathingControl 
 BreathingControl *-- Compression : Pattern of Compressionmovements
 BreathingControl *-- Breathing : Pattern of AirPumping
-Compression   *-- Actuators::Motor : BreathingControl according to received pattern
+Compression *-- Actuators::Motor : BreathingControl according to received pattern
+Breathing *-- Actuators::Motor : BreathingControl according to received pattern
+hal::pwm::pwm_base --|> hal::pwm::pwm_tc
+hal::pwm::pwm_base --|> hal::pwm::pwm_tcc
+Actuators::Motor *-- hal::pwm::pwm_base
+SampleData --* BreathingData
+RingBufferT --* BreathingData
+BreathingData --* BreathingControl
 
 @enduml
