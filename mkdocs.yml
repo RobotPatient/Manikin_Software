@@ -10,4 +10,28 @@ plugins:
             RECURSIVE: True
             EXTRACT_ALL: True
 theme: readthedocs
-
+nav:
+  - Home: "index.md"
+  - Firmware API:
+      - SensorHub:
+        - "Links": "SensorHub/links.md"
+        - "Classes":
+          - "Class List": "SensorHub/annotated.md"
+          - "Class Index": "SensorHub/classes.md"
+          - "Class Hierarchy": "SensorHub/hierarchy.md"
+          - "Class Members": "SensorHub/class_members.md"
+          - "Class Member Functions": "SensorHub/class_member_functions.md"
+          - "Class Member Variables": "SensorHub/class_member_variables.md"
+        - "Namespaces":
+          - "Namespace List": "SensorHub/namespaces.md"
+          - "Namespace Members": "SensorHub/namespace_members.md"
+          - "Namespace Member Functions": "SensorHub/namespace_member_functions.md"
+          - "Namespace Member Variables": "SensorHub/namespace_member_variables.md"
+          - "Namespace Member Typedefs": "SensorHub/namespace_member_typedefs.md"
+          - "Namespace Member Enumerations": "SensorHub/namespace_member_enums.md"
+        - "Functions": "SensorHub/functions.md"
+        - "Variables": "SensorHub/variables.md"
+        - "Macros": "SensorHub/macros.md"
+        - "Files": "SensorHub/files.md"
+  - Firmware Usage:
+    - "USB service protocol": "SensorHub/service_protocol.md"
