@@ -2,9 +2,9 @@ name: Build and unit test SensorHub_FW
 
 on:
   push:
-    branches: [ "main", "master", "topic-SensorHub-FW" ]
+    branches: [ "stable", "master", "topic-SensorHub-FW" ]
   pull_request:
-    branches: [ "main", "master", "topic-SensorHub-FW" ]
+    branches: [ "stable", "master", "topic-SensorHub-FW" ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
