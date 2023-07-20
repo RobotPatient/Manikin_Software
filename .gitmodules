@@ -1,3 +1,6 @@
 [submodule "SensorHub_FW/test/googletest"]
 	path = SensorHub_FW/test/googletest
 	url = https://github.com/google/googletest.git
+[submodule "SensorHub_FW_CMake/lib/FreeRTOS"]
+	path = SensorHub_FW_CMake/lib/FreeRTOS
+	url = https://github.com/RobotPatient/FreeRTOS.git
