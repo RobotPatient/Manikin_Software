@@ -1,0 +1,154 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"jsonFile" : "directory-.-MinSizeRel-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.17"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "board_sdk",
+					"jsonFile" : "directory-board_sdk-MinSizeRel-09e5f88f388474ce37f8.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.17"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "board_sdk",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "lib",
+					"childIndexes" : 
+					[
+						3,
+						4
+					],
+					"jsonFile" : "directory-lib-MinSizeRel-c12f15c6f888b43a891c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.17"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "lib"
+				},
+				{
+					"build" : "lib/Universall_hall",
+					"jsonFile" : "directory-lib.Universall_hall-MinSizeRel-15d574aed064592b32f3.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.17"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "lib/Universall_hall",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "lib/FreeRTOS",
+					"jsonFile" : "directory-lib.FreeRTOS-MinSizeRel-5f216c7c5664f6bc4797.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.17"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "lib/FreeRTOS",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "MinSizeRel",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					],
+					"name" : "ATMELSAMD21",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ATMELSAMD21.elf::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ATMELSAMD21.elf-MinSizeRel-510fa18da4eb753886d8.json",
+					"name" : "ATMELSAMD21.elf",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "FreeRTOS::@7621161b46eff1a7e043",
+					"jsonFile" : "target-FreeRTOS-MinSizeRel-e6afbf5ba066cc965f39.json",
+					"name" : "FreeRTOS",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "Universal_hall::@31e18271b2f1ac3e3dbe",
+					"jsonFile" : "target-Universal_hall-MinSizeRel-1acab72864696a704b05.json",
+					"name" : "Universal_hall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "board_sdk::@199e79f92fe5be2bc1b7",
+					"jsonFile" : "target-board_sdk-MinSizeRel-9e94077bb41b41912493.json",
+					"name" : "board_sdk",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/victor/babysim/Manikin_software_i2c_dev_cmake/SensorHub_FW_CMake/cmake-build-minsizerel",
+		"source" : "/home/victor/babysim/Manikin_software_i2c_dev_cmake/SensorHub_FW_CMake"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 5
+	}
+}

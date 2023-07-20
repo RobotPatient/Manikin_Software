@@ -1,2 +1,2 @@
-add_subdirectory(Universal_hall)
+add_subdirectory(Universall_hall)
 add_subdirectory(FreeRTOS)
