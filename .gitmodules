@@ -10,3 +10,7 @@
 [submodule "SensorHub_FW_CMake/board_sdk/cmsis-header-sam"]
 	path = SensorHub_FW_CMake/board_sdk/cmsis-header-sam
 	url = https://github.com/modm-io/cmsis-header-sam.git
+
+[submodule "SensorHub_FW_CMake/lib/Universall_hall"]
+	path = SensorHub_FW_CMake/lib/Universall_hall
+	url = https://github.com/Hoog-V/Universal_hall.git
