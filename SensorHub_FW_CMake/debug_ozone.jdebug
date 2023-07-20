@@ -4,7 +4,7 @@
 *                         www.segger.com                             *
 **********************************************************************
 
-File          : /home/victor/babysim/samd21_basic_osc/debug_ozone.jdebug
+File          : 
 Created       : 4 Jul 2023 15:29
 Ozone Version : V3.28a
 */
@@ -22,14 +22,14 @@ void OnProjectLoad (void) {
   //
   // Dialog-generated settings
   //
-  Project.AddPathSubstitute ("/home/victor/babysim/SAMD21_BARE_CMAKE", "$(ProjectDir)");
-  Project.AddPathSubstitute ("/home/victor/babysim/SAMD21_BARE_CMAKE", "$(ProjectDir)");
+  Project.AddPathSubstitute (".", "$(ProjectDir)");
+  Project.AddPathSubstitute (".", "$(ProjectDir)");
   Project.SetDevice ("ATSAMD21G18A");
   Project.SetHostIF ("USB", "");
   Project.SetTargetIF ("SWD");
   Project.SetTIFSpeed ("4 MHz");
   Project.AddSvdFile ("$(InstallDir)/Config/CPU/Cortex-M0.svd");
-  Project.AddSvdFile ("/home/victor/babysim/plain_project/ATSAMD21G18A.svd");
+  Project.AddSvdFile ("$(ProjectDir)/gcc/ATSAMD21G18A.svd");
   //
   // User settings
   //
