@@ -4,3 +4,9 @@
 [submodule "SensorHub_FW_CMake/lib/FreeRTOS"]
 	path = SensorHub_FW_CMake/lib/FreeRTOS
 	url = https://github.com/RobotPatient/FreeRTOS.git
+[submodule "SensorHub_FW_CMake/board_sdk/CMSIS_5"]
+	path = SensorHub_FW_CMake/board_sdk/CMSIS_5
+	url = https://github.com/ARM-software/CMSIS_5.git
+[submodule "SensorHub_FW_CMake/board_sdk/cmsis-header-sam"]
+	path = SensorHub_FW_CMake/board_sdk/cmsis-header-sam
+	url = https://github.com/modm-io/cmsis-header-sam.git
