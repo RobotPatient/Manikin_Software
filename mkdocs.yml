@@ -9,7 +9,33 @@ plugins:
             FILE_PATTERNS: "*.cpp *.h*"
             RECURSIVE: True
             EXTRACT_ALL: True
-theme: readthedocs
+markdown_extensions:
+  - toc
+  - tables
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - pymdownx.details
+  - pymdownx.blocks.admonition:
+      types:
+      - new
+      - settings
+      - note
+      - abstract
+      - info
+      - tip
+      - success
+      - question
+      - warning
+      - failure
+      - danger
+      - bug
+      - example
+      - quote
+theme: material
+features:
+  - content.tabs.link
 nav:
   - Home: "index.md"
   - Firmware API:
@@ -34,4 +60,6 @@ nav:
         - "Macros": "SensorHub/macros.md"
         - "Files": "SensorHub/files.md"
   - Firmware Usage:
-    - "USB service protocol": "SensorHub/service_protocol.md"
+    - "Building and Flashing": "General/flash_build_instructions.md"
+    - SensorHub:
+      - "USB Terminal": "SensorHub/service_protocol.md"
