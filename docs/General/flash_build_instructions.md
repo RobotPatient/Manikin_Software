@@ -96,17 +96,69 @@ Step 2: Search and install the following plugins:
 	![C/C++ Plugin](images/C_CPP_Plugin_vs_code.png)
 	
 ??? note "Plugins CMake and CMake Tools"
-	Search for the plugin in the search bar: **CMake*. Install the plugins CMake and CMake Tools from publisher: twxs and Microsoft. And Click on install...
+	Search for the plugin in the search bar: **CMake**. Install the plugins CMake and CMake Tools from publisher: twxs and Microsoft. And Click on install...
 	
 	![CMake plugins](images/CMake_plugins_vscode.png)
 	
 ??? note "Plugin PlatformIO IDE"
 	Search for the plugin in the search bar: **PlatformIO IDE** from publisher: PlatformIO. Click on install...
 	![PlatformIO plugin](images/Platformio_plugin_vscode.png)
+	
+/// success | Congratulations🎉 VS code is now set-up!
+///
 
 ## Building Projects (SensorHub_FW and ActuatorHub_FW)
+??? summary "Step 1: Open the SensorHub_FW or ActuatorHub_FW project folder in vs code"
+	Open VS code and select **File->Open Folder**. 
+	![Open folder](images/Open_folder.png)
+	
+	Open the SensorHub_FW or ActuatorHub_FW folder.
+	![SensorHub_FW folder](images/Path2.png)
+	![Inside SensorHub_FW folder](images/Path3.png)
 
+??? summary "Step 2: Configure CMake"
+	VS code will ask automatically to configure the project using CMake. 
+	![Configure project with CMake](images/Configure_project.png)
+	
+	Select the right compiler from the list:
+	![Select kit](images/Select_kit.png)
+	When asked to always configure projects upon opening. Select **No**!
 
+??? summary "Step 3: Build the project using PlatformIO"
+	Select the build icon in the bottom left toolbar in VS code. 
+	![Build](images/Build.png)
+	After some time passes you will get this output...
+	
+	![Build Success](images/Build_success.png)
+	
+	/// success | Congratulations🎉 You succesfully built the mcu binary
+	///
+	
+## Formatter and unit-tests
+
+Advanced features like the auto-formatter and unit tests are very useful and help keeping code quality consistent.  
+
+??? summary "How to use the auto-formatter"
+	Step 1: Press **CTRL+SHIFT+P** and type "format document"
+	![auto-formatter](images/formatter.png)
+
+	/// warning | This uses the rules defined in the .clang-format file
+	///
+
+??? summary "How to use the unit testing features in vs code"
+	![toolbar](images/Toolbar_explanation.png)
+	??? note
+		The red icon is the flash icon, when a board is connected via micro-usb the mcu binary will be flashed to the MCU.
+		
+		The purple icon is the clean icon, when pressed all build files will be deleted.
+		
+		The green icon is the build icon for the unit tests, when pressed the unit-tests will be build using CMake.
+		
+		The orange icon is the CTest icon, when pressed the unit tests will be run.
+
+	Step 1: Click on the Build icon for the unit tests (Gear icon with the text "Build").
+	
+	Step 2: Click on the Run CTest button.
 
 
 
