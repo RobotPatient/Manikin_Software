@@ -23,7 +23,6 @@ void OnProjectLoad (void) {
   // Dialog-generated settings
   //
   Project.AddPathSubstitute (".", "$(ProjectDir)");
-  Project.AddPathSubstitute (".", "$(ProjectDir)");
   Project.SetDevice ("ATSAMD21G18A");
   Project.SetHostIF ("USB", "");
   Project.SetTargetIF ("SWD");

@@ -49,7 +49,7 @@ include_directories(
         .
         )
 
-add_definitions( -D__SAMD21G18A__ -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-common -fmessage-length=0 -fstack-usage)
+add_definitions( -D__SAMD21G18A__ -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-common -fmessage-length=0 -fstack-usage -Dprintf=iprintf)
 
 set(FREERTOS_PORT GCC_ARM_CM0 CACHE STRING "")
 
