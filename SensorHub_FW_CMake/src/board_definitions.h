@@ -5,9 +5,28 @@
 #ifndef ATMELSAMD21_BOARD_DEFINITIONS_H
 #define ATMELSAMD21_BOARD_DEFINITIONS_H
 
+#include <hal_spi.h>
+
+#define MAIN_CLOCK_SPEED 48000000
 #define I2C_CLOCK_SPEED 1000000
-const GPIOPin LedPin = {kGPIOPortA, 2};
-const GPIOPin kBackBoneSDA = {kGPIOPortA, 12};
-const GPIOPin kBackBoneSCL = {kGPIOPortA, 13};
-const I2CInst I2CPeriph = {SERCOM_NUM_4, SERCOM4, CLKGEN_3, CLKGEN_0, I2COpModeMaster, 0x54};
+const gpio_pin_t LedPin = {GPIO_PORT_A, 2};
+const gpio_pin_t kBackBoneSDA = {GPIO_PORT_A, 12};
+const gpio_pin_t kBackBoneSCL = {GPIO_PORT_A, 13};
+
+const gpio_pin_t flash_miso = {GPIO_PORT_A, 14};
+const gpio_pin_t flash_mosi = {GPIO_PORT_A, 8};
+const gpio_pin_t flash_sck = {GPIO_PORT_A, 9};
+const gpio_pin_t flash_ss = {GPIO_PORT_A, 7};
+
+const i2c_periph_inst_t I2CPeriph = {SERCOM_NUM_4, SERCOM4, CLKGEN_3, CLKGEN_0, I2C_OPERATING_MODE_MASTER, 0x54};
+const spi_periph_inst_t spi_periph = {
+        .sercom_inst_num = SERCOM_NUM_2,
+        .sercom_inst = SERCOM2,
+        .clk_gen_fast = CLKGEN_0,
+        .fast_clk_gen_frequency = MAIN_CLOCK_SPEED,
+        .clk_gen_slow = CLKGEN_3,
+        .operating_mode = SPI_OPERATING_MODE_MASTER,
+        .dopo_pad = SERCOM_DOPO_PAD0,
+        .dipo_pad = SERCOM_DIPO_PAD2
+};
 #endif //ATMELSAMD21_BOARD_DEFINITIONS_H

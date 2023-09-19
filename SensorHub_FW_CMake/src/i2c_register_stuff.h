@@ -5,6 +5,7 @@
 #ifndef ATMELSAMD21_I2C_REGISTER_STUFF_H
 #define ATMELSAMD21_I2C_REGISTER_STUFF_H
 #include <stddef.h>
+#include <stdbool.h>
 
 #define I2C_REGS_MAX_ADDR 5
 struct Register {

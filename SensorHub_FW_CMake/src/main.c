@@ -6,6 +6,7 @@
 #include <board_definitions.h>
 #include <FreeRTOS.h>
 #include <task.h>
+#include "hal_spi.h"
 #define STACK_SIZE 200
 
 /* Structure that will hold the TCB of the task being created. */
@@ -62,31 +63,52 @@ void vTaskCode( void * pvParameters )
 //        i2c_write_blocking(&I2CPeriph, 0x29, testbuf[i], 3, 0);
 //    }
 //    i2c_write_blocking(&I2CPeriph, 0x29, resetreg, 2, 1);
+    /*
+     * @todo note that pins for sercom peripherals needs configuration first.
+     */
+    set_gpio_pin_mode(flash_miso, GPIO_MODE_C);
+    set_gpio_pin_mode(flash_mosi, GPIO_MODE_D);
+    set_gpio_pin_mode(flash_sck, GPIO_MODE_D);
+    set_gpio_pin_mode(flash_ss, GPIO_MODE_OUTPUT);
+    spi_dev_t flash_chip = {
+            .spi_peripheral = &spi_periph,
+            .character_size = SPI_8_BIT_CHARACTER_SIZE,
+            .data_order = SPI_DATA_ORDER_MSB_FIRST,
+            .clock_polarity = SPI_CLOCK_POLARITY_SCK_LOW_IDLE,
+            .cs_pin = flash_ss
+    };
     vTaskDelay(10/portTICK_RATE_MS);
-    for(uint8_t i=0; i< 30; i++) {
-        i2c_write_blocking(&I2CPeriph, 0x29, testbuf[i], 3, 1);
+//    for(uint8_t i=0; i< 30; i++) {
+//        i2c_write_blocking(&I2CPeriph, 0x29, testbuf[i], 3, 1);
 //        vTaskDelay(1/portTICK_RATE_MS);
  //       i2c_read_blocking(&I2CPeriph, 0x29, data, 1);
         //vTaskDelay(1/portTICK_RATE_MS);
-    }
+    //}
+
+
     for( ;; )
     {
-        i2c_write_blocking(&I2CPeriph, 0x29, StartMeasurement, 3, 1);
-        ToggleGPIOPin(LedPin);
-        vTaskDelay(10/portTICK_PERIOD_MS);
-        i2c_write_blocking(&I2CPeriph, 0x29, InterruptClear, 3, 1);
-        i2c_write_blocking(&I2CPeriph, 0x29, ReadRange, 2, 1);
-        i2c_read_blocking(&I2CPeriph, 0x29, &data, 1);
+        spi_init(&flash_chip, 1000000);
+        spi_start_transaction(&flash_chip);
+        spi_write_blocking(&flash_chip, &data, 1);
+        spi_end_transaction(&flash_chip);
+
+//        i2c_write_blocking(&I2CPeriph, 0x29, StartMeasurement, 3, 1);
+//        toggle_gpio_pin_output(LedPin);
+//        vTaskDelay(10/portTICK_PERIOD_MS);
+//        i2c_write_blocking(&I2CPeriph, 0x29, InterruptClear, 3, 1);
+//        i2c_write_blocking(&I2CPeriph, 0x29, ReadRange, 2, 1);
+//        i2c_read_blocking(&I2CPeriph, 0x29, &data, 1);
     }
 }
 
 
-void i2c_slave_data_send_irq(const void *const hw){
+void i2c_slave_data_send_irq(const void *const hw, volatile bustransaction_t *bustransaction){
     ((Sercom*)hw)->I2CS.DATA.reg = 0;
 
 }
 
-void i2c_slave_data_recv_irq(const void *const hw){
+void i2c_slave_data_recv_irq(const void *const hw, volatile bustransaction_t *bustransaction){
     const uint8_t data = ((Sercom*)hw)->I2CS.DATA.reg;
     if(!CurrTransaction.error_occured) {
         if (CurrTransaction.byte_cnt == 0) {
@@ -121,7 +143,7 @@ void i2c_slave_data_recv_irq(const void *const hw){
 
 }
 
-void i2c_slave_stop_irq(const void *const hw) {
+void i2c_slave_stop_irq(const void *const hw, volatile bustransaction_t *bustransaction) {
     CurrTransaction.error_occured = 0;
     CurrTransaction.reg = NULL;
     CurrTransaction.byte_cnt =0;
@@ -138,7 +160,7 @@ int main(void)
 
     Clock_Init();
     /* Create the task without using any dynamic memory allocation. */
-    SetGPIOPinDirection(LedPin, kGPIODirOutput);
+    set_gpio_pin_mode(LedPin, GPIO_MODE_OUTPUT);
     xTaskCreateStatic(
             vTaskCode,       /* Function that implements the task. */
             "CBTASK",          /* Text name for the task. */
@@ -148,8 +170,8 @@ int main(void)
             xStack,          /* Array to use as the task's stack. */
             &xTaskBuffer );  /* Variable to hold the task's data structure. */
     i2c_init(&I2CPeriph, I2C_CLOCK_SPEED);
-    SetGPIOPinFunction(kBackBoneSCL, kGPIOFunctionD);
-    SetGPIOPinFunction(kBackBoneSDA, kGPIOFunctionD);
+    set_gpio_pin_mode(kBackBoneSCL, GPIO_MODE_D);
+    set_gpio_pin_mode(kBackBoneSDA, GPIO_MODE_D);
     vTaskStartScheduler();
 	while (1) {
 	}

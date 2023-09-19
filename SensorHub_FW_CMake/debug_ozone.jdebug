@@ -28,7 +28,7 @@ void OnProjectLoad (void) {
   Project.SetTargetIF ("SWD");
   Project.SetTIFSpeed ("4 MHz");
   Project.AddSvdFile ("$(InstallDir)/Config/CPU/Cortex-M0.svd");
-  Project.AddSvdFile ("$(ProjectDir)/gcc/ATSAMD21G18A.svd");
+  Project.AddSvdFile ("$(ProjectDir)/board_sdk/ATSAMD21G18A.svd");
   //
   // User settings
   //
