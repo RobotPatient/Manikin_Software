@@ -5,7 +5,8 @@
 #ifndef ATMELSAMD21_BOARD_DEFINITIONS_H
 #define ATMELSAMD21_BOARD_DEFINITIONS_H
 
-#include <hal_spi.h>
+#include <hal_spi_host.h>
+#include <hal_i2c.h>
 
 #define MAIN_CLOCK_SPEED 48000000
 #define I2C_CLOCK_SPEED 1000000

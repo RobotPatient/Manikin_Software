@@ -1,12 +1,12 @@
+#include "hal_spi_host.h"
 #include "sam.h"
-#include <hal_i2c.h>
-#include <hal_gpio.h>
 #include <Clock_stuff.h>
-#include <i2c_register_stuff.h>
-#include <board_definitions.h>
 #include <FreeRTOS.h>
+#include <board_definitions.h>
+#include <hal_gpio.h>
+#include <hal_i2c.h>
+#include <i2c_register_stuff.h>
 #include <task.h>
-#include "hal_spi.h"
 #define STACK_SIZE 200
 
 /* Structure that will hold the TCB of the task being created. */
@@ -53,7 +53,7 @@ const unsigned char StartMeasurement[3] = {0x00, 0x18, 0x01};
 const unsigned char InterruptClear[3] = {0x00, 0x15, 0x07};
 const unsigned char ReadRange[2] = {0x00, 0x62};
 //static const unsigned char idreg[3] = {0x00, 0x00, 0xB4};
-static uint8_t data;
+static uint8_t data = 0x10;
 /* Function that implements the task being created. */
 void vTaskCode( void * pvParameters )
 {
@@ -66,11 +66,11 @@ void vTaskCode( void * pvParameters )
     /*
      * @todo note that pins for sercom peripherals needs configuration first.
      */
-    set_gpio_pin_mode(flash_miso, GPIO_MODE_C);
-    set_gpio_pin_mode(flash_mosi, GPIO_MODE_D);
-    set_gpio_pin_mode(flash_sck, GPIO_MODE_D);
-    set_gpio_pin_mode(flash_ss, GPIO_MODE_OUTPUT);
-    spi_dev_t flash_chip = {
+    gpio_set_pin_mode(flash_miso, GPIO_MODE_C);
+    gpio_set_pin_mode(flash_mosi, GPIO_MODE_D);
+    gpio_set_pin_mode(flash_sck, GPIO_MODE_D);
+    gpio_set_pin_mode(flash_ss, GPIO_MODE_OUTPUT);
+    spi_host_dev_t flash_chip = {
             .spi_peripheral = &spi_periph,
             .character_size = SPI_8_BIT_CHARACTER_SIZE,
             .data_order = SPI_DATA_ORDER_MSB_FIRST,
@@ -85,17 +85,18 @@ void vTaskCode( void * pvParameters )
         //vTaskDelay(1/portTICK_RATE_MS);
     //}
 
-
+    spi_host_init(&flash_chip, 1000000);
+    spi_write_blocking(&flash_chip, testbuf[0], 3);
     for( ;; )
     {
-        spi_init(&flash_chip, 1000000);
-        spi_start_transaction(&flash_chip);
-        spi_write_blocking(&flash_chip, &data, 1);
-        spi_end_transaction(&flash_chip);
+//        spi_start_transaction(&flash_chip);
+
+//        spi_end_transaction(&flash_chip);
 
 //        i2c_write_blocking(&I2CPeriph, 0x29, StartMeasurement, 3, 1);
-//        toggle_gpio_pin_output(LedPin);
-//        vTaskDelay(10/portTICK_PERIOD_MS);
+//        gpio_toggle_pin_output(LedPin);
+        spi_read_blocking(&flash_chip, &data, 1);
+        vTaskDelay(100/portTICK_PERIOD_MS);
 //        i2c_write_blocking(&I2CPeriph, 0x29, InterruptClear, 3, 1);
 //        i2c_write_blocking(&I2CPeriph, 0x29, ReadRange, 2, 1);
 //        i2c_read_blocking(&I2CPeriph, 0x29, &data, 1);
@@ -160,7 +161,7 @@ int main(void)
 
     Clock_Init();
     /* Create the task without using any dynamic memory allocation. */
-    set_gpio_pin_mode(LedPin, GPIO_MODE_OUTPUT);
+    gpio_set_pin_mode(LedPin, GPIO_MODE_OUTPUT);
     xTaskCreateStatic(
             vTaskCode,       /* Function that implements the task. */
             "CBTASK",          /* Text name for the task. */
@@ -170,8 +171,8 @@ int main(void)
             xStack,          /* Array to use as the task's stack. */
             &xTaskBuffer );  /* Variable to hold the task's data structure. */
     i2c_init(&I2CPeriph, I2C_CLOCK_SPEED);
-    set_gpio_pin_mode(kBackBoneSCL, GPIO_MODE_D);
-    set_gpio_pin_mode(kBackBoneSDA, GPIO_MODE_D);
+    gpio_set_pin_mode(kBackBoneSCL, GPIO_MODE_D);
+    gpio_set_pin_mode(kBackBoneSDA, GPIO_MODE_D);
     vTaskStartScheduler();
 	while (1) {
 	}
