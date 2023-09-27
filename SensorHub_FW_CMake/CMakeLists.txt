@@ -19,7 +19,7 @@ set(CMAKE_C_STANDARD 11)
 set(MCPU cortex-m0plus)
 
 add_compile_options(-mcpu=${MCPU} -mthumb )
-add_compile_options(-mlong-calls -g3 -Wall -c -std=gnu99)
+add_compile_options(-mlong-calls -g3 -Wall -c -std=gnu11)
 
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")

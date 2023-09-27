@@ -4,8 +4,7 @@
 #include <FreeRTOS.h>
 #include <board_definitions.h>
 #include <hal_gpio.h>
-#include <hal_i2c.h>
-#include <i2c_register_stuff.h>
+#include <hal_i2c_host.h>
 #include <task.h>
 #define STACK_SIZE 200
 
@@ -66,91 +65,45 @@ void vTaskCode( void * pvParameters )
     /*
      * @todo note that pins for sercom peripherals needs configuration first.
      */
-    gpio_set_pin_mode(flash_miso, GPIO_MODE_C);
-    gpio_set_pin_mode(flash_mosi, GPIO_MODE_D);
-    gpio_set_pin_mode(flash_sck, GPIO_MODE_D);
-    gpio_set_pin_mode(flash_ss, GPIO_MODE_OUTPUT);
-    spi_host_dev_t flash_chip = {
-            .spi_peripheral = &spi_periph,
-            .character_size = SPI_8_BIT_CHARACTER_SIZE,
-            .data_order = SPI_DATA_ORDER_MSB_FIRST,
-            .clock_polarity = SPI_CLOCK_POLARITY_SCK_LOW_IDLE,
-            .cs_pin = flash_ss
-    };
+//    gpio_set_pin_mode(flash_miso, GPIO_MODE_C);
+//    gpio_set_pin_mode(flash_mosi, GPIO_MODE_D);
+//    gpio_set_pin_mode(flash_sck, GPIO_MODE_D);
+//    gpio_set_pin_mode(flash_ss, GPIO_MODE_OUTPUT);
+//    spi_host_dev_t flash_chip = {
+//            .spi_peripheral = &spi_periph,
+//            .character_size = SPI_8_BIT_CHARACTER_SIZE,
+//            .data_order = SPI_DATA_ORDER_MSB_FIRST,
+//            .clock_polarity = SPI_CLOCK_POLARITY_SCK_LOW_IDLE,
+//            .cs_pin = flash_ss
+//    };
     vTaskDelay(10/portTICK_RATE_MS);
-//    for(uint8_t i=0; i< 30; i++) {
-//        i2c_write_blocking(&I2CPeriph, 0x29, testbuf[i], 3, 1);
-//        vTaskDelay(1/portTICK_RATE_MS);
- //       i2c_read_blocking(&I2CPeriph, 0x29, data, 1);
+    for(uint8_t i=0; i< 30; i++) {
+        i2c_host_write_blocking(I2C_HOST_INST, 0x29, testbuf[i], 3, 1);
+        vTaskDelay(1/portTICK_RATE_MS);
+//       i2c_host_read_blocking(&I2CPeriph, 0x29, data, 1);
         //vTaskDelay(1/portTICK_RATE_MS);
-    //}
+}
 
-    spi_host_init(&flash_chip, 1000000);
-    spi_write_blocking(&flash_chip, testbuf[0], 3);
+//    spi_host_init(&flash_chip, 1000000);
+//    spi_write_blocking(&flash_chip, testbuf[0], 3);
     for( ;; )
     {
 //        spi_start_transaction(&flash_chip);
 
 //        spi_end_transaction(&flash_chip);
 
-//        i2c_write_blocking(&I2CPeriph, 0x29, StartMeasurement, 3, 1);
+        i2c_host_write_blocking(I2C_HOST_INST, 0x29, StartMeasurement, 3, 1);
 //        gpio_toggle_pin_output(LedPin);
-        spi_read_blocking(&flash_chip, &data, 1);
+//        spi_read_blocking(&flash_chip, &data, 1);
         vTaskDelay(100/portTICK_PERIOD_MS);
-//        i2c_write_blocking(&I2CPeriph, 0x29, InterruptClear, 3, 1);
-//        i2c_write_blocking(&I2CPeriph, 0x29, ReadRange, 2, 1);
-//        i2c_read_blocking(&I2CPeriph, 0x29, &data, 1);
+        i2c_host_write_blocking(I2C_HOST_INST, 0x29, InterruptClear, 3, 1);
+        i2c_host_write_blocking(I2C_HOST_INST, 0x29, ReadRange, 2, 1);
+        i2c_host_read_blocking(I2C_HOST_INST, 0x29, &data, 1);
     }
 }
 
 
-void i2c_slave_data_send_irq(const void *const hw, volatile bustransaction_t *bustransaction){
-    ((Sercom*)hw)->I2CS.DATA.reg = 0;
 
-}
-
-void i2c_slave_data_recv_irq(const void *const hw, volatile bustransaction_t *bustransaction){
-    const uint8_t data = ((Sercom*)hw)->I2CS.DATA.reg;
-    if(!CurrTransaction.error_occured) {
-        if (CurrTransaction.byte_cnt == 0) {
-            if (data > I2C_REGS_MAX_ADDR) {
-                i2c_regs[I2C_REGS_I2C_CONN_INDEX].buffer[I2C_REGS_I2C_CONN_I2C_ERROR] = I2C_ERROR_CODE_INVALID_REGISTER;
-                CurrTransaction.error_occured = 1;
-            }
-            else {
-                CurrTransaction.reg = &i2c_regs[data];
-                CurrTransaction.byte_cnt++;
-            }
-
-        } else {
-            if(CurrTransaction.reg != NULL) {
-                if (CurrTransaction.byte_cnt < CurrTransaction.reg->size+1 ) {
-                    if(CurrTransaction.reg->RWPermissions) {
-                        CurrTransaction.reg->buffer[CurrTransaction.byte_cnt++ - 1] = data;
-                    }
-                    else {
-                        CurrTransaction.error_occured = 1;
-                        i2c_regs[I2C_REGS_I2C_CONN_INDEX].buffer[I2C_REGS_I2C_CONN_I2C_ERROR] = I2C_ERROR_ACCESS_PERMISSION_VIOLATION;
-                    }
-                } else if (CurrTransaction.byte_cnt == CurrTransaction.reg->size+1) {
-                    CurrTransaction.crc = data;
-                } else {
-                    CurrTransaction.error_occured = 1;
-                    i2c_regs[I2C_REGS_I2C_CONN_INDEX].buffer[I2C_REGS_I2C_CONN_I2C_ERROR] = I2C_ERROR_OUT_OF_BOUNDS;
-                }
-            }
-        }
-    }
-
-}
-
-void i2c_slave_stop_irq(const void *const hw, volatile bustransaction_t *bustransaction) {
-    CurrTransaction.error_occured = 0;
-    CurrTransaction.reg = NULL;
-    CurrTransaction.byte_cnt =0;
-    CurrTransaction.crc = 0;
-    ((Sercom*)hw)->I2CS.INTFLAG.reg = SERCOM_I2CS_INTFLAG_PREC;
-}
 
 
 int main(void)
@@ -170,7 +123,7 @@ int main(void)
             tskIDLE_PRIORITY,/* Priority at which the task is created. */
             xStack,          /* Array to use as the task's stack. */
             &xTaskBuffer );  /* Variable to hold the task's data structure. */
-    i2c_init(&I2CPeriph, I2C_CLOCK_SPEED);
+    i2c_host_init(I2C_HOST_INST, i2c_host_options);
     gpio_set_pin_mode(kBackBoneSCL, GPIO_MODE_D);
     gpio_set_pin_mode(kBackBoneSDA, GPIO_MODE_D);
     vTaskStartScheduler();
