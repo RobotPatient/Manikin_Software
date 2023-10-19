@@ -1,2 +1,3 @@
-add_subdirectory(Universall_hall)
+add_subdirectory(Universal_hal)
 add_subdirectory(FreeRTOS)
+add_subdirectory(Manikin_Software_Libraries_V2)

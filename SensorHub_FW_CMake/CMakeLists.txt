@@ -18,8 +18,11 @@ set(CMAKE_C_STANDARD 11)
 
 set(MCPU cortex-m0plus)
 
-add_compile_options(-mcpu=${MCPU} -mthumb )
-add_compile_options(-mlong-calls -g3 -Wall -c -std=gnu11)
+add_compile_options(-mcpu=${MCPU} -mthumb)
+add_compile_options(-mlong-calls -g3 -Wall -c
+        $<$<COMPILE_LANGUAGE:CXX>:-fno-rtti>
+        $<$<COMPILE_LANGUAGE:CXX>:-fno-use-cxa-atexit>
+        $<$<COMPILE_LANGUAGE:CXX>:-fno-threadsafe-statics>)
 
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
@@ -47,9 +50,9 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/Universal_hall/platform_dep/atmelsam/
         ${CMAKE_SOURCE_DIR}/src
         .
-        )
+)
 
-add_definitions( -D__SAMD21G18A__ -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-common -fmessage-length=0 -fstack-usage -Dprintf=iprintf)
+add_definitions(-D__SAMD21G18A__ -ffunction-sections -fdata-sections -fno-exceptions -fno-strict-aliasing -fno-common -fmessage-length=0 -fstack-usage -Dprintf=iprintf)
 
 set(FREERTOS_PORT GCC_ARM_CM0 CACHE STRING "")
 
@@ -57,8 +60,8 @@ file(GLOB_RECURSE SOURCES
         "board_sdk/gcc/*.*"
         "board_sdk/gcc/gcc/*.*"
         "src/port.c"
-        "src/main.c"
-        )
+        "src/main.cpp"
+)
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/board_sdk/gcc/gcc/samd21g18a_flash.ld)
 
@@ -66,10 +69,14 @@ add_link_options(-Wl,--start-group -lm -Wl,--end-group -mthumb -Wl,--print-memor
 add_link_options(-T ${LINKER_SCRIPT})
 
 
-
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC Universal_hall)
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC FreeRTOS)
+target_link_libraries(${PROJECT_NAME}.elf PUBLIC fram_driver)
+target_link_libraries(${PROJECT_NAME}.elf PUBLIC sensor_compression)
+target_link_libraries(${PROJECT_NAME}.elf PUBLIC sensor_fingerposition)
+target_link_libraries(${PROJECT_NAME}.elf PUBLIC sensor_ventilation)
+
 
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)
