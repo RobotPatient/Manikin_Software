@@ -77,7 +77,7 @@ target_link_libraries(${PROJECT_NAME}.elf PUBLIC fram_driver)
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC sensor_compression)
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC sensor_fingerposition)
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC sensor_ventilation)
-target_link_libraries(${PROJECT_NAME}.elf PUBLIC FastCRCg)
+target_link_libraries(${PROJECT_NAME}.elf PUBLIC FastCRC)
 
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)
