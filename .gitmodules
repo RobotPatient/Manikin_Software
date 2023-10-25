@@ -14,3 +14,12 @@
 [submodule "SensorHub_FW_CMake/lib/Universall_hall"]
 	path = SensorHub_FW_CMake/lib/Universall_hall
 	url = https://github.com/Hoog-V/Universal_hall.git
+[submodule "SensorHub_FW_CMake/lib/FastCRC"]
+	path = SensorHub_FW_CMake/lib/FastCRC
+	url = https://github.com/RobotPatient/FastCRC.git
+[submodule "SensorHub_FW_CMake/lib/Universal_hal"]
+	path = SensorHub_FW_CMake/lib/Universal_hal
+	url = https://github.com/RobotPatient/Universal_hal.git
+[submodule "SensorHub_FW_CMake/lib/Manikin_Software_Libraries_V2"]
+	path = SensorHub_FW_CMake/lib/Manikin_Software_Libraries_V2
+	url = https://github.com/RobotPatient/Manikin_Software_Libraries_V2.git

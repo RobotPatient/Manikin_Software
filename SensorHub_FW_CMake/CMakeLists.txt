@@ -61,6 +61,7 @@ file(GLOB_RECURSE SOURCES
         "board_sdk/gcc/gcc/*.*"
         "src/port.c"
         "src/main.cpp"
+        "src/Slave_driver.cpp"
 )
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/board_sdk/gcc/gcc/samd21g18a_flash.ld)
@@ -76,7 +77,7 @@ target_link_libraries(${PROJECT_NAME}.elf PUBLIC fram_driver)
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC sensor_compression)
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC sensor_fingerposition)
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC sensor_ventilation)
-
+target_link_libraries(${PROJECT_NAME}.elf PUBLIC FastCRCg)
 
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)
