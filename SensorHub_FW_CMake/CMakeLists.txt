@@ -62,6 +62,7 @@ file(GLOB_RECURSE SOURCES
         "src/port.c"
         "src/main.cpp"
         "src/evsys_imp.cpp"
+        "src/device_manager.cpp"
         "src/Slave_driver.cpp"
 )
 

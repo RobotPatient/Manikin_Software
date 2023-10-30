@@ -40,11 +40,13 @@ I2CSlaveDriver(i2c_periph_inst_t peripheral) {
 }
 void init(uint8_t slave_addr);
 
-void set_register_buffer(i2c_slave_reg_t *reg);
+void set_external_register_buffer(i2c_slave_reg_t *reg);
 
 void recalculate_crc();
 
-void TestAtomicBuffer();
+void force_update_external_buffer(uint8_t *reg, uint8_t reg_size);
+
+void force_update_internal_buffer(uint8_t *reg, uint8_t reg_size);
 
 private:
     i2c_periph_inst_t peripheral_;

@@ -58,11 +58,11 @@ int main(void)
     backbone_port.init(0x10);
 
     compressionSensor.Initialize(&sensor_port_b);
-    backbone_port.set_register_buffer(&public_reg);
+    backbone_port.set_external_register_buffer(&public_reg);
 
     setup_evsys_handler();
 
-    backbone_port.TestAtomicBuffer();
+    backbone_port.force_update_internal_buffer(public_reg.STATUS, 2);
 
     xTaskCreateStatic(
             vTaskCode,       /* Function that implements the task. */

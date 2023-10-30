@@ -22,7 +22,7 @@
 #define I2C_REGS_MAX_ADDR 7
 
 i2c_slave_reg_t reg_priv;
-i2c_slave_reg_t* reg = NULL;
+i2c_slave_reg_t *reg = NULL;
 
 
 FastCRC8 CRC_Gen;
@@ -32,9 +32,9 @@ typedef struct {
     size_t size;
     uint8_t permission;
     uint8_t crc;
-}i2c_registers_base_t;
+} i2c_registers_base_t;
 
-i2c_registers_base_t registers[NUM_OF_I2C_REGISTERS] {
+i2c_registers_base_t registers[NUM_OF_I2C_REGISTERS]{
         {reg_priv.STATUS,         I2C_SLAVE_REG_STATUS_SIZE,         I2C_PERMISSION_RO, 0},
         {reg_priv.I2CCON,         I2C_SLAVE_REG_I2CCON_SIZE,         I2C_PERMISSION_RW, 0},
         {reg_priv.PORTACONF,      I2C_SLAVE_REG_PORTACONF_SIZE,      I2C_PERMISSION_RW, 0},
@@ -45,63 +45,102 @@ i2c_registers_base_t registers[NUM_OF_I2C_REGISTERS] {
         {reg_priv.PORTBSAMPLERDY, I2C_SLAVE_REG_PORTBSAMPLERDY_SIZE, I2C_PERMISSION_RW, 0}
 };
 
+typedef enum {
+    TRANSACTION_TYPE_NONE,
+    TRANSACTION_TYPE_REG_READ,
+    TRANSACTION_TYPE_REG_WRITE
+} transaction_type_t;
 
 struct I2CTransaction {
     bool error_occured;
+    transaction_type_t transaction_type;
     i2c_registers_base_t *reg;
-    uint8_t  byte_cnt;
+    uint8_t byte_cnt;
     uint8_t crc;
 };
 
-struct I2CTransaction CurrTransaction = {false, NULL, 0, 0};
+
+typedef enum {
+    EVSYS_TRIGGER_NONE,
+    EVSYS_TRIGGER_I2C_SLAVE_STOP_ISR,
+    EVSYS_TRIGGER_MANUAL
+} evsys_trigger_t;
 
 
-void EVSYS_Handler_EVD1(void){
-    CurrTransaction.crc = 0x78;
-    CurrTransaction.byte_cnt = 0x67;
-    if(CurrTransaction.error_occured == 0) {
-        size_t offset = (size_t)(CurrTransaction.reg->buf) - (size_t)(&reg_priv);
-        uint8_t * reg_loc = (reg->STATUS);
-        memcpy(reg_loc+offset, CurrTransaction.reg->buf, CurrTransaction.reg->size);
+struct I2CTransaction CurrTransaction = {false, TRANSACTION_TYPE_NONE, NULL, 0, 0};
+
+typedef struct {
+    evsys_trigger_t evsys_trigger;
+    transaction_type_t transaction_type;
+    uint8_t *reg;
+    uint8_t reg_size;
+} evsys_transaction_t;
+
+evsys_transaction_t evsys_transaction;
+
+void EVSYS_Handler_EVD1(void) {
+    evsys_trigger_t evsys_trigger = evsys_transaction.evsys_trigger;
+    switch (evsys_trigger) {
+        case EVSYS_TRIGGER_MANUAL: {
+            if (evsys_transaction.transaction_type == TRANSACTION_TYPE_REG_WRITE) {
+                size_t offset = (size_t) (evsys_transaction.reg) - (size_t) (reg);
+                uint8_t *reg_loc = (reg->STATUS);
+                memcpy(reg_loc + offset, evsys_transaction.reg, evsys_transaction.reg_size);
+            } else if (evsys_transaction.transaction_type == TRANSACTION_TYPE_REG_READ) {
+                size_t offset = (size_t) (evsys_transaction.reg) - (size_t) (reg);
+                uint8_t *reg_loc = (reg->STATUS);
+                memcpy(evsys_transaction.reg, reg_loc + offset, evsys_transaction.reg_size);
+            }
+            break;
+        }
+        case EVSYS_TRIGGER_I2C_SLAVE_STOP_ISR: {
+            if (evsys_transaction.transaction_type == TRANSACTION_TYPE_REG_WRITE) {
+                size_t offset = (size_t) (evsys_transaction.reg) - (size_t) (&reg_priv);
+                uint8_t *reg_loc = (reg->STATUS);
+                memcpy(reg_loc + offset, evsys_transaction.reg, evsys_transaction.reg_size);
+            } else if (evsys_transaction.transaction_type == TRANSACTION_TYPE_REG_READ) {
+                size_t offset = (size_t) (evsys_transaction.reg) - (size_t) (&reg_priv);
+                uint8_t *reg_loc = (reg->STATUS);
+                memcpy(evsys_transaction.reg, reg_loc + offset, evsys_transaction.reg_size);
+            }
+            break;
+        }
+        default: {
+            break;
+        }
     }
-    CurrTransaction.error_occured = 0;
-    CurrTransaction.reg = NULL;
-    CurrTransaction.byte_cnt =0;
-    CurrTransaction.crc = 0;
 }
 
 
-
-void i2c_slave_data_send_irq(const void *const hw, volatile bustransaction_t *bustransaction){
-    ((Sercom*)hw)->I2CS.DATA.reg = 0;
+void i2c_slave_data_send_irq(const void *const hw, volatile bustransaction_t *bustransaction) {
+    ((Sercom *) hw)->I2CS.DATA.reg = 0;
 
 }
 
-void i2c_slave_data_recv_irq(const void *const hw, volatile bustransaction_t *bustransaction){
-    const uint8_t data = ((Sercom*)hw)->I2CS.DATA.reg;
-    if(!CurrTransaction.error_occured) {
+void i2c_slave_data_recv_irq(const void *const hw, volatile bustransaction_t *bustransaction) {
+    const uint8_t data = ((Sercom *) hw)->I2CS.DATA.reg;
+    if (!CurrTransaction.error_occured) {
         if (CurrTransaction.byte_cnt == 0) {
             if (data > I2C_REGS_MAX_ADDR) {
                 CurrTransaction.error_occured = 1;
-            }
-            else {
+            } else {
                 CurrTransaction.reg = &registers[data];
                 CurrTransaction.byte_cnt++;
             }
 
         } else {
-            if(CurrTransaction.reg != NULL) {
-                if (CurrTransaction.byte_cnt < CurrTransaction.reg->size+1 ) {
-                    if(CurrTransaction.reg->permission) {
+            if (CurrTransaction.reg != NULL) {
+                CurrTransaction.transaction_type = TRANSACTION_TYPE_REG_WRITE;
+                if (CurrTransaction.byte_cnt < CurrTransaction.reg->size + 1) {
+                    if (CurrTransaction.reg->permission) {
                         CurrTransaction.reg->buf[CurrTransaction.byte_cnt++ - 1] = data;
-                    }
-                    else {
+                    } else {
                         CurrTransaction.error_occured = 1;
                     }
-                } else if (CurrTransaction.byte_cnt == CurrTransaction.reg->size+1) {
+                } else if (CurrTransaction.byte_cnt == CurrTransaction.reg->size + 1) {
                     CurrTransaction.crc = data;
                     uint8_t tempcrc = CRC_Gen.maxim(CurrTransaction.reg->buf, CurrTransaction.reg->size);
-                    if(CurrTransaction.crc != tempcrc){
+                    if (CurrTransaction.crc != tempcrc) {
 
                     }
                 } else {
@@ -114,12 +153,30 @@ void i2c_slave_data_recv_irq(const void *const hw, volatile bustransaction_t *bu
 }
 
 void i2c_slave_stop_irq(const void *const hw, volatile bustransaction_t *bustransaction) {
-    ((Sercom*)hw)->I2CS.INTFLAG.reg = SERCOM_I2CS_INTFLAG_PREC;
-    EVSYS->CHANNEL.reg |=  EVSYS_CHANNEL_SWEVT;
+    ((Sercom *) hw)->I2CS.INTFLAG.reg = SERCOM_I2CS_INTFLAG_PREC;
+    if (CurrTransaction.reg == NULL) {
+        CurrTransaction.error_occured = 1;
+    }
+    if (!CurrTransaction.error_occured) {
+        CurrTransaction.error_occured = 0;
+        evsys_transaction.reg = CurrTransaction.reg->buf;
+        evsys_transaction.transaction_type = CurrTransaction.transaction_type;
+        evsys_transaction.reg_size = CurrTransaction.reg->size;
+
+        CurrTransaction.reg = NULL;
+        CurrTransaction.byte_cnt = 0;
+        CurrTransaction.crc = 0;
+        EVSYS->CHANNEL.reg |= EVSYS_CHANNEL_SWEVT;
+    } else {
+        CurrTransaction.reg = NULL;
+        CurrTransaction.byte_cnt = 0;
+        CurrTransaction.crc = 0;
+        CurrTransaction.error_occured = 0;
+    }
 }
 
 
-void reassign_internal_register(i2c_slave_reg_t* new_reg) {
+void reassign_internal_register(i2c_slave_reg_t *new_reg) {
     reg = new_reg;
 }
 
@@ -128,20 +185,28 @@ void I2CSlaveDriver::init(uint8_t slave_addr) {
     I2C_SLAVE_INIT(peripheral_, slave_addr, I2C_CLK_SOURCE_USE_DEFAULT, I2C_EXTRA_OPT_NONE);
 }
 
-void I2CSlaveDriver::set_register_buffer(i2c_slave_reg_t *reg) {
+void I2CSlaveDriver::set_external_register_buffer(i2c_slave_reg_t *reg) {
     reassign_internal_register(reg);
 }
 
 void I2CSlaveDriver::recalculate_crc() {
-    for(uint8_t i = 0; i < NUM_OF_I2C_REGISTERS; i++){
+    for (uint8_t i = 0; i < NUM_OF_I2C_REGISTERS; i++) {
         registers[i].crc = CRC_Gen.maxim(registers[i].buf, registers[i].size);
     }
 }
 
-void I2CSlaveDriver::TestAtomicBuffer() {
-    registers[1].buf[0] = 255;
-    registers[1].buf[1] = 20;
-    CurrTransaction.error_occured = 0;
-    CurrTransaction.reg = &registers[1];
-    EVSYS->CHANNEL.reg |=  EVSYS_CHANNEL_SWEVT;
+void I2CSlaveDriver::force_update_internal_buffer(uint8_t *reg, uint8_t reg_size) {
+    evsys_transaction.reg = reg;
+    evsys_transaction.reg_size = reg_size;
+    evsys_transaction.transaction_type = TRANSACTION_TYPE_REG_READ;
+    evsys_transaction.evsys_trigger = EVSYS_TRIGGER_MANUAL;
+    EVSYS->CHANNEL.reg |= EVSYS_CHANNEL_SWEVT;
+}
+
+void I2CSlaveDriver::force_update_external_buffer(uint8_t *reg, uint8_t reg_size) {
+    evsys_transaction.reg = reg;
+    evsys_transaction.reg_size = reg_size;
+    evsys_transaction.transaction_type = TRANSACTION_TYPE_REG_WRITE;
+    evsys_transaction.evsys_trigger = EVSYS_TRIGGER_MANUAL;
+    EVSYS->CHANNEL.reg |= EVSYS_CHANNEL_SWEVT;
 }
