@@ -30,7 +30,7 @@ typedef struct {
     uint8_t PORTBSAMPLERDY[2];
 }i2c_slave_reg_t;
 
-extern uint8_t i2c_registers[576];
+extern uint8_t i2c_registers_priv[576];
 
 
 extern uint8_t i2c_registers_copy[576];

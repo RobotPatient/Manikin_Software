@@ -54,5 +54,5 @@ dkms.conf
 cmake-build-debug/
 cmake-build-minsizerel/
 cmake-build-release/
-cmake-build-relwithdebuginfo/
+cmake-build-relwithdebinfo/
 debug_ozone.jdebug.user

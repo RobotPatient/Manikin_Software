@@ -20,10 +20,11 @@
 
 #define I2C_REGS_MAX_ADDR 7
 
-uint8_t i2c_registers[576];
-uint8_t i2c_registers_copy[576];
+uint8_t i2c_registers_priv[576];
 
-i2c_slave_reg_t* reg = (i2c_slave_reg_t *)(i2c_registers);
+i2c_slave_reg_t* reg_priv = (i2c_slave_reg_t *)(i2c_registers_priv);
+i2c_slave_reg_t* reg = NULL;
+
 
 FastCRC8 CRC_Gen;
 
@@ -35,14 +36,14 @@ typedef struct {
 }i2c_registers_base_t;
 
 i2c_registers_base_t registers[NUM_OF_I2C_REGISTERS] {
-        {reg->STATUS, I2C_SLAVE_REG_STATUS_SIZE, I2C_PERMISSION_RO, 0},
-        {reg->I2CCON, I2C_SLAVE_REG_I2CCON_SIZE, I2C_PERMISSION_RW, 0},
-        {reg->PORTACONF, I2C_SLAVE_REG_PORTACONF_SIZE, I2C_PERMISSION_RW, 0},
-        {reg->PORTADATA, I2C_SLAVE_REG_PORTADATA_SIZE, I2C_PERMISSION_RW, 0},
-        {reg->PORTASAMPLERDY, I2C_SLAVE_REG_PORTASAMPLERDY_SIZE, I2C_PERMISSION_RW, 0},
-        {reg->PORTBCONF, I2C_SLAVE_REG_PORTBCONF_SIZE, I2C_PERMISSION_RW, 0},
-        {reg->PORTBDATA, I2C_SLAVE_REG_PORTBDATA_SIZE, I2C_PERMISSION_RW, 0},
-        {reg->PORTBSAMPLERDY, I2C_SLAVE_REG_PORTBSAMPLERDY_SIZE, I2C_PERMISSION_RW, 0}
+        {reg_priv->STATUS,         I2C_SLAVE_REG_STATUS_SIZE,         I2C_PERMISSION_RO, 0},
+        {reg_priv->I2CCON,         I2C_SLAVE_REG_I2CCON_SIZE,         I2C_PERMISSION_RW, 0},
+        {reg_priv->PORTACONF,      I2C_SLAVE_REG_PORTACONF_SIZE,      I2C_PERMISSION_RW, 0},
+        {reg_priv->PORTADATA,      I2C_SLAVE_REG_PORTADATA_SIZE,      I2C_PERMISSION_RW, 0},
+        {reg_priv->PORTASAMPLERDY, I2C_SLAVE_REG_PORTASAMPLERDY_SIZE, I2C_PERMISSION_RW, 0},
+        {reg_priv->PORTBCONF,      I2C_SLAVE_REG_PORTBCONF_SIZE,      I2C_PERMISSION_RW, 0},
+        {reg_priv->PORTBDATA,      I2C_SLAVE_REG_PORTBDATA_SIZE,      I2C_PERMISSION_RW, 0},
+        {reg_priv->PORTBSAMPLERDY, I2C_SLAVE_REG_PORTBSAMPLERDY_SIZE, I2C_PERMISSION_RW, 0}
 };
 
 
@@ -106,14 +107,7 @@ void i2c_slave_stop_irq(const void *const hw, volatile bustransaction_t *bustran
 
 
 void reassign_internal_register(i2c_slave_reg_t* new_reg) {
-    registers[0].buf = new_reg->STATUS;
-    registers[1].buf = new_reg->I2CCON;
-    registers[2].buf = new_reg->PORTACONF;
-    registers[3].buf = new_reg->PORTADATA;
-    registers[4].buf = new_reg->PORTASAMPLERDY;
-    registers[5].buf = new_reg->PORTBCONF;
-    registers[6].buf = new_reg->PORTBDATA;
-    registers[7].buf = new_reg->PORTBSAMPLERDY;
+    reg = new_reg;
 }
 
 
