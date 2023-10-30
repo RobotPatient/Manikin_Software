@@ -2,6 +2,7 @@
 #include "FastCRC.h"
 #include "sam.h"
 #include <hal_i2c_slave.h>
+#include <cstring>
 
 #define NUM_OF_I2C_REGISTERS 8
 
@@ -20,9 +21,7 @@
 
 #define I2C_REGS_MAX_ADDR 7
 
-uint8_t i2c_registers_priv[576];
-
-i2c_slave_reg_t* reg_priv = (i2c_slave_reg_t *)(i2c_registers_priv);
+i2c_slave_reg_t reg_priv;
 i2c_slave_reg_t* reg = NULL;
 
 
@@ -36,14 +35,14 @@ typedef struct {
 }i2c_registers_base_t;
 
 i2c_registers_base_t registers[NUM_OF_I2C_REGISTERS] {
-        {reg_priv->STATUS,         I2C_SLAVE_REG_STATUS_SIZE,         I2C_PERMISSION_RO, 0},
-        {reg_priv->I2CCON,         I2C_SLAVE_REG_I2CCON_SIZE,         I2C_PERMISSION_RW, 0},
-        {reg_priv->PORTACONF,      I2C_SLAVE_REG_PORTACONF_SIZE,      I2C_PERMISSION_RW, 0},
-        {reg_priv->PORTADATA,      I2C_SLAVE_REG_PORTADATA_SIZE,      I2C_PERMISSION_RW, 0},
-        {reg_priv->PORTASAMPLERDY, I2C_SLAVE_REG_PORTASAMPLERDY_SIZE, I2C_PERMISSION_RW, 0},
-        {reg_priv->PORTBCONF,      I2C_SLAVE_REG_PORTBCONF_SIZE,      I2C_PERMISSION_RW, 0},
-        {reg_priv->PORTBDATA,      I2C_SLAVE_REG_PORTBDATA_SIZE,      I2C_PERMISSION_RW, 0},
-        {reg_priv->PORTBSAMPLERDY, I2C_SLAVE_REG_PORTBSAMPLERDY_SIZE, I2C_PERMISSION_RW, 0}
+        {reg_priv.STATUS,         I2C_SLAVE_REG_STATUS_SIZE,         I2C_PERMISSION_RO, 0},
+        {reg_priv.I2CCON,         I2C_SLAVE_REG_I2CCON_SIZE,         I2C_PERMISSION_RW, 0},
+        {reg_priv.PORTACONF,      I2C_SLAVE_REG_PORTACONF_SIZE,      I2C_PERMISSION_RW, 0},
+        {reg_priv.PORTADATA,      I2C_SLAVE_REG_PORTADATA_SIZE,      I2C_PERMISSION_RW, 0},
+        {reg_priv.PORTASAMPLERDY, I2C_SLAVE_REG_PORTASAMPLERDY_SIZE, I2C_PERMISSION_RW, 0},
+        {reg_priv.PORTBCONF,      I2C_SLAVE_REG_PORTBCONF_SIZE,      I2C_PERMISSION_RW, 0},
+        {reg_priv.PORTBDATA,      I2C_SLAVE_REG_PORTBDATA_SIZE,      I2C_PERMISSION_RW, 0},
+        {reg_priv.PORTBSAMPLERDY, I2C_SLAVE_REG_PORTBSAMPLERDY_SIZE, I2C_PERMISSION_RW, 0}
 };
 
 
@@ -55,6 +54,23 @@ struct I2CTransaction {
 };
 
 struct I2CTransaction CurrTransaction = {false, NULL, 0, 0};
+
+
+void EVSYS_Handler_EVD1(void){
+    CurrTransaction.crc = 0x78;
+    CurrTransaction.byte_cnt = 0x67;
+    if(CurrTransaction.error_occured == 0) {
+        size_t offset = (size_t)(CurrTransaction.reg->buf) - (size_t)(&reg_priv);
+        uint8_t * reg_loc = (reg->STATUS);
+        memcpy(reg_loc+offset, CurrTransaction.reg->buf, CurrTransaction.reg->size);
+    }
+    CurrTransaction.error_occured = 0;
+    CurrTransaction.reg = NULL;
+    CurrTransaction.byte_cnt =0;
+    CurrTransaction.crc = 0;
+}
+
+
 
 void i2c_slave_data_send_irq(const void *const hw, volatile bustransaction_t *bustransaction){
     ((Sercom*)hw)->I2CS.DATA.reg = 0;
@@ -98,11 +114,8 @@ void i2c_slave_data_recv_irq(const void *const hw, volatile bustransaction_t *bu
 }
 
 void i2c_slave_stop_irq(const void *const hw, volatile bustransaction_t *bustransaction) {
-    CurrTransaction.error_occured = 0;
-    CurrTransaction.reg = NULL;
-    CurrTransaction.byte_cnt =0;
-    CurrTransaction.crc = 0;
     ((Sercom*)hw)->I2CS.INTFLAG.reg = SERCOM_I2CS_INTFLAG_PREC;
+    EVSYS->CHANNEL.reg |=  EVSYS_CHANNEL_SWEVT;
 }
 
 
@@ -123,4 +136,12 @@ void I2CSlaveDriver::recalculate_crc() {
     for(uint8_t i = 0; i < NUM_OF_I2C_REGISTERS; i++){
         registers[i].crc = CRC_Gen.maxim(registers[i].buf, registers[i].size);
     }
+}
+
+void I2CSlaveDriver::TestAtomicBuffer() {
+    registers[1].buf[0] = 255;
+    registers[1].buf[1] = 20;
+    CurrTransaction.error_occured = 0;
+    CurrTransaction.reg = &registers[1];
+    EVSYS->CHANNEL.reg |=  EVSYS_CHANNEL_SWEVT;
 }

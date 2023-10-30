@@ -61,6 +61,7 @@ file(GLOB_RECURSE SOURCES
         "board_sdk/gcc/gcc/*.*"
         "src/port.c"
         "src/main.cpp"
+        "src/evsys_imp.cpp"
         "src/Slave_driver.cpp"
 )
 
@@ -71,6 +72,7 @@ add_link_options(-T ${LINKER_SCRIPT})
 
 
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
+target_link_libraries(${PROJECT_NAME}.elf PUBLIC board_sdk)
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC Universal_hall)
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC FreeRTOS)
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC fram_driver)

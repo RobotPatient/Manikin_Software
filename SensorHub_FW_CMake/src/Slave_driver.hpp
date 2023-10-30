@@ -30,10 +30,8 @@ typedef struct {
     uint8_t PORTBSAMPLERDY[2];
 }i2c_slave_reg_t;
 
-extern uint8_t i2c_registers_priv[576];
+extern uint8_t i2c_registers_priv[523];
 
-
-extern uint8_t i2c_registers_copy[576];
 
 class I2CSlaveDriver {
 public:
@@ -45,6 +43,8 @@ void init(uint8_t slave_addr);
 void set_register_buffer(i2c_slave_reg_t *reg);
 
 void recalculate_crc();
+
+void TestAtomicBuffer();
 
 private:
     i2c_periph_inst_t peripheral_;

@@ -9,10 +9,11 @@
 #include <hal_gpio.h>
 #include <task.h>
 #include "Slave_driver.hpp"
-
+#include "evsys_imp.hpp"
 
 #define STACK_SIZE 200
 
+i2c_slave_reg_t public_reg;
 
 /* Structure that will hold the TCB of the task being created. */
 StaticTask_t xTaskBuffer;
@@ -22,13 +23,14 @@ an array of StackType_t variables.  The size of StackType_t is dependent on
 the RTOS port. */
 StackType_t xStack[ STACK_SIZE ];
 
-I2CDriver sensor_port_a = I2CDriver(I2C_HOST_INST_PORT_A, kI2cSpeed_100KHz);
-I2CDriver sensor_port_b = I2CDriver(I2C_HOST_INST_PORT_B, kI2cSpeed_100KHz);
+I2CDriver sensor_port_b = I2CDriver(I2C_HOST_INST_PORT_A, kI2cSpeed_100KHz);
+I2CDriver sensor_port_a = I2CDriver(I2C_HOST_INST_PORT_B, kI2cSpeed_100KHz);
 I2CSlaveDriver backbone_port = I2CSlaveDriver(I2C_SLAVE_INST_BACKBONE_PORT);
 
 
 CompressionSensor compressionSensor;
 SensorData_t sensorData;
+
 
 /* Function that implements the task being created. */
 void vTaskCode( void * pvParameters )
@@ -55,7 +57,12 @@ int main(void)
     sensor_port_b.Init();
     backbone_port.init(0x10);
 
-    compressionSensor.Initialize(&sensor_port_a);
+    compressionSensor.Initialize(&sensor_port_b);
+    backbone_port.set_register_buffer(&public_reg);
+
+    setup_evsys_handler();
+
+    backbone_port.TestAtomicBuffer();
 
     xTaskCreateStatic(
             vTaskCode,       /* Function that implements the task. */
@@ -65,7 +72,6 @@ int main(void)
             tskIDLE_PRIORITY,/* Priority at which the task is created. */
             xStack,          /* Array to use as the task's stack. */
             &xTaskBuffer );  /* Variable to hold the task's data structure. */
-
 
     vTaskStartScheduler();
 	while (1) {
