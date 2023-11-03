@@ -62,5 +62,4 @@ void init_fram() {
 }
 
 
-
 #endif //ATMELSAMD21_BOARD_DEFINITIONS_H
