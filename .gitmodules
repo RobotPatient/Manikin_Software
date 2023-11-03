@@ -1,3 +1,25 @@
 [submodule "SensorHub_FW/test/googletest"]
 	path = SensorHub_FW/test/googletest
 	url = https://github.com/google/googletest.git
+[submodule "SensorHub_FW_CMake/lib/FreeRTOS"]
+	path = SensorHub_FW_CMake/lib/FreeRTOS
+	url = https://github.com/RobotPatient/FreeRTOS.git
+[submodule "SensorHub_FW_CMake/board_sdk/CMSIS_5"]
+	path = SensorHub_FW_CMake/board_sdk/CMSIS_5
+	url = https://github.com/ARM-software/CMSIS_5.git
+[submodule "SensorHub_FW_CMake/board_sdk/cmsis-header-sam"]
+	path = SensorHub_FW_CMake/board_sdk/cmsis-header-sam
+	url = https://github.com/modm-io/cmsis-header-sam.git
+
+[submodule "SensorHub_FW_CMake/lib/Universall_hall"]
+	path = SensorHub_FW_CMake/lib/Universall_hall
+	url = https://github.com/Hoog-V/Universal_hall.git
+[submodule "SensorHub_FW_CMake/lib/FastCRC"]
+	path = SensorHub_FW_CMake/lib/FastCRC
+	url = https://github.com/RobotPatient/FastCRC.git
+[submodule "SensorHub_FW_CMake/lib/Universal_hal"]
+	path = SensorHub_FW_CMake/lib/Universal_hal
+	url = https://github.com/RobotPatient/Universal_hal.git
+[submodule "SensorHub_FW_CMake/lib/Manikin_Software_Libraries_V2"]
+	path = SensorHub_FW_CMake/lib/Manikin_Software_Libraries_V2
+	url = https://github.com/RobotPatient/Manikin_Software_Libraries_V2.git
