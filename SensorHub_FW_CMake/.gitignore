@@ -45,6 +45,9 @@
 *.idb
 *.pdb
 
+# Mac stuff
+*.DS_Store
+
 # Kernel Module Compile Results
 *.mod*
 *.cmd
