@@ -31,7 +31,6 @@
 #include <queue.h>
 #include <task.h>
 #include <sensor_helper.hpp>
-
 #include <volume_calculations.hpp>
 
 namespace module::measurement_grabber {
