@@ -49,12 +49,12 @@ double CalculateAirBlownInLungs(uint16_t differentialPressure) {
 
 double sqrt(double input) {
   const double error = 0.1;  // precision
-  double s = input;
+  double approxSquareRoot = input;
 
-  while ((s - input / s) > error)  // loop until precision satisfied
+  while ((approxSquareRoot - input / approxSquareRoot) > error)  // loop until precision satisfied
   {
-    s = (s + input / s) / 2;
+    approxSquareRoot = (approxSquareRoot + input / approxSquareRoot) / 2;
   }
-  return s;
+  return approxSquareRoot;
 }
 #endif

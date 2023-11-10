@@ -32,6 +32,7 @@
 #include <task.h>
 #include <sensor_helper.hpp>
 #include <volume_calculations.hpp>
+#define dataSizePressureSensor 4
 
 namespace module::measurement_grabber {
 inline constexpr uint8_t kSensorPollingTaskStackSize = 150;
@@ -58,8 +59,8 @@ void MeasurementGrabberTask(void* PvParameter) {
     if (Data->Sensor != NULL) {
       data = Data->Sensor->GetSensorData();
       static uint16_t lastSampleNum = data.sample_num;
-      if (data.sensor_id == 0X02 && data.sample_num == lastSampleNum + 1) {
-        data.num_of_bytes = 4;
+      if (data.sensor_id == TypeDifferentialPressureSensor && data.sample_num == lastSampleNum + 1) {
+        data.num_of_bytes = dataSizePressureSensor;
         lastSampleNum = data.sample_num;
         data.buffer[1] = CalculateTotalVolume(data.buffer[0]);
       }
