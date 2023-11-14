@@ -31,9 +31,11 @@
 #include <queue.h>
 #include <task.h>
 #include <sensor_helper.hpp>
+#include <volume_calculations.hpp>
+#define dataSizePressureSensor 4
 
 namespace module::measurement_grabber {
-inline constexpr uint8_t kSensorPollingTaskStackSize =  150;
+inline constexpr uint8_t kSensorPollingTaskStackSize = 150;
 
 /**
  * @brief Struct type used internally to pass arguments 
@@ -56,6 +58,12 @@ void MeasurementGrabberTask(void* PvParameter) {
   while (1) {
     if (Data->Sensor != NULL) {
       data = Data->Sensor->GetSensorData();
+      static uint16_t lastSampleNum = data.sample_num;
+      if (data.sensor_id == TypeDifferentialPressureSensor && data.sample_num == lastSampleNum + 1) {
+        data.num_of_bytes = dataSizePressureSensor;
+        lastSampleNum = data.sample_num;
+        data.buffer[1] = CalculateTotalVolume(data.buffer[0]);
+      }
       if (xQueueSend(*(Data->queue), (void*)&data, (TickType_t)10) != pdPASS) {
         /* Failed to post the message, even after 10 ticks. */
       }
@@ -70,21 +78,19 @@ void MeasurementGrabberTask(void* PvParameter) {
 */
 class MeasurementGrabber {
  public:
- /**
+  /**
   * @brief Initialize the polling task for reading the sensor with set sample time..
  */
-  void SetupPollTask(UniversalSensor* Sensor, uint8_t SampleTime,
-                     xQueueHandle* queue, xTaskHandle* Task) {
+  void SetupPollTask(UniversalSensor* Sensor, uint8_t SampleTime, xQueueHandle* queue, xTaskHandle* Task) {
     Data_ = {Sensor, SampleTime, queue};
     SampleTime_ = SampleTime;
-    *Task = xTaskCreateStatic(
-        MeasurementGrabberTask,     /* Function that implements the task. */
-        "Measurement grabber task", /* Text name for the task. */
-        kSensorPollingTaskStackSize, /* Number of indexes in the xStack array. */
-        (void*)&Data_,              /* Parameter passed into the task. */
-        (2 | portPRIVILEGE_BIT),    /* Priority at which the task is created. */
-        xStack,                     /* Array to use as the task's stack. */
-        &xTaskBuffer); /* Variable to hold the task's data structure. */
+    *Task = xTaskCreateStatic(MeasurementGrabberTask,      /* Function that implements the task. */
+                              "Measurement grabber task",  /* Text name for the task. */
+                              kSensorPollingTaskStackSize, /* Number of indexes in the xStack array. */
+                              (void*)&Data_,               /* Parameter passed into the task. */
+                              (2 | portPRIVILEGE_BIT),     /* Priority at which the task is created. */
+                              xStack,                      /* Array to use as the task's stack. */
+                              &xTaskBuffer);               /* Variable to hold the task's data structure. */
     Task_ = Task;
   }
   /**
@@ -131,5 +137,5 @@ class MeasurementGrabber {
   StaticTask_t xTaskBuffer;
   StackType_t xStack[kSensorPollingTaskStackSize];
 };
-}
+}  // namespace module::measurement_grabber
 #endif
