@@ -44,8 +44,8 @@ UniversalSensor* universalSensorPool[3] = { &compressionSensor, &ventilationSens
 // ToDo JK: Implement additional sensors.
 
 /* Actual sensors */
-UniversalSensor* ConnectedSensor_PortA[2] = {};
-UniversalSensor* ConnectedSensor_PortB[2] = {};
+UniversalSensor* ConnectedSensor_PortA[MAX_SENSORS_PER_PORT] = {};
+UniversalSensor* ConnectedSensor_PortB[MAX_SENSORS_PER_PORT] = {};
 
 /* Function that implements the task being created. */
 void vTaskCode( void * pvParameters )
@@ -79,14 +79,21 @@ void vTaskCode( void * pvParameters )
  * @return void
  */
 
-/*
-void initSensors() {
+
+void init_sensors() {
     // updates the registers
     // ToDo alle sensoren aflopen
     // Proberen of sensor init goed gaat
     // Dit heeft op low level wel een
-    // 
-}*/
+    //
+    sensor_port_a.Init();
+    sensor_port_b.Init();
+
+    compressionSensor.Initialize(&sensor_port_a);
+    if (!compressionSensor.Available()) {
+      compressionSensor.Initialize(&sensor_port_b);
+    }
+}
 
 /** Same documentation for both members. Details can be added here. */
 
@@ -97,13 +104,9 @@ int main(void)
      */
     Clock_Init();
     init_pins();
-    init_fram();
-
-    sensor_port_a.Init();
-    sensor_port_b.Init();
     backbone_port.init(0x10);
+    init_sensors();
 
-    compressionSensor.Initialize(&sensor_port_b);
     backbone_port.set_external_register_buffer(&public_reg);
 
     setup_evsys_handler();
