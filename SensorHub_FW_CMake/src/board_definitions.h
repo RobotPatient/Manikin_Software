@@ -38,7 +38,7 @@ const fram_dev_t fram = {
 };
 
 
-void init_pins() {
+void Init_pins() {
     /* HeartBeat led pin*/
     GPIO_SET_PIN_MODE(led_pin, GPIO_MODE_OUTPUT);
 

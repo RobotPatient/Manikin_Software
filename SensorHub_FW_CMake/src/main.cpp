@@ -61,6 +61,18 @@ void vTaskCode( void * pvParameters )
 
 /**
  * @brief Method to initialize the sensors that are connected to the SensorHub.
+ *  - Initializes both backbone_port
+ * @param none.
+ * @return void
+ */
+
+void Init_backbone() {
+  backbone_port.init(DEFAULT_SLAVE_ADDR);
+}
+
+
+/**
+ * @brief Method to initialize the sensors that are connected to the SensorHub.
  *  - Initializes both SensorHub ports
  *  - Attempts to find all possible sensors on both SensorHub ports
  *  - Updates the registers
@@ -72,7 +84,7 @@ void vTaskCode( void * pvParameters )
  */
 
 
-void init_sensors() {
+void Init_sensors() {
     // Tries to find all possible sensors on both ports of the sensorhub.
     // updates the registers
     // ToDo alle sensoren aflopen
@@ -94,9 +106,9 @@ int main(void)
      * Set the main clock to 48MHz
      */
     Clock_Init();
-    init_pins();
-    backbone_port.init(DEFAULT_SLAVE_ADDR);
-    init_sensors();
+    Init_pins();
+    Init_backbone();
+    Init_sensors();
 
     backbone_port.set_external_register_buffer(&public_reg);
 
