@@ -40,7 +40,7 @@ CompressionPositionSensor compressionPositionSensor;
 SensorData_t sensorData;
 
 /* Possible sensors */
-UniversalSensor* universalSensorPool[3] = { &compressionSensor, &ventilationSensor, &compressionPositionSensor };
+UniversalSensor* UniversalSensorPool[3] = {&compressionSensor, &ventilationSensor, &compressionPositionSensor };
 // ToDo JK: Implement additional sensors.
 
 /* Actual sensors */
@@ -81,10 +81,9 @@ void vTaskCode( void * pvParameters )
 
 
 void init_sensors() {
+    // Tries to find all possible sensors on both ports of the sensorhub.
     // updates the registers
     // ToDo alle sensoren aflopen
-    // Proberen of sensor init goed gaat
-    // Dit heeft op low level wel een
     //
     sensor_port_a.Init();
     sensor_port_b.Init();
