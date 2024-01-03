@@ -181,7 +181,7 @@ void reassign_internal_register(i2c_slave_reg_t *new_reg) {
 }
 
 
-void I2CSlaveDriver::init(uint8_t slave_addr) {
+void I2CSlaveDriver::Init(uint8_t slave_addr) {
     I2C_SLAVE_INIT(peripheral_, slave_addr, I2C_CLK_SOURCE_USE_DEFAULT, I2C_EXTRA_OPT_NONE);
 }
 

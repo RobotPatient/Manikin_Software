@@ -38,7 +38,7 @@ public:
 I2CSlaveDriver(i2c_periph_inst_t peripheral) {
     peripheral_ = peripheral;
 }
-void init(uint8_t slave_addr);
+void Init(uint8_t slave_addr);
 
 void set_external_register_buffer(i2c_slave_reg_t *reg);
 

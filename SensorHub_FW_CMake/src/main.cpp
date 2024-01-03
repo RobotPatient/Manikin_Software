@@ -67,7 +67,7 @@ void vTaskCode( void * pvParameters )
  */
 
 void Init_backbone() {
-  backbone_port.init(DEFAULT_SLAVE_ADDR);
+  backbone_port.Init(DEFAULT_SLAVE_ADDR);
 }
 
 /**
