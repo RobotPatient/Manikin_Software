@@ -70,7 +70,6 @@ void Init_backbone() {
   backbone_port.init(DEFAULT_SLAVE_ADDR);
 }
 
-
 /**
  * @brief Method to initialize the sensors that are connected to the SensorHub.
  *  - Initializes both SensorHub ports
@@ -83,12 +82,7 @@ void Init_backbone() {
  * @return void
  */
 
-
 void Init_sensors() {
-    // Tries to find all possible sensors on both ports of the sensorhub.
-    // updates the registers
-    // ToDo alle sensoren aflopen
-    //
     sensor_port_a.Init();
     sensor_port_b.Init();
 
