@@ -86,10 +86,12 @@ void Init_sensors() {
     sensor_port_a.Init();
     sensor_port_b.Init();
 
-    compressionSensor.Initialize(&sensor_port_a);
+    //compressionSensor.Initialize(&sensor_port_a);
+    compressionSensor.Initialize(&sensor_port_b);
+    /*
     if (!compressionSensor.Available()) {
       compressionSensor.Initialize(&sensor_port_b);
-    }
+    }*/
 }
 
 /** Same documentation for both members. Details can be added here. */
