@@ -13,6 +13,7 @@
 #include "sensor_compression.hpp"
 #include "sensor_ventilation.hpp"
 #include "sensor_fingerposition.hpp"
+#include "sensor_positioning.hpp"
 
 #define STACK_SIZE 200
 
@@ -36,11 +37,12 @@ I2CSlaveDriver backbone_port = I2CSlaveDriver(I2C_SLAVE_INST_BACKBONE_PORT);
 CompressionSensor compressionSensor;
 VentilationSensor ventilationSensor;
 CompressionPositionSensor compressionPositionSensor;
+PositioningSensor positioningSensor;
 
 SensorData_t sensorData;
 
 /* Possible sensors */
-UniversalSensor* UniversalSensorPool[3] = {&compressionSensor, &ventilationSensor, &compressionPositionSensor };
+UniversalSensor* UniversalSensorPool[4] = {&compressionSensor, &ventilationSensor, &compressionPositionSensor, &positioningSensor};
 // ToDo JK: Implement additional sensors.
 
 /* Actual sensors */
@@ -52,9 +54,15 @@ void vTaskCode( void * pvParameters )
 {
     for( ;; )
     {
+
+        if (positioningSensor.Available()) {
+          sensorData = positioningSensor.GetSensorData();
+        }
+        /*
         if (compressionSensor.Available()) {
           sensorData = compressionSensor.GetSensorData();
-        }
+        }*/
+        
         vTaskDelay(100/portTICK_PERIOD_MS);
     }
 }
@@ -86,8 +94,11 @@ void Init_sensors() {
     sensor_port_a.Init();
     sensor_port_b.Init();
 
+    // ToDo: implement in such a way that the sensor is detected or not per port.
     //compressionSensor.Initialize(&sensor_port_a);
     compressionSensor.Initialize(&sensor_port_b);
+    positioningSensor.Initialize(&sensor_port_b);
+
     /*
     if (!compressionSensor.Available()) {
       compressionSensor.Initialize(&sensor_port_b);
@@ -106,6 +117,8 @@ int main(void)
     Init_backbone();
     Init_sensors();
 
+    //positioningSensor.SensorTest();
+
     backbone_port.set_external_register_buffer(&public_reg);
 
     setup_evsys_handler();
@@ -122,8 +135,8 @@ int main(void)
             &xTaskBuffer );  /* Variable to hold the task's data structure. */
 
     vTaskStartScheduler();
-	while (1) {
-	}
+    while (1) {
+    }
 }
 
 
