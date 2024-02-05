@@ -145,7 +145,7 @@ void InitScheduler() {
           xStack,          /* Array to use as the task's stack. */
           &xTaskBuffer );  /* Variable to hold the task's data structure. */
 
-  vTaskStartScheduler();
+
 }
 
 
@@ -153,11 +153,9 @@ void InitScheduler() {
 
 int main(void)
 {
-
   InitScheduler();
-
-  while (1) {
-  }
+  vTaskStartScheduler();
+  while (1);
 }
 
 
