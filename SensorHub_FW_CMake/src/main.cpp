@@ -105,10 +105,25 @@ void Init_sensors() {
     }*/
 }
 
+void InitScheduler() {
+  xTaskCreateStatic(
+          vTaskCode,       /* Function that implements the task. */
+          "CBTASK",          /* Text name for the task. */
+          STACK_SIZE,      /* Number of indexes in the xStack array. */
+          ( void * ) 1,    /* Parameter passed into the task. */
+          tskIDLE_PRIORITY,/* Priority at which the task is created. */
+          xStack,          /* Array to use as the task's stack. */
+          &xTaskBuffer );  /* Variable to hold the task's data structure. */
+
+  vTaskStartScheduler();
+}
+
 /** Same documentation for both members. Details can be added here. */
 
 int main(void)
 {
+
+    InitScheduler();
     /*
      * Set the main clock to 48MHz
      */
@@ -125,18 +140,10 @@ int main(void)
 
     backbone_port.force_update_internal_buffer(public_reg.STATUS, 2);
 
-    xTaskCreateStatic(
-            vTaskCode,       /* Function that implements the task. */
-            "CBTASK",          /* Text name for the task. */
-            STACK_SIZE,      /* Number of indexes in the xStack array. */
-            ( void * ) 1,    /* Parameter passed into the task. */
-            tskIDLE_PRIORITY,/* Priority at which the task is created. */
-            xStack,          /* Array to use as the task's stack. */
-            &xTaskBuffer );  /* Variable to hold the task's data structure. */
 
-    vTaskStartScheduler();
     while (1) {
     }
 }
+
 
 
