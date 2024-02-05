@@ -98,9 +98,9 @@ void Init_sensors() {
   sensor_port_b.Init();
 
   // ToDo: implement in such a way that the sensor is detected or not per port.
-  // compressionSensor.Initialize(&sensor_port_a);
-  compressionSensor.Initialize(&sensor_port_b);
-  positioningSensor.Initialize(&sensor_port_b);
+  compressionSensor.Initialize(&sensor_port_a);
+  // compressionSensor.Initialize(&sensor_port_b);
+  // positioningSensor.Initialize(&sensor_port_b);
 }
 
 /**
