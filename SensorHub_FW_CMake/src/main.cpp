@@ -30,8 +30,8 @@ an array of StackType_t variables.  The size of StackType_t is dependent on
 the RTOS port. */
 StackType_t xStack[ STACK_SIZE ];
 
-I2CDriver sensor_port_b = I2CDriver(I2C_HOST_INST_PORT_A, kI2cSpeed_100KHz);
-I2CDriver sensor_port_a = I2CDriver(I2C_HOST_INST_PORT_B, kI2cSpeed_100KHz);
+I2CDriver sensor_port_b = I2CDriver(I2C_HOST_INST_PORT_B, kI2cSpeed_100KHz);
+I2CDriver sensor_port_a = I2CDriver(I2C_HOST_INST_PORT_A, kI2cSpeed_100KHz);
 I2CSlaveDriver backbone_port = I2CSlaveDriver(I2C_SLAVE_INST_BACKBONE_PORT);
 
 CompressionSensor compressionSensor;
