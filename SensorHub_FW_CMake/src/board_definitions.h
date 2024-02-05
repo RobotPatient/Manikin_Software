@@ -28,13 +28,17 @@ const gpio_pin_t flash_ss = GPIO_PIN_PA7;
 #define I2C_HOST_INST_PORT_B I2C_PERIPHERAL_1
 #define I2C_SLAVE_INST_BACKBONE_PORT I2C_PERIPHERAL_3
 
+#define MAX_SENSORS_PER_PORT 6 // For now, we allow up to six sensors per Sensor Port (PORT_A and PORT_B). This allows the use of up to two extenders per port.
+#define DEFAULT_SLAVE_ADDR 0x10
+#define ALT_DEFAULT_SLAVE_ADDR 0x11
+
 const fram_dev_t fram = {
         .spi_bus = SPI_PERIPHERAL_2,
         .cs_pin = flash_ss
 };
 
 
-void init_pins() {
+void Init_pins() {
     /* HeartBeat led pin*/
     GPIO_SET_PIN_MODE(led_pin, GPIO_MODE_OUTPUT);
 
