@@ -145,7 +145,6 @@ void InitScheduler() {
           xStack,          /* Array to use as the task's stack. */
           &xTaskBuffer );  /* Variable to hold the task's data structure. */
 
-
 }
 
 
