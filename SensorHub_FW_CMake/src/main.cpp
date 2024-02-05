@@ -98,15 +98,21 @@ void Init_sensors() {
     sensor_port_b.Init();
 
     // ToDo: implement in such a way that the sensor is detected or not per port.
-    //compressionSensor.Initialize(&sensor_port_a);
+    // compressionSensor.Initialize(&sensor_port_a);
     compressionSensor.Initialize(&sensor_port_b);
     positioningSensor.Initialize(&sensor_port_b);
-
-    /*
-    if (!compressionSensor.Available()) {
-      compressionSensor.Initialize(&sensor_port_b);
-    }*/
 }
+
+/**
+ * @brief Method to initialize the system, scheduled using FreeRTOS.
+ * Initializes:
+ *  - clock(s)
+ *  - IO-pins
+ *  - communication
+ *  - sensors
+ * @param none.
+ * @return void
+ */
 
 void systemInitTask( void * pvParameters ) {
   Clock_Init();
@@ -117,9 +123,7 @@ void systemInitTask( void * pvParameters ) {
   //positioningSensor.SensorTest();
 
   backbone_port.set_external_register_buffer(&public_reg);
-
   setup_evsys_handler();
-
   backbone_port.force_update_internal_buffer(public_reg.STATUS, 2);
 }
 
