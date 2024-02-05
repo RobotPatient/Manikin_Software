@@ -124,7 +124,7 @@ void systemInitTask( void * pvParameters ) {
 }
 
 void InitScheduler() {
-  xTaskCreate(systemInitTask, "OneTimeTask", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL);
+  xTaskCreate(systemInitTask, "SYSINIT", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL);
   xTaskCreateStatic(
           vTaskCode,       /* Function that implements the task. */
           "CBTASK",          /* Text name for the task. */
