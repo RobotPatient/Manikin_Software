@@ -153,9 +153,13 @@ void InitScheduler() {
 
 int main(void)
 {
+
   InitScheduler();
   vTaskStartScheduler();
-  while (1);
+
+  while (1) {
+  }
+
 }
 
 
