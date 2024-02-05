@@ -54,6 +54,7 @@ void vTaskCode( void * pvParameters )
 {
     for( ;; )
     {
+        // Note: always check if sensors are available as they are maybe not initialized yet or have become unavailable during operations
 
         if (positioningSensor.Available()) {
           sensorData = positioningSensor.GetSensorData();
@@ -66,6 +67,8 @@ void vTaskCode( void * pvParameters )
         vTaskDelay(100/portTICK_PERIOD_MS);
     }
 }
+
+
 
 /**
  * @brief Method to initialize the sensors that are connected to the SensorHub.
@@ -105,7 +108,23 @@ void Init_sensors() {
     }*/
 }
 
+void systemInitTask( void * pvParameters ) {
+  Clock_Init();
+  Init_pins();
+  Init_backbone();
+  Init_sensors();
+
+  //positioningSensor.SensorTest();
+
+  backbone_port.set_external_register_buffer(&public_reg);
+
+  setup_evsys_handler();
+
+  backbone_port.force_update_internal_buffer(public_reg.STATUS, 2);
+}
+
 void InitScheduler() {
+  xTaskCreate(systemInitTask, "OneTimeTask", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL);
   xTaskCreateStatic(
           vTaskCode,       /* Function that implements the task. */
           "CBTASK",          /* Text name for the task. */
@@ -118,28 +137,13 @@ void InitScheduler() {
   vTaskStartScheduler();
 }
 
+
 /** Same documentation for both members. Details can be added here. */
 
 int main(void)
 {
 
     InitScheduler();
-    /*
-     * Set the main clock to 48MHz
-     */
-    Clock_Init();
-    Init_pins();
-    Init_backbone();
-    Init_sensors();
-
-    //positioningSensor.SensorTest();
-
-    backbone_port.set_external_register_buffer(&public_reg);
-
-    setup_evsys_handler();
-
-    backbone_port.force_update_internal_buffer(public_reg.STATUS, 2);
-
 
     while (1) {
     }
