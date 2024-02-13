@@ -24,8 +24,8 @@ const gpio_pin_t flash_mosi = GPIO_PIN_PA8;
 const gpio_pin_t flash_sck = GPIO_PIN_PA9;
 const gpio_pin_t flash_ss = GPIO_PIN_PA7;
 
-#define I2C_HOST_INST_PORT_A I2C_PERIPHERAL_4
-#define I2C_HOST_INST_PORT_B I2C_PERIPHERAL_1
+#define I2C_HOST_INST_PORT_A I2C_PERIPHERAL_1
+#define I2C_HOST_INST_PORT_B I2C_PERIPHERAL_4
 #define I2C_SLAVE_INST_BACKBONE_PORT I2C_PERIPHERAL_3
 
 #define MAX_SENSORS_PER_PORT 6 // For now, we allow up to six sensors per Sensor Port (PORT_A and PORT_B). This allows the use of up to two extenders per port.
