@@ -123,7 +123,7 @@ void Init_sensors() {
 
 void xSystemInitTask( void * pvParameters ) {
   // A. First suspend all other tasks (for now only xSensorHub_SensorTaskHandle)
-  if (xSensorHub_SensorTaskHandle != NULL)
+  if (xSensorHub_SensorTaskHandle != NULL) {
     vTaskSuspend(xSensorHub_SensorTaskHandle); // suspend main task(s) till this one is done.
   }
 
