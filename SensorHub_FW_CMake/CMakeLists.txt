@@ -43,12 +43,7 @@ endif ()
 include_directories(
         ${CMAKE_SOURCE_DIR}/board_sdk/CMSIS_5/CMSIS/Core/Include/
         ${CMAKE_SOURCE_DIR}/board_sdk/cmsis-header-sam/samd21a/include/
-        ${CMAKE_SOURCE_DIR}/Universal_hall/hal_gpio/
-        ${CMAKE_SOURCE_DIR}/Universal_hall/hal_gpio/platform/atmelsam/
-        ${CMAKE_SOURCE_DIR}/Universal_hall/hal_i2c/
-        ${CMAKE_SOURCE_DIR}/Universal_hall/hal_i2c/platform/atmelsam/
-        ${CMAKE_SOURCE_DIR}/Universal_hall/platform_dep/atmelsam/
-        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/src/
         .
 )
 
@@ -74,7 +69,7 @@ add_link_options(-T ${LINKER_SCRIPT})
 
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC board_sdk)
-target_link_libraries(${PROJECT_NAME}.elf PUBLIC Universal_hall)
+target_link_libraries(${PROJECT_NAME}.elf PUBLIC Universal_hal)
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC FreeRTOS)
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC fram_driver)
 target_link_libraries(${PROJECT_NAME}.elf PUBLIC sensor_compression)

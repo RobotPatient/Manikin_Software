@@ -122,13 +122,12 @@ void Init_sensors() {
  */
 
 void xSystemInitTask( void * pvParameters ) {
-  // First suspend all other tasks (for now only xSensorHub_SensorTaskHandle)
+  // A. First suspend all other tasks (for now only xSensorHub_SensorTaskHandle)
   if (xSensorHub_SensorTaskHandle != NULL)
     vTaskSuspend(xSensorHub_SensorTaskHandle); // suspend main task(s) till this one is done.
   }
 
-  //
-
+  // B. Next perform initializations
   Clock_Init();
   Init_pins();
   Init_backbone();
@@ -138,12 +137,12 @@ void xSystemInitTask( void * pvParameters ) {
   setup_evsys_handler();
   backbone_port.force_update_internal_buffer(public_reg.STATUS, 2);
 
-  // Now resume all other tasks (for now only xSensorHub_SensorTaskHandle)
+  // C. Now resume all other tasks (for now only xSensorHub_SensorTaskHandle)
   if (xSensorHub_SensorTaskHandle != NULL) {
     vTaskResume(xSensorHub_SensorTaskHandle);
   }
 
-  // Remove the init task from the scheduler.
+  // D. Remove the init task from the scheduler.
   if( xSensorHub_InitTaskHandle != NULL )
   {
     vTaskDelete( xSensorHub_InitTaskHandle );
@@ -188,5 +187,3 @@ int main(void)
   }
 
 }
-
-
