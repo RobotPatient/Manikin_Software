@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="device__settings_8hpp" kind="file" language="C++">
+    <compoundname>device_settings.hpp</compoundname>
+    <includedby refid="service__protocol_8hpp" local="no">SensorHub_FW/src/service_protocol.hpp</includedby>
+    <invincdepgraph>
+      <node id="2">
+        <label>SensorHub_FW/src/service_protocol.hpp</label>
+        <link refid="service__protocol_8hpp"/>
+      </node>
+      <node id="1">
+        <label>SensorHub_FW/src/device_settings.hpp</label>
+        <link refid="device__settings_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>*******************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>by<sp/>RobotPatient<sp/>Simulators</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>Authors:<sp/>Richard<sp/>Kroesen<sp/>en<sp/>Victor<sp/>Hogeweij</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a<sp/>copy</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>including<sp/>without<sp/>limitation<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>sublicense,<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the<sp/>Software</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DAMAGES<sp/>OR<sp/>OTHER<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*<sp/>ARISING<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*<sp/>OTHER<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">***********************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>DEVICE_SETTINGS_HPP_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEVICE_SETTINGS_HPP_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__arm__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Adafruit_SPIFlash.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Arduino.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;SPI.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;SdFat.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="device__properties_8hpp" kindref="compound">device_properties.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="device__status_8hpp" kindref="compound">device_status.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gpio.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;hal_log.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;i2c_helper.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="measurement__grabber_8hpp" kindref="compound">measurement_grabber.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="device__sensor__lib__settings_8hpp" kindref="compound">device_sensor_lib_settings.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sensor_helper.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Wire.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;wiring_private.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/>kNumOfI2CPorts<sp/>=<sp/>3;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/>kBackBonePortSDA<sp/>=<sp/>26;<sp/><sp/></highlight><highlight class="comment">//<sp/>PA22</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/>kBackBonePortSCL<sp/>=<sp/>27;<sp/><sp/></highlight><highlight class="comment">//<sp/>PA23</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/>kSensorPortASDA<sp/>=<sp/>28;<sp/><sp/></highlight><highlight class="comment">//<sp/>PA12</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/>kSensorPortASCL<sp/>=<sp/>39;<sp/><sp/></highlight><highlight class="comment">//<sp/>PA13</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/>kSensorPortBSDA<sp/>=<sp/>11;<sp/><sp/></highlight><highlight class="comment">//<sp/>PA16</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/>kSensorPortBSCL<sp/>=<sp/>13;<sp/><sp/></highlight><highlight class="comment">//<sp/>PA17</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal">TwoWire<sp/>wireBackbone(&amp;sercom3,<sp/>kBackBonePortSDA,<sp/>kBackBonePortSCL);<sp/><sp/></highlight><highlight class="comment">//<sp/>Main</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal">TwoWire<sp/>wireSensorA(&amp;sercom1,<sp/>kSensorPortASDA,<sp/>kSensorPortASCL);<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Sensor<sp/>A</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal">TwoWire<sp/>wireSensorB(&amp;sercom4,<sp/>kSensorPortBSDA,<sp/>kSensorPortBSCL);<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Sensor<sp/>B</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal">I2CDriver<sp/>i2c_handle_port_a<sp/>=<sp/>I2CDriver(&amp;wireSensorA,<sp/>kI2cSpeed_400KHz);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">I2CDriver<sp/>i2c_handle_port_b<sp/>=<sp/>I2CDriver(&amp;wireSensorB,<sp/>kI2cSpeed_100KHz);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>InitI2CPins()<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>pinPeripheral(kBackBonePortSDA,<sp/>PIO_SERCOM);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>pinPeripheral(kBackBonePortSCL,<sp/>PIO_SERCOM);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>pinPeripheral(kSensorPortASDA,<sp/>PIO_SERCOM_ALT);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>pinPeripheral(kSensorPortASCL,<sp/>PIO_SERCOM_ALT);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>pinPeripheral(kSensorPortBSDA,<sp/>PIO_SERCOM);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>pinPeripheral(kSensorPortBSCL,<sp/>PIO_SERCOM);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>xTaskHandle<sp/>USBServiceProtocolReadTask;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classDeviceProperties" kindref="compound">DeviceProperties</ref><sp/>portAProperties;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classDeviceProperties" kindref="compound">DeviceProperties</ref><sp/>portBProperties;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classmodule_1_1status_1_1DeviceStatus" kindref="compound">module::status::DeviceStatus</ref><sp/>systemStatus;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal">hal::log::Logger*<sp/>statusLoggerInst;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>hal::log::LoggerSettings<sp/>statusLoggerSettings;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">hal::log::Logger*<sp/>exceptionLoggerInst;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>hal::log::LoggerSettings<sp/>exceptionLoggerSettings;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>InitSerialExceptionLogger()<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/>exceptionLoggerSettings.CommHandle.SerialHandle<sp/>=<sp/>&amp;Serial;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/>exceptionLoggerSettings.CommMethod<sp/>=<sp/>hal::log::communicationMethod::Serial;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/>exceptionLoggerInst<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>hal::log::SerialLogger(&amp;exceptionLoggerSettings);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>exceptionLoggerInst-&gt;init();</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/>kSpiFramSSPin<sp/>=<sp/>9;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">Adafruit_FlashTransport_SPI<sp/>flashTransport(kSpiFramSSPin,<sp/>&amp;SPI);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">Adafruit_SPIFlash<sp/>flash(&amp;flashTransport);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">FatVolume<sp/>fatfs;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>SPIFlash_Device_t<sp/>my_flash_devices[]<sp/>=<sp/>{MB85RS2MTA};</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>flashLoggerFilepath[hal::log::kMaxFilePathSize];</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal">constexpr<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>kLoggerFilePathPrefix<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;/LOG/&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>InitExternalFlashMemory()<sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!flash.begin(my_flash_devices,<sp/>1))<sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>Serial.println(F(</highlight><highlight class="stringliteral">&quot;Error,<sp/>failed<sp/>to<sp/>initialize<sp/>flash<sp/>chip!&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>yield();</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!fatfs.begin(&amp;flash))<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>Serial.println(F(</highlight><highlight class="stringliteral">&quot;Error,<sp/>failed<sp/>to<sp/>mount<sp/>newly<sp/>formatted<sp/>filesystem!&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>Serial.println(</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>F(</highlight><highlight class="stringliteral">&quot;Was<sp/>the<sp/>flash<sp/>chip<sp/>formatted<sp/>with<sp/>the<sp/>SdFat_format<sp/>example?&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>yield();</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!fatfs.exists(</highlight><highlight class="stringliteral">&quot;/LOG&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>Serial.println(F(</highlight><highlight class="stringliteral">&quot;LOG<sp/>directory<sp/>not<sp/>found,<sp/>creating...&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>fatfs.mkdir(</highlight><highlight class="stringliteral">&quot;/LOG&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>InitFlashExceptionLogger(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>filename){</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/>strcat(flashLoggerFilepath,<sp/>kLoggerFilePathPrefix);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/>strcat(flashLoggerFilepath,<sp/>filename);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/>exceptionLoggerSettings.CommHandle.FlashHandle.FatHandle<sp/>=<sp/>&amp;fatfs;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/>exceptionLoggerSettings.CommHandle.FlashHandle.FilePath<sp/>=<sp/>flashLoggerFilepath;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>exceptionLoggerSettings.CommMethod<sp/>=<sp/>hal::log::communicationMethod::Flash;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/>exceptionLoggerInst<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>hal::log::FlashLogger(&amp;exceptionLoggerSettings);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/>exceptionLoggerInst-&gt;init();</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>InitStatusLogger(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>filename)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/>strcat(flashLoggerFilepath,<sp/>kLoggerFilePathPrefix);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/>strcat(flashLoggerFilepath,<sp/>filename);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/>statusLoggerSettings.CommHandle.FlashHandle.FatHandle<sp/>=<sp/>&amp;fatfs;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/>statusLoggerSettings.CommHandle.FlashHandle.FilePath<sp/>=<sp/>flashLoggerFilepath;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/>statusLoggerSettings.CommMethod<sp/>=<sp/>hal::log::communicationMethod::Flash;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/>statusLoggerInst<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>hal::log::FlashLogger(&amp;statusLoggerSettings);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/>statusLoggerInst-&gt;init();</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/>kServiceProtocolQueueLength<sp/>=<sp/><sp/>5;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/>kServiceProtocolQueueItemSize<sp/>=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(SensorData);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal">uint8_t<sp/>serviceProtocolQueueStorageArea[kServiceProtocolQueueLength<sp/>*<sp/>kServiceProtocolQueueItemSize];</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>StaticQueue_t<sp/>staticServiceProtocolQueueStruct;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">QueueHandle_t<sp/>serviceProtocolQueue;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>CompressionSensor<sp/>compressionSens1;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>DifferentialPressureSensor<sp/>ventilationSensor1;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FingerPositionSensor<sp/>fingerPositionSensor1;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal">UniversalSensor*<sp/>sensorsObjPool1[<ref refid="device__sensor__lib__settings_8hpp_1a9b7c0b870ef69bf53364de30aef15813" kindref="member">kNumOfSupportedSensors</ref>]<sp/>=<sp/>{NULL,<sp/>&amp;compressionSens1,<sp/>&amp;ventilationSensor1,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;fingerPositionSensor1};</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>CompressionSensor<sp/>compressionSensor2;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>DifferentialPressureSensor<sp/>ventilationSensor2;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FingerPositionSensor<sp/>fingerPositionSensor2;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal">UniversalSensor*<sp/>sensorsObjPool2[<ref refid="device__sensor__lib__settings_8hpp_1a9b7c0b870ef69bf53364de30aef15813" kindref="member">kNumOfSupportedSensors</ref>]<sp/>=<sp/>{NULL,<sp/>&amp;compressionSensor2,<sp/>&amp;ventilationSensor2,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;fingerPositionSensor2};</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>DEVICE_SETTINGS_HPP_</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="SensorHub_FW/src/device_settings.hpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classmodule_1_1measurement__grabber_1_1MeasurementGrabber" kind="class" language="C++" prot="public">
+    <compoundname>module::measurement_grabber::MeasurementGrabber</compoundname>
+    <includes refid="measurement__grabber_8hpp" local="no">measurement_grabber.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1ad1589fa2e3250b4e150371f33ecab1b0" prot="private" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t module::measurement_grabber::MeasurementGrabber::SampleTime_</definition>
+        <argsstring></argsstring>
+        <name>SampleTime_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Keep local copy of SampleTime_ that isn&apos;t accessed by the task </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="134" column="11" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a7cadc04c9ce02ad3d51eeb8acd7c12d8" prot="private" static="no" mutable="no">
+        <type><ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData" kindref="compound">MeasurementGrabberData</ref></type>
+        <definition>MeasurementGrabberData module::measurement_grabber::MeasurementGrabber::Data_</definition>
+        <argsstring></argsstring>
+        <name>Data_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="135" column="26" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a34d64482f30f367a4708d479e17326f0" prot="private" static="no" mutable="no">
+        <type>xTaskHandle *</type>
+        <definition>xTaskHandle* module::measurement_grabber::MeasurementGrabber::Task_</definition>
+        <argsstring></argsstring>
+        <name>Task_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="136" column="15" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a5226d8939df4b34fd2bd95ca36804174" prot="private" static="no" mutable="no">
+        <type>StaticTask_t</type>
+        <definition>StaticTask_t module::measurement_grabber::MeasurementGrabber::xTaskBuffer</definition>
+        <argsstring></argsstring>
+        <name>xTaskBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="137" column="16" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a82f6f04f532f3d5ca8a8f4faf4c9e442" prot="private" static="no" mutable="no">
+        <type>StackType_t</type>
+        <definition>StackType_t module::measurement_grabber::MeasurementGrabber::xStack[kSensorPollingTaskStackSize]</definition>
+        <argsstring>[kSensorPollingTaskStackSize]</argsstring>
+        <name>xStack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="138" column="15" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1abade12d3630e23d7764c99f6f0e9befa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void module::measurement_grabber::MeasurementGrabber::SetupPollTask</definition>
+        <argsstring>(UniversalSensor *Sensor, uint8_t SampleTime, xQueueHandle *queue, xTaskHandle *Task)</argsstring>
+        <name>SetupPollTask</name>
+        <param>
+          <type>UniversalSensor *</type>
+          <declname>Sensor</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>SampleTime</declname>
+        </param>
+        <param>
+          <type>xQueueHandle *</type>
+          <declname>queue</declname>
+        </param>
+        <param>
+          <type>xTaskHandle *</type>
+          <declname>Task</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the polling task for reading the sensor with set sample time.. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="84" column="8" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="84" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a83779307a5a5787b665b25cf6816aa68" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void module::measurement_grabber::MeasurementGrabber::SuspendPollingTask</definition>
+        <argsstring>()</argsstring>
+        <name>SuspendPollingTask</name>
+        <briefdescription>
+<para>Suspend the created polling task. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="99" column="8" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="99" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a31e3022f4f7e03e511f83e2bf6c0da3b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void module::measurement_grabber::MeasurementGrabber::ResumePollingTask</definition>
+        <argsstring>()</argsstring>
+        <name>ResumePollingTask</name>
+        <briefdescription>
+<para>Resume the created polling task. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="104" column="8" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="104" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a72ec58b3e4c90d550c6959efca249e14" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void module::measurement_grabber::MeasurementGrabber::ChangeSensor</definition>
+        <argsstring>(UniversalSensor *Sensor)</argsstring>
+        <name>ChangeSensor</name>
+        <param>
+          <type>UniversalSensor *</type>
+          <declname>Sensor</declname>
+        </param>
+        <briefdescription>
+<para>Change the current sensor to a new given one. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="109" column="8" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="109" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a4f2535dbef647c8baf53f66b618f7ddd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t module::measurement_grabber::MeasurementGrabber::GetSampleTime</definition>
+        <argsstring>()</argsstring>
+        <name>GetSampleTime</name>
+        <briefdescription>
+<para>Get the currently set sampletime. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="118" column="11" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="118" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a9a6c426f6b2c791a2bf4ab37cb6c07b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void module::measurement_grabber::MeasurementGrabber::SetSampleTime</definition>
+        <argsstring>(const uint8_t SampleTime)</argsstring>
+        <name>SetSampleTime</name>
+        <param>
+          <type>const uint8_t</type>
+          <declname>SampleTime</declname>
+        </param>
+        <briefdescription>
+<para>Set a new sampletime. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="123" column="8" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="123" bodyend="128"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>MeasurementGrabberTask gives uniform interface for the sensor.. This way parameters like sampletime, measurementqueue and sensortype can be set. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="SensorHub_FW/src/measurement_grabber.hpp" line="79" column="1" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="79" bodyend="139"/>
+    <listofallmembers>
+      <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a72ec58b3e4c90d550c6959efca249e14" prot="public" virt="non-virtual"><scope>module::measurement_grabber::MeasurementGrabber</scope><name>ChangeSensor</name></member>
+      <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a7cadc04c9ce02ad3d51eeb8acd7c12d8" prot="private" virt="non-virtual"><scope>module::measurement_grabber::MeasurementGrabber</scope><name>Data_</name></member>
+      <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a4f2535dbef647c8baf53f66b618f7ddd" prot="public" virt="non-virtual"><scope>module::measurement_grabber::MeasurementGrabber</scope><name>GetSampleTime</name></member>
+      <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a31e3022f4f7e03e511f83e2bf6c0da3b" prot="public" virt="non-virtual"><scope>module::measurement_grabber::MeasurementGrabber</scope><name>ResumePollingTask</name></member>
+      <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1ad1589fa2e3250b4e150371f33ecab1b0" prot="private" virt="non-virtual"><scope>module::measurement_grabber::MeasurementGrabber</scope><name>SampleTime_</name></member>
+      <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a9a6c426f6b2c791a2bf4ab37cb6c07b3" prot="public" virt="non-virtual"><scope>module::measurement_grabber::MeasurementGrabber</scope><name>SetSampleTime</name></member>
+      <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1abade12d3630e23d7764c99f6f0e9befa" prot="public" virt="non-virtual"><scope>module::measurement_grabber::MeasurementGrabber</scope><name>SetupPollTask</name></member>
+      <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a83779307a5a5787b665b25cf6816aa68" prot="public" virt="non-virtual"><scope>module::measurement_grabber::MeasurementGrabber</scope><name>SuspendPollingTask</name></member>
+      <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a34d64482f30f367a4708d479e17326f0" prot="private" virt="non-virtual"><scope>module::measurement_grabber::MeasurementGrabber</scope><name>Task_</name></member>
+      <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a82f6f04f532f3d5ca8a8f4faf4c9e442" prot="private" virt="non-virtual"><scope>module::measurement_grabber::MeasurementGrabber</scope><name>xStack</name></member>
+      <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a5226d8939df4b34fd2bd95ca36804174" prot="private" virt="non-virtual"><scope>module::measurement_grabber::MeasurementGrabber</scope><name>xTaskBuffer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

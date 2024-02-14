@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="device__status_8hpp" kind="file" language="C++">
+    <compoundname>device_status.hpp</compoundname>
+    <includes refid="device__properties_8hpp" local="no">device_properties.hpp</includes>
+    <includes refid="device__status_8hpp" local="no">device_status.hpp</includes>
+    <includes local="no">hal_log.hpp</includes>
+    <includedby refid="device__status_8hpp" local="no">SensorHub_FW/src/device_status.hpp</includedby>
+    <includedby refid="service__protocol_8hpp" local="no">SensorHub_FW/src/service_protocol.hpp</includedby>
+    <incdepgraph>
+      <node id="11">
+        <label>hal_log.hpp</label>
+      </node>
+      <node id="9">
+        <label>sensor_helper.hpp</label>
+      </node>
+      <node id="7">
+        <label>queue.h</label>
+      </node>
+      <node id="4">
+        <label>stdint.h</label>
+      </node>
+      <node id="3">
+        <label>device_sensor_lib_settings.hpp</label>
+        <link refid="device__sensor__lib__settings_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>device_properties.hpp</label>
+        <link refid="device__properties_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>SensorHub_FW/src/device_status.hpp</label>
+        <link refid="device__status_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>volume_calculations.hpp</label>
+        <link refid="volume__calculations_8hpp"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>measurement_grabber.hpp</label>
+        <link refid="measurement__grabber_8hpp"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>FreeRTOS.h</label>
+      </node>
+      <node id="8">
+        <label>task.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>SensorHub_FW/src/service_protocol.hpp</label>
+        <link refid="service__protocol_8hpp"/>
+      </node>
+      <node id="1">
+        <label>SensorHub_FW/src/device_status.hpp</label>
+        <link refid="device__status_8hpp"/>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classmodule_1_1status_1_1DeviceStatus" prot="public">module::status::DeviceStatus</innerclass>
+    <innernamespace refid="namespacemodule">module</innernamespace>
+    <innernamespace refid="namespacemodule_1_1status">module::status</innernamespace>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="device__status_8hpp_1a752212911cc626e988329bafd9ce389e" prot="public" static="no" strong="no">
+        <type></type>
+        <name>DeviceTypes</name>
+        <enumvalue id="device__status_8hpp_1a752212911cc626e988329bafd9ce389ea8029461e6b31a1ebbf2812129ccb7e3e" prot="public">
+          <name>kDeviceTypeUndefined</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="device__status_8hpp_1a752212911cc626e988329bafd9ce389ea32d9ce9e49bbddceef4983ee591b38fb" prot="public">
+          <name>kDeviceTypeSensorHub</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="device__status_8hpp_1a752212911cc626e988329bafd9ce389eaf2d624981791cfdfef611358db3b77c6" prot="public">
+          <name>kDeviceTypeActuatorHub</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="34" column="1" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="34" bodyend="34"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>*******************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>by<sp/>RobotPatient<sp/>Simulators</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>Authors:<sp/>Richard<sp/>Kroesen<sp/>en<sp/>Victor<sp/>Hogeweij</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a<sp/>copy</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>including<sp/>without<sp/>limitation<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>sublicense,<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the<sp/>Software</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DAMAGES<sp/>OR<sp/>OTHER<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*<sp/>ARISING<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*<sp/>OTHER<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">***********************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>STATUS_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>STATUS_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="device__properties_8hpp" kindref="compound">device_properties.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="device__status_8hpp" kindref="compound">device_status.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;hal_log.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="device__status_8hpp_1a752212911cc626e988329bafd9ce389e" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{<sp/><ref refid="device__status_8hpp_1a752212911cc626e988329bafd9ce389ea8029461e6b31a1ebbf2812129ccb7e3e" kindref="member">kDeviceTypeUndefined</ref>,<sp/><ref refid="device__status_8hpp_1a752212911cc626e988329bafd9ce389ea32d9ce9e49bbddceef4983ee591b38fb" kindref="member">kDeviceTypeSensorHub</ref>,<sp/><ref refid="device__status_8hpp_1a752212911cc626e988329bafd9ce389eaf2d624981791cfdfef611358db3b77c6" kindref="member">kDeviceTypeActuatorHub</ref><sp/>}<sp/><ref refid="device__status_8hpp_1a752212911cc626e988329bafd9ce389e" kindref="member">DeviceTypes</ref>;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="namespacemodule" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacemodule_1_1status" kindref="compound">module::status</ref><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="namespacemodule_1_1status_1a02421a394dc5eeda09309c9c03145bac" refkind="member"><highlight class="normal">constexpr<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="namespacemodule_1_1status_1a02421a394dc5eeda09309c9c03145bac" kindref="member">kStatusFormatString</ref>[]<sp/>=</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;{\&quot;Status\&quot;:<sp/>\&quot;%s\&quot;,<sp/>\&quot;DeviceType\&quot;:<sp/>%d,<sp/>\&quot;DeviceID:\&quot;:<sp/>%d,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;\&quot;PortASenType\&quot;:<sp/>%d,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;\&quot;PortBSenType\&quot;:<sp/>%d,<sp/>\&quot;PortASampleRate\&quot;:<sp/>%d,<sp/>\&quot;PortBSampleRate\&quot;:<sp/>%d}&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="namespacemodule_1_1status_1aa078661c2391c3327c50d1dc829d0fcd" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="namespacemodule_1_1status_1aa078661c2391c3327c50d1dc829d0fcd" kindref="member">kUninitializedStatus</ref>[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Unitialized&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="52" refid="namespacemodule_1_1status_1a770e16fc218b135cbefd14984f2f4806" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="namespacemodule_1_1status_1a770e16fc218b135cbefd14984f2f4806" kindref="member">kInitializedStatus</ref>[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Initialized&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="namespacemodule_1_1status_1a781d10563a337cd4f80618a1786de5bc" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="namespacemodule_1_1status_1a781d10563a337cd4f80618a1786de5bc" kindref="member">kDeviceInitialized</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="59" refid="namespacemodule_1_1status_1a8845760202c2b4f514150e74abe6036a" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="namespacemodule_1_1status_1a8845760202c2b4f514150e74abe6036a" kindref="member">kDeviceUnitialized</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="namespacemodule_1_1status_1a5364954372c0d1b33894c21388388cc5" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="namespacemodule_1_1status_1a5364954372c0d1b33894c21388388cc5" kindref="member">kIDLocationInFlash</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Some<sp/>specifications<sp/>of<sp/>the<sp/>device</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66" refid="namespacemodule_1_1status_1af685a722e0720f55c90b13392add6083" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="namespacemodule_1_1status_1af685a722e0720f55c90b13392add6083" kindref="member">kNumOfSensorPorts</ref><sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Port<sp/>indices<sp/>used<sp/>by<sp/>the<sp/>functions<sp/>below!</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="namespacemodule_1_1status_1a3e103922134925d92f434016568d0205" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="namespacemodule_1_1status_1a3e103922134925d92f434016568d0205" kindref="member">kSensorPortAIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="70" refid="namespacemodule_1_1status_1a7ea22fe91dbdf68eaca2bf35d308e16e" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="namespacemodule_1_1status_1a7ea22fe91dbdf68eaca2bf35d308e16e" kindref="member">kSensorPortBIndex</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="71" refid="namespacemodule_1_1status_1a182a1b44d569729418c9f7ea01424ef4" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="namespacemodule_1_1status_1a182a1b44d569729418c9f7ea01424ef4" kindref="member">kBBPortIndex</ref><sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="classmodule_1_1status_1_1DeviceStatus" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classmodule_1_1status_1_1DeviceStatus" kindref="compound">DeviceStatus</ref><sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="79" refid="classmodule_1_1status_1_1DeviceStatus_1a00b1ab4e3503f84b502a1501db78cd68" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmodule_1_1status_1_1DeviceStatus_1a00b1ab4e3503f84b502a1501db78cd68" kindref="member">SetDeviceType</ref>(<ref refid="device__status_8hpp_1a752212911cc626e988329bafd9ce389e" kindref="member">DeviceTypes</ref><sp/>device_type)<sp/>{<sp/>device_type_<sp/>=<sp/>device_type;<sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="classmodule_1_1status_1_1DeviceStatus_1a574f44e0c629f8a84c03fc6fd668c5c7" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmodule_1_1status_1_1DeviceStatus_1a574f44e0c629f8a84c03fc6fd668c5c7" kindref="member">SetDeviceID</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>ID)<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(log_<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>log_-&gt;setcursorpos(<ref refid="namespacemodule_1_1status_1a5364954372c0d1b33894c21388388cc5" kindref="member">kIDLocationInFlash</ref>);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>log_-&gt;writebyte(ID);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96" refid="classmodule_1_1status_1_1DeviceStatus_1a3ed4152c032d3e0061ea9dbc92c17f27" refkind="member"><highlight class="normal"><sp/><sp/>uint8_t<sp/><ref refid="classmodule_1_1status_1_1DeviceStatus_1a3ed4152c032d3e0061ea9dbc92c17f27" kindref="member">GetDeviceID</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(log_<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>ID;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>log_-&gt;setcursorpos(<ref refid="namespacemodule_1_1status_1a5364954372c0d1b33894c21388388cc5" kindref="member">kIDLocationInFlash</ref>);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>log_-&gt;readbyte(&amp;ID);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ID;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114" refid="classmodule_1_1status_1_1DeviceStatus_1ad618957de65f23b89b87940374b97387" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmodule_1_1status_1_1DeviceStatus_1ad618957de65f23b89b87940374b97387" kindref="member">GetDeviceStatus</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>write_buffer,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint32_t<sp/>write_buffer_size)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="classmodule_1_1status_1_1DeviceStatus" kindref="compound">DeviceStatus</ref><sp/>=<sp/><ref refid="namespacemodule_1_1status_1a781d10563a337cd4f80618a1786de5bc" kindref="member">kDeviceInitialized</ref>;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(num_of_devices<sp/>&lt;<sp/><ref refid="namespacemodule_1_1status_1af685a722e0720f55c90b13392add6083" kindref="member">kNumOfSensorPorts</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classmodule_1_1status_1_1DeviceStatus" kindref="compound">DeviceStatus</ref><sp/>=<sp/><ref refid="namespacemodule_1_1status_1a8845760202c2b4f514150e74abe6036a" kindref="member">kDeviceUnitialized</ref>;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>device_id<sp/>=<sp/><ref refid="classmodule_1_1status_1_1DeviceStatus_1a3ed4152c032d3e0061ea9dbc92c17f27" kindref="member">GetDeviceID</ref>();</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>device_type<sp/>=<sp/>device_type_;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>sample_rate[<ref refid="namespacemodule_1_1status_1af685a722e0720f55c90b13392add6083" kindref="member">kNumOfSensorPorts</ref>];</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>sensortype[<ref refid="namespacemodule_1_1status_1af685a722e0720f55c90b13392add6083" kindref="member">kNumOfSensorPorts</ref>];</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(uint8_t<sp/>port_index<sp/>=<sp/>0;<sp/>port_index<sp/>&lt;<sp/>num_of_devices;<sp/>port_index++)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>device_initialized<sp/>=<sp/>(devices_[port_index]<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(device_initialized)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sample_rate[port_index]<sp/>=<sp/>devices_[port_index]-&gt;<ref refid="classDeviceProperties_1ac05ef730173895b12910ac47d97af125" kindref="member">GetSampleTime</ref>();</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sensortype[port_index]<sp/>=<sp/>devices_[port_index]-&gt;<ref refid="classDeviceProperties_1aff6adf1abd00b141c93c7b874424e632" kindref="member">GetSensorType</ref>();</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sample_rate[port_index]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sensortype[port_index]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>status_string<sp/>=<sp/>(<ref refid="classmodule_1_1status_1_1DeviceStatus" kindref="compound">DeviceStatus</ref><sp/>==<sp/><ref refid="namespacemodule_1_1status_1a781d10563a337cd4f80618a1786de5bc" kindref="member">kDeviceInitialized</ref>)<sp/>?<sp/><ref refid="namespacemodule_1_1status_1a770e16fc218b135cbefd14984f2f4806" kindref="member">kInitializedStatus</ref><sp/>:<sp/><ref refid="namespacemodule_1_1status_1aa078661c2391c3327c50d1dc829d0fcd" kindref="member">kUninitializedStatus</ref>;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>snprintf(write_buffer,<sp/>write_buffer_size,<sp/><ref refid="namespacemodule_1_1status_1a02421a394dc5eeda09309c9c03145bac" kindref="member">kStatusFormatString</ref>,<sp/>status_string,<sp/>device_type,<sp/>device_id,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sensortype[<ref refid="namespacemodule_1_1status_1a3e103922134925d92f434016568d0205" kindref="member">kSensorPortAIndex</ref>],<sp/>sensortype[<ref refid="namespacemodule_1_1status_1a7ea22fe91dbdf68eaca2bf35d308e16e" kindref="member">kSensorPortBIndex</ref>],<sp/>sample_rate[<ref refid="namespacemodule_1_1status_1a3e103922134925d92f434016568d0205" kindref="member">kSensorPortAIndex</ref>],</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sample_rate[<ref refid="namespacemodule_1_1status_1a7ea22fe91dbdf68eaca2bf35d308e16e" kindref="member">kSensorPortBIndex</ref>]);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145" refid="classmodule_1_1status_1_1DeviceStatus_1a866451b559ad4468f47ad14d43e1645d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmodule_1_1status_1_1DeviceStatus_1a866451b559ad4468f47ad14d43e1645d" kindref="member">AddDeviceManager</ref>(<ref refid="classDeviceProperties" kindref="compound">DeviceProperties</ref>*<sp/>device_properties)<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(num_of_devices<sp/>&lt;<sp/><ref refid="namespacemodule_1_1status_1af685a722e0720f55c90b13392add6083" kindref="member">kNumOfSensorPorts</ref><sp/>&amp;&amp;<sp/>device_properties<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>devices_[num_of_devices]<sp/>=<sp/>device_properties;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>num_of_devices++;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="157" refid="classmodule_1_1status_1_1DeviceStatus_1ab433317af45312a10127153366b0d556" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmodule_1_1status_1_1DeviceStatus_1ab433317af45312a10127153366b0d556" kindref="member">AttachFlashLogger</ref>(hal::log::Logger*<sp/>log_module)<sp/>{<sp/>log_<sp/>=<sp/>log_module;<sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/>uint8_t<sp/>num_of_devices<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><ref refid="device__status_8hpp_1a752212911cc626e988329bafd9ce389e" kindref="member">DeviceTypes</ref><sp/>device_type_;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/>hal::log::Logger*<sp/>log_<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><ref refid="classDeviceProperties" kindref="compound">DeviceProperties</ref>*<sp/>devices_[<ref refid="namespacemodule_1_1status_1af685a722e0720f55c90b13392add6083" kindref="member">kNumOfSensorPorts</ref>];</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>module::status</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="SensorHub_FW/src/device_status.hpp"/>
+  </compounddef>
+</doxygen>

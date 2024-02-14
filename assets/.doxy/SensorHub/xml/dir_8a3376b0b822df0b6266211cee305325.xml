@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_8a3376b0b822df0b6266211cee305325" kind="dir">
+    <compoundname>SensorHub_FW</compoundname>
+    <innerdir refid="dir_d67209f9e2b4e51eca02397244f6bfa8">SensorHub_FW/src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="SensorHub_FW/"/>
+  </compounddef>
+</doxygen>

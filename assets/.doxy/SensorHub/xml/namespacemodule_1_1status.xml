@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacemodule_1_1status" kind="namespace" language="C++">
+    <compoundname>module::status</compoundname>
+    <innerclass refid="classmodule_1_1status_1_1DeviceStatus" prot="public">module::status::DeviceStatus</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacemodule_1_1status_1a02421a394dc5eeda09309c9c03145bac" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr const char</type>
+        <definition>constexpr const char module::status::kStatusFormatString[]</definition>
+        <argsstring>[]</argsstring>
+        <name>kStatusFormatString</name>
+        <initializer>=
+    &quot;{\&quot;Status\&quot;: \&quot;%s\&quot;, \&quot;DeviceType\&quot;: %d, \&quot;DeviceID:\&quot;: %d, &quot;
+    &quot;\&quot;PortASenType\&quot;: %d, &quot;
+    &quot;\&quot;PortBSenType\&quot;: %d, \&quot;PortASampleRate\&quot;: %d, \&quot;PortBSampleRate\&quot;: %d}&quot;</initializer>
+        <briefdescription>
+<para>The string used by snprintf to fill the buffer with a fixed format. This will provide the response of the Status command! </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="42" column="22" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemodule_1_1status_1aa078661c2391c3327c50d1dc829d0fcd" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr const char</type>
+        <definition>constexpr const char module::status::kUninitializedStatus[]</definition>
+        <argsstring>[]</argsstring>
+        <name>kUninitializedStatus</name>
+        <initializer>= &quot;Unitialized&quot;</initializer>
+        <briefdescription>
+<para>The strings which will be inserted in to the format string depending on whether the system is initialized or not. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="51" column="29" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemodule_1_1status_1a770e16fc218b135cbefd14984f2f4806" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr const char</type>
+        <definition>constexpr const char module::status::kInitializedStatus[]</definition>
+        <argsstring>[]</argsstring>
+        <name>kInitializedStatus</name>
+        <initializer>= &quot;Initialized&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="52" column="29" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemodule_1_1status_1a781d10563a337cd4f80618a1786de5bc" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t module::status::kDeviceInitialized</definition>
+        <argsstring></argsstring>
+        <name>kDeviceInitialized</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+<para>Integers are easier than strings to compare. Therefore these integers are macro&apos;s to select the above listed strings. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="58" column="26" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemodule_1_1status_1a8845760202c2b4f514150e74abe6036a" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t module::status::kDeviceUnitialized</definition>
+        <argsstring></argsstring>
+        <name>kDeviceUnitialized</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="59" column="26" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemodule_1_1status_1a5364954372c0d1b33894c21388388cc5" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t module::status::kIDLocationInFlash</definition>
+        <argsstring></argsstring>
+        <name>kIDLocationInFlash</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>The flash cursor position for the ID data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="64" column="26" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemodule_1_1status_1af685a722e0720f55c90b13392add6083" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t module::status::kNumOfSensorPorts</definition>
+        <argsstring></argsstring>
+        <name>kNumOfSensorPorts</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="66" column="26" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemodule_1_1status_1a3e103922134925d92f434016568d0205" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t module::status::kSensorPortAIndex</definition>
+        <argsstring></argsstring>
+        <name>kSensorPortAIndex</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="69" column="26" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemodule_1_1status_1a7ea22fe91dbdf68eaca2bf35d308e16e" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t module::status::kSensorPortBIndex</definition>
+        <argsstring></argsstring>
+        <name>kSensorPortBIndex</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="70" column="26" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemodule_1_1status_1a182a1b44d569729418c9f7ea01424ef4" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t module::status::kBBPortIndex</definition>
+        <argsstring></argsstring>
+        <name>kBBPortIndex</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="71" column="26" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="SensorHub_FW/src/device_status.hpp" line="36" column="1"/>
+  </compounddef>
+</doxygen>

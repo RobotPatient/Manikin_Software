@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacemodule_1_1measurement__grabber" kind="namespace" language="C++">
+    <compoundname>module::measurement_grabber</compoundname>
+    <innerclass refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData" prot="public">module::measurement_grabber::MeasurementGrabberData</innerclass>
+    <innerclass refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber" prot="public">module::measurement_grabber::MeasurementGrabber</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacemodule_1_1measurement__grabber_1a63a5f32f8ddceb732102ae9a3010746b" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t module::measurement_grabber::kSensorPollingTaskStackSize</definition>
+        <argsstring></argsstring>
+        <name>kSensorPollingTaskStackSize</name>
+        <initializer>= 150</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="38" column="26" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacemodule_1_1measurement__grabber_1ae93d035c783cc38cdc582ebd3f712fd0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void module::measurement_grabber::MeasurementGrabberTask</definition>
+        <argsstring>(void *PvParameter)</argsstring>
+        <name>MeasurementGrabberTask</name>
+        <param>
+          <type>void *</type>
+          <declname>PvParameter</declname>
+        </param>
+        <briefdescription>
+<para>MeasurementGrabberTask which reads the sensor measurements and sends the results to the queue assigned in the <ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData" kindref="compound">MeasurementGrabberData</ref> in the arguments (void *PvParameter). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="55" column="6" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="55" bodyend="73"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="SensorHub_FW/src/measurement_grabber.hpp" line="37" column="1"/>
+  </compounddef>
+</doxygen>

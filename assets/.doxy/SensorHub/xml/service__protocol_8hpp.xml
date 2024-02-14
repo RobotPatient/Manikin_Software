@@ -1,0 +1,970 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="service__protocol_8hpp" kind="file" language="C++">
+    <compoundname>service_protocol.hpp</compoundname>
+    <includes local="no">Arduino.h</includes>
+    <includes local="no">FreeRTOS.h</includes>
+    <includes local="no">queue.h</includes>
+    <includes refid="device__settings_8hpp" local="no">device_settings.hpp</includes>
+    <includes refid="device__status_8hpp" local="no">device_status.hpp</includes>
+    <includes local="no">ringbuffer.hpp</includes>
+    <includes local="no">usb_service_protocol.hpp</includes>
+    <incdepgraph>
+      <node id="14">
+        <label>hal_log.hpp</label>
+      </node>
+      <node id="16">
+        <label>usb_service_protocol.hpp</label>
+      </node>
+      <node id="12">
+        <label>sensor_helper.hpp</label>
+      </node>
+      <node id="1">
+        <label>SensorHub_FW/src/service_protocol.hpp</label>
+        <link refid="service__protocol_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>queue.h</label>
+      </node>
+      <node id="9">
+        <label>stdint.h</label>
+      </node>
+      <node id="8">
+        <label>device_sensor_lib_settings.hpp</label>
+        <link refid="device__sensor__lib__settings_8hpp"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>device_properties.hpp</label>
+        <link refid="device__properties_8hpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>device_status.hpp</label>
+        <link refid="device__status_8hpp"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>device_settings.hpp</label>
+        <link refid="device__settings_8hpp"/>
+      </node>
+      <node id="15">
+        <label>ringbuffer.hpp</label>
+      </node>
+      <node id="2">
+        <label>Arduino.h</label>
+      </node>
+      <node id="13">
+        <label>volume_calculations.hpp</label>
+        <link refid="volume__calculations_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>measurement_grabber.hpp</label>
+        <link refid="measurement__grabber_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>FreeRTOS.h</label>
+      </node>
+      <node id="11">
+        <label>task.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structArgSpecs" prot="public">ArgSpecs</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="service__protocol_8hpp_1a0cb3b15d414c5f1fd898b9146f02e7fe" prot="public" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char kStreamFormatString[]</definition>
+        <argsstring>[]</argsstring>
+        <name>kStreamFormatString</name>
+        <initializer>= &quot;{\&quot;NumOfShorts\&quot;: %d, \&quot;SampleNum\&quot;: %d, \&quot;Sensor\&quot;: %d, \&quot;Buf\&quot;: [&quot;</initializer>
+        <briefdescription>
+<para>Format strings, used to create the responses with! </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="41" column="12" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1ab3accf8a8f00a311de6f3e3ead8361cf" prot="public" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char kStreamDataFormatString[]</definition>
+        <argsstring>[]</argsstring>
+        <name>kStreamDataFormatString</name>
+        <initializer>= &quot;{ \&quot;Val\&quot;: %d}&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="42" column="12" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1aa24664405a5a2decdcab1ed4394316f1" prot="public" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char kHelpUsageString[]</definition>
+        <argsstring>[]</argsstring>
+        <name>kHelpUsageString</name>
+        <initializer>= &quot;**********************************HELP************************************&quot;
+                                &quot;\r\n&quot;
+                                &quot;CMDS: STATUS - Prints: status of the system, connected devices and &quot;
+                                &quot;sampletime\r\n&quot;
+                                &quot;      SETPORT [DeviceType portA] [DeviceType portB] [DeviceType BackBone] &quot;
+                                &quot;\r\n&quot;
+                                &quot;             - Setup (sensor) software drivers on the selected port in &quot;
+                                &quot;argument\r\n&quot;
+                                &quot;      SETID [UniqueDeviceID] - Sets a unique identifier for the system\r\n&quot;
+                                &quot;      STREAM - Stream current sensor measurements to this console\r\n&quot;
+                                &quot;      SETSR [Sample rate port a] [Sample rate port b] - Sets the sample rate for \r\n&quot;
+                                &quot;                                         port a in b in milliseconds (10-1000 ms)\r&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="43" column="12" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1aea7408de085c38e7a4129b78a334fc18" prot="public" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char kSetPortFormatString[]</definition>
+        <argsstring>[]</argsstring>
+        <name>kSetPortFormatString</name>
+        <initializer>= &quot;!OK Port A set to: %d, Port B set to: %d, Port BB set to: %d&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="55" column="12" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1a133a59ff51897837779077bab76a6508" prot="public" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char kInvalidArgumentValues[]</definition>
+        <argsstring>[]</argsstring>
+        <name>kInvalidArgumentValues</name>
+        <initializer>= &quot;!E Invalid arguments entered!&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="56" column="12" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1a065dd04995e36cdc0b261323bf5b34b3" prot="public" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char kSetIDFormatString[]</definition>
+        <argsstring>[]</argsstring>
+        <name>kSetIDFormatString</name>
+        <initializer>= &quot;!OK Device id is set to: %d&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="57" column="12" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1a9be00da238b0c9e46581baa76badfebe" prot="public" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char kSetSampleTimeFormatString[]</definition>
+        <argsstring>[]</argsstring>
+        <name>kSetSampleTimeFormatString</name>
+        <initializer>= &quot;!OK Sampletime on Port A set to: %d, Port B set to: %d&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="58" column="12" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int kMessageBufferSize</definition>
+        <argsstring></argsstring>
+        <name>kMessageBufferSize</name>
+        <initializer>= 1024</initializer>
+        <briefdescription>
+<para>Statically assigned (output) messagebuffer, used to store the output of commands in. Gets used by multiple callback methods. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="64" column="22" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1ab694639fa09febd495187a35e408beb2" prot="public" static="yes" mutable="no">
+        <type>char</type>
+        <definition>char MessageBuffer[kMessageBufferSize]</definition>
+        <argsstring>[kMessageBufferSize]</argsstring>
+        <name>MessageBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="65" column="13" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1aec6c60b6f2f2135ec6bd95542cfe44d7" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t kNumOfRegisters</definition>
+        <argsstring></argsstring>
+        <name>kNumOfRegisters</name>
+        <initializer>= 7</initializer>
+        <briefdescription>
+<para>The num of registers defined in the usb service protocol registers array. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="70" column="26" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1a225efd5aec0faf8abb7e87d781a4c415" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t kNumOfArgumentsSetPort</definition>
+        <argsstring></argsstring>
+        <name>kNumOfArgumentsSetPort</name>
+        <initializer>= 3</initializer>
+        <briefdescription>
+<para>Argument parser constants. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="75" column="26" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1a94dab9a7bc1df1b4203c1de51490331e" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int kUpperRangeArgSetPort</definition>
+        <argsstring></argsstring>
+        <name>kUpperRangeArgSetPort</name>
+        <initializer>= <ref refid="device__sensor__lib__settings_8hpp_1a9b7c0b870ef69bf53364de30aef15813" kindref="member">kNumOfSupportedSensors</ref>-1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="76" column="22" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1ad13a6bf081c689bd8bb3f4c2eb845c68" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int kLowerRangeArgSetPort</definition>
+        <argsstring></argsstring>
+        <name>kLowerRangeArgSetPort</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="77" column="22" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1adc564d1d6100b50fa7c64ceadf4f62af" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t kNumOfArgumentsSetID</definition>
+        <argsstring></argsstring>
+        <name>kNumOfArgumentsSetID</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="78" column="26" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1aa05eea6ceb272688c95d0b6d5439162c" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int kUpperRangeArgSetID</definition>
+        <argsstring></argsstring>
+        <name>kUpperRangeArgSetID</name>
+        <initializer>= 255</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="79" column="22" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1aec0a1999cac80f696b039c8e9e94970a" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int kLowerRangeArgSetID</definition>
+        <argsstring></argsstring>
+        <name>kLowerRangeArgSetID</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="80" column="22" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1a965bc905fa9ae6a73df75103eb643a6a" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t kNumOfArgumentsSetSR</definition>
+        <argsstring></argsstring>
+        <name>kNumOfArgumentsSetSR</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="81" column="26" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1aee720ce713a138560f3c4202c0c811ec" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int kUpperRangeArgSetSR</definition>
+        <argsstring></argsstring>
+        <name>kUpperRangeArgSetSR</name>
+        <initializer>= 1000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="82" column="22" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1a050ee1604b1abe49e322c83216a38084" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int kLowerRangeArgSetSR</definition>
+        <argsstring></argsstring>
+        <name>kLowerRangeArgSetSR</name>
+        <initializer>= 10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="83" column="22" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1a433cec9ca6584bd981ffe7ae88661738" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t ParseOK</definition>
+        <argsstring></argsstring>
+        <name>ParseOK</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="84" column="26" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1a9718589ab028d2c7c7090a0026437e3f" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t ParseFail</definition>
+        <argsstring></argsstring>
+        <name>ParseFail</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="85" column="26" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="service__protocol_8hpp_1ae2ed98131b28288b1dad75f544e51d23" prot="public" static="yes" mutable="no">
+        <type>usb_service_protocol::USBServiceProtocolRegisters</type>
+        <definition>usb_service_protocol::USBServiceProtocolRegisters USBRegisters[kNumOfRegisters]</definition>
+        <argsstring>[kNumOfRegisters]</argsstring>
+        <name>USBRegisters</name>
+        <initializer>{ {&quot;STATUS&quot;, 0, false, <ref refid="service__protocol_8hpp_1a0c37321c5d8099b02b023e84fe987f41" kindref="member">CMD_STATUS_CB</ref>}, 
+                                                                                        {&quot;SETPORT&quot;, kNumOfArgumentsSetPort, false, <ref refid="service__protocol_8hpp_1a777abb5cf6f94fda71bec11a021c7a28" kindref="member">CMD_SETPORT_CB</ref>}, 
+                                                                                        {&quot;SETID&quot;, kNumOfArgumentsSetID, false, <ref refid="service__protocol_8hpp_1ae220f8e1f3b89128e9e06bbefcd3c0be" kindref="member">CMD_SETID_CB</ref>},
+                                                                                        {&quot;STREAM&quot;, 0, true, <ref refid="service__protocol_8hpp_1a9057dee5f2380f6d69a78b744b772f72" kindref="member">CMD_STREAM_CB</ref>}, 
+                                                                                        {&quot;SETSR&quot;, kNumOfArgumentsSetSR, false, <ref refid="service__protocol_8hpp_1a77d8d316a8cb7398fa0cc4918a25e504" kindref="member">CMD_SETSR_CB</ref>}, 
+                                                                                        {&quot;HELP&quot;, 0, false, <ref refid="service__protocol_8hpp_1aad487bed9c337741860acbd0f7c7f209" kindref="member">CMD_HELP_CB</ref>}}</initializer>
+        <briefdescription>
+<para>STATIC declaration of all the CB methods and command information. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>The format of the struct is { &quot;String of the command&quot;, Number of Arguments, Command is stream command, Pointer to callback method} </para>
+</simplesect>
+<simplesect kind="note"><para>Stream command means that command will be ran repeatedly when entered. Command can be stopped by pressing enter key or &apos;\r&apos; character </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="277" column="58" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="service__protocol_8hpp_1a2ced0e447c0b981ad87d10b299c7633d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t ParseEnteredArgumentsToInt</definition>
+        <argsstring>(char **argument, int *buffer, const ArgSpecs ArgSpec)</argsstring>
+        <name>ParseEnteredArgumentsToInt</name>
+        <param>
+          <type>char **</type>
+          <declname>argument</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structArgSpecs" kindref="compound">ArgSpecs</ref></type>
+          <declname>ArgSpec</declname>
+        </param>
+        <briefdescription>
+<para>This function will convert the string type arguments to an integer and check if the argument value falls within the given Argspec range. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>argument</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An two dimensional array containing the string argument values. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An integer buffer to save the parsed arguments to. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ArgSpec</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A struct containing the number of arguments to parse, the permitted max value of the argument and the permitted min value of the argument </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 on Succes! 0 on Fail!</para>
+</simplesect>
+<simplesect kind="note"><para>All arguments are checked with the same upper and lower range from the ArgSpec struct! </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="117" column="9" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="117" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="service__protocol_8hpp_1a794b9cba0ee254c55b2bfa8f934b0064" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ComposeJsonFormattedStringOfSensorData</definition>
+        <argsstring>(SensorData *data)</argsstring>
+        <name>ComposeJsonFormattedStringOfSensorData</name>
+        <param>
+          <type>SensorData *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>This function will compose a Json formatted string of the sensordata and put it in to the messagebuffer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The SensorData to convert to Json String </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="132" column="6" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="132" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="service__protocol_8hpp_1a0c37321c5d8099b02b023e84fe987f41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* CMD_STATUS_CB</definition>
+        <argsstring>(char **args, int num_of_args)</argsstring>
+        <name>CMD_STATUS_CB</name>
+        <param>
+          <type>char **</type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num_of_args</declname>
+        </param>
+        <briefdescription>
+<para>Callback function for the STATUS command. This function will be ran when STATUS command is entered. The STATUS command return the status of the system in a formatted JSON string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A two dimensional array containing the arguments entered after the command </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_of_args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of arguments entered after the command</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Command response string, which will be a json formatted status string. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="153" column="12" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="153" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="service__protocol_8hpp_1a777abb5cf6f94fda71bec11a021c7a28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* CMD_SETPORT_CB</definition>
+        <argsstring>(char **args, int num_of_args)</argsstring>
+        <name>CMD_SETPORT_CB</name>
+        <param>
+          <type>char **</type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num_of_args</declname>
+        </param>
+        <briefdescription>
+<para>Callback function for the SETPORT command. This function will be ran when SETPORT command is entered. The SETPORT command sets the sensortypes for the given ports.. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A two dimensional array containing the arguments entered after the command </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_of_args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of arguments entered after the command</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Command response string, which will be a !OK ..[confirmation of entered arguments] if arguments where valid numbers !E Invalid arguments entered if the arguments where not valid! </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="169" column="12" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="169" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="function" id="service__protocol_8hpp_1ae220f8e1f3b89128e9e06bbefcd3c0be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* CMD_SETID_CB</definition>
+        <argsstring>(char **args, int num_of_args)</argsstring>
+        <name>CMD_SETID_CB</name>
+        <param>
+          <type>char **</type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num_of_args</declname>
+        </param>
+        <briefdescription>
+<para>Callback function for the SETID command. This function will be ran when SETID command is entered. The SETID command sets an unique identifier for this subsystem (ID will be written to external flash!). ID can be read using STATUS command! </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A two dimensional array containing the arguments entered after the command </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_of_args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of arguments entered after the command</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Command response string, which will be a !OK ..[confirmation of entered arguments] if arguments where valid numbers !E Invalid arguments entered if the arguments where not valid! </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="196" column="12" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="196" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="service__protocol_8hpp_1a9057dee5f2380f6d69a78b744b772f72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* CMD_STREAM_CB</definition>
+        <argsstring>(char **args, int num_of_args)</argsstring>
+        <name>CMD_STREAM_CB</name>
+        <param>
+          <type>char **</type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num_of_args</declname>
+        </param>
+        <briefdescription>
+<para>Callback function for the STREAM command. This function will be ran when STREAM command is entered. This command is an stream command, meaning it will run repeatedly until \r (ENTER) is detected in serial console. The Stream command returns the sensordata of each sensor in a formatted json string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A two dimensional array containing the arguments entered after the command </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_of_args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of arguments entered after the command</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Command response string, which will be a json formatted string! </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="220" column="12" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="220" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="service__protocol_8hpp_1aad487bed9c337741860acbd0f7c7f209" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* CMD_HELP_CB</definition>
+        <argsstring>(char **args, int num_of_args)</argsstring>
+        <name>CMD_HELP_CB</name>
+        <param>
+          <type>char **</type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num_of_args</declname>
+        </param>
+        <briefdescription>
+<para>Callback function for the HELP command. This function will be ran when HELP command is entered. The HELP command return the usage of the console in a formatted string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A two dimensional array containing the arguments entered after the command </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_of_args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of arguments entered after the command</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Command response string, which will be a formatted string explaining how to use this console! </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="243" column="12" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="243" bodyend="245"/>
+      </memberdef>
+      <memberdef kind="function" id="service__protocol_8hpp_1a77d8d316a8cb7398fa0cc4918a25e504" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* CMD_SETSR_CB</definition>
+        <argsstring>(char **args, int num_of_args)</argsstring>
+        <name>CMD_SETSR_CB</name>
+        <param>
+          <type>char **</type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num_of_args</declname>
+        </param>
+        <briefdescription>
+<para>Callback function for the SETSR command. This function will be ran when SETSR command is entered. The SETSR command sets the sample rate for the sensorports. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A two dimensional array containing the arguments entered after the command </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_of_args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of arguments entered after the command</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Command response string, which will be a !OK ..[confirmation of entered arguments] if arguments where valid numbrs !E Invalid arguments entered if the arguments where not valid! </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="257" column="12" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="257" bodyend="270"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>*******************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>by<sp/>RobotPatient<sp/>Simulators</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>Authors:<sp/>Richard<sp/>Kroesen<sp/>en<sp/>Victor<sp/>Hogeweij</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a<sp/>copy</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>including<sp/>without<sp/>limitation<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>sublicense,<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the<sp/>Software</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DAMAGES<sp/>OR<sp/>OTHER<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*<sp/>ARISING<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*<sp/>OTHER<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">***********************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SERVICEPROTOCOL_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SERVICEPROTOCOL_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Arduino.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;FreeRTOS.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;queue.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="device__settings_8hpp" kindref="compound">device_settings.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="device__status_8hpp" kindref="compound">device_status.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ringbuffer.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;usb_service_protocol.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="service__protocol_8hpp_1a0cb3b15d414c5f1fd898b9146f02e7fe" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1a0cb3b15d414c5f1fd898b9146f02e7fe" kindref="member">kStreamFormatString</ref>[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;{\&quot;NumOfShorts\&quot;:<sp/>%d,<sp/>\&quot;SampleNum\&quot;:<sp/>%d,<sp/>\&quot;Sensor\&quot;:<sp/>%d,<sp/>\&quot;Buf\&quot;:<sp/>[&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="42" refid="service__protocol_8hpp_1ab3accf8a8f00a311de6f3e3ead8361cf" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1ab3accf8a8f00a311de6f3e3ead8361cf" kindref="member">kStreamDataFormatString</ref>[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;{<sp/>\&quot;Val\&quot;:<sp/>%d}&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="43" refid="service__protocol_8hpp_1aa24664405a5a2decdcab1ed4394316f1" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1aa24664405a5a2decdcab1ed4394316f1" kindref="member">kHelpUsageString</ref>[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;**********************************HELP************************************&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;\r\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;CMDS:<sp/>STATUS<sp/>-<sp/>Prints:<sp/>status<sp/>of<sp/>the<sp/>system,<sp/>connected<sp/>devices<sp/>and<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;sampletime\r\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/><sp/><sp/>SETPORT<sp/>[DeviceType<sp/>portA]<sp/>[DeviceType<sp/>portB]<sp/>[DeviceType<sp/>BackBone]<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;\r\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Setup<sp/>(sensor)<sp/>software<sp/>drivers<sp/>on<sp/>the<sp/>selected<sp/>port<sp/>in<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;argument\r\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/><sp/><sp/>SETID<sp/>[UniqueDeviceID]<sp/>-<sp/>Sets<sp/>a<sp/>unique<sp/>identifier<sp/>for<sp/>the<sp/>system\r\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/><sp/><sp/>STREAM<sp/>-<sp/>Stream<sp/>current<sp/>sensor<sp/>measurements<sp/>to<sp/>this<sp/>console\r\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/><sp/><sp/>SETSR<sp/>[Sample<sp/>rate<sp/>port<sp/>a]<sp/>[Sample<sp/>rate<sp/>port<sp/>b]<sp/>-<sp/>Sets<sp/>the<sp/>sample<sp/>rate<sp/>for<sp/>\r\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>port<sp/>a<sp/>in<sp/>b<sp/>in<sp/>milliseconds<sp/>(10-1000<sp/>ms)\r&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="55" refid="service__protocol_8hpp_1aea7408de085c38e7a4129b78a334fc18" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1aea7408de085c38e7a4129b78a334fc18" kindref="member">kSetPortFormatString</ref>[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;!OK<sp/>Port<sp/>A<sp/>set<sp/>to:<sp/>%d,<sp/>Port<sp/>B<sp/>set<sp/>to:<sp/>%d,<sp/>Port<sp/>BB<sp/>set<sp/>to:<sp/>%d&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="56" refid="service__protocol_8hpp_1a133a59ff51897837779077bab76a6508" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1a133a59ff51897837779077bab76a6508" kindref="member">kInvalidArgumentValues</ref>[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;!E<sp/>Invalid<sp/>arguments<sp/>entered!&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="57" refid="service__protocol_8hpp_1a065dd04995e36cdc0b261323bf5b34b3" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1a065dd04995e36cdc0b261323bf5b34b3" kindref="member">kSetIDFormatString</ref>[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;!OK<sp/>Device<sp/>id<sp/>is<sp/>set<sp/>to:<sp/>%d&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="58" refid="service__protocol_8hpp_1a9be00da238b0c9e46581baa76badfebe" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1a9be00da238b0c9e46581baa76badfebe" kindref="member">kSetSampleTimeFormatString</ref>[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;!OK<sp/>Sampletime<sp/>on<sp/>Port<sp/>A<sp/>set<sp/>to:<sp/>%d,<sp/>Port<sp/>B<sp/>set<sp/>to:<sp/>%d&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref><sp/>=<sp/>1024;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>MessageBuffer[<ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref>];</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="service__protocol_8hpp_1aec6c60b6f2f2135ec6bd95542cfe44d7" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="service__protocol_8hpp_1aec6c60b6f2f2135ec6bd95542cfe44d7" kindref="member">kNumOfRegisters</ref><sp/>=<sp/>7;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="service__protocol_8hpp_1a225efd5aec0faf8abb7e87d781a4c415" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="service__protocol_8hpp_1a225efd5aec0faf8abb7e87d781a4c415" kindref="member">kNumOfArgumentsSetPort</ref><sp/>=<sp/>3;</highlight></codeline>
+<codeline lineno="76" refid="service__protocol_8hpp_1a94dab9a7bc1df1b4203c1de51490331e" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1a94dab9a7bc1df1b4203c1de51490331e" kindref="member">kUpperRangeArgSetPort</ref><sp/>=<sp/><ref refid="device__sensor__lib__settings_8hpp_1a9b7c0b870ef69bf53364de30aef15813" kindref="member">kNumOfSupportedSensors</ref>-1;</highlight></codeline>
+<codeline lineno="77" refid="service__protocol_8hpp_1ad13a6bf081c689bd8bb3f4c2eb845c68" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1ad13a6bf081c689bd8bb3f4c2eb845c68" kindref="member">kLowerRangeArgSetPort</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="78" refid="service__protocol_8hpp_1adc564d1d6100b50fa7c64ceadf4f62af" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="service__protocol_8hpp_1adc564d1d6100b50fa7c64ceadf4f62af" kindref="member">kNumOfArgumentsSetID</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="79" refid="service__protocol_8hpp_1aa05eea6ceb272688c95d0b6d5439162c" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1aa05eea6ceb272688c95d0b6d5439162c" kindref="member">kUpperRangeArgSetID</ref><sp/>=<sp/>255;</highlight></codeline>
+<codeline lineno="80" refid="service__protocol_8hpp_1aec0a1999cac80f696b039c8e9e94970a" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1aec0a1999cac80f696b039c8e9e94970a" kindref="member">kLowerRangeArgSetID</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="81" refid="service__protocol_8hpp_1a965bc905fa9ae6a73df75103eb643a6a" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="service__protocol_8hpp_1a965bc905fa9ae6a73df75103eb643a6a" kindref="member">kNumOfArgumentsSetSR</ref><sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="82" refid="service__protocol_8hpp_1aee720ce713a138560f3c4202c0c811ec" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1aee720ce713a138560f3c4202c0c811ec" kindref="member">kUpperRangeArgSetSR</ref><sp/>=<sp/>1000;</highlight></codeline>
+<codeline lineno="83" refid="service__protocol_8hpp_1a050ee1604b1abe49e322c83216a38084" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1a050ee1604b1abe49e322c83216a38084" kindref="member">kLowerRangeArgSetSR</ref><sp/>=<sp/>10;</highlight></codeline>
+<codeline lineno="84" refid="service__protocol_8hpp_1a433cec9ca6584bd981ffe7ae88661738" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="service__protocol_8hpp_1a433cec9ca6584bd981ffe7ae88661738" kindref="member">ParseOK</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="85" refid="service__protocol_8hpp_1a9718589ab028d2c7c7090a0026437e3f" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="service__protocol_8hpp_1a9718589ab028d2c7c7090a0026437e3f" kindref="member">ParseFail</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97" refid="structArgSpecs" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="98" refid="structArgSpecs_1aa814c01583750fd1ac243380e2ab1d9b" refkind="member"><highlight class="normal"><sp/><sp/>uint8_t<sp/><ref refid="structArgSpecs_1aa814c01583750fd1ac243380e2ab1d9b" kindref="member">num_of_arguments</ref>;</highlight></codeline>
+<codeline lineno="99" refid="structArgSpecs_1a360a4aec1c2f768d155e5e47f25495de" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structArgSpecs_1a360a4aec1c2f768d155e5e47f25495de" kindref="member">upper_range</ref>;</highlight></codeline>
+<codeline lineno="100" refid="structArgSpecs_1a61299de6ed12b551f94066eef963b3e7" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structArgSpecs_1a61299de6ed12b551f94066eef963b3e7" kindref="member">lower_range</ref>;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">}<sp/><ref refid="structArgSpecs" kindref="compound">ArgSpecs</ref>;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117" refid="service__protocol_8hpp_1a2ced0e447c0b981ad87d10b299c7633d" refkind="member"><highlight class="normal">uint8_t<sp/><ref refid="service__protocol_8hpp_1a2ced0e447c0b981ad87d10b299c7633d" kindref="member">ParseEnteredArgumentsToInt</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argument,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">*<sp/>buffer,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structArgSpecs" kindref="compound">ArgSpecs</ref><sp/>ArgSpec)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(uint8_t<sp/>arg_num<sp/>=<sp/>0;<sp/>arg_num<sp/>&lt;<sp/>ArgSpec.<ref refid="structArgSpecs_1aa814c01583750fd1ac243380e2ab1d9b" kindref="member">num_of_arguments</ref>;<sp/>arg_num++)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>buffer[arg_num]<sp/>=<sp/>atoi(argument[arg_num]);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(buffer[arg_num]<sp/>&lt;<sp/>ArgSpec.<ref refid="structArgSpecs_1a61299de6ed12b551f94066eef963b3e7" kindref="member">lower_range</ref><sp/>||<sp/>buffer[arg_num]<sp/>&gt;<sp/>ArgSpec.<ref refid="structArgSpecs_1a360a4aec1c2f768d155e5e47f25495de" kindref="member">upper_range</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1a9718589ab028d2c7c7090a0026437e3f" kindref="member">ParseFail</ref>;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1a433cec9ca6584bd981ffe7ae88661738" kindref="member">ParseOK</ref>;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132" refid="service__protocol_8hpp_1a794b9cba0ee254c55b2bfa8f934b0064" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1a794b9cba0ee254c55b2bfa8f934b0064" kindref="member">ComposeJsonFormattedStringOfSensorData</ref>(SensorData*<sp/>data)<sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/>memset(MessageBuffer,<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref>);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/>uint8_t<sp/>num_of_shorts<sp/>=<sp/>data-&gt;num_of_bytes<sp/>&gt;<sp/>1<sp/>?<sp/>(data-&gt;num_of_bytes)<sp/>/<sp/>2<sp/>:<sp/>1;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>writecnt<sp/>=<sp/>snprintf(MessageBuffer,<sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref>,<sp/><ref refid="service__protocol_8hpp_1a0cb3b15d414c5f1fd898b9146f02e7fe" kindref="member">kStreamFormatString</ref>,<sp/>num_of_shorts,<sp/>data-&gt;sample_num,<sp/>data-&gt;sensor_id);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(uint8_t<sp/>sensor_short_num<sp/>=<sp/>0;<sp/>sensor_short_num<sp/>&lt;<sp/>num_of_shorts;<sp/>sensor_short_num++)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>writecnt<sp/>+=<sp/>snprintf(MessageBuffer<sp/>+<sp/>writecnt,<sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref><sp/>-<sp/>writecnt,<sp/><ref refid="service__protocol_8hpp_1ab3accf8a8f00a311de6f3e3ead8361cf" kindref="member">kStreamDataFormatString</ref>,<sp/>data-&gt;buffer[sensor_short_num]);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(sensor_short_num<sp/>!=<sp/>num_of_shorts<sp/>-<sp/>1)</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>writecnt<sp/>+=<sp/>snprintf(MessageBuffer<sp/>+<sp/>writecnt,<sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref><sp/>-<sp/>writecnt,<sp/></highlight><highlight class="stringliteral">&quot;,&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/>snprintf(MessageBuffer<sp/>+<sp/>writecnt,<sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref><sp/>-<sp/>writecnt,<sp/></highlight><highlight class="stringliteral">&quot;]}&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153" refid="service__protocol_8hpp_1a0c37321c5d8099b02b023e84fe987f41" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="service__protocol_8hpp_1a0c37321c5d8099b02b023e84fe987f41" kindref="member">CMD_STATUS_CB</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>args,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_of_args)<sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/>memset(MessageBuffer,<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref>);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>systemStatus.GetDeviceStatus(MessageBuffer,<sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref>);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>MessageBuffer;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169" refid="service__protocol_8hpp_1a777abb5cf6f94fda71bec11a021c7a28" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="service__protocol_8hpp_1a777abb5cf6f94fda71bec11a021c7a28" kindref="member">CMD_SETPORT_CB</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>args,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_of_args)<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/>memset(MessageBuffer,<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref>);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argBuffer[kNumOfI2CPorts];</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structArgSpecs" kindref="compound">ArgSpecs</ref><sp/>SetPortSpecs<sp/>=<sp/>{kNumOfI2CPorts,<sp/><ref refid="service__protocol_8hpp_1a94dab9a7bc1df1b4203c1de51490331e" kindref="member">kUpperRangeArgSetPort</ref>,<sp/><ref refid="service__protocol_8hpp_1ad13a6bf081c689bd8bb3f4c2eb845c68" kindref="member">kLowerRangeArgSetPort</ref>};</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ArgumentsAreValid<sp/>=<sp/><ref refid="service__protocol_8hpp_1a2ced0e447c0b981ad87d10b299c7633d" kindref="member">ParseEnteredArgumentsToInt</ref>(args,<sp/>argBuffer,<sp/>SetPortSpecs);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ArgumentsAreValid)<sp/>{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>portAProperties.AssignSensorToI2CPort((<ref refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35" kindref="member">SensorTypes</ref>)argBuffer[<ref refid="namespacemodule_1_1status_1a3e103922134925d92f434016568d0205" kindref="member">module::status::kSensorPortAIndex</ref>]);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/>portBProperties.AssignSensorToI2CPort((<ref refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35" kindref="member">SensorTypes</ref>)argBuffer[<ref refid="namespacemodule_1_1status_1a7ea22fe91dbdf68eaca2bf35d308e16e" kindref="member">module::status::kSensorPortBIndex</ref>]);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>snprintf(MessageBuffer,<sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref>,<sp/><ref refid="service__protocol_8hpp_1aea7408de085c38e7a4129b78a334fc18" kindref="member">kSetPortFormatString</ref>,<sp/>argBuffer[<ref refid="namespacemodule_1_1status_1a3e103922134925d92f434016568d0205" kindref="member">module::status::kSensorPortAIndex</ref>],</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>argBuffer[<ref refid="namespacemodule_1_1status_1a7ea22fe91dbdf68eaca2bf35d308e16e" kindref="member">module::status::kSensorPortBIndex</ref>],<sp/>argBuffer[<ref refid="namespacemodule_1_1status_1a182a1b44d569729418c9f7ea01424ef4" kindref="member">module::status::kBBPortIndex</ref>]);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>MessageBuffer;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1a133a59ff51897837779077bab76a6508" kindref="member">kInvalidArgumentValues</ref>;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196" refid="service__protocol_8hpp_1ae220f8e1f3b89128e9e06bbefcd3c0be" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="service__protocol_8hpp_1ae220f8e1f3b89128e9e06bbefcd3c0be" kindref="member">CMD_SETID_CB</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>args,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_of_args)<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/>memset(MessageBuffer,<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref>);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argBuffer[<ref refid="service__protocol_8hpp_1adc564d1d6100b50fa7c64ceadf4f62af" kindref="member">kNumOfArgumentsSetID</ref>];</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structArgSpecs" kindref="compound">ArgSpecs</ref><sp/>SetIDSpecs<sp/>=<sp/>{<ref refid="service__protocol_8hpp_1adc564d1d6100b50fa7c64ceadf4f62af" kindref="member">kNumOfArgumentsSetID</ref>,<sp/><ref refid="service__protocol_8hpp_1aa05eea6ceb272688c95d0b6d5439162c" kindref="member">kUpperRangeArgSetID</ref>,<sp/><ref refid="service__protocol_8hpp_1aec0a1999cac80f696b039c8e9e94970a" kindref="member">kLowerRangeArgSetID</ref>};</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ArgumentsAreValid<sp/>=<sp/><ref refid="service__protocol_8hpp_1a2ced0e447c0b981ad87d10b299c7633d" kindref="member">ParseEnteredArgumentsToInt</ref>(args,<sp/>argBuffer,<sp/>SetIDSpecs);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ArgumentsAreValid)<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/>systemStatus.SetDeviceID(argBuffer[0]);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>snprintf(MessageBuffer,<sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref>,<sp/><ref refid="service__protocol_8hpp_1a065dd04995e36cdc0b261323bf5b34b3" kindref="member">kSetIDFormatString</ref>,<sp/>argBuffer[0]);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>MessageBuffer;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1a133a59ff51897837779077bab76a6508" kindref="member">kInvalidArgumentValues</ref>;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220" refid="service__protocol_8hpp_1a9057dee5f2380f6d69a78b744b772f72" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="service__protocol_8hpp_1a9057dee5f2380f6d69a78b744b772f72" kindref="member">CMD_STREAM_CB</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>args,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_of_args)<sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/>memset(MessageBuffer,<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref>);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/>SensorData<sp/>data;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1)<sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Receive<sp/>the<sp/>SensorData<sp/>from<sp/>the<sp/>message<sp/>queue</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(xQueueReceive(serviceProtocolQueue,<sp/>&amp;(data),<sp/>(TickType_t)10)<sp/>==<sp/>pdPASS)<sp/>{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="service__protocol_8hpp_1a794b9cba0ee254c55b2bfa8f934b0064" kindref="member">ComposeJsonFormattedStringOfSensorData</ref></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/>(&amp;data);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>MessageBuffer;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;!E<sp/>can&apos;t<sp/>receive<sp/>message<sp/>from<sp/>queue&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243" refid="service__protocol_8hpp_1aad487bed9c337741860acbd0f7c7f209" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="service__protocol_8hpp_1aad487bed9c337741860acbd0f7c7f209" kindref="member">CMD_HELP_CB</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>args,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_of_args)<sp/>{</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1aa24664405a5a2decdcab1ed4394316f1" kindref="member">kHelpUsageString</ref>;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257" refid="service__protocol_8hpp_1a77d8d316a8cb7398fa0cc4918a25e504" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="service__protocol_8hpp_1a77d8d316a8cb7398fa0cc4918a25e504" kindref="member">CMD_SETSR_CB</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>args,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_of_args)<sp/>{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/>memset(MessageBuffer,<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref>);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argBuffer[<ref refid="service__protocol_8hpp_1a965bc905fa9ae6a73df75103eb643a6a" kindref="member">kNumOfArgumentsSetSR</ref>];</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structArgSpecs" kindref="compound">ArgSpecs</ref><sp/>SetIDSpecs<sp/>=<sp/>{<ref refid="service__protocol_8hpp_1a965bc905fa9ae6a73df75103eb643a6a" kindref="member">kNumOfArgumentsSetSR</ref>,<sp/><ref refid="service__protocol_8hpp_1aee720ce713a138560f3c4202c0c811ec" kindref="member">kUpperRangeArgSetSR</ref>,<sp/><ref refid="service__protocol_8hpp_1a050ee1604b1abe49e322c83216a38084" kindref="member">kLowerRangeArgSetSR</ref>};</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ArgumentsAreValid<sp/>=<sp/><ref refid="service__protocol_8hpp_1a2ced0e447c0b981ad87d10b299c7633d" kindref="member">ParseEnteredArgumentsToInt</ref>(args,<sp/>argBuffer,<sp/>SetIDSpecs);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ArgumentsAreValid)<sp/>{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/>portAProperties.SetSampleTime(argBuffer[0]);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/>portBProperties.SetSampleTime(argBuffer[1]);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/>snprintf(MessageBuffer,<sp/><ref refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kindref="member">kMessageBufferSize</ref>,<sp/><ref refid="service__protocol_8hpp_1a9be00da238b0c9e46581baa76badfebe" kindref="member">kSetSampleTimeFormatString</ref>,<sp/>argBuffer[0],<sp/>argBuffer[1]);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>MessageBuffer;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="service__protocol_8hpp_1a133a59ff51897837779077bab76a6508" kindref="member">kInvalidArgumentValues</ref>;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="270"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>usb_service_protocol::USBServiceProtocolRegisters<sp/>USBRegisters[<ref refid="service__protocol_8hpp_1aec6c60b6f2f2135ec6bd95542cfe44d7" kindref="member">kNumOfRegisters</ref>]{<sp/>{</highlight><highlight class="stringliteral">&quot;STATUS&quot;</highlight><highlight class="normal">,<sp/>0,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1a0c37321c5d8099b02b023e84fe987f41" kindref="member">CMD_STATUS_CB</ref>},<sp/></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;SETPORT&quot;</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1a225efd5aec0faf8abb7e87d781a4c415" kindref="member">kNumOfArgumentsSetPort</ref>,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1a777abb5cf6f94fda71bec11a021c7a28" kindref="member">CMD_SETPORT_CB</ref>},<sp/></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;SETID&quot;</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1adc564d1d6100b50fa7c64ceadf4f62af" kindref="member">kNumOfArgumentsSetID</ref>,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1ae220f8e1f3b89128e9e06bbefcd3c0be" kindref="member">CMD_SETID_CB</ref>},</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;STREAM&quot;</highlight><highlight class="normal">,<sp/>0,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1a9057dee5f2380f6d69a78b744b772f72" kindref="member">CMD_STREAM_CB</ref>},<sp/></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;SETSR&quot;</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1a965bc905fa9ae6a73df75103eb643a6a" kindref="member">kNumOfArgumentsSetSR</ref>,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1a77d8d316a8cb7398fa0cc4918a25e504" kindref="member">CMD_SETSR_CB</ref>},<sp/></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;HELP&quot;</highlight><highlight class="normal">,<sp/>0,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/><ref refid="service__protocol_8hpp_1aad487bed9c337741860acbd0f7c7f209" kindref="member">CMD_HELP_CB</ref>}};</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="SensorHub_FW/src/service_protocol.hpp"/>
+  </compounddef>
+</doxygen>

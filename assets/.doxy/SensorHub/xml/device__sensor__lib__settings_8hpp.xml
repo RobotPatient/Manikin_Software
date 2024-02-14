@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="device__sensor__lib__settings_8hpp" kind="file" language="C++">
+    <compoundname>device_sensor_lib_settings.hpp</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includedby refid="device__properties_8hpp" local="no">SensorHub_FW/src/device_properties.hpp</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>stdint.h</label>
+      </node>
+      <node id="1">
+        <label>SensorHub_FW/src/device_sensor_lib_settings.hpp</label>
+        <link refid="device__sensor__lib__settings_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>SensorHub_FW/src/service_protocol.hpp</label>
+        <link refid="service__protocol_8hpp"/>
+      </node>
+      <node id="1">
+        <label>SensorHub_FW/src/device_sensor_lib_settings.hpp</label>
+        <link refid="device__sensor__lib__settings_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>SensorHub_FW/src/device_properties.hpp</label>
+        <link refid="device__properties_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>SensorHub_FW/src/device_status.hpp</label>
+        <link refid="device__status_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35" prot="public" static="no" strong="no">
+        <type></type>
+        <name>SensorTypes</name>
+        <enumvalue id="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35ad5538cf5fbc1c5a09525d4fbc0e24c93" prot="public">
+          <name>TypeNone</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35a591b179e2defcf6418081c3d05553ce1" prot="public">
+          <name>TypeCompressionSensor</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35a7b2db1d314db2ec551e5553dc39dd89d" prot="public">
+          <name>TypeDifferentialPressureSensor</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35a982c2b81fd8c334d8bf19f41bbde69b6" prot="public">
+          <name>TypefingerPositionSensor</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>The currently supported sensors. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_sensor_lib_settings.hpp" line="41" column="1" bodyfile="SensorHub_FW/src/device_sensor_lib_settings.hpp" bodystart="41" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="device__sensor__lib__settings_8hpp_1a9b7c0b870ef69bf53364de30aef15813" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr uint8_t</type>
+        <definition>constexpr uint8_t kNumOfSupportedSensors</definition>
+        <argsstring></argsstring>
+        <name>kNumOfSupportedSensors</name>
+        <initializer>= 4</initializer>
+        <briefdescription>
+<para>The number of sensors supported! </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>This needs to be changed when a new sensors is added! </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_sensor_lib_settings.hpp" line="36" column="26" bodyfile="SensorHub_FW/src/device_sensor_lib_settings.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>*******************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>by<sp/>RobotPatient<sp/>Simulators</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>Authors:<sp/>Richard<sp/>Kroesen<sp/>en<sp/>Victor<sp/>Hogeweij</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a<sp/>copy</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>including<sp/>without<sp/>limitation<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>sublicense,<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the<sp/>Software</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DAMAGES<sp/>OR<sp/>OTHER<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*<sp/>ARISING<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*<sp/>OTHER<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">***********************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>DEVICE_SENSOR_LIB_SETTINGS_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEVICE_SENSOR_LIB_SETTINGS_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="device__sensor__lib__settings_8hpp_1a9b7c0b870ef69bf53364de30aef15813" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="device__sensor__lib__settings_8hpp_1a9b7c0b870ef69bf53364de30aef15813" kindref="member">kNumOfSupportedSensors</ref><sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="42" refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35ad5538cf5fbc1c5a09525d4fbc0e24c93" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35ad5538cf5fbc1c5a09525d4fbc0e24c93" kindref="member">TypeNone</ref>,</highlight></codeline>
+<codeline lineno="43" refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35a591b179e2defcf6418081c3d05553ce1" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35a591b179e2defcf6418081c3d05553ce1" kindref="member">TypeCompressionSensor</ref>,</highlight></codeline>
+<codeline lineno="44" refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35a7b2db1d314db2ec551e5553dc39dd89d" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35a7b2db1d314db2ec551e5553dc39dd89d" kindref="member">TypeDifferentialPressureSensor</ref>,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><ref refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35a982c2b81fd8c334d8bf19f41bbde69b6" kindref="member">TypefingerPositionSensor</ref></highlight></codeline>
+<codeline lineno="46" refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35a982c2b81fd8c334d8bf19f41bbde69b6" refkind="member"><highlight class="normal">}<sp/><ref refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35" kindref="member">SensorTypes</ref>;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="SensorHub_FW/src/device_sensor_lib_settings.hpp"/>
+  </compounddef>
+</doxygen>

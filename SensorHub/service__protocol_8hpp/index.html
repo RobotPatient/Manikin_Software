@@ -1,0 +1,1698 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.9">
+    
+    
+      
+        <title>File service_protocol.hpp - Manikin Software</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f2e4d321.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#file-service_protocolhpp" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Manikin Software" class="md-header__button md-logo" aria-label="Manikin Software" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Manikin Software
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              File service_protocol.hpp
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Manikin Software" class="md-nav__button md-logo" aria-label="Manikin Software" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Manikin Software
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Firmware API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Firmware API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    SensorHub
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            SensorHub
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Classes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Classes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../annotated/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Class List
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Class Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hierarchy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Class Hierarchy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../class_members/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Class Members
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../class_member_functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Class Member Functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../class_member_variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Class Member Variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Namespaces
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            Namespaces
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../namespaces/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Namespace List
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../namespace_members/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Namespace Members
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../namespace_member_functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Namespace Member Functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../namespace_member_variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Namespace Member Variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../namespace_member_typedefs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Namespace Member Typedefs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../namespace_member_enums/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Namespace Member Enumerations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../macros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Macros
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Firmware Usage
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Firmware Usage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../General/flash_build_instructions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Building and Flashing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    SensorHub
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            SensorHub
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service_protocol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    USB Terminal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Attributes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-static-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Static Attributes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-attributes-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Attributes Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Attributes Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variable-parsefail" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable ParseFail
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-parseok" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable ParseOK
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-khelpusagestring" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kHelpUsageString
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-kinvalidargumentvalues" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kInvalidArgumentValues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-klowerrangeargsetid" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kLowerRangeArgSetID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-klowerrangeargsetport" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kLowerRangeArgSetPort
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-klowerrangeargsetsr" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kLowerRangeArgSetSR
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-kmessagebuffersize" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kMessageBufferSize
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-knumofargumentssetid" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kNumOfArgumentsSetID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-knumofargumentssetport" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kNumOfArgumentsSetPort
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-knumofargumentssetsr" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kNumOfArgumentsSetSR
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-knumofregisters" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kNumOfRegisters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-ksetidformatstring" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kSetIDFormatString
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-ksetportformatstring" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kSetPortFormatString
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-ksetsampletimeformatstring" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kSetSampleTimeFormatString
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-kstreamdataformatstring" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kStreamDataFormatString
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-kstreamformatstring" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kStreamFormatString
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-kupperrangeargsetid" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kUpperRangeArgSetID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-kupperrangeargsetport" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kUpperRangeArgSetPort
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-kupperrangeargsetsr" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kUpperRangeArgSetSR
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-static-attributes-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Static Attributes Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Static Attributes Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variable-messagebuffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable MessageBuffer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-usbregisters" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable USBRegisters
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-functions-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Functions Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Functions Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-cmd_help_cb" class="md-nav__link">
+    <span class="md-ellipsis">
+      function CMD_HELP_CB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-cmd_setid_cb" class="md-nav__link">
+    <span class="md-ellipsis">
+      function CMD_SETID_CB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-cmd_setport_cb" class="md-nav__link">
+    <span class="md-ellipsis">
+      function CMD_SETPORT_CB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-cmd_setsr_cb" class="md-nav__link">
+    <span class="md-ellipsis">
+      function CMD_SETSR_CB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-cmd_status_cb" class="md-nav__link">
+    <span class="md-ellipsis">
+      function CMD_STATUS_CB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-cmd_stream_cb" class="md-nav__link">
+    <span class="md-ellipsis">
+      function CMD_STREAM_CB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-composejsonformattedstringofsensordata" class="md-nav__link">
+    <span class="md-ellipsis">
+      function ComposeJsonFormattedStringOfSensorData
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-parseenteredargumentstoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      function ParseEnteredArgumentsToInt
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="file-service_protocolhpp">File service_protocol.hpp</h1>
+<p><a href="../files/"><strong>FileList</strong></a> <strong>&gt;</strong> <a href="../dir_8a3376b0b822df0b6266211cee305325/"><strong>SensorHub_FW</strong></a> <strong>&gt;</strong> <a href="../dir_d67209f9e2b4e51eca02397244f6bfa8/"><strong>src</strong></a> <strong>&gt;</strong> <a href="./"><strong>service_protocol.hpp</strong></a></p>
+<p><a href="../service__protocol_8hpp_source/">Go to the source code of this file</a></p>
+<ul>
+<li><code>#include &lt;Arduino.h&gt;</code></li>
+<li><code>#include &lt;FreeRTOS.h&gt;</code></li>
+<li><code>#include &lt;queue.h&gt;</code></li>
+<li><code>#include &lt;device_settings.hpp&gt;</code></li>
+<li><code>#include &lt;device_status.hpp&gt;</code></li>
+<li><code>#include &lt;ringbuffer.hpp&gt;</code></li>
+<li><code>#include &lt;usb_service_protocol.hpp&gt;</code></li>
+</ul>
+<h2 id="classes">Classes</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">struct</td>
+<td style="text-align: left;"><a href="../structArgSpecs/"><strong>ArgSpecs</strong></a> <br><em>Struct used to pass options for argument parsing between methods.</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-attributes">Public Attributes</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">constexpr uint8_t</td>
+<td style="text-align: left;"><a href="#variable-parsefail"><strong>ParseFail</strong></a>   = = 0<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">constexpr uint8_t</td>
+<td style="text-align: left;"><a href="#variable-parseok"><strong>ParseOK</strong></a>   = = 1<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">const char</td>
+<td style="text-align: left;"><a href="#variable-khelpusagestring"><strong>kHelpUsageString</strong></a>   = = "**********************************HELP************************************"</td>
+</tr>
+<tr>
+<td style="text-align: right;">"\r\n"</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">"CMDS: STATUS - Prints: status of the system, connected devices and "</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">"sampletime\r\n"</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">"      SETPORT [DeviceType portA] [DeviceType portB] [DeviceType BackBone] "</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">"\r\n"</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">"             - Setup (sensor) software drivers on the selected port in "</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">"argument\r\n"</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">"      SETID [UniqueDeviceID] - Sets a unique identifier for the system\r\n"</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">"      STREAM - Stream current sensor measurements to this console\r\n"</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">"      SETSR [Sample rate port a] [Sample rate port b] - Sets the sample rate for \r\n"</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">"                                         port a in b in milliseconds (10-1000 ms)\r"<br></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">const char</td>
+<td style="text-align: left;"><a href="#variable-kinvalidargumentvalues"><strong>kInvalidArgumentValues</strong></a>   = = "!E Invalid arguments entered!"<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">constexpr int</td>
+<td style="text-align: left;"><a href="#variable-klowerrangeargsetid"><strong>kLowerRangeArgSetID</strong></a>   = = 0<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">constexpr int</td>
+<td style="text-align: left;"><a href="#variable-klowerrangeargsetport"><strong>kLowerRangeArgSetPort</strong></a>   = = 0<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">constexpr int</td>
+<td style="text-align: left;"><a href="#variable-klowerrangeargsetsr"><strong>kLowerRangeArgSetSR</strong></a>   = = 10<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">constexpr int</td>
+<td style="text-align: left;"><a href="#variable-kmessagebuffersize"><strong>kMessageBufferSize</strong></a>   = = 1024<br><em>Statically assigned (output) messagebuffer, used to store the output of commands in. Gets used by multiple callback methods.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">constexpr uint8_t</td>
+<td style="text-align: left;"><a href="#variable-knumofargumentssetid"><strong>kNumOfArgumentsSetID</strong></a>   = = 1<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">constexpr uint8_t</td>
+<td style="text-align: left;"><a href="#variable-knumofargumentssetport"><strong>kNumOfArgumentsSetPort</strong></a>   = = 3<br><em>Argument parser constants.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">constexpr uint8_t</td>
+<td style="text-align: left;"><a href="#variable-knumofargumentssetsr"><strong>kNumOfArgumentsSetSR</strong></a>   = = 2<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">constexpr uint8_t</td>
+<td style="text-align: left;"><a href="#variable-knumofregisters"><strong>kNumOfRegisters</strong></a>   = = 7<br><em>The num of registers defined in the usb service protocol registers array.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">const char</td>
+<td style="text-align: left;"><a href="#variable-ksetidformatstring"><strong>kSetIDFormatString</strong></a>   = = "!OK Device id is set to: %d"<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">const char</td>
+<td style="text-align: left;"><a href="#variable-ksetportformatstring"><strong>kSetPortFormatString</strong></a>   = = "!OK Port A set to: %d, Port B set to: %d, Port BB set to: %d"<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">const char</td>
+<td style="text-align: left;"><a href="#variable-ksetsampletimeformatstring"><strong>kSetSampleTimeFormatString</strong></a>   = = "!OK Sampletime on Port A set to: %d, Port B set to: %d"<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">const char</td>
+<td style="text-align: left;"><a href="#variable-kstreamdataformatstring"><strong>kStreamDataFormatString</strong></a>   = = "{ \"Val\": %d}"<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">const char</td>
+<td style="text-align: left;"><a href="#variable-kstreamformatstring"><strong>kStreamFormatString</strong></a>   = = "{\"NumOfShorts\": %d, \"SampleNum\": %d, \"Sensor\": %d, \"Buf\": ["<br><em>Format strings, used to create the responses with!</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">constexpr int</td>
+<td style="text-align: left;"><a href="#variable-kupperrangeargsetid"><strong>kUpperRangeArgSetID</strong></a>   = = 255<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">constexpr int</td>
+<td style="text-align: left;"><a href="#variable-kupperrangeargsetport"><strong>kUpperRangeArgSetPort</strong></a>   = = <a href="../device__sensor__lib__settings_8hpp/#variable-knumofsupportedsensors"><strong>kNumOfSupportedSensors</strong></a>-1<br></td>
+</tr>
+<tr>
+<td style="text-align: right;">constexpr int</td>
+<td style="text-align: left;"><a href="#variable-kupperrangeargsetsr"><strong>kUpperRangeArgSetSR</strong></a>   = = 1000<br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-static-attributes">Public Static Attributes</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">char</td>
+<td style="text-align: left;"><a href="#variable-messagebuffer"><strong>MessageBuffer</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">usb_service_protocol::USBServiceProtocolRegisters</td>
+<td style="text-align: left;"><a href="#variable-usbregisters"><strong>USBRegisters</strong></a>   = { {"STATUS", 0, false, <a href="./#function-cmd_status_cb"><strong>CMD_STATUS_CB</strong></a>},</td>
+</tr>
+<tr>
+<td style="text-align: right;">{"SETPORT", kNumOfArgumentsSetPort, false, <a href="./#function-cmd_setport_cb"><strong>CMD_SETPORT_CB</strong></a>},</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">{"SETID", kNumOfArgumentsSetID, false, <a href="./#function-cmd_setid_cb"><strong>CMD_SETID_CB</strong></a>},</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">{"STREAM", 0, true, <a href="./#function-cmd_stream_cb"><strong>CMD_STREAM_CB</strong></a>},</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">{"SETSR", kNumOfArgumentsSetSR, false, <a href="./#function-cmd_setsr_cb"><strong>CMD_SETSR_CB</strong></a>},</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">{"HELP", 0, false, <a href="./#function-cmd_help_cb"><strong>CMD_HELP_CB</strong></a>}}<br><em>STATIC declaration of all the CB methods and command information.</em></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-functions">Public Functions</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">const char *</td>
+<td style="text-align: left;"><a href="#function-cmd_help_cb"><strong>CMD_HELP_CB</strong></a> (char ** args, int num_of_args) <br><em>Callback function for the HELP command. This function will be ran when HELP command is entered. The HELP command return the usage of the console in a formatted string.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">const char *</td>
+<td style="text-align: left;"><a href="#function-cmd_setid_cb"><strong>CMD_SETID_CB</strong></a> (char ** args, int num_of_args) <br><em>Callback function for the SETID command. This function will be ran when SETID command is entered. The SETID command sets an unique identifier for this subsystem (ID will be written to external flash!). ID can be read using STATUS command!</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">const char *</td>
+<td style="text-align: left;"><a href="#function-cmd_setport_cb"><strong>CMD_SETPORT_CB</strong></a> (char ** args, int num_of_args) <br><em>Callback function for the SETPORT command. This function will be ran when SETPORT command is entered. The SETPORT command sets the sensortypes for the given ports..</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">const char *</td>
+<td style="text-align: left;"><a href="#function-cmd_setsr_cb"><strong>CMD_SETSR_CB</strong></a> (char ** args, int num_of_args) <br><em>Callback function for the SETSR command. This function will be ran when SETSR command is entered. The SETSR command sets the sample rate for the sensorports.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">const char *</td>
+<td style="text-align: left;"><a href="#function-cmd_status_cb"><strong>CMD_STATUS_CB</strong></a> (char ** args, int num_of_args) <br><em>Callback function for the STATUS command. This function will be ran when STATUS command is entered. The STATUS command return the status of the system in a formatted JSON string.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">const char *</td>
+<td style="text-align: left;"><a href="#function-cmd_stream_cb"><strong>CMD_STREAM_CB</strong></a> (char ** args, int num_of_args) <br><em>Callback function for the STREAM command. This function will be ran when STREAM command is entered. This command is an stream command, meaning it will run repeatedly until \r (ENTER) is detected in serial console. The Stream command returns the sensordata of each sensor in a formatted json string.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-composejsonformattedstringofsensordata"><strong>ComposeJsonFormattedStringOfSensorData</strong></a> (SensorData * data) <br><em>This function will compose a Json formatted string of the sensordata and put it in to the messagebuffer.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">uint8_t</td>
+<td style="text-align: left;"><a href="#function-parseenteredargumentstoint"><strong>ParseEnteredArgumentsToInt</strong></a> (char ** argument, int * buffer, const <a href="../structArgSpecs/"><strong>ArgSpecs</strong></a> ArgSpec) <br><em>This function will convert the string type arguments to an integer and check if the argument value falls within the given Argspec range.</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-attributes-documentation">Public Attributes Documentation</h2>
+<h3 id="variable-parsefail">variable ParseFail</h3>
+<div class="highlight"><pre><span></span><code><span class="k">constexpr</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ParseFail</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="variable-parseok">variable ParseOK</h3>
+<div class="highlight"><pre><span></span><code><span class="k">constexpr</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ParseOK</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="variable-khelpusagestring">variable kHelpUsageString</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">kHelpUsageString</span><span class="p">[];</span>
+</code></pre></div>
+<h3 id="variable-kinvalidargumentvalues">variable kInvalidArgumentValues</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">kInvalidArgumentValues</span><span class="p">[];</span>
+</code></pre></div>
+<h3 id="variable-klowerrangeargsetid">variable kLowerRangeArgSetID</h3>
+<div class="highlight"><pre><span></span><code><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kLowerRangeArgSetID</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="variable-klowerrangeargsetport">variable kLowerRangeArgSetPort</h3>
+<div class="highlight"><pre><span></span><code><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kLowerRangeArgSetPort</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="variable-klowerrangeargsetsr">variable kLowerRangeArgSetSR</h3>
+<div class="highlight"><pre><span></span><code><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kLowerRangeArgSetSR</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="variable-kmessagebuffersize">variable kMessageBufferSize</h3>
+<div class="highlight"><pre><span></span><code><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kMessageBufferSize</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="variable-knumofargumentssetid">variable kNumOfArgumentsSetID</h3>
+<div class="highlight"><pre><span></span><code><span class="k">constexpr</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">kNumOfArgumentsSetID</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="variable-knumofargumentssetport">variable kNumOfArgumentsSetPort</h3>
+<div class="highlight"><pre><span></span><code><span class="k">constexpr</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">kNumOfArgumentsSetPort</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="variable-knumofargumentssetsr">variable kNumOfArgumentsSetSR</h3>
+<div class="highlight"><pre><span></span><code><span class="k">constexpr</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">kNumOfArgumentsSetSR</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="variable-knumofregisters">variable kNumOfRegisters</h3>
+<div class="highlight"><pre><span></span><code><span class="k">constexpr</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">kNumOfRegisters</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="variable-ksetidformatstring">variable kSetIDFormatString</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">kSetIDFormatString</span><span class="p">[];</span>
+</code></pre></div>
+<h3 id="variable-ksetportformatstring">variable kSetPortFormatString</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">kSetPortFormatString</span><span class="p">[];</span>
+</code></pre></div>
+<h3 id="variable-ksetsampletimeformatstring">variable kSetSampleTimeFormatString</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">kSetSampleTimeFormatString</span><span class="p">[];</span>
+</code></pre></div>
+<h3 id="variable-kstreamdataformatstring">variable kStreamDataFormatString</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">kStreamDataFormatString</span><span class="p">[];</span>
+</code></pre></div>
+<h3 id="variable-kstreamformatstring">variable kStreamFormatString</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">kStreamFormatString</span><span class="p">[];</span>
+</code></pre></div>
+<h3 id="variable-kupperrangeargsetid">variable kUpperRangeArgSetID</h3>
+<div class="highlight"><pre><span></span><code><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kUpperRangeArgSetID</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="variable-kupperrangeargsetport">variable kUpperRangeArgSetPort</h3>
+<div class="highlight"><pre><span></span><code><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kUpperRangeArgSetPort</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="variable-kupperrangeargsetsr">variable kUpperRangeArgSetSR</h3>
+<div class="highlight"><pre><span></span><code><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kUpperRangeArgSetSR</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="public-static-attributes-documentation">Public Static Attributes Documentation</h2>
+<h3 id="variable-messagebuffer">variable MessageBuffer</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="n">MessageBuffer</span><span class="p">[</span><span class="n">kMessageBufferSize</span><span class="p">];</span>
+</code></pre></div>
+<h3 id="variable-usbregisters">variable USBRegisters</h3>
+<p><em>STATIC declaration of all the CB methods and command information.</em> 
+<div class="highlight"><pre><span></span><code><span class="n">usb_service_protocol</span><span class="o">::</span><span class="n">USBServiceProtocolRegisters</span><span class="w"> </span><span class="n">USBRegisters</span><span class="p">[</span><span class="n">kNumOfRegisters</span><span class="p">];</span>
+</code></pre></div></p>
+<p><strong>Note:</strong></p>
+<p>The format of the struct is { "String of the command", Number of Arguments, Command is stream command, Pointer to callback method} </p>
+<p><strong>Note:</strong></p>
+<p>Stream command means that command will be ran repeatedly when entered. Command can be stopped by pressing enter key or '\r' character </p>
+<h2 id="public-functions-documentation">Public Functions Documentation</h2>
+<h3 id="function-cmd_help_cb">function CMD_HELP_CB</h3>
+<p><em>Callback function for the HELP command. This function will be ran when HELP command is entered. The HELP command return the usage of the console in a formatted string.</em> 
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">CMD_HELP_CB</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">args</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">num_of_args</span>
+<span class="p">)</span><span class="w"> </span>
+</code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>args</code> A two dimensional array containing the arguments entered after the command </li>
+<li><code>num_of_args</code> The number of arguments entered after the command</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>Command response string, which will be a formatted string explaining how to use this console! </p>
+<h3 id="function-cmd_setid_cb">function CMD_SETID_CB</h3>
+<p><em>Callback function for the SETID command. This function will be ran when SETID command is entered. The SETID command sets an unique identifier for this subsystem (ID will be written to external flash!). ID can be read using STATUS command!</em> 
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">CMD_SETID_CB</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">args</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">num_of_args</span>
+<span class="p">)</span><span class="w"> </span>
+</code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>args</code> A two dimensional array containing the arguments entered after the command </li>
+<li><code>num_of_args</code> The number of arguments entered after the command</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>Command response string, which will be a !OK ..[confirmation of entered arguments] if arguments where valid numbers !E Invalid arguments entered if the arguments where not valid! </p>
+<h3 id="function-cmd_setport_cb">function CMD_SETPORT_CB</h3>
+<p><em>Callback function for the SETPORT command. This function will be ran when SETPORT command is entered. The SETPORT command sets the sensortypes for the given ports..</em> 
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">CMD_SETPORT_CB</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">args</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">num_of_args</span>
+<span class="p">)</span><span class="w"> </span>
+</code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>args</code> A two dimensional array containing the arguments entered after the command </li>
+<li><code>num_of_args</code> The number of arguments entered after the command</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>Command response string, which will be a !OK ..[confirmation of entered arguments] if arguments where valid numbers !E Invalid arguments entered if the arguments where not valid! </p>
+<h3 id="function-cmd_setsr_cb">function CMD_SETSR_CB</h3>
+<p><em>Callback function for the SETSR command. This function will be ran when SETSR command is entered. The SETSR command sets the sample rate for the sensorports.</em> 
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">CMD_SETSR_CB</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">args</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">num_of_args</span>
+<span class="p">)</span><span class="w"> </span>
+</code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>args</code> A two dimensional array containing the arguments entered after the command </li>
+<li><code>num_of_args</code> The number of arguments entered after the command</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>Command response string, which will be a !OK ..[confirmation of entered arguments] if arguments where valid numbrs !E Invalid arguments entered if the arguments where not valid! </p>
+<h3 id="function-cmd_status_cb">function CMD_STATUS_CB</h3>
+<p><em>Callback function for the STATUS command. This function will be ran when STATUS command is entered. The STATUS command return the status of the system in a formatted JSON string.</em> 
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">CMD_STATUS_CB</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">args</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">num_of_args</span>
+<span class="p">)</span><span class="w"> </span>
+</code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>args</code> A two dimensional array containing the arguments entered after the command </li>
+<li><code>num_of_args</code> The number of arguments entered after the command</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>Command response string, which will be a json formatted status string. </p>
+<h3 id="function-cmd_stream_cb">function CMD_STREAM_CB</h3>
+<p><em>Callback function for the STREAM command. This function will be ran when STREAM command is entered. This command is an stream command, meaning it will run repeatedly until \r (ENTER) is detected in serial console. The Stream command returns the sensordata of each sensor in a formatted json string.</em> 
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">CMD_STREAM_CB</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">args</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">num_of_args</span>
+<span class="p">)</span><span class="w"> </span>
+</code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>args</code> A two dimensional array containing the arguments entered after the command </li>
+<li><code>num_of_args</code> The number of arguments entered after the command</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>Command response string, which will be a json formatted string! </p>
+<h3 id="function-composejsonformattedstringofsensordata">function ComposeJsonFormattedStringOfSensorData</h3>
+<p><em>This function will compose a Json formatted string of the sensordata and put it in to the messagebuffer.</em> 
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="n">ComposeJsonFormattedStringOfSensorData</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">SensorData</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">data</span>
+<span class="p">)</span><span class="w"> </span>
+</code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>data</code> The SensorData to convert to Json String </li>
+</ul>
+<h3 id="function-parseenteredargumentstoint">function ParseEnteredArgumentsToInt</h3>
+<p><em>This function will convert the string type arguments to an integer and check if the argument value falls within the given Argspec range.</em> 
+<div class="highlight"><pre><span></span><code><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ParseEnteredArgumentsToInt</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">argument</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">ArgSpecs</span><span class="w"> </span><span class="n">ArgSpec</span>
+<span class="p">)</span><span class="w"> </span>
+</code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>argument</code> An two dimensional array containing the string argument values. </li>
+<li><code>buffer</code> An integer buffer to save the parsed arguments to. </li>
+<li><code>ArgSpec</code> A struct containing the number of arguments to parse, the permitted max value of the argument and the permitted min value of the argument </li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>1 on Succes! 0 on Fail!</p>
+<p><strong>Note:</strong></p>
+<p>All arguments are checked with the same upper and lower range from the ArgSpec struct! </p>
+<hr />
+<p>The documentation for this class was generated from the following file <code>SensorHub_FW/src/service_protocol.hpp</code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structArgSpecs" kind="struct" language="C++" prot="public">
+    <compoundname>ArgSpecs</compoundname>
+    <includes refid="service__protocol_8hpp" local="no">service_protocol.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structArgSpecs_1aa814c01583750fd1ac243380e2ab1d9b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ArgSpecs::num_of_arguments</definition>
+        <argsstring></argsstring>
+        <name>num_of_arguments</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="98" column="11" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structArgSpecs_1a360a4aec1c2f768d155e5e47f25495de" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ArgSpecs::upper_range</definition>
+        <argsstring></argsstring>
+        <name>upper_range</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="99" column="7" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structArgSpecs_1a61299de6ed12b551f94066eef963b3e7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ArgSpecs::lower_range</definition>
+        <argsstring></argsstring>
+        <name>lower_range</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/service_protocol.hpp" line="100" column="7" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Struct used to pass options for argument parsing between methods. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>num_of_arguments is the number of arguments to check </para>
+</simplesect>
+<simplesect kind="note"><para>upper_range is the highest integer number the argument can be </para>
+</simplesect>
+<simplesect kind="note"><para>lower_range is the lowest integer number the argument can be</para>
+</simplesect>
+<simplesect kind="note"><para>The argument has to be in between these two numbers! </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="SensorHub_FW/src/service_protocol.hpp" line="97" column="1" bodyfile="SensorHub_FW/src/service_protocol.hpp" bodystart="97" bodyend="101"/>
+    <listofallmembers>
+      <member refid="structArgSpecs_1a61299de6ed12b551f94066eef963b3e7" prot="public" virt="non-virtual"><scope>ArgSpecs</scope><name>lower_range</name></member>
+      <member refid="structArgSpecs_1aa814c01583750fd1ac243380e2ab1d9b" prot="public" virt="non-virtual"><scope>ArgSpecs</scope><name>num_of_arguments</name></member>
+      <member refid="structArgSpecs_1a360a4aec1c2f768d155e5e47f25495de" prot="public" virt="non-virtual"><scope>ArgSpecs</scope><name>upper_range</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

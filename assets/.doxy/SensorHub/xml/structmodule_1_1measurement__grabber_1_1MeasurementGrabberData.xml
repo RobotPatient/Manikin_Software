@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData" kind="struct" language="C++" prot="public">
+    <compoundname>module::measurement_grabber::MeasurementGrabberData</compoundname>
+    <includes refid="measurement__grabber_8hpp" local="no">measurement_grabber.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a478cd0c590f502acf58f5c5abda619e0" prot="public" static="no" mutable="no">
+        <type>UniversalSensor *</type>
+        <definition>UniversalSensor* module::measurement_grabber::MeasurementGrabberData::Sensor</definition>
+        <argsstring></argsstring>
+        <name>Sensor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="45" column="19" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a87d07d9263fc336343006607766c2930" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t module::measurement_grabber::MeasurementGrabberData::SampleTime</definition>
+        <argsstring></argsstring>
+        <name>SampleTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="46" column="11" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1ad63592b3cc3c2c3cee336bb9b0cfd1ae" prot="public" static="no" mutable="no">
+        <type>xQueueHandle *</type>
+        <definition>xQueueHandle* module::measurement_grabber::MeasurementGrabberData::queue</definition>
+        <argsstring></argsstring>
+        <name>queue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="47" column="16" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Struct type used internally to pass arguments between class and MeasurementGrabberTask. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="SensorHub_FW/src/measurement_grabber.hpp" line="44" column="1" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="44" bodyend="48"/>
+    <listofallmembers>
+      <member refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1ad63592b3cc3c2c3cee336bb9b0cfd1ae" prot="public" virt="non-virtual"><scope>module::measurement_grabber::MeasurementGrabberData</scope><name>queue</name></member>
+      <member refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a87d07d9263fc336343006607766c2930" prot="public" virt="non-virtual"><scope>module::measurement_grabber::MeasurementGrabberData</scope><name>SampleTime</name></member>
+      <member refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a478cd0c590f502acf58f5c5abda619e0" prot="public" virt="non-virtual"><scope>module::measurement_grabber::MeasurementGrabberData</scope><name>Sensor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classmodule_1_1status_1_1DeviceStatus" kind="class" language="C++" prot="public">
+    <compoundname>module::status::DeviceStatus</compoundname>
+    <includes refid="device__status_8hpp" local="no">device_status.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classmodule_1_1status_1_1DeviceStatus_1a05c77e15bd62f375897c766407d74c22" prot="private" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t module::status::DeviceStatus::num_of_devices</definition>
+        <argsstring></argsstring>
+        <name>num_of_devices</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="160" column="11" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodule_1_1status_1_1DeviceStatus_1a30568f6d7171d22875168cbf3aea8161" prot="private" static="no" mutable="no">
+        <type><ref refid="device__status_8hpp_1a752212911cc626e988329bafd9ce389e" kindref="member">DeviceTypes</ref></type>
+        <definition>DeviceTypes module::status::DeviceStatus::device_type_</definition>
+        <argsstring></argsstring>
+        <name>device_type_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="161" column="15" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodule_1_1status_1_1DeviceStatus_1a91f2c461f0bf412c8a783fbb2f117eb1" prot="private" static="no" mutable="no">
+        <type>hal::log::Logger *</type>
+        <definition>hal::log::Logger* module::status::DeviceStatus::log_</definition>
+        <argsstring></argsstring>
+        <name>log_</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="162" column="20" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodule_1_1status_1_1DeviceStatus_1a31011575a0e9cfbf39a545a7d481592b" prot="private" static="no" mutable="no">
+        <type><ref refid="classDeviceProperties" kindref="compound">DeviceProperties</ref> *</type>
+        <definition>DeviceProperties* module::status::DeviceStatus::devices_[kNumOfSensorPorts]</definition>
+        <argsstring>[kNumOfSensorPorts]</argsstring>
+        <name>devices_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="163" column="20" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmodule_1_1status_1_1DeviceStatus_1a00b1ab4e3503f84b502a1501db78cd68" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void module::status::DeviceStatus::SetDeviceType</definition>
+        <argsstring>(DeviceTypes device_type)</argsstring>
+        <name>SetDeviceType</name>
+        <param>
+          <type><ref refid="device__status_8hpp_1a752212911cc626e988329bafd9ce389e" kindref="member">DeviceTypes</ref></type>
+          <declname>device_type</declname>
+        </param>
+        <briefdescription>
+<para>Set the device type (SensorHub, ActuatorHub, etc.) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>device_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The device type to set (see the above listed DeviceTypes enum) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="79" column="8" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="79" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodule_1_1status_1_1DeviceStatus_1a574f44e0c629f8a84c03fc6fd668c5c7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void module::status::DeviceStatus::SetDeviceID</definition>
+        <argsstring>(const uint8_t ID)</argsstring>
+        <name>SetDeviceID</name>
+        <param>
+          <type>const uint8_t</type>
+          <declname>ID</declname>
+        </param>
+        <briefdescription>
+<para>Set the unique device id (will write it to flash memory) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The ID to write to flash/set </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="85" column="8" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="85" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodule_1_1status_1_1DeviceStatus_1a3ed4152c032d3e0061ea9dbc92c17f27" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t module::status::DeviceStatus::GetDeviceID</definition>
+        <argsstring>()</argsstring>
+        <name>GetDeviceID</name>
+        <briefdescription>
+<para>Get the unique device id (read from flash) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The ID read from flash </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="96" column="11" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="96" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodule_1_1status_1_1DeviceStatus_1ad618957de65f23b89b87940374b97387" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void module::status::DeviceStatus::GetDeviceStatus</definition>
+        <argsstring>(char *write_buffer, const uint32_t write_buffer_size)</argsstring>
+        <name>GetDeviceStatus</name>
+        <param>
+          <type>char *</type>
+          <declname>write_buffer</declname>
+        </param>
+        <param>
+          <type>const uint32_t</type>
+          <declname>write_buffer_size</declname>
+        </param>
+        <briefdescription>
+<para>Get the device status, collected from other functions of this class and the <ref refid="classDeviceProperties" kindref="compound">DeviceProperties</ref> class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>write_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The write_buffer to write the parsed status string in to! </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>write_buffer_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of the write_buffer array passed in to the arguments </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="114" column="8" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="114" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodule_1_1status_1_1DeviceStatus_1a866451b559ad4468f47ad14d43e1645d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void module::status::DeviceStatus::AddDeviceManager</definition>
+        <argsstring>(DeviceProperties *device_properties)</argsstring>
+        <name>AddDeviceManager</name>
+        <param>
+          <type><ref refid="classDeviceProperties" kindref="compound">DeviceProperties</ref> *</type>
+          <declname>device_properties</declname>
+        </param>
+        <briefdescription>
+<para>Add the device properties classes, as this provides easier access to the properties like sample rate, sensortype&apos;s etc. It will add this to an internal array. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>device_properties</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to a device_properties instance. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="145" column="8" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="145" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodule_1_1status_1_1DeviceStatus_1ab433317af45312a10127153366b0d556" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void module::status::DeviceStatus::AttachFlashLogger</definition>
+        <argsstring>(hal::log::Logger *log_module)</argsstring>
+        <name>AttachFlashLogger</name>
+        <param>
+          <type>hal::log::Logger *</type>
+          <declname>log_module</declname>
+        </param>
+        <briefdescription>
+<para>Attach a logger object to this class. So the DeviceID functions can read and write the id to/from flash. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>log_module</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to a logger instance </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_status.hpp" line="157" column="8" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="157" bodyend="157"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="SensorHub_FW/src/device_status.hpp" line="73" column="1" bodyfile="SensorHub_FW/src/device_status.hpp" bodystart="73" bodyend="164"/>
+    <listofallmembers>
+      <member refid="classmodule_1_1status_1_1DeviceStatus_1a866451b559ad4468f47ad14d43e1645d" prot="public" virt="non-virtual"><scope>module::status::DeviceStatus</scope><name>AddDeviceManager</name></member>
+      <member refid="classmodule_1_1status_1_1DeviceStatus_1ab433317af45312a10127153366b0d556" prot="public" virt="non-virtual"><scope>module::status::DeviceStatus</scope><name>AttachFlashLogger</name></member>
+      <member refid="classmodule_1_1status_1_1DeviceStatus_1a30568f6d7171d22875168cbf3aea8161" prot="private" virt="non-virtual"><scope>module::status::DeviceStatus</scope><name>device_type_</name></member>
+      <member refid="classmodule_1_1status_1_1DeviceStatus_1a31011575a0e9cfbf39a545a7d481592b" prot="private" virt="non-virtual"><scope>module::status::DeviceStatus</scope><name>devices_</name></member>
+      <member refid="classmodule_1_1status_1_1DeviceStatus_1a3ed4152c032d3e0061ea9dbc92c17f27" prot="public" virt="non-virtual"><scope>module::status::DeviceStatus</scope><name>GetDeviceID</name></member>
+      <member refid="classmodule_1_1status_1_1DeviceStatus_1ad618957de65f23b89b87940374b97387" prot="public" virt="non-virtual"><scope>module::status::DeviceStatus</scope><name>GetDeviceStatus</name></member>
+      <member refid="classmodule_1_1status_1_1DeviceStatus_1a91f2c461f0bf412c8a783fbb2f117eb1" prot="private" virt="non-virtual"><scope>module::status::DeviceStatus</scope><name>log_</name></member>
+      <member refid="classmodule_1_1status_1_1DeviceStatus_1a05c77e15bd62f375897c766407d74c22" prot="private" virt="non-virtual"><scope>module::status::DeviceStatus</scope><name>num_of_devices</name></member>
+      <member refid="classmodule_1_1status_1_1DeviceStatus_1a574f44e0c629f8a84c03fc6fd668c5c7" prot="public" virt="non-virtual"><scope>module::status::DeviceStatus</scope><name>SetDeviceID</name></member>
+      <member refid="classmodule_1_1status_1_1DeviceStatus_1a00b1ab4e3503f84b502a1501db78cd68" prot="public" virt="non-virtual"><scope>module::status::DeviceStatus</scope><name>SetDeviceType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.1" xml:lang="en-US">
+  <compound refid="structArgSpecs" kind="struct"><name>ArgSpecs</name>
+    <member refid="structArgSpecs_1aa814c01583750fd1ac243380e2ab1d9b" kind="variable"><name>num_of_arguments</name></member>
+    <member refid="structArgSpecs_1a360a4aec1c2f768d155e5e47f25495de" kind="variable"><name>upper_range</name></member>
+    <member refid="structArgSpecs_1a61299de6ed12b551f94066eef963b3e7" kind="variable"><name>lower_range</name></member>
+  </compound>
+  <compound refid="classDeviceProperties" kind="class"><name>DeviceProperties</name>
+    <member refid="classDeviceProperties_1aca63f17aab251b45b087f24512a27a6d" kind="variable"><name>DeviceI2CPort_</name></member>
+    <member refid="classDeviceProperties_1ad35117074af28ecdc3dbac7ef38acca2" kind="variable"><name>SensorHandle_</name></member>
+    <member refid="classDeviceProperties_1a5219b85f43e2045a5692649303f04977" kind="variable"><name>PortGrabber_</name></member>
+    <member refid="classDeviceProperties_1ac0b8b8fcb478650fefe04a74919ea61b" kind="variable"><name>PortGrabTask_</name></member>
+    <member refid="classDeviceProperties_1a7d8104ee9ce22ce9c50ecc1e0f6a38d3" kind="variable"><name>SensorQueue_</name></member>
+    <member refid="classDeviceProperties_1af7bc2bb24c411eed0287a7027e7a725a" kind="variable"><name>SensorObjPool_</name></member>
+    <member refid="classDeviceProperties_1ad42cda6d4063a9f9c194ffe21b47a0f9" kind="variable"><name>CurrentSensorType_</name></member>
+    <member refid="classDeviceProperties_1aa54171ef69d1f600aff9af776ebb7f24" kind="function"><name>Init</name></member>
+    <member refid="classDeviceProperties_1ad9cad6c9a955ffd985303440af778e47" kind="function"><name>SetupI2C</name></member>
+    <member refid="classDeviceProperties_1a3ef72143d8272ef722aba1168bfaf120" kind="function"><name>AssignSensorToI2CPort</name></member>
+    <member refid="classDeviceProperties_1a980342cc235eb9212b91e28ef23bb44f" kind="function"><name>SetSampleTime</name></member>
+    <member refid="classDeviceProperties_1aaffa5ecef11e22e9a336bd1cf2411175" kind="function"><name>ResumeSensor</name></member>
+    <member refid="classDeviceProperties_1afa4b4e827071fe3526a6e1e4b8b03d57" kind="function"><name>PauseSensor</name></member>
+    <member refid="classDeviceProperties_1ac05ef730173895b12910ac47d97af125" kind="function"><name>GetSampleTime</name></member>
+    <member refid="classDeviceProperties_1aff6adf1abd00b141c93c7b874424e632" kind="function"><name>GetSensorType</name></member>
+  </compound>
+  <compound refid="classmodule_1_1status_1_1DeviceStatus" kind="class"><name>module::status::DeviceStatus</name>
+    <member refid="classmodule_1_1status_1_1DeviceStatus_1a05c77e15bd62f375897c766407d74c22" kind="variable"><name>num_of_devices</name></member>
+    <member refid="classmodule_1_1status_1_1DeviceStatus_1a30568f6d7171d22875168cbf3aea8161" kind="variable"><name>device_type_</name></member>
+    <member refid="classmodule_1_1status_1_1DeviceStatus_1a91f2c461f0bf412c8a783fbb2f117eb1" kind="variable"><name>log_</name></member>
+    <member refid="classmodule_1_1status_1_1DeviceStatus_1a31011575a0e9cfbf39a545a7d481592b" kind="variable"><name>devices_</name></member>
+    <member refid="classmodule_1_1status_1_1DeviceStatus_1a00b1ab4e3503f84b502a1501db78cd68" kind="function"><name>SetDeviceType</name></member>
+    <member refid="classmodule_1_1status_1_1DeviceStatus_1a574f44e0c629f8a84c03fc6fd668c5c7" kind="function"><name>SetDeviceID</name></member>
+    <member refid="classmodule_1_1status_1_1DeviceStatus_1a3ed4152c032d3e0061ea9dbc92c17f27" kind="function"><name>GetDeviceID</name></member>
+    <member refid="classmodule_1_1status_1_1DeviceStatus_1ad618957de65f23b89b87940374b97387" kind="function"><name>GetDeviceStatus</name></member>
+    <member refid="classmodule_1_1status_1_1DeviceStatus_1a866451b559ad4468f47ad14d43e1645d" kind="function"><name>AddDeviceManager</name></member>
+    <member refid="classmodule_1_1status_1_1DeviceStatus_1ab433317af45312a10127153366b0d556" kind="function"><name>AttachFlashLogger</name></member>
+  </compound>
+  <compound refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber" kind="class"><name>module::measurement_grabber::MeasurementGrabber</name>
+    <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1ad1589fa2e3250b4e150371f33ecab1b0" kind="variable"><name>SampleTime_</name></member>
+    <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a7cadc04c9ce02ad3d51eeb8acd7c12d8" kind="variable"><name>Data_</name></member>
+    <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a34d64482f30f367a4708d479e17326f0" kind="variable"><name>Task_</name></member>
+    <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a5226d8939df4b34fd2bd95ca36804174" kind="variable"><name>xTaskBuffer</name></member>
+    <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a82f6f04f532f3d5ca8a8f4faf4c9e442" kind="variable"><name>xStack</name></member>
+    <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1abade12d3630e23d7764c99f6f0e9befa" kind="function"><name>SetupPollTask</name></member>
+    <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a83779307a5a5787b665b25cf6816aa68" kind="function"><name>SuspendPollingTask</name></member>
+    <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a31e3022f4f7e03e511f83e2bf6c0da3b" kind="function"><name>ResumePollingTask</name></member>
+    <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a72ec58b3e4c90d550c6959efca249e14" kind="function"><name>ChangeSensor</name></member>
+    <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a4f2535dbef647c8baf53f66b618f7ddd" kind="function"><name>GetSampleTime</name></member>
+    <member refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a9a6c426f6b2c791a2bf4ab37cb6c07b3" kind="function"><name>SetSampleTime</name></member>
+  </compound>
+  <compound refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData" kind="struct"><name>module::measurement_grabber::MeasurementGrabberData</name>
+    <member refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a478cd0c590f502acf58f5c5abda619e0" kind="variable"><name>Sensor</name></member>
+    <member refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a87d07d9263fc336343006607766c2930" kind="variable"><name>SampleTime</name></member>
+    <member refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1ad63592b3cc3c2c3cee336bb9b0cfd1ae" kind="variable"><name>queue</name></member>
+  </compound>
+  <compound refid="namespacemodule" kind="namespace"><name>module</name>
+  </compound>
+  <compound refid="namespacemodule_1_1measurement__grabber" kind="namespace"><name>module::measurement_grabber</name>
+    <member refid="namespacemodule_1_1measurement__grabber_1a63a5f32f8ddceb732102ae9a3010746b" kind="variable"><name>kSensorPollingTaskStackSize</name></member>
+    <member refid="namespacemodule_1_1measurement__grabber_1ae93d035c783cc38cdc582ebd3f712fd0" kind="function"><name>MeasurementGrabberTask</name></member>
+  </compound>
+  <compound refid="namespacemodule_1_1status" kind="namespace"><name>module::status</name>
+    <member refid="namespacemodule_1_1status_1a02421a394dc5eeda09309c9c03145bac" kind="variable"><name>kStatusFormatString</name></member>
+    <member refid="namespacemodule_1_1status_1aa078661c2391c3327c50d1dc829d0fcd" kind="variable"><name>kUninitializedStatus</name></member>
+    <member refid="namespacemodule_1_1status_1a770e16fc218b135cbefd14984f2f4806" kind="variable"><name>kInitializedStatus</name></member>
+    <member refid="namespacemodule_1_1status_1a781d10563a337cd4f80618a1786de5bc" kind="variable"><name>kDeviceInitialized</name></member>
+    <member refid="namespacemodule_1_1status_1a8845760202c2b4f514150e74abe6036a" kind="variable"><name>kDeviceUnitialized</name></member>
+    <member refid="namespacemodule_1_1status_1a5364954372c0d1b33894c21388388cc5" kind="variable"><name>kIDLocationInFlash</name></member>
+    <member refid="namespacemodule_1_1status_1af685a722e0720f55c90b13392add6083" kind="variable"><name>kNumOfSensorPorts</name></member>
+    <member refid="namespacemodule_1_1status_1a3e103922134925d92f434016568d0205" kind="variable"><name>kSensorPortAIndex</name></member>
+    <member refid="namespacemodule_1_1status_1a7ea22fe91dbdf68eaca2bf35d308e16e" kind="variable"><name>kSensorPortBIndex</name></member>
+    <member refid="namespacemodule_1_1status_1a182a1b44d569729418c9f7ea01424ef4" kind="variable"><name>kBBPortIndex</name></member>
+  </compound>
+  <compound refid="device__properties_8hpp" kind="file"><name>device_properties.hpp</name>
+  </compound>
+  <compound refid="device__sensor__lib__settings_8hpp" kind="file"><name>device_sensor_lib_settings.hpp</name>
+    <member refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35" kind="enum"><name>SensorTypes</name></member>
+    <member refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35ad5538cf5fbc1c5a09525d4fbc0e24c93" kind="enumvalue"><name>TypeNone</name></member>
+    <member refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35a591b179e2defcf6418081c3d05553ce1" kind="enumvalue"><name>TypeCompressionSensor</name></member>
+    <member refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35a7b2db1d314db2ec551e5553dc39dd89d" kind="enumvalue"><name>TypeDifferentialPressureSensor</name></member>
+    <member refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35a982c2b81fd8c334d8bf19f41bbde69b6" kind="enumvalue"><name>TypefingerPositionSensor</name></member>
+    <member refid="device__sensor__lib__settings_8hpp_1a9b7c0b870ef69bf53364de30aef15813" kind="variable"><name>kNumOfSupportedSensors</name></member>
+  </compound>
+  <compound refid="device__settings_8hpp" kind="file"><name>device_settings.hpp</name>
+  </compound>
+  <compound refid="device__status_8hpp" kind="file"><name>device_status.hpp</name>
+    <member refid="device__status_8hpp_1a752212911cc626e988329bafd9ce389e" kind="enum"><name>DeviceTypes</name></member>
+    <member refid="device__status_8hpp_1a752212911cc626e988329bafd9ce389ea8029461e6b31a1ebbf2812129ccb7e3e" kind="enumvalue"><name>kDeviceTypeUndefined</name></member>
+    <member refid="device__status_8hpp_1a752212911cc626e988329bafd9ce389ea32d9ce9e49bbddceef4983ee591b38fb" kind="enumvalue"><name>kDeviceTypeSensorHub</name></member>
+    <member refid="device__status_8hpp_1a752212911cc626e988329bafd9ce389eaf2d624981791cfdfef611358db3b77c6" kind="enumvalue"><name>kDeviceTypeActuatorHub</name></member>
+  </compound>
+  <compound refid="main_8cpp" kind="file"><name>main.cpp</name>
+    <member refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="measurement__grabber_8hpp" kind="file"><name>measurement_grabber.hpp</name>
+    <member refid="measurement__grabber_8hpp_1af379de58e069e7a7cd67dda7567927bb" kind="define"><name>dataSizePressureSensor</name></member>
+  </compound>
+  <compound refid="service__protocol_8hpp" kind="file"><name>service_protocol.hpp</name>
+    <member refid="service__protocol_8hpp_1a0cb3b15d414c5f1fd898b9146f02e7fe" kind="variable"><name>kStreamFormatString</name></member>
+    <member refid="service__protocol_8hpp_1ab3accf8a8f00a311de6f3e3ead8361cf" kind="variable"><name>kStreamDataFormatString</name></member>
+    <member refid="service__protocol_8hpp_1aa24664405a5a2decdcab1ed4394316f1" kind="variable"><name>kHelpUsageString</name></member>
+    <member refid="service__protocol_8hpp_1aea7408de085c38e7a4129b78a334fc18" kind="variable"><name>kSetPortFormatString</name></member>
+    <member refid="service__protocol_8hpp_1a133a59ff51897837779077bab76a6508" kind="variable"><name>kInvalidArgumentValues</name></member>
+    <member refid="service__protocol_8hpp_1a065dd04995e36cdc0b261323bf5b34b3" kind="variable"><name>kSetIDFormatString</name></member>
+    <member refid="service__protocol_8hpp_1a9be00da238b0c9e46581baa76badfebe" kind="variable"><name>kSetSampleTimeFormatString</name></member>
+    <member refid="service__protocol_8hpp_1a57df1c932dbb7eb8cedc695616a5b8a4" kind="variable"><name>kMessageBufferSize</name></member>
+    <member refid="service__protocol_8hpp_1ab694639fa09febd495187a35e408beb2" kind="variable"><name>MessageBuffer</name></member>
+    <member refid="service__protocol_8hpp_1aec6c60b6f2f2135ec6bd95542cfe44d7" kind="variable"><name>kNumOfRegisters</name></member>
+    <member refid="service__protocol_8hpp_1a225efd5aec0faf8abb7e87d781a4c415" kind="variable"><name>kNumOfArgumentsSetPort</name></member>
+    <member refid="service__protocol_8hpp_1a94dab9a7bc1df1b4203c1de51490331e" kind="variable"><name>kUpperRangeArgSetPort</name></member>
+    <member refid="service__protocol_8hpp_1ad13a6bf081c689bd8bb3f4c2eb845c68" kind="variable"><name>kLowerRangeArgSetPort</name></member>
+    <member refid="service__protocol_8hpp_1adc564d1d6100b50fa7c64ceadf4f62af" kind="variable"><name>kNumOfArgumentsSetID</name></member>
+    <member refid="service__protocol_8hpp_1aa05eea6ceb272688c95d0b6d5439162c" kind="variable"><name>kUpperRangeArgSetID</name></member>
+    <member refid="service__protocol_8hpp_1aec0a1999cac80f696b039c8e9e94970a" kind="variable"><name>kLowerRangeArgSetID</name></member>
+    <member refid="service__protocol_8hpp_1a965bc905fa9ae6a73df75103eb643a6a" kind="variable"><name>kNumOfArgumentsSetSR</name></member>
+    <member refid="service__protocol_8hpp_1aee720ce713a138560f3c4202c0c811ec" kind="variable"><name>kUpperRangeArgSetSR</name></member>
+    <member refid="service__protocol_8hpp_1a050ee1604b1abe49e322c83216a38084" kind="variable"><name>kLowerRangeArgSetSR</name></member>
+    <member refid="service__protocol_8hpp_1a433cec9ca6584bd981ffe7ae88661738" kind="variable"><name>ParseOK</name></member>
+    <member refid="service__protocol_8hpp_1a9718589ab028d2c7c7090a0026437e3f" kind="variable"><name>ParseFail</name></member>
+    <member refid="service__protocol_8hpp_1ae2ed98131b28288b1dad75f544e51d23" kind="variable"><name>USBRegisters</name></member>
+    <member refid="service__protocol_8hpp_1a2ced0e447c0b981ad87d10b299c7633d" kind="function"><name>ParseEnteredArgumentsToInt</name></member>
+    <member refid="service__protocol_8hpp_1a794b9cba0ee254c55b2bfa8f934b0064" kind="function"><name>ComposeJsonFormattedStringOfSensorData</name></member>
+    <member refid="service__protocol_8hpp_1a0c37321c5d8099b02b023e84fe987f41" kind="function"><name>CMD_STATUS_CB</name></member>
+    <member refid="service__protocol_8hpp_1a777abb5cf6f94fda71bec11a021c7a28" kind="function"><name>CMD_SETPORT_CB</name></member>
+    <member refid="service__protocol_8hpp_1ae220f8e1f3b89128e9e06bbefcd3c0be" kind="function"><name>CMD_SETID_CB</name></member>
+    <member refid="service__protocol_8hpp_1a9057dee5f2380f6d69a78b744b772f72" kind="function"><name>CMD_STREAM_CB</name></member>
+    <member refid="service__protocol_8hpp_1aad487bed9c337741860acbd0f7c7f209" kind="function"><name>CMD_HELP_CB</name></member>
+    <member refid="service__protocol_8hpp_1a77d8d316a8cb7398fa0cc4918a25e504" kind="function"><name>CMD_SETSR_CB</name></member>
+  </compound>
+  <compound refid="volume__calculations_8hpp" kind="file"><name>volume_calculations.hpp</name>
+    <member refid="volume__calculations_8hpp_1a2af732437d3a30206f2ae354ccf28bb0" kind="define"><name>M3TOCM3_FACTOR</name></member>
+    <member refid="volume__calculations_8hpp_1ae4cad33d571188fe20185923b9e31637" kind="define"><name>INTERVAL_TO_FREQ</name></member>
+    <member refid="volume__calculations_8hpp_1a802e9358976b3a8d32435ce60df11960" kind="define"><name>AIR_WEIGHT</name></member>
+    <member refid="volume__calculations_8hpp_1a46e299e5a7606b8fb86dcb03630671aa" kind="define"><name>AIR_DRAG</name></member>
+    <member refid="volume__calculations_8hpp_1a50a7b60d1c76851b546437c4622d8a4c" kind="define"><name>VOLUME_CALC_CONSTANT</name></member>
+    <member refid="volume__calculations_8hpp_1a9a73b8d0f967d06d32f74e514c8983f6" kind="define"><name>ORIFICE_SURFACE</name></member>
+    <member refid="volume__calculations_8hpp_1abaacb3e7f3424dba0680ed9499ce066d" kind="define"><name>MAX_PROCESSABLE_SENSOR_VAL</name></member>
+    <member refid="volume__calculations_8hpp_1a8f5fdd63f336b5df24aded58e3787cfe" kind="define"><name>CORRECTION_FACTOR</name></member>
+    <member refid="volume__calculations_8hpp_1a07fa8fddf1d29538edc94020b4a14b07" kind="define"><name>FLOW_ERROR</name></member>
+    <member refid="volume__calculations_8hpp_1a0efd0d45d95244370cc8079179a20d6b" kind="variable"><name>timeDifference</name></member>
+    <member refid="volume__calculations_8hpp_1a37e58181f24fcce0feab36071a4be504" kind="variable"><name>stopTime</name></member>
+    <member refid="volume__calculations_8hpp_1a8c8380b6cfc546443f1798871c514d34" kind="variable"><name>sampleVolume</name></member>
+    <member refid="volume__calculations_8hpp_1a23b398a6e9a6c35bf36deb2ec0b00425" kind="variable"><name>totalVolume</name></member>
+    <member refid="volume__calculations_8hpp_1a9a11c4a232b5a612e0295fc866c7aed2" kind="function"><name>CalculateTotalVolume</name></member>
+    <member refid="volume__calculations_8hpp_1a64d3528eb41e9a7cd71a1048c74cf305" kind="function"><name>CalculateAirBlownInLungs</name></member>
+    <member refid="volume__calculations_8hpp_1a93fa6a53de5c26cb943b8d0c113b4905" kind="function"><name>sqrt</name></member>
+  </compound>
+  <compound refid="dir_8a3376b0b822df0b6266211cee305325" kind="dir"><name>SensorHub_FW</name>
+  </compound>
+  <compound refid="dir_d67209f9e2b4e51eca02397244f6bfa8" kind="dir"><name>SensorHub_FW/src</name>
+  </compound>
+</doxygenindex>

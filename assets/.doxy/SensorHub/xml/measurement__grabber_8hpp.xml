@@ -1,0 +1,207 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="measurement__grabber_8hpp" kind="file" language="C++">
+    <compoundname>measurement_grabber.hpp</compoundname>
+    <includes local="no">FreeRTOS.h</includes>
+    <includes local="no">queue.h</includes>
+    <includes local="no">task.h</includes>
+    <includes local="no">sensor_helper.hpp</includes>
+    <includes refid="volume__calculations_8hpp" local="no">volume_calculations.hpp</includes>
+    <includedby refid="device__properties_8hpp" local="no">SensorHub_FW/src/device_properties.hpp</includedby>
+    <incdepgraph>
+      <node id="5">
+        <label>sensor_helper.hpp</label>
+      </node>
+      <node id="3">
+        <label>queue.h</label>
+      </node>
+      <node id="6">
+        <label>volume_calculations.hpp</label>
+        <link refid="volume__calculations_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>SensorHub_FW/src/measurement_grabber.hpp</label>
+        <link refid="measurement__grabber_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>FreeRTOS.h</label>
+      </node>
+      <node id="4">
+        <label>task.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>SensorHub_FW/src/service_protocol.hpp</label>
+        <link refid="service__protocol_8hpp"/>
+      </node>
+      <node id="2">
+        <label>SensorHub_FW/src/device_properties.hpp</label>
+        <link refid="device__properties_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>SensorHub_FW/src/device_status.hpp</label>
+        <link refid="device__status_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>SensorHub_FW/src/measurement_grabber.hpp</label>
+        <link refid="measurement__grabber_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData" prot="public">module::measurement_grabber::MeasurementGrabberData</innerclass>
+    <innerclass refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber" prot="public">module::measurement_grabber::MeasurementGrabber</innerclass>
+    <innernamespace refid="namespacemodule">module</innernamespace>
+    <innernamespace refid="namespacemodule_1_1measurement__grabber">module::measurement_grabber</innernamespace>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="measurement__grabber_8hpp_1af379de58e069e7a7cd67dda7567927bb" prot="public" static="no">
+        <name>dataSizePressureSensor</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/measurement_grabber.hpp" line="35" column="22" bodyfile="SensorHub_FW/src/measurement_grabber.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>*******************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>by<sp/>RobotPatient<sp/>Simulators</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>Authors:<sp/>Richard<sp/>Kroesen<sp/>en<sp/>Victor<sp/>Hogeweij</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a<sp/>copy</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>including<sp/>without<sp/>limitation<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>sublicense,<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the<sp/>Software</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DAMAGES<sp/>OR<sp/>OTHER<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*<sp/>ARISING<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*<sp/>OTHER<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">***********************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>MEASUREMENT_GRABBER_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MEASUREMENT_GRABBER_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;FreeRTOS.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;queue.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;task.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sensor_helper.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="volume__calculations_8hpp" kindref="compound">volume_calculations.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="measurement__grabber_8hpp_1af379de58e069e7a7cd67dda7567927bb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>dataSizePressureSensor<sp/>4</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="namespacemodule_1_1measurement__grabber" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacemodule_1_1measurement__grabber" kindref="compound">module::measurement_grabber</ref><sp/>{</highlight></codeline>
+<codeline lineno="38" refid="namespacemodule_1_1measurement__grabber_1a63a5f32f8ddceb732102ae9a3010746b" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="namespacemodule_1_1measurement__grabber_1a63a5f32f8ddceb732102ae9a3010746b" kindref="member">kSensorPollingTaskStackSize</ref><sp/>=<sp/>150;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="45" refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a478cd0c590f502acf58f5c5abda619e0" refkind="member"><highlight class="normal"><sp/><sp/>UniversalSensor*<sp/><ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a478cd0c590f502acf58f5c5abda619e0" kindref="member">Sensor</ref>;</highlight></codeline>
+<codeline lineno="46" refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a87d07d9263fc336343006607766c2930" refkind="member"><highlight class="normal"><sp/><sp/>uint8_t<sp/><ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a87d07d9263fc336343006607766c2930" kindref="member">SampleTime</ref>;</highlight></codeline>
+<codeline lineno="47" refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1ad63592b3cc3c2c3cee336bb9b0cfd1ae" refkind="member"><highlight class="normal"><sp/><sp/>xQueueHandle*<sp/><ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1ad63592b3cc3c2c3cee336bb9b0cfd1ae" kindref="member">queue</ref>;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}<sp/><ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData" kindref="compound">MeasurementGrabberData</ref>;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="namespacemodule_1_1measurement__grabber_1ae93d035c783cc38cdc582ebd3f712fd0" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacemodule_1_1measurement__grabber_1ae93d035c783cc38cdc582ebd3f712fd0" kindref="member">MeasurementGrabberTask</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>PvParameter)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData" kindref="compound">MeasurementGrabberData</ref>*<sp/>Data<sp/>=<sp/>(<ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData" kindref="compound">MeasurementGrabberData</ref>*)PvParameter;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/>SensorData<sp/>data;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1)<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data-&gt;<ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a478cd0c590f502acf58f5c5abda619e0" kindref="member">Sensor</ref><sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>data<sp/>=<sp/>Data-&gt;<ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a478cd0c590f502acf58f5c5abda619e0" kindref="member">Sensor</ref>-&gt;GetSensorData();</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>uint16_t<sp/>lastSampleNum<sp/>=<sp/>data.sample_num;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(data.sensor_id<sp/>==<sp/><ref refid="device__sensor__lib__settings_8hpp_1a5779b896a6be292340abe9bd534f2e35a7b2db1d314db2ec551e5553dc39dd89d" kindref="member">TypeDifferentialPressureSensor</ref><sp/>&amp;&amp;<sp/>data.sample_num<sp/>==<sp/>lastSampleNum<sp/>+<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.num_of_bytes<sp/>=<sp/><ref refid="measurement__grabber_8hpp_1af379de58e069e7a7cd67dda7567927bb" kindref="member">dataSizePressureSensor</ref>;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lastSampleNum<sp/>=<sp/>data.sample_num;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.buffer[1]<sp/>=<sp/><ref refid="volume__calculations_8hpp_1a9a11c4a232b5a612e0295fc866c7aed2" kindref="member">CalculateTotalVolume</ref>(data.buffer[0]);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(xQueueSend(*(Data-&gt;<ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1ad63592b3cc3c2c3cee336bb9b0cfd1ae" kindref="member">queue</ref>),<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)&amp;data,<sp/>(TickType_t)10)<sp/>!=<sp/>pdPASS)<sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Failed<sp/>to<sp/>post<sp/>the<sp/>message,<sp/>even<sp/>after<sp/>10<sp/>ticks.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>vTaskDelay(Data-&gt;<ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a87d07d9263fc336343006607766c2930" kindref="member">SampleTime</ref><sp/>/<sp/>portTICK_PERIOD_MS);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber" kindref="compound">MeasurementGrabber</ref><sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="84" refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1abade12d3630e23d7764c99f6f0e9befa" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1abade12d3630e23d7764c99f6f0e9befa" kindref="member">SetupPollTask</ref>(UniversalSensor*<sp/>Sensor,<sp/>uint8_t<sp/>SampleTime,<sp/>xQueueHandle*<sp/>queue,<sp/>xTaskHandle*<sp/>Task)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>Data_<sp/>=<sp/>{Sensor,<sp/>SampleTime,<sp/>queue};</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>SampleTime_<sp/>=<sp/>SampleTime;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>*Task<sp/>=<sp/>xTaskCreateStatic(<ref refid="namespacemodule_1_1measurement__grabber_1ae93d035c783cc38cdc582ebd3f712fd0" kindref="member">MeasurementGrabberTask</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Function<sp/>that<sp/>implements<sp/>the<sp/>task.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Measurement<sp/>grabber<sp/>task&quot;</highlight><highlight class="normal">,<sp/><sp/></highlight><highlight class="comment">/*<sp/>Text<sp/>name<sp/>for<sp/>the<sp/>task.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacemodule_1_1measurement__grabber_1a63a5f32f8ddceb732102ae9a3010746b" kindref="member">kSensorPollingTaskStackSize</ref>,<sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>indexes<sp/>in<sp/>the<sp/>xStack<sp/>array.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)&amp;Data_,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Parameter<sp/>passed<sp/>into<sp/>the<sp/>task.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2<sp/>|<sp/>portPRIVILEGE_BIT),<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Priority<sp/>at<sp/>which<sp/>the<sp/>task<sp/>is<sp/>created.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xStack,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Array<sp/>to<sp/>use<sp/>as<sp/>the<sp/>task&apos;s<sp/>stack.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;xTaskBuffer);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Variable<sp/>to<sp/>hold<sp/>the<sp/>task&apos;s<sp/>data<sp/>structure.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>Task_<sp/>=<sp/>Task;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99" refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a83779307a5a5787b665b25cf6816aa68" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a83779307a5a5787b665b25cf6816aa68" kindref="member">SuspendPollingTask</ref>()<sp/>{<sp/>vTaskSuspend(*Task_);<sp/>}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a31e3022f4f7e03e511f83e2bf6c0da3b" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a31e3022f4f7e03e511f83e2bf6c0da3b" kindref="member">ResumePollingTask</ref>()<sp/>{<sp/>vTaskResume(*Task_);<sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a72ec58b3e4c90d550c6959efca249e14" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a72ec58b3e4c90d550c6959efca249e14" kindref="member">ChangeSensor</ref>(UniversalSensor*<sp/>Sensor)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a83779307a5a5787b665b25cf6816aa68" kindref="member">SuspendPollingTask</ref>();</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>Sensor-&gt;Uninitialize();</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>Data_.<ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a478cd0c590f502acf58f5c5abda619e0" kindref="member">Sensor</ref><sp/>=<sp/>Sensor;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118" refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a4f2535dbef647c8baf53f66b618f7ddd" refkind="member"><highlight class="normal"><sp/><sp/>uint8_t<sp/><ref refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a4f2535dbef647c8baf53f66b618f7ddd" kindref="member">GetSampleTime</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>SampleTime_;<sp/>}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123" refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a9a6c426f6b2c791a2bf4ab37cb6c07b3" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a9a6c426f6b2c791a2bf4ab37cb6c07b3" kindref="member">SetSampleTime</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>SampleTime)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>SampleTime_<sp/>=<sp/>SampleTime;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a83779307a5a5787b665b25cf6816aa68" kindref="member">SuspendPollingTask</ref>();</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>Data_.<ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData_1a87d07d9263fc336343006607766c2930" kindref="member">SampleTime</ref><sp/>=<sp/>SampleTime;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber_1a31e3022f4f7e03e511f83e2bf6c0da3b" kindref="member">ResumePollingTask</ref>();</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/>uint8_t<sp/>SampleTime_;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><ref refid="structmodule_1_1measurement__grabber_1_1MeasurementGrabberData" kindref="compound">MeasurementGrabberData</ref><sp/>Data_;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/>xTaskHandle*<sp/>Task_;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/>StaticTask_t<sp/>xTaskBuffer;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/>StackType_t<sp/>xStack[<ref refid="namespacemodule_1_1measurement__grabber_1a63a5f32f8ddceb732102ae9a3010746b" kindref="member">kSensorPollingTaskStackSize</ref>];</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>module::measurement_grabber</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="SensorHub_FW/src/measurement_grabber.hpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,314 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classDeviceProperties" kind="class" language="C++" prot="public">
+    <compoundname>DeviceProperties</compoundname>
+    <includes refid="device__properties_8hpp" local="no">device_properties.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classDeviceProperties_1aca63f17aab251b45b087f24512a27a6d" prot="private" static="no" mutable="no">
+        <type>I2CDriver *</type>
+        <definition>I2CDriver* DeviceProperties::DeviceI2CPort_</definition>
+        <argsstring></argsstring>
+        <name>DeviceI2CPort_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>The handles used to create and control the polling task </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="103" column="13" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDeviceProperties_1ad35117074af28ecdc3dbac7ef38acca2" prot="private" static="no" mutable="no">
+        <type>UniversalSensor *</type>
+        <definition>UniversalSensor* DeviceProperties::SensorHandle_</definition>
+        <argsstring></argsstring>
+        <name>SensorHandle_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="104" column="19" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDeviceProperties_1a5219b85f43e2045a5692649303f04977" prot="private" static="no" mutable="no">
+        <type><ref refid="classmodule_1_1measurement__grabber_1_1MeasurementGrabber" kindref="compound">module::measurement_grabber::MeasurementGrabber</ref></type>
+        <definition>module::measurement_grabber::MeasurementGrabber DeviceProperties::PortGrabber_</definition>
+        <argsstring></argsstring>
+        <name>PortGrabber_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="105" column="51" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDeviceProperties_1ac0b8b8fcb478650fefe04a74919ea61b" prot="private" static="no" mutable="no">
+        <type>xTaskHandle</type>
+        <definition>xTaskHandle DeviceProperties::PortGrabTask_</definition>
+        <argsstring></argsstring>
+        <name>PortGrabTask_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="106" column="15" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDeviceProperties_1a7d8104ee9ce22ce9c50ecc1e0f6a38d3" prot="private" static="no" mutable="no">
+        <type>QueueHandle_t *</type>
+        <definition>QueueHandle_t* DeviceProperties::SensorQueue_</definition>
+        <argsstring></argsstring>
+        <name>SensorQueue_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="107" column="17" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDeviceProperties_1af7bc2bb24c411eed0287a7027e7a725a" prot="private" static="no" mutable="no">
+        <type>UniversalSensor **</type>
+        <definition>UniversalSensor** DeviceProperties::SensorObjPool_</definition>
+        <argsstring></argsstring>
+        <name>SensorObjPool_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="109" column="19" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDeviceProperties_1ad42cda6d4063a9f9c194ffe21b47a0f9" prot="private" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t DeviceProperties::CurrentSensorType_</definition>
+        <argsstring></argsstring>
+        <name>CurrentSensorType_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="111" column="11" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classDeviceProperties_1aa54171ef69d1f600aff9af776ebb7f24" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DeviceProperties::Init</definition>
+        <argsstring>(UniversalSensor *obj_pool[kNumOfSupportedSensors])</argsstring>
+        <name>Init</name>
+        <param>
+          <type>UniversalSensor *</type>
+          <declname>obj_pool</declname>
+          <array>[kNumOfSupportedSensors]</array>
+        </param>
+        <briefdescription>
+<para>Init and add the SensorObjPool to the <ref refid="classDeviceProperties" kindref="compound">DeviceProperties</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_pool</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Array with size defined in <ref refid="device__sensor__lib__settings_8hpp" kindref="compound">device_sensor_lib_settings.hpp</ref> containing static sensor obj allocations </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="40" column="8" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeviceProperties_1ad9cad6c9a955ffd985303440af778e47" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DeviceProperties::SetupI2C</definition>
+        <argsstring>(I2CDriver *i2c_handle, QueueHandle_t *SensorQueue)</argsstring>
+        <name>SetupI2C</name>
+        <param>
+          <type>I2CDriver *</type>
+          <declname>i2c_handle</declname>
+        </param>
+        <param>
+          <type>QueueHandle_t *</type>
+          <declname>SensorQueue</declname>
+        </param>
+        <briefdescription>
+<para>Link the i2c_handle and SensorQueue to internall shadow copies.. This way the sensors can be allocated using these handles! </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>i2c_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The handle to a I2CDriver instance </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SensorQueue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The handle to the measurement queue to post sensorvalue&apos;s in </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="48" column="8" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="48" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeviceProperties_1a3ef72143d8272ef722aba1168bfaf120" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DeviceProperties::AssignSensorToI2CPort</definition>
+        <argsstring>(uint8_t Device)</argsstring>
+        <name>AssignSensorToI2CPort</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Device</declname>
+        </param>
+        <briefdescription>
+<para>Change the sensor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Sensortype to change to </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="57" column="8" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="57" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeviceProperties_1a980342cc235eb9212b91e28ef23bb44f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DeviceProperties::SetSampleTime</definition>
+        <argsstring>(const uint8_t sample_time)</argsstring>
+        <name>SetSampleTime</name>
+        <param>
+          <type>const uint8_t</type>
+          <declname>sample_time</declname>
+        </param>
+        <briefdescription>
+<para>Set the sample rate of the polling task in ms. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sample_time</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the sample rate to set in milliseconds. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="75" column="8" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="75" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeviceProperties_1aaffa5ecef11e22e9a336bd1cf2411175" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DeviceProperties::ResumeSensor</definition>
+        <argsstring>()</argsstring>
+        <name>ResumeSensor</name>
+        <briefdescription>
+<para>Resume sensor measurements after polling task is suspended. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="80" column="8" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="80" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeviceProperties_1afa4b4e827071fe3526a6e1e4b8b03d57" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DeviceProperties::PauseSensor</definition>
+        <argsstring>()</argsstring>
+        <name>PauseSensor</name>
+        <briefdescription>
+<para>Suspend sensor measurements polling task. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="85" column="8" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="85" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeviceProperties_1ac05ef730173895b12910ac47d97af125" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t DeviceProperties::GetSampleTime</definition>
+        <argsstring>()</argsstring>
+        <name>GetSampleTime</name>
+        <briefdescription>
+<para>Get the current sample rate. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>sample rate in milliseconds </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="91" column="11" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="91" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeviceProperties_1aff6adf1abd00b141c93c7b874424e632" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t DeviceProperties::GetSensorType</definition>
+        <argsstring>()</argsstring>
+        <name>GetSensorType</name>
+        <briefdescription>
+<para>Get the current selected sensortype. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The sensortype </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensorHub_FW/src/device_properties.hpp" line="97" column="11" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="97" bodyend="97"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="SensorHub_FW/src/device_properties.hpp" line="33" column="1" bodyfile="SensorHub_FW/src/device_properties.hpp" bodystart="33" bodyend="112"/>
+    <listofallmembers>
+      <member refid="classDeviceProperties_1a3ef72143d8272ef722aba1168bfaf120" prot="public" virt="non-virtual"><scope>DeviceProperties</scope><name>AssignSensorToI2CPort</name></member>
+      <member refid="classDeviceProperties_1ad42cda6d4063a9f9c194ffe21b47a0f9" prot="private" virt="non-virtual"><scope>DeviceProperties</scope><name>CurrentSensorType_</name></member>
+      <member refid="classDeviceProperties_1aca63f17aab251b45b087f24512a27a6d" prot="private" virt="non-virtual"><scope>DeviceProperties</scope><name>DeviceI2CPort_</name></member>
+      <member refid="classDeviceProperties_1ac05ef730173895b12910ac47d97af125" prot="public" virt="non-virtual"><scope>DeviceProperties</scope><name>GetSampleTime</name></member>
+      <member refid="classDeviceProperties_1aff6adf1abd00b141c93c7b874424e632" prot="public" virt="non-virtual"><scope>DeviceProperties</scope><name>GetSensorType</name></member>
+      <member refid="classDeviceProperties_1aa54171ef69d1f600aff9af776ebb7f24" prot="public" virt="non-virtual"><scope>DeviceProperties</scope><name>Init</name></member>
+      <member refid="classDeviceProperties_1afa4b4e827071fe3526a6e1e4b8b03d57" prot="public" virt="non-virtual"><scope>DeviceProperties</scope><name>PauseSensor</name></member>
+      <member refid="classDeviceProperties_1a5219b85f43e2045a5692649303f04977" prot="private" virt="non-virtual"><scope>DeviceProperties</scope><name>PortGrabber_</name></member>
+      <member refid="classDeviceProperties_1ac0b8b8fcb478650fefe04a74919ea61b" prot="private" virt="non-virtual"><scope>DeviceProperties</scope><name>PortGrabTask_</name></member>
+      <member refid="classDeviceProperties_1aaffa5ecef11e22e9a336bd1cf2411175" prot="public" virt="non-virtual"><scope>DeviceProperties</scope><name>ResumeSensor</name></member>
+      <member refid="classDeviceProperties_1ad35117074af28ecdc3dbac7ef38acca2" prot="private" virt="non-virtual"><scope>DeviceProperties</scope><name>SensorHandle_</name></member>
+      <member refid="classDeviceProperties_1af7bc2bb24c411eed0287a7027e7a725a" prot="private" virt="non-virtual"><scope>DeviceProperties</scope><name>SensorObjPool_</name></member>
+      <member refid="classDeviceProperties_1a7d8104ee9ce22ce9c50ecc1e0f6a38d3" prot="private" virt="non-virtual"><scope>DeviceProperties</scope><name>SensorQueue_</name></member>
+      <member refid="classDeviceProperties_1a980342cc235eb9212b91e28ef23bb44f" prot="public" virt="non-virtual"><scope>DeviceProperties</scope><name>SetSampleTime</name></member>
+      <member refid="classDeviceProperties_1ad9cad6c9a955ffd985303440af778e47" prot="public" virt="non-virtual"><scope>DeviceProperties</scope><name>SetupI2C</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

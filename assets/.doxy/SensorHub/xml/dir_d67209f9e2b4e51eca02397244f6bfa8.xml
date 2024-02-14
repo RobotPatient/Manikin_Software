@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_d67209f9e2b4e51eca02397244f6bfa8" kind="dir">
+    <compoundname>SensorHub_FW/src</compoundname>
+    <innerfile refid="device__properties_8hpp">device_properties.hpp</innerfile>
+    <innerfile refid="device__sensor__lib__settings_8hpp">device_sensor_lib_settings.hpp</innerfile>
+    <innerfile refid="device__settings_8hpp">device_settings.hpp</innerfile>
+    <innerfile refid="device__status_8hpp">device_status.hpp</innerfile>
+    <innerfile refid="main_8cpp">main.cpp</innerfile>
+    <innerfile refid="measurement__grabber_8hpp">measurement_grabber.hpp</innerfile>
+    <innerfile refid="service__protocol_8hpp">service_protocol.hpp</innerfile>
+    <innerfile refid="volume__calculations_8hpp">volume_calculations.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="SensorHub_FW/src/"/>
+  </compounddef>
+</doxygen>
