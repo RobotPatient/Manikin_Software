@@ -41,6 +41,10 @@ PositioningSensor positioningSensor;
 
 SensorData_t sensorData;
 
+TaskHandle_t xSensorHub_SensorTaskHandle = NULL;
+TaskHandle_t xSensorHub_CommunicationTaskHandle = NULL;
+TaskHandle_t xSensorHub_InitTaskHandle = NULL;
+
 /* Possible sensors */
 UniversalSensor* UniversalSensorPool[4] = {&compressionSensor, &ventilationSensor, &compressionPositionSensor, &positioningSensor};
 // ToDo JK: Implement additional sensors.
@@ -50,7 +54,7 @@ UniversalSensor* ConnectedSensor_PortA[MAX_SENSORS_PER_PORT] = {};
 UniversalSensor* ConnectedSensor_PortB[MAX_SENSORS_PER_PORT] = {};
 
 /* Function that implements the task being created. */
-void vTaskCode( void * pvParameters )
+void vSensorHubTask( void * pvParameters )
 {
   for( ;; )
   {
@@ -105,6 +109,9 @@ void Init_sensors() {
 
 /**
  * @brief Method to initialize the system, scheduled using FreeRTOS.
+ * We first suspend all other (normal) tasks, then perform the init procedure,
+ * then resume the other tasks and finally delete the init task.
+ *
  * Initializes:
  *  - clock(s)
  *  - IO-pins
@@ -114,7 +121,14 @@ void Init_sensors() {
  * @return void
  */
 
-void systemInitTask( void * pvParameters ) {
+void xSystemInitTask( void * pvParameters ) {
+  // First suspend all other tasks (for now only xSensorHub_SensorTaskHandle)
+  if (xSensorHub_SensorTaskHandle != NULL)
+    vTaskSuspend(xSensorHub_SensorTaskHandle); // suspend main task(s) till this one is done.
+  }
+
+  //
+
   Clock_Init();
   Init_pins();
   Init_backbone();
@@ -123,6 +137,18 @@ void systemInitTask( void * pvParameters ) {
   backbone_port.set_external_register_buffer(&public_reg);
   setup_evsys_handler();
   backbone_port.force_update_internal_buffer(public_reg.STATUS, 2);
+
+  // Now resume all other tasks (for now only xSensorHub_SensorTaskHandle)
+  if (xSensorHub_SensorTaskHandle != NULL) {
+    vTaskResume(xSensorHub_SensorTaskHandle);
+  }
+
+  // Remove the init task from the scheduler.
+  if( xSensorHub_InitTaskHandle != NULL )
+  {
+    vTaskDelete( xSensorHub_InitTaskHandle );
+  }
+
 }
 
 /**
@@ -135,15 +161,17 @@ void systemInitTask( void * pvParameters ) {
  */
 
 void InitScheduler() {
-  xTaskCreate(systemInitTask, "SYSINIT", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL);
-  xTaskCreateStatic(
-          vTaskCode,       /* Function that implements the task. */
+
+  xTaskCreate(xSystemInitTask, "SYSINIT", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, &xSensorHub_InitTaskHandle);
+
+  xSensorHub_SensorTaskHandle = xTaskCreateStatic(
+          vSensorHubTask,       /* Function that implements the task. */
           "CBTASK",          /* Text name for the task. */
           STACK_SIZE,      /* Number of indexes in the xStack array. */
           ( void * ) 1,    /* Parameter passed into the task. */
           tskIDLE_PRIORITY,/* Priority at which the task is created. */
           xStack,          /* Array to use as the task's stack. */
-          &xTaskBuffer );  /* Variable to hold the task's data structure. */
+          &xTaskBuffer);  /* Variable to hold the task's data structure. */
 
 }
 
