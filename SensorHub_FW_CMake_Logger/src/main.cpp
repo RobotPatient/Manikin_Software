@@ -5,62 +5,40 @@
 #include <timers.h>
 #include <tusb.h>
 #include "FreeRTOS.h"
+#include "board_defines.h"
 #include "clock_init.h"
-/*
-* USB Pins
-*/
-#define USBDM GPIO_PIN_PA24
-#define USBDP GPIO_PIN_PA25
+#include "usb_service_protocol.hpp"
 
-/*
- * LED PIN
- */
-#define HB_LED GPIO_PIN_PA2
+const char help_usage_str[] =
+    "**********************************HELP************************************ \r\n" \
+    "CMDS: STATUS - Prints: status of the system, connected devices and " \
+    "sampletime\r\n" \
+    "      SETPORT [DeviceType portA] [DeviceType portB] [DeviceType BackBone] " \
+    "\r\n" \
+    "             - Setup (sensor) software drivers on the selected port in " \
+    "argument\r\n" \
+    "      SETID [UniqueDeviceID] - Sets a unique identifier for the system\r\n" \
+    "      STREAM - Stream current sensor measurements to this console\r\n" \
+    "      SETSR [Sample rate port a] [Sample rate port b] - Sets the sample rate for \r\n" \
+    "                                         port a in b in milliseconds (10-1000 ms)\r";
 
-/**
- * USB Serial Instance,
- * Multiple VCOM instances can be initialized by increasing the CFG_TUD_CDC define
-*/
-#define USB_SERIAL_INST USB_SERIAL_0
+const char* helpcmd_cb(char** args, int num_of_args) {
+  return help_usage_str;
+}
 
-/**
- * Example settings,
- * ECHO_PUT_CH_NUM is the number of characters being buffered
- * ECHO_PUT_READ_UNTIL_NEWLINE stops reading when newline character comes in
-*/
-#define ECHO_PUT_CH_NUM 1
-#define ECHO_PUT_READ_UNTIL_NEWLINE 0
+const char* testcmd_cb(char** args, int num_of_args) {
+  return "Hello World!";
+}
 
-#define USB_DEVICE_TASK_STACK_SIZE 2048
+usb_service_protocol::USBServiceProtocolRegisters Protoreg[2] = {{"TEST", 0, false, testcmd_cb},
+                                                                 {"HELP", 0, false, helpcmd_cb}};
 
-StackType_t usb_device_stack[USB_DEVICE_TASK_STACK_SIZE];
-StaticTask_t usb_device_taskdef;
-
-StackType_t blinky_stack[configMINIMAL_STACK_SIZE];
-StaticTask_t blinky_taskdef;
-
-StackType_t usb_write_stack[configMINIMAL_STACK_SIZE];
-StaticTask_t usb_write_taskdef;
-
-static void usb_device_task(void* param) {
-  (void)param;
-
+static void usb_device_task(void* pvArg) {
   usb_serial_init(USB_SERIAL_INST, USB_CLK_SOURCE_USE_DEFAULT, CONF_CPU_FREQUENCY);
   vTaskDelay(10 / portTICK_PERIOD_MS);
   while (1) {
     // put this thread to waiting state until there is new events
     usb_serial_poll_task();
-  }
-}
-
-static void usb_write_task(void* param) {
-  vTaskDelay(1000 / portTICK_PERIOD_MS);
-  while (1) {
-    while (usb_serial_available(USB_SERIAL_INST)) {
-      usb_serial_write_string(USB_SERIAL_INST, "Hello World!\n");
-      vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }
-    vTaskDelay(10/portTICK_PERIOD_MS);
   }
 }
 
@@ -70,6 +48,16 @@ static void blink(void* pvArg) {
     // There are data available
     vTaskDelay(500 / portTICK_PERIOD_MS);
     GPIO_TOGGLE_PIN_OUTPUT(HB_LED);
+  }
+}
+
+static void usb_proto_task(void* pvArg) {
+  vTaskDelay(100 / portTICK_PERIOD_MS);
+  usb_service_protocol::USBServiceProtocol<USB_SERIAL_INST, 100, 2> usbproto;
+  usbproto.init(Protoreg);
+  while (1) {
+    usbproto.polling_task();
+    vTaskDelay(10 / portTICK_PERIOD_MS);
   }
 }
 
@@ -92,7 +80,7 @@ int main(void) {
   xTaskCreateStatic(usb_device_task, "usbd", USB_DEVICE_TASK_STACK_SIZE, NULL, configMAX_PRIORITIES - 1,
                     usb_device_stack, &usb_device_taskdef);
   xTaskCreateStatic(blink, "blinky", configMINIMAL_STACK_SIZE, NULL, 1, blinky_stack, &blinky_taskdef);
-  xTaskCreateStatic(usb_write_task, "usbwrtask", configMINIMAL_STACK_SIZE, NULL, 1, usb_write_stack, &usb_write_taskdef);
+  xTaskCreateStatic(usb_proto_task, "usbwrtask", configNORMAL_STACK_SIZE, NULL, 2, usb_write_stack, &usb_write_taskdef);
   vTaskStartScheduler();
 
   while (1) {}

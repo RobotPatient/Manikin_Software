@@ -13,7 +13,7 @@ FetchContent_MakeAvailable(SAMD_Toolchain)
 FetchContent_Declare (
   Universal_hal
   GIT_REPOSITORY https://github.com/Hoog-V/Universal_hal.git
-  GIT_TAG 9cba88eefa11adda0e83e7f0e1f5c1887895d2ae
+  GIT_TAG a2c65b237737468c8b5ce4b2f5704e4eaf97713d
   SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/lib/Universal_hal
 )
 
@@ -51,10 +51,14 @@ add_library(freertos_config INTERFACE)
 
 FetchContent_MakeAvailable(FreeRTOS)
 
+add_library(FreeRTOS ALIAS freertos_kernel)
+
 target_include_directories(freertos_config INTERFACE "config/")
 
+add_subdirectory(lib/Manikin_Software_Libraries_V2)
+
 add_executable(SensorHub_FW_CMake_Logger.elf "src/main.cpp" "src/FreeRTOS_hooks.c" ${STARTUP_SCRIPT_SOURCES})
-target_link_libraries(SensorHub_FW_CMake_Logger.elf Universal_hal Universal_hal_usb freertos_kernel)
+target_link_libraries(SensorHub_FW_CMake_Logger.elf Universal_hal Universal_hal_usb freertos_kernel usb_service_protocol)
 
 
 target_sources(Universal_hal_usb_conf INTERFACE "src/usb_descriptors.c")
