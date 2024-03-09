@@ -108,6 +108,11 @@ void Clock_Init(void) {
 	SYSCTRL->OSC8M.bit.ONDEMAND = 0;	// Oscillator is always on if enabled
 
 	PM_Clock_Bus_Setup(); //setup power management system
+
+	while (GCLK->STATUS.bit.SYNCBUSY)
+    ;
+  
+  	NVMCTRL->CTRLB.bit.RWS = 2;
 }
 
 #endif
