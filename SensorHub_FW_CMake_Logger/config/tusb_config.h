@@ -36,7 +36,7 @@
 
 // RHPort number used for device can be defined by board.mk, default to port 0
 #ifndef BOARD_TUD_RHPORT
-#define BOARD_TUD_RHPORT      0
+#define BOARD_TUD_RHPORT     0
 #endif
 
 // RHPort max operational speed can defined by board.mk
@@ -53,10 +53,17 @@
 #error CFG_TUSB_MCU must be defined
 #endif
 
+// This examples use FreeRTOS
 #ifndef CFG_TUSB_OS
 #define CFG_TUSB_OS           OPT_OS_FREERTOS
 #endif
 
+// Espressif IDF requires "freertos/" prefix in include path
+#if TU_CHECK_MCU(OPT_MCU_ESP32S2, OPT_MCU_ESP32S3)
+#define CFG_TUSB_OS_INC_PATH  freertos/
+#endif
+
+// can be defined by compiler in DEBUG build
 #ifndef CFG_TUSB_DEBUG
 #define CFG_TUSB_DEBUG        0
 #endif
@@ -79,7 +86,7 @@
 #endif
 
 #ifndef CFG_TUSB_MEM_ALIGN
-#define CFG_TUSB_MEM_ALIGN          __attribute__ ((aligned(4)))
+#define CFG_TUSB_MEM_ALIGN    __attribute__ ((aligned(4)))
 #endif
 
 //--------------------------------------------------------------------
@@ -87,15 +94,15 @@
 //--------------------------------------------------------------------
 
 #ifndef CFG_TUD_ENDPOINT0_SIZE
-#define CFG_TUD_ENDPOINT0_SIZE    64
+#define CFG_TUD_ENDPOINT0_SIZE   64
 #endif
 
 //------------- CLASS -------------//
-#define CFG_TUD_CDC               1
-#define CFG_TUD_MSC               0
-#define CFG_TUD_HID               0
-#define CFG_TUD_MIDI              0
-#define CFG_TUD_VENDOR            0
+#define CFG_TUD_CDC              1
+#define CFG_TUD_MSC              0
+#define CFG_TUD_HID              0
+#define CFG_TUD_MIDI             0
+#define CFG_TUD_VENDOR           0
 
 // CDC FIFO size of TX and RX
 #define CFG_TUD_CDC_RX_BUFSIZE   (TUD_OPT_HIGH_SPEED ? 512 : 64)
@@ -103,6 +110,9 @@
 
 // CDC Endpoint transfer buffer size, more is faster
 #define CFG_TUD_CDC_EP_BUFSIZE   (TUD_OPT_HIGH_SPEED ? 512 : 64)
+
+// MSC Buffer size of Device Mass storage
+#define CFG_TUD_MSC_EP_BUFSIZE   512
 
 #ifdef __cplusplus
  }

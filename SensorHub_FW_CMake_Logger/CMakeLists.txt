@@ -53,7 +53,7 @@ FetchContent_MakeAvailable(FreeRTOS)
 
 target_include_directories(freertos_config INTERFACE "config/")
 
-add_executable(SensorHub_FW_CMake_Logger.elf "src/main.cpp" ${STARTUP_SCRIPT_SOURCES})
+add_executable(SensorHub_FW_CMake_Logger.elf "src/main.cpp" "src/FreeRTOS_hooks.c" ${STARTUP_SCRIPT_SOURCES})
 target_link_libraries(SensorHub_FW_CMake_Logger.elf Universal_hal Universal_hal_usb freertos_kernel)
 
 
