@@ -25,6 +25,12 @@ FetchContent_Declare(
   SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/lib/FreeRTOS
 )
 
+FetchContent_Declare(
+  Manikin_Software_Libraries_V2
+  GIT_REPOSITORY https://github.com/RobotPatient/Manikin_Software_Libraries_V2
+  GIT_TAG topic-usb-service-protocol
+  SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/lib/Manikin_Software_Libraries_V2
+)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_LIST_DIR}/SDK/samd21g18_toolchain_armgcc.cmake)
 
 project(SensorHub_FW_Logger C CXX ASM)
@@ -57,7 +63,7 @@ add_library(FreeRTOS ALIAS freertos_kernel)
 
 target_include_directories(freertos_config INTERFACE "config/")
 
-add_subdirectory(lib/Manikin_Software_Libraries_V2)
+FetchContent_MakeAvailable(Manikin_Software_Libraries_V2)
 
 add_executable(SensorHub_FW_CMake_Logger.elf "src/main.cpp" "src/FreeRTOS_hooks.c" "src/libc_hooks.c" ${STARTUP_SCRIPT_SOURCES})
 target_link_libraries(SensorHub_FW_CMake_Logger.elf Universal_hal Universal_hal_usb freertos_kernel usb_service_protocol sensor_compression fram_driver)
