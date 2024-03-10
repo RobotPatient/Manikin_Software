@@ -53,7 +53,6 @@
 #include "usb_protocol.h"
 #include "fram_helper.h"
 
-
 /**
  * @brief This task will function as USB daemon, this had to be a task, as the poll_task func is not compatible with timers :)
  * 
@@ -80,7 +79,6 @@ static void blink(void* pvArg) {
     GPIO_TOGGLE_PIN_OUTPUT(HB_LED);
   }
 }
-
 
 /**
  * @brief This task runs our custom serial protocol on top of the serial usb stack.
@@ -120,8 +118,8 @@ static void system_monitor_task(void* pvArg) {
   local_system_status.device_type_a = DEVICE_TYPE_NONE;
   local_system_status.device_type_b = DEVICE_TYPE_NONE;
   if (xSemaphoreTake(USBProtoStatusMutex, 10) == pdTRUE) {
-  status_shared_w_usb = local_system_status;
-  xSemaphoreGive(USBProtoStatusMutex);
+    status_shared_w_usb = local_system_status;
+    xSemaphoreGive(USBProtoStatusMutex);
   }
   while (1) {
     vTaskDelay(1000 / portTICK_PERIOD_MS);
@@ -135,40 +133,46 @@ int main(void) {
   Clock_Init();
 
   int res = init_usb_pins();
-  
-  if(res != UHAL_STATUS_OK) {
-    while(1);
+
+  if (res != UHAL_STATUS_OK) {
+    while (1)
+      ;
   }
 
   res = init_flash_pins();
 
-  if(res != UHAL_STATUS_OK) {
-    while(1);
+  if (res != UHAL_STATUS_OK) {
+    while (1)
+      ;
   }
 
   USBProtoStatusMutex = xSemaphoreCreateMutexStatic(&USBProtoStatusMutexBuf);
   configASSERT(USBProtoStatusMutex);
 
-  TaskHandle_t usb_device_task_handle = xTaskCreateStatic(usb_device_task, "usbd", USB_DEVICE_TASK_STACK_SIZE, NULL, configMAX_PRIORITIES - 1,
-                                                          usb_device_stack, &usb_device_taskdef);
+  TaskHandle_t usb_device_task_handle =
+      xTaskCreateStatic(usb_device_task, "usbd", USB_DEVICE_TASK_STACK_SIZE, NULL, configMAX_PRIORITIES - 1,
+                        usb_device_stack, &usb_device_taskdef);
   configASSERT(usb_device_task_handle);
 
-  TaskHandle_t blinky_task_handle = xTaskCreateStatic(blink, "blinky", configMINIMAL_STACK_SIZE, NULL, 1, blinky_stack, &blinky_taskdef);
+  TaskHandle_t blinky_task_handle =
+      xTaskCreateStatic(blink, "blinky", configMINIMAL_STACK_SIZE, NULL, 1, blinky_stack, &blinky_taskdef);
 
   configASSERT(blinky_task_handle);
 
-  TaskHandle_t usb_protocol_task_handle = xTaskCreateStatic(usb_proto_task, "usbprototask", configNORMAL_STACK_SIZE, NULL, 2, usb_write_stack, &usb_write_taskdef);
-  
+  TaskHandle_t usb_protocol_task_handle = xTaskCreateStatic(usb_proto_task, "usbprototask", configNORMAL_STACK_SIZE,
+                                                            NULL, 2, usb_write_stack, &usb_write_taskdef);
+
   configASSERT(usb_protocol_task_handle);
-  
-  system_monitor_task_handle = xTaskCreateStatic(system_monitor_task, "systemmonitor", configNORMAL_STACK_SIZE, NULL, 2, system_monitor_stack, &system_monitor_taskdef);
+
+  system_monitor_task_handle = xTaskCreateStatic(system_monitor_task, "systemmonitor", configNORMAL_STACK_SIZE, NULL, 2,
+                                                 system_monitor_stack, &system_monitor_taskdef);
 
   configASSERT(system_monitor_task_handle);
 
-  TaskHandle_t fram_manager_task_handle = xTaskCreateStatic(fram_manager_task, "fram_manager", configNORMAL_STACK_SIZE, NULL, 2, fram_manager_stack, &fram_manager_taskdef);
+  TaskHandle_t fram_manager_task_handle = xTaskCreateStatic(fram_manager_task, "fram_manager", configNORMAL_STACK_SIZE,
+                                                            NULL, 2, fram_manager_stack, &fram_manager_taskdef);
 
   configASSERT(fram_manager_task_handle);
-
 
   vTaskStartScheduler();
 
