@@ -39,6 +39,8 @@ add_compile_options(-fno-exceptions
                     $<$<COMPILE_LANGUAGE:CXX>:-fno-use-cxa-atexit>
                     $<$<COMPILE_LANGUAGE:CXX>:-fno-threadsafe-statics>)
 
+
+
 FetchContent_MakeAvailable(Universal_hal)
 
 # Select the heap port.  values between 1-4 will pick a heap.
@@ -57,8 +59,8 @@ target_include_directories(freertos_config INTERFACE "config/")
 
 add_subdirectory(lib/Manikin_Software_Libraries_V2)
 
-add_executable(SensorHub_FW_CMake_Logger.elf "src/main.cpp" "src/FreeRTOS_hooks.c" ${STARTUP_SCRIPT_SOURCES})
-target_link_libraries(SensorHub_FW_CMake_Logger.elf Universal_hal Universal_hal_usb freertos_kernel usb_service_protocol)
+add_executable(SensorHub_FW_CMake_Logger.elf "src/main.cpp" "src/FreeRTOS_hooks.c" "src/libc_hooks.c" ${STARTUP_SCRIPT_SOURCES})
+target_link_libraries(SensorHub_FW_CMake_Logger.elf Universal_hal Universal_hal_usb freertos_kernel usb_service_protocol sensor_compression)
 
 
 target_sources(Universal_hal_usb_conf INTERFACE "src/usb_descriptors.c")

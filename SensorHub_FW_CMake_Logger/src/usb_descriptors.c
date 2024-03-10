@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2019 Ha Thach (tinyusb.org)
+ * Copyright (c) 2019 Ha Thach (tinyusb.org) & Victor Hogeweij (hogeweyv@gmail.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,10 @@
  */
 
 #include "tusb.h"
+
+/* Added the board_api.h to this .h file, to make the CMakelists easier to write & read :) ~ Victor */
 #include "board_api.h"
+
 /* A combination of interfaces must have a unique product id, since PC will save device driver after the first plug.
  * Same VID/PID with different interface e.g MSC (first), then CDC (later) will possibly cause system error on PC.
  *

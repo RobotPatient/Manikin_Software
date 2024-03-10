@@ -18,7 +18,26 @@
 */
 #define USB_SERIAL_INST USB_SERIAL_0
 
+#define USB_SERIAL_RX_BUF_SIZE 100
+
 #define USB_DEVICE_TASK_STACK_SIZE 2048
+
+#define NUM_OF_I2C_PORTS 3
+
+uhal_status_t init_usb_pins() {
+   int retval = UHAL_STATUS_OK;
+   
+   /*
+   * Set the MUX for the USB pins
+   */
+  retval |= GPIO_SET_PIN_MODE(USBDM, GPIO_MODE_OUTPUT);
+  retval |= GPIO_SET_PIN_MODE(USBDP, GPIO_MODE_OUTPUT);
+  retval |= GPIO_SET_PIN_LVL(USBDM, GPIO_LOW);
+  retval |= GPIO_SET_PIN_LVL(USBDP, GPIO_LOW);
+  retval |= GPIO_SET_PIN_MODE(USBDM, GPIO_MODE_G);
+  retval |= GPIO_SET_PIN_MODE(USBDP, GPIO_MODE_G);
+  return static_cast<uhal_status_t>(retval);
+}
 
 
 StackType_t usb_device_stack[USB_DEVICE_TASK_STACK_SIZE];
