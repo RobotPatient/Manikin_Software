@@ -35,6 +35,9 @@
 #ifndef BOARD_DEFINES_H
 #define BOARD_DEFINES_H
 
+
+#define BOARD_TYPE SENSORHUB
+
 /*
 * USB Pins
 */
@@ -45,6 +48,14 @@
  * LED PIN
  */
 #define HB_LED GPIO_PIN_PA2
+
+/*
+* Flash Pins
+*/
+#define FLASH_CS GPIO_PIN_PA7
+#define FLASH_MOSI GPIO_PIN_PA8
+#define FLASH_MISO GPIO_PIN_PA14
+#define FLASH_SCK GPIO_PIN_PA9
 
 /**
  * USB Serial Instance,
@@ -74,6 +85,19 @@ uhal_status_t init_usb_pins() {
 }
 
 
+uhal_status_t init_flash_pins() {
+  int retval = UHAL_STATUS_OK;
+  /*
+  * Set the MUX for the SPI pins
+  * SERCOM 2 pad 0, 1, 2 correspond to MUX Group C & D respectively
+  */
+ retval |= GPIO_SET_PIN_MODE(FLASH_CS, GPIO_MODE_OUTPUT);
+ retval |= GPIO_SET_PIN_MODE(FLASH_MOSI, GPIO_MODE_D);
+ retval |= GPIO_SET_PIN_MODE(FLASH_MISO, GPIO_MODE_C);
+ retval |= GPIO_SET_PIN_MODE(FLASH_SCK, GPIO_MODE_D);
+ return static_cast<uhal_status_t>(retval);
+}
+
 StackType_t usb_device_stack[USB_DEVICE_TASK_STACK_SIZE];
 StaticTask_t usb_device_taskdef;
 
@@ -82,5 +106,12 @@ StaticTask_t blinky_taskdef;
 
 StackType_t usb_write_stack[configNORMAL_STACK_SIZE];
 StaticTask_t usb_write_taskdef;
+
+StackType_t system_monitor_stack[configNORMAL_STACK_SIZE];
+StaticTask_t system_monitor_taskdef;
+TaskHandle_t system_monitor_task_handle;
+
+StackType_t fram_manager_stack[configNORMAL_STACK_SIZE];
+StaticTask_t fram_manager_taskdef;
 
 #endif /* BOARD_DEFINES_H */

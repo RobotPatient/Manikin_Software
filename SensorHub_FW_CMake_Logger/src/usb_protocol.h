@@ -43,23 +43,28 @@ namespace usb_service_protocol {
 */
 const char stream_format_str[] = "{\"NumOfShorts\": %d, \"SampleNum\": %d, \"Sensor\": %d, \"Buf\": [";
 const char stream_data_format_str[] = "{ \"Val\": %d}";
-const char help_usage_str[] = "**********************************HELP************************************"
-                                "\r\n"
-                                "CMDS: STATUS - Prints: status of the system, connected devices and "
-                                "sampletime\r\n"
-                                "      SETPORT [DeviceType portA] [DeviceType portB] [DeviceType BackBone] "
-                                "\r\n"
-                                "             - Setup (sensor) software drivers on the selected port in "
-                                "argument\r\n"
-                                "      SETID [UniqueDeviceID] - Sets a unique identifier for the system\r\n"
-                                "      STREAM - Stream current sensor measurements to this console\r\n"
-                                "      SETSR [Sample rate port a] [Sample rate port b] - Sets the sample rate for \r\n"
-                                "                                         port a in b in milliseconds (10-1000 ms)\r";
+const char help_usage_str[] =
+    "**********************************HELP************************************"
+    "\r\n"
+    "CMDS: STATUS - Prints: status of the system, connected devices and "
+    "sampletime\r\n"
+    "      SETPORT [DeviceType portA] [DeviceType portB] [DeviceType BackBone] "
+    "\r\n"
+    "             - Setup (sensor) software drivers on the selected port in "
+    "argument\r\n"
+    "      SETID [UniqueDeviceID] - Sets a unique identifier for the system\r\n"
+    "      STREAM - Stream current sensor measurements to this console\r\n"
+    "      SETSR [Sample rate port a] [Sample rate port b] - Sets the sample rate for \r\n"
+    "                                         port a in b in milliseconds (10-1000 ms)\r";
 
 const char set_port_format_str[] = "!OK Port A set to: %d, Port B set to: %d, Port BB set to: %d";
 const char invalid_argument_values[] = "!E Invalid arguments entered!";
 const char set_id_format_str[] = "!OK Device id is set to: %d";
 const char set_sample_time_format_str[] = "!OK Sampletime on Port A set to: %d, Port B set to: %d";
+const char status_format_str[] =
+    "{\"Status\": \"%s\", \"DeviceType\": \"%s\", \"DeviceID:\": %d, "
+    "\"PortASenType\": %d, "
+    "\"PortBSenType\": %d, \"PortASampleRate\": %d, \"PortBSampleRate\": %d}";
 
 /**
  * @brief Statically assigned (output) messagebuffer, used to store the output of commands in.
@@ -67,8 +72,6 @@ const char set_sample_time_format_str[] = "!OK Sampletime on Port A set to: %d, 
 */
 #define MESSAGE_BUFFER_SIZE 512
 char MessageBuffer[MESSAGE_BUFFER_SIZE];
-
-
 
 /**
  * @brief The num of registers defined in the usb service protocol registers array
@@ -128,7 +131,8 @@ typedef struct {
 const uint8_t parse_entered_arguments_to_int(char** argument, int* buffer, const ArgSpecs ArgSpec) {
   for (uint8_t arg_num = 0; arg_num < ArgSpec.num_of_arguments; arg_num++) {
     buffer[arg_num] = atoi(argument[arg_num]);
-    const uint8_t argument_is_not_within_range = (buffer[arg_num] < ArgSpec.lower_range || buffer[arg_num] > ArgSpec.upper_range);
+    const uint8_t argument_is_not_within_range =
+        (buffer[arg_num] < ArgSpec.lower_range || buffer[arg_num] > ArgSpec.upper_range);
     if (argument_is_not_within_range) {
       return PARSE_FAIL;
     }
@@ -144,15 +148,47 @@ const uint8_t parse_entered_arguments_to_int(char** argument, int* buffer, const
 void create_json_from_sensor_data(SensorData* data) {
   memset(MessageBuffer, '\0', MESSAGE_BUFFER_SIZE);
   uint8_t num_of_shorts = data->num_of_bytes > 1 ? (data->num_of_bytes) / 2 : 1;
-  int writecnt = snprintf(MessageBuffer, MESSAGE_BUFFER_SIZE, stream_format_str, num_of_shorts, data->sample_num, data->sensor_id);
+  int writecnt =
+      snprintf(MessageBuffer, MESSAGE_BUFFER_SIZE, stream_format_str, num_of_shorts, data->sample_num, data->sensor_id);
   for (uint8_t sensor_short_num = 0; sensor_short_num < num_of_shorts; sensor_short_num++) {
-    writecnt += snprintf(MessageBuffer + writecnt, MESSAGE_BUFFER_SIZE - writecnt, stream_data_format_str, data->buffer[sensor_short_num]);
+    writecnt += snprintf(MessageBuffer + writecnt, MESSAGE_BUFFER_SIZE - writecnt, stream_data_format_str,
+                         data->buffer[sensor_short_num]);
     if (sensor_short_num != num_of_shorts - 1)
       writecnt += snprintf(MessageBuffer + writecnt, MESSAGE_BUFFER_SIZE - writecnt, ",");
   }
   snprintf(MessageBuffer + writecnt, MESSAGE_BUFFER_SIZE - writecnt, "]}");
 }
 
+const char* get_hub_type(hub_type_t hub_type) {
+  switch (hub_type) {
+    case SENSORHUB: {
+      return "SENSORHUB";
+    }
+    case ACTUATORHUB: {
+      return "ACTUATORHUB";
+    }
+    default: {
+      return "UNKNOWN";
+    }
+  }
+}
+
+const char* get_overal_status(hub_status_t hub_status) {
+  switch (hub_status) {
+    case DRIVERS_UNINITIALIZED: {
+      return "DRIVERS_UNITIALIZED";
+    }
+    case DRIVERS_INITIALIZED: {
+      return "DRIVERS_INITIALIZED";
+    }
+    case CAPTURING: {
+      return "CAPTURING";
+    }
+    default: {
+      return "UNKNOWN";
+    }
+  }
+}
 
 /**
  * @brief Callback function for the STATUS command. This function will be ran when STATUS command is entered.
@@ -165,7 +201,17 @@ void create_json_from_sensor_data(SensorData* data) {
 */
 const char* status_cmd_cb(char** args, int num_of_args) {
   memset(MessageBuffer, '\0', MESSAGE_BUFFER_SIZE);
-//   systemStatus.GetDeviceStatus(MessageBuffer, kMessageBufferSize);
+  system_status_t local_system_status;
+  if (xSemaphoreTake(USBProtoStatusMutex, 10) == pdTRUE) {
+    local_system_status = status_shared_w_usb;
+    xSemaphoreGive(USBProtoStatusMutex);
+  }
+  const char* overal_status = get_overal_status(local_system_status.hub_status);
+  const char* hub_type = get_hub_type(local_system_status.hub_type);
+  snprintf(MessageBuffer, MESSAGE_BUFFER_SIZE, status_format_str, overal_status, hub_type, local_system_status.hub_id,
+           local_system_status.device_type_a, local_system_status.device_type_b, local_system_status.sample_time_a,
+           local_system_status.sample_time_b);
+  //   systemStatus.GetDeviceStatus(MessageBuffer, kMessageBufferSize);
   return MessageBuffer;
 }
 
@@ -187,8 +233,7 @@ const char* setport_cmd_cb(char** args, int num_of_args) {
   if (ArgumentsAreValid) {
     // portAProperties.AssignSensorToI2CPort((SensorTypes)argBuffer[module::status::kSensorPortAIndex]);
     // portBProperties.AssignSensorToI2CPort((SensorTypes)argBuffer[module::status::kSensorPortBIndex]);
-    snprintf(MessageBuffer, MESSAGE_BUFFER_SIZE, set_port_format_str, argBuffer[0],
-             argBuffer[1], argBuffer[2]);
+    snprintf(MessageBuffer, MESSAGE_BUFFER_SIZE, set_port_format_str, argBuffer[0], argBuffer[1], argBuffer[2]);
     return MessageBuffer;
   } else {
     return invalid_argument_values;
@@ -220,7 +265,6 @@ const char* setid_cmd_cb(char** args, int num_of_args) {
   }
 }
 
-
 /**
  * @brief Callback function for the SETSR command. This function will be ran when SETSR command is entered.
  *        The SETSR command sets the sample rate for the sensorports.
@@ -246,7 +290,6 @@ const char* setsr_cmd_cb(char** args, int num_of_args) {
   }
 }
 
-
 /**
  * @brief Callback function for the STREAM command. This function will be ran when STREAM command is entered.
  *        This command is an stream command, meaning it will run repeatedly until \r (ENTER) is detected in serial console.
@@ -259,19 +302,17 @@ const char* setsr_cmd_cb(char** args, int num_of_args) {
 */
 const char* stream_cmd_cb(char** args, int num_of_args) {
   memset(MessageBuffer, '\0', MESSAGE_BUFFER_SIZE);
-//   SensorData data;
-//   while (1) {
-//     // Receive the SensorData from the message queue
-//     if (xQueueReceive(serviceProtocolQueue, &(data), (TickType_t)10) == pdPASS) {
-//       ComposeJsonFormattedStringOfSensorData
-//     (&data);
-//       return MessageBuffer;
-//     }
-//   }
+  //   SensorData data;
+  //   while (1) {
+  //     // Receive the SensorData from the message queue
+  //     if (xQueueReceive(serviceProtocolQueue, &(data), (TickType_t)10) == pdPASS) {
+  //       ComposeJsonFormattedStringOfSensorData
+  //     (&data);
+  //       return MessageBuffer;
+  //     }
+  //   }
   return "!E can't receive message from queue";
 }
-
-
 
 const char* helpcmd_cb(char** args, int num_of_args) {
   return help_usage_str;
@@ -281,19 +322,15 @@ const char* testcmd_cb(char** args, int num_of_args) {
   return "Hello World!";
 }
 
-
-
-
-
-
-usb_service_protocol::USBServiceProtocolRegisters Protoreg[NUM_OF_REGISTERS] = {{"TEST", 0, NON_STREAM_CMD, testcmd_cb},
-                                                                 {"STATUS", 0, NON_STREAM_CMD, status_cmd_cb}, 
-                                                                 {"SETPORT", SET_PORT_NUM_OF_ARGUMENTS, NON_STREAM_CMD, setport_cmd_cb}, 
-                                                                 {"SETID", SET_ID_NUM_OF_ARGUMENTS, NON_STREAM_CMD, setid_cmd_cb},
-                                                                 {"STREAM", 0, STREAM_CMD, stream_cmd_cb}, 
-                                                                 {"SETSR", SET_SR_NUM_OF_ARGUMENTS, NON_STREAM_CMD, setsr_cmd_cb}, 
-                                                                 {"HELP", 0, NON_STREAM_CMD, helpcmd_cb}};
+usb_service_protocol::USBServiceProtocolRegisters Protoreg[NUM_OF_REGISTERS] = {
+    {"TEST", 0, NON_STREAM_CMD, testcmd_cb},
+    {"STATUS", 0, NON_STREAM_CMD, status_cmd_cb},
+    {"SETPORT", SET_PORT_NUM_OF_ARGUMENTS, NON_STREAM_CMD, setport_cmd_cb},
+    {"SETID", SET_ID_NUM_OF_ARGUMENTS, NON_STREAM_CMD, setid_cmd_cb},
+    {"STREAM", 0, STREAM_CMD, stream_cmd_cb},
+    {"SETSR", SET_SR_NUM_OF_ARGUMENTS, NON_STREAM_CMD, setsr_cmd_cb},
+    {"HELP", 0, NON_STREAM_CMD, helpcmd_cb}};
 
 } /* namespace usb_service_protocol */
 
-#endif  /* USB_PROTOCOL_H */
+#endif /* USB_PROTOCOL_H */
