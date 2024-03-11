@@ -303,15 +303,14 @@ const char* setsr_cmd_cb(char** args, int num_of_args) {
 */
 const char* stream_cmd_cb(char** args, int num_of_args) {
   memset(MessageBuffer, '\0', MESSAGE_BUFFER_SIZE);
-  //   SensorData data;
-  //   while (1) {
-  //     // Receive the SensorData from the message queue
-  //     if (xQueueReceive(serviceProtocolQueue, &(data), (TickType_t)10) == pdPASS) {
-  //       ComposeJsonFormattedStringOfSensorData
-  //     (&data);
-  //       return MessageBuffer;
-  //     }
-  //   }
+    SensorData data;
+    while (1) {
+      // Receive the SensorData from the message queue
+      if (xQueueReceive(SensorValQueue, &(data), (TickType_t)10) == pdPASS) {
+        create_json_from_sensor_data(&data);
+        return MessageBuffer;
+      }
+    }
   return "!E can't receive message from queue";
 }
 

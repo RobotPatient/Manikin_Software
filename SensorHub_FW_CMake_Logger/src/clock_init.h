@@ -143,6 +143,7 @@ void Clock_Init(void) {
 
 	PM_Clock_Bus_Setup(); //setup power management system
 
+	SystemCoreClock = (CONF_CPU_FREQUENCY);
 	while (GCLK->STATUS.bit.SYNCBUSY)
     ;
   

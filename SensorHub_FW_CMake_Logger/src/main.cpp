@@ -50,9 +50,10 @@
 #include "clock_init.h"
 #include "board_defines.h"
 #include "system_status_types.h"
+#include "sensor_measurement.h"
 #include "usb_protocol.h"
 #include "fram_helper.h"
-#include "sensor_measurement.h"
+
 
 /**
  * @brief This task will function as USB daemon, this had to be a task, as the poll_task func is not compatible with timers :)
