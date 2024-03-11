@@ -34,22 +34,55 @@
 
 #ifndef FRAM_HELPER_H
 #define FRAM_HELPER_H
-
+TaskHandle_t fram_manager_task_handle;
 fram_dev_t fram_dev = {.spi_bus = SPI_PERIPHERAL_2, .cs_pin = FLASH_CS};
+
+// void fram_manager_task(void* PvArg) {
+//   uint8_t val = 0;
+//   spi_bus_opt_t bus_opt = static_cast<spi_bus_opt_t>((SPI_BUS_OPT_DIPO_PAD_2 | SPI_BUS_OPT_DOPO_PAD_0));
+//   spi_clock_sources_t clock_opt =
+//       static_cast<spi_clock_sources_t>(SPI_CLK_SOURCE_FAST_CLKGEN0 | SPI_CLK_SOURCE_SLOW_CLKGEN1);
+//   spi_host_init(SPI_PERIPHERAL_2, clock_opt, CONF_CPU_FREQUENCY, (8e6), bus_opt);
+//   fram_init(fram_dev);
+//   fram_read_byte(fram_dev, 1, &val);
+//   fram_wren(fram_dev);
+//   fram_write_byte(fram_dev, 1, 10);
+//   xTaskNotify(system_monitor_task_handle, val, eSetValueWithOverwrite);
+//   while (1) {
+//     vTaskDelay(1000 / portTICK_PERIOD_MS);
+//   }
+// }
 
 void fram_manager_task(void* PvArg) {
   uint8_t val = 0;
   spi_bus_opt_t bus_opt = static_cast<spi_bus_opt_t>((SPI_BUS_OPT_DIPO_PAD_2 | SPI_BUS_OPT_DOPO_PAD_0));
   spi_clock_sources_t clock_opt =
       static_cast<spi_clock_sources_t>(SPI_CLK_SOURCE_FAST_CLKGEN0 | SPI_CLK_SOURCE_SLOW_CLKGEN1);
+  taskENTER_CRITICAL();
   spi_host_init(SPI_PERIPHERAL_2, clock_opt, CONF_CPU_FREQUENCY, (8e6), bus_opt);
   fram_init(fram_dev);
   fram_read_byte(fram_dev, 1, &val);
-  fram_wren(fram_dev);
-  fram_write_byte(fram_dev, 1, 10);
+  taskEXIT_CRITICAL();
   xTaskNotify(system_monitor_task_handle, val, eSetValueWithOverwrite);
+  BaseType_t value_received;
+  uint32_t recv_data;
   while (1) {
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    value_received = xTaskNotifyWait(0, 0x00, &recv_data, portMAX_DELAY);
+    if(value_received == pdPASS) {
+      const uint8_t recv_event = GET_EV_BITS_FROM_EV_VAL(recv_data);
+      switch(recv_event) {
+        case EV_ID_CHANGE:
+        {
+          taskENTER_CRITICAL();
+          const uint8_t id = GET_ID_BITS_FROM_ID_EV(recv_data);
+          fram_wren(fram_dev);
+          fram_write_byte(fram_dev, 1, id);
+          taskEXIT_CRITICAL();
+          break;
+        }
+      }
+    }
+    vTaskDelay(10 / portTICK_PERIOD_MS);
   }
 }
 

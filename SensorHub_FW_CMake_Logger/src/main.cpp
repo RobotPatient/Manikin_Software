@@ -76,7 +76,7 @@ static void usb_device_task(void* pvArg) {
 static void blink(void* pvArg) {
   GPIO_SET_PIN_MODE(HB_LED, GPIO_MODE_OUTPUT);
   while (1) {
-    vTaskDelay(500 / portTICK_PERIOD_MS);
+    vTaskDelay(HB_BLINK_RATE);
     GPIO_TOGGLE_PIN_OUTPUT(HB_LED);
   }
 }
@@ -105,16 +105,16 @@ static void system_monitor_task(void* pvArg) {
   system_status_t local_system_status;
   /* We already know the hub_type which is hardcoded in the board defines :) */
   local_system_status.hub_type = BOARD_TYPE;
-  uint32_t flash_id;
+  uint32_t recv_data;
   /* Wait for the FRAM driver to post the Hub's Unique ID */
-  xTaskNotifyWaitIndexed(0, 0x00, ULONG_MAX, &flash_id, portMAX_DELAY);
+  xTaskNotifyWaitIndexed(0, 0x00, ULONG_MAX, &recv_data, portMAX_DELAY);
+  local_system_status.hub_id = (recv_data & 0xFF);
   /* Fill the local version with some information we already have got! */
-  local_system_status.hub_id = (flash_id & 0xFF);
   local_system_status.hub_status = DRIVERS_INITIALIZED;
   local_system_status.frame_num = 0;
   local_system_status.memory_status = MEMORY_SPACE_LEFT;
-  local_system_status.sample_time_a = 0;
-  local_system_status.sample_time_b = 0;
+  local_system_status.sample_time_a = DEFAULT_SAMPLE_RATE;
+  local_system_status.sample_time_b = DEFAULT_SAMPLE_RATE;
   local_system_status.usb_status = USB_STATUS_INACTIVE;
   local_system_status.device_type_a = DEVICE_TYPE_NONE;
   local_system_status.device_type_b = DEVICE_TYPE_NONE;
@@ -123,8 +123,49 @@ static void system_monitor_task(void* pvArg) {
     status_shared_w_usb = local_system_status;
     xSemaphoreGive(USBProtoStatusMutex);
   }
+   BaseType_t value_received;
   while (1) {
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    value_received = xTaskNotifyWait(0, 0x00, &recv_data, portMAX_DELAY);
+    if(value_received == pdPASS) {
+      const uint8_t recv_event = GET_EV_BITS_FROM_EV_VAL(recv_data);
+      switch(recv_event) {
+        case EV_ID_CHANGE:
+        {
+          const uint32_t id = GET_ID_BITS_FROM_ID_EV(recv_data);
+          local_system_status.hub_id = id;
+          if (xTaskNotify(fram_manager_task_handle, recv_data, eSetValueWithOverwrite) == pdTRUE) {
+            if (xSemaphoreTake(USBProtoStatusMutex, 10) == pdTRUE) {
+              status_shared_w_usb = local_system_status;
+              xSemaphoreGive(USBProtoStatusMutex);
+            }
+          }
+          break;
+        }
+        case EV_START:
+        {
+          if(xTaskNotify(sensor_hypervisor_task_handle, recv_data, eSetValueWithOverwrite) == pdTRUE) {
+            local_system_status.hub_status = CAPTURING;
+            if(xSemaphoreTake(USBProtoStatusMutex, 10) == pdTRUE) {
+              status_shared_w_usb = local_system_status;
+              xSemaphoreGive(USBProtoStatusMutex);
+            }
+          }
+          break;
+        }
+        case EV_STOP:
+        {
+          if(xTaskNotify(sensor_hypervisor_task_handle, recv_data, eSetValueWithOverwrite) == pdTRUE) {
+            local_system_status.hub_status = DRIVERS_INITIALIZED;
+            if(xSemaphoreTake(USBProtoStatusMutex, 10) == pdTRUE) {
+              status_shared_w_usb = local_system_status;
+              xSemaphoreGive(USBProtoStatusMutex);
+            }
+          }
+          break;
+        }
+      }
+    }
+    vTaskDelay(10 / portTICK_PERIOD_MS);
   }
 }
 
@@ -178,7 +219,7 @@ int main(void) {
 
   configASSERT(system_monitor_task_handle);
 
-  TaskHandle_t fram_manager_task_handle = xTaskCreateStatic(fram_manager_task, "fram_manager", configNORMAL_STACK_SIZE,
+  fram_manager_task_handle = xTaskCreateStatic(fram_manager_task, "fram_manager", configMINIMAL_SECURE_STACK_SIZE,
                                                             NULL, 2, fram_manager_stack, &fram_manager_taskdef);
 
   configASSERT(fram_manager_task_handle);

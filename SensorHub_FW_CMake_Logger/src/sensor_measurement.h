@@ -24,11 +24,11 @@ uxQueueLength * uxItemSize bytes. */
 uint8_t ucQueueStorageArea[ 10*sizeof(SensorData_t) ];
 
 void Sensx_timer( TimerHandle_t xTimer ) {
-UniversalSensor *Sensor = (UniversalSensor*) pvTimerGetTimerID(xTimer);
-SensorData_t Data = Sensor->GetSensorData();
-uint32_t res = xQueueSend(SensorValQueue, &Data, 1/portTICK_PERIOD_MS);
+// UniversalSensor *Sensor = (UniversalSensor*) pvTimerGetTimerID(xTimer);
+// SensorData_t Data = Sensor->GetSensorData();
+// uint32_t res = xQueueSend(SensorValQueue, &Data, 1/portTICK_PERIOD_MS);
+// }
 }
-
 
 void Sensx_hypervisor(void *pvArg) 
 {
@@ -52,8 +52,27 @@ TimerHandle_t SensaTimer = xTimerCreateStatic("Sensa_timr", DEFAULT_SAMPLE_RATE/
 configASSERT(SensaTimer);
 TimerHandle_t SensbTimer = xTimerCreateStatic("Sensb_timr", DEFAULT_SAMPLE_RATE/portTICK_PERIOD_MS, pdTRUE, (void*) ConnectedSensor_PortB, Sensx_timer, &SensTimerBuffers[1]);
 configASSERT(SensbTimer);
+  BaseType_t value_received;
+  uint32_t recv_data;
 while(1) {
-
+    value_received = xTaskNotifyWait(0, 0x00, &recv_data, portMAX_DELAY);
+    if(value_received == pdPASS) {
+        const uint32_t event_type = GET_EV_BITS_FROM_EV_VAL(recv_data);
+        switch(event_type) {
+            case EV_START:
+            {
+                xTimerStart(SensaTimer, 0);
+                xTimerStart(SensbTimer, 0);
+                break;
+            }
+            case EV_STOP:
+            {
+                xTimerStop(SensaTimer, 0);
+                xTimerStop(SensbTimer, 0);
+                break;
+            }
+        }
+    }
     vTaskDelay(10/portTICK_PERIOD_MS);
 }
 }

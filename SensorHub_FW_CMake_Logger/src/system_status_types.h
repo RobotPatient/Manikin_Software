@@ -1,6 +1,11 @@
 #ifndef SYSTEM_STATUS_TYPES_H
 #define SYSTEM_STATUS_TYPES_H
 
+#define GET_EV_BITS_FROM_EV_VAL(EV_VAL) (EV_VAL & 0xF)
+#define GET_ID_BITS_FROM_ID_EV(EV_VAL) ((EV_VAL >> 4) & 0xFF)
+
+#define SET_EV_WITH_DATA(EV, DATA) ((EV & 0xF) | ((DATA & 0xFFFFFF) << 4))
+
 SemaphoreHandle_t USBProtoStatusMutex = NULL;
 StaticSemaphore_t USBProtoStatusMutexBuf;
 
@@ -29,6 +34,18 @@ typedef struct {
   uint16_t sample_time_b;
   uint16_t frame_num;
 } system_status_t;
+
+
+typedef enum {
+  EV_ID_CHANGE = 0,
+  EV_START = 1,
+  EV_STOP = 2,
+  EV_SAMPLE_RATE_CHANGE = 3,
+  EV_SAMPLE_INCOMING = 4,
+  EV_GET_SAMPLE_RANGE_FROM_BEGIN = 5,
+  EV_GET_SAMPLE_RANGE_FROM_END = 6,
+  EV_SENSOR_CHANGE = 7,
+} system_events_t;
 
 
 system_status_t status_shared_w_usb;

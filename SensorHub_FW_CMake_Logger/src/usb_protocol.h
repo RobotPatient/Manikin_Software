@@ -76,7 +76,7 @@ char MessageBuffer[MESSAGE_BUFFER_SIZE];
 /**
  * @brief The num of registers defined in the usb service protocol registers array
 */
-#define NUM_OF_REGISTERS 7
+#define NUM_OF_REGISTERS 9
 
 /**
  * @brief Argument parser constants
@@ -257,7 +257,8 @@ const char* setid_cmd_cb(char** args, int num_of_args) {
   const ArgSpecs SetIDSpecs = {SET_ID_NUM_OF_ARGUMENTS, SET_ID_ARGUMENTS_UPPER_RANGE, SET_ID_ARGUMENTS_LOWER_RANGE};
   const uint8_t ArgumentsAreValid = parse_entered_arguments_to_int(args, argBuffer, SetIDSpecs);
   if (ArgumentsAreValid) {
-    // systemStatus.SetDeviceID(argBuffer[0]);
+    uint32_t ev_val = SET_EV_WITH_DATA(EV_ID_CHANGE, argBuffer[0]);
+    xTaskNotify(system_monitor_task_handle, ev_val, eSetValueWithOverwrite);
     snprintf(MessageBuffer, MESSAGE_BUFFER_SIZE, set_id_format_str, argBuffer[0]);
     return MessageBuffer;
   } else {
@@ -319,7 +320,26 @@ const char* helpcmd_cb(char** args, int num_of_args) {
 }
 
 const char* testcmd_cb(char** args, int num_of_args) {
-  return "Hello World!";
+  return "!OK Hello World!";
+}
+
+const char* startcmd_cb(char** args, int num_of_args) {
+  const uint32_t ev_val = SET_EV_WITH_DATA(EV_START, 0);
+  if (xTaskNotify(system_monitor_task_handle, ev_val, eSetValueWithOverwrite) == pdPASS) {
+    return "!OK started sampling";
+  } else {
+    return "!E error occured while starting the sensor sampling process!";
+  }
+}
+
+const char* stopcmd_cb(char** args, int num_of_args) {
+  const uint32_t ev_val = SET_EV_WITH_DATA(EV_STOP, 0);
+  if(xTaskNotify(system_monitor_task_handle, ev_val, eSetValueWithOverwrite) == pdPASS) {
+    return "!OK stopped sampling";
+  } else {
+    return "!E error occured while stopping the sensor sampling process!";
+  }
+
 }
 
 usb_service_protocol::USBServiceProtocolRegisters Protoreg[NUM_OF_REGISTERS] = {
@@ -329,7 +349,9 @@ usb_service_protocol::USBServiceProtocolRegisters Protoreg[NUM_OF_REGISTERS] = {
     {"SETID", SET_ID_NUM_OF_ARGUMENTS, NON_STREAM_CMD, setid_cmd_cb},
     {"STREAM", 0, STREAM_CMD, stream_cmd_cb},
     {"SETSR", SET_SR_NUM_OF_ARGUMENTS, NON_STREAM_CMD, setsr_cmd_cb},
-    {"HELP", 0, NON_STREAM_CMD, helpcmd_cb}};
+    {"HELP", 0, NON_STREAM_CMD, helpcmd_cb},
+    {"START", 0, NON_STREAM_CMD, startcmd_cb},
+    {"STOP", 0, NON_STREAM_CMD, stopcmd_cb}};
 
 } /* namespace usb_service_protocol */
 

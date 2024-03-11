@@ -64,6 +64,7 @@
  * LED PIN
  */
 #define HB_LED GPIO_PIN_PA2
+#define HB_BLINK_RATE (500/portTICK_PERIOD_MS)
 
 /*
 * Flash Pins
@@ -140,7 +141,7 @@ StackType_t system_monitor_stack[configNORMAL_STACK_SIZE];
 StaticTask_t system_monitor_taskdef;
 TaskHandle_t system_monitor_task_handle;
 
-StackType_t fram_manager_stack[configNORMAL_STACK_SIZE];
+StackType_t fram_manager_stack[configMINIMAL_SECURE_STACK_SIZE];
 StaticTask_t fram_manager_taskdef;
 
 StackType_t sensor_hypervisor_stack[configNORMAL_STACK_SIZE];
