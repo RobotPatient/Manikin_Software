@@ -66,7 +66,15 @@ target_include_directories(freertos_config INTERFACE "config/")
 FetchContent_MakeAvailable(Manikin_Software_Libraries_V2)
 
 add_executable(SensorHub_FW_CMake_Logger.elf "src/main.cpp" "src/FreeRTOS_hooks.c" "src/libc_hooks.c" ${STARTUP_SCRIPT_SOURCES})
-target_link_libraries(SensorHub_FW_CMake_Logger.elf Universal_hal Universal_hal_usb freertos_kernel usb_service_protocol sensor_compression fram_driver)
+target_link_libraries(SensorHub_FW_CMake_Logger.elf Universal_hal 
+                                                    Universal_hal_usb 
+                                                    freertos_kernel 
+                                                    usb_service_protocol 
+                                                    sensor_compression 
+                                                    sensor_ventilation 
+                                                    sensor_fingerposition 
+                                                    sensor_positioning
+                                                    fram_driver)
 
 
 target_sources(Universal_hal_usb_conf INTERFACE "src/usb_descriptors.c")

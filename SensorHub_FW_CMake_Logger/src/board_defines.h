@@ -38,6 +38,22 @@
 
 #define BOARD_TYPE SENSORHUB
 
+#define MAX_SENSORS_PER_PORT 1
+#define DEFAULT_SENSOR_TYPE_PORT_A COMPRESSION_SENSOR
+#define DEFAULT_SENSOR_TYPE_PORT_B VENTILATION_SENSOR
+#define DEFAULT_SAMPLE_RATE 100
+
+/*
+* I2C Pins
+*/
+#define I2C_SPEED (100e3)
+#define I2C_HOST_INST_PORT_A I2C_PERIPHERAL_1
+#define I2C_HOST_INST_PORT_B I2C_PERIPHERAL_4
+#define PORT_A_SDA_PIN GPIO_PIN_PA16
+#define PORT_A_SCL_PIN GPIO_PIN_PA17
+#define PORT_B_SDA_PIN GPIO_PIN_PA12
+#define PORT_B_SCL_PIN GPIO_PIN_PA13
+
 /*
 * USB Pins
 */
@@ -98,6 +114,19 @@ uhal_status_t init_flash_pins() {
  return static_cast<uhal_status_t>(retval);
 }
 
+uhal_status_t init_i2c_pins() {
+  int retval = UHAL_STATUS_OK;
+  /*
+  * Set the MUX for the I2C pins
+  * SERCOM 1 & 4
+  */
+  retval |= GPIO_SET_PIN_MODE(PORT_A_SDA_PIN, GPIO_MODE_C);
+  retval |= GPIO_SET_PIN_MODE(PORT_A_SCL_PIN, GPIO_MODE_C);
+  retval |= GPIO_SET_PIN_MODE(PORT_B_SDA_PIN, GPIO_MODE_D);
+  retval |= GPIO_SET_PIN_MODE(PORT_B_SCL_PIN, GPIO_MODE_D);
+  return static_cast<uhal_status_t>(retval);
+}
+
 StackType_t usb_device_stack[USB_DEVICE_TASK_STACK_SIZE];
 StaticTask_t usb_device_taskdef;
 
@@ -114,4 +143,7 @@ TaskHandle_t system_monitor_task_handle;
 StackType_t fram_manager_stack[configNORMAL_STACK_SIZE];
 StaticTask_t fram_manager_taskdef;
 
+StackType_t sensor_hypervisor_stack[configNORMAL_STACK_SIZE];
+StaticTask_t sensor_hypervisor_taskdef;
+TaskHandle_t sensor_hypervisor_task_handle;
 #endif /* BOARD_DEFINES_H */

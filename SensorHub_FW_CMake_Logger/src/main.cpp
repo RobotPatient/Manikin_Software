@@ -52,6 +52,7 @@
 #include "system_status_types.h"
 #include "usb_protocol.h"
 #include "fram_helper.h"
+#include "sensor_measurement.h"
 
 /**
  * @brief This task will function as USB daemon, this had to be a task, as the poll_task func is not compatible with timers :)
@@ -117,6 +118,7 @@ static void system_monitor_task(void* pvArg) {
   local_system_status.usb_status = USB_STATUS_INACTIVE;
   local_system_status.device_type_a = DEVICE_TYPE_NONE;
   local_system_status.device_type_b = DEVICE_TYPE_NONE;
+  /* Set the shared status object to our local version */
   if (xSemaphoreTake(USBProtoStatusMutex, 10) == pdTRUE) {
     status_shared_w_usb = local_system_status;
     xSemaphoreGive(USBProtoStatusMutex);
@@ -140,6 +142,13 @@ int main(void) {
   }
 
   res = init_flash_pins();
+
+  if (res != UHAL_STATUS_OK) {
+    while (1)
+      ;
+  }
+
+  res = init_i2c_pins();
 
   if (res != UHAL_STATUS_OK) {
     while (1)
@@ -173,6 +182,11 @@ int main(void) {
                                                             NULL, 2, fram_manager_stack, &fram_manager_taskdef);
 
   configASSERT(fram_manager_task_handle);
+
+  sensor_hypervisor_task_handle = xTaskCreateStatic(Sensx_hypervisor, "SensorHypervisor", configNORMAL_STACK_SIZE, NULL,
+                                                    2, sensor_hypervisor_stack, &sensor_hypervisor_taskdef);
+
+  configASSERT(system_monitor_task_handle);
 
   vTaskStartScheduler();
 
