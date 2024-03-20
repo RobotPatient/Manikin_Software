@@ -73,7 +73,9 @@
 #define FLASH_MOSI GPIO_PIN_PA8
 #define FLASH_MISO GPIO_PIN_PA14
 #define FLASH_SCK GPIO_PIN_PA9
-
+#define FLASH_PIN_CONFIG_OPT (SPI_BUS_OPT_DIPO_PAD_2 | SPI_BUS_OPT_DOPO_PAD_0)
+#define FLASH_CLK_SRC_CONFIG_OPT (SPI_CLK_SOURCE_FAST_CLKGEN0 | SPI_CLK_SOURCE_SLOW_CLKGEN1)
+#define FLASH_CLK_SPEED (8e6)
 /**
  * USB Serial Instance,
  * Multiple VCOM instances can be initialized by increasing the CFG_TUD_CDC define

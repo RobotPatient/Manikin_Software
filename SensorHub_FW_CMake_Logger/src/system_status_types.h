@@ -3,6 +3,8 @@
 
 #define GET_EV_BITS_FROM_EV_VAL(EV_VAL) (EV_VAL & 0xF)
 #define GET_ID_BITS_FROM_ID_EV(EV_VAL) ((EV_VAL >> 4) & 0xFF)
+#define GET_SR_PA_BITS_FROM_SR_EV(EV_VAL) ((EV_VAL >> 4) & 0xFF)
+#define GET_SR_PB_BITS_FROM_SR_EV(EV_VAL) ((EV_VAL >> 12) & 0xFF)
 
 #define SET_EV_WITH_DATA(EV, DATA) ((EV & 0xF) | ((DATA & 0xFFFFFF) << 4))
 

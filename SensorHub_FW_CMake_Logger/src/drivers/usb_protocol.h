@@ -41,9 +41,9 @@ namespace usb_service_protocol {
 /**
  * @brief Format strings, used to create the responses with!
 */
-const char stream_format_str[] = "{\"NumOfShorts\": %d, \"SampleNum\": %d, \"Sensor\": %d, \"Buf\": [";
-const char stream_data_format_str[] = "{ \"Val\": %d}";
-const char help_usage_str[] =
+const char stream_format_str[] __attribute__((section(".rodata"))) = "{\"NumOfShorts\": %d, \"SampleNum\": %d, \"Sensor\": %d, \"Buf\": [";
+const char stream_data_format_str[] __attribute__((section(".rodata"))) = "{ \"Val\": %d}";
+const char help_usage_str[] __attribute__((section(".rodata"))) =
     "**********************************HELP************************************"
     "\r\n"
     "CMDS: STATUS - Prints: status of the system, connected devices and "
@@ -57,11 +57,11 @@ const char help_usage_str[] =
     "      SETSR [Sample rate port a] [Sample rate port b] - Sets the sample rate for \r\n"
     "                                         port a in b in milliseconds (10-1000 ms)\r";
 
-const char set_port_format_str[] = "!OK Port A set to: %d, Port B set to: %d, Port BB set to: %d";
-const char invalid_argument_values[] = "!E Invalid arguments entered!";
-const char set_id_format_str[] = "!OK Device id is set to: %d";
-const char set_sample_time_format_str[] = "!OK Sampletime on Port A set to: %d, Port B set to: %d";
-const char status_format_str[] =
+const char set_port_format_str[] __attribute__((section(".rodata"))) = "!OK Port A set to: %d, Port B set to: %d, Port BB set to: %d";
+const char invalid_argument_values[] __attribute__((section(".rodata"))) = "!E Invalid arguments entered!";
+const char set_id_format_str[] __attribute__((section(".rodata"))) = "!OK Device id is set to: %d";
+const char set_sample_time_format_str[] __attribute__((section(".rodata"))) = "!OK Sampletime on Port A set to: %d, Port B set to: %d";
+const char status_format_str[] __attribute__((section(".rodata"))) =
     "{\"Status\": \"%s\", \"DeviceType\": \"%s\", \"DeviceID:\": %d, "
     "\"PortASenType\": %d, "
     "\"PortBSenType\": %d, \"PortASampleRate\": %d, \"PortBSampleRate\": %d}";
@@ -282,8 +282,6 @@ const char* setsr_cmd_cb(char** args, int num_of_args) {
   const ArgSpecs SetIDSpecs = {SET_SR_NUM_OF_ARGUMENTS, SET_SR_ARGUMENTS_UPPER_RANGE, SET_SR_ARGUMENTS_LOWER_RANGE};
   const bool ArgumentsAreValid = parse_entered_arguments_to_int(args, argBuffer, SetIDSpecs);
   if (ArgumentsAreValid) {
-    // portAProperties.SetSampleTime(argBuffer[0]);
-    // portBProperties.SetSampleTime(argBuffer[1]);
     snprintf(MessageBuffer, MESSAGE_BUFFER_SIZE, set_sample_time_format_str, argBuffer[0], argBuffer[1]);
     return MessageBuffer;
   } else {

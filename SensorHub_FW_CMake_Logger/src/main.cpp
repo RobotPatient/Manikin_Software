@@ -54,6 +54,69 @@
 #include "usb_protocol.h"
 #include "fram_helper.h"
 
+static inline system_status_t get_default_system_state() {
+  return (system_status_t){
+    .hub_id = 0, 
+    .hub_type = BOARD_TYPE, 
+    .hub_status = DRIVERS_INITIALIZED, 
+    .usb_status = USB_STATUS_INACTIVE, 
+    .memory_status = MEMORY_SPACE_LEFT,
+    .port_status = PORT_UNITIALIZED, 
+    .device_type_a = static_cast<device_type_t>(DEFAULT_SENSOR_TYPE_PORT_A), 
+    .device_type_b = static_cast<device_type_t>(DEFAULT_SENSOR_TYPE_PORT_B), 
+    .sample_time_a = DEFAULT_SAMPLE_RATE, 
+    .sample_time_b = DEFAULT_SAMPLE_RATE, 
+    .frame_num = 0
+  };
+}
+
+int8_t update_usb_status(system_status_t* local_version) {
+  BaseType_t res;
+  if (xSemaphoreTake(USBProtoStatusMutex, 10) == pdTRUE) {
+    status_shared_w_usb = *local_version;
+    res = xSemaphoreGive(USBProtoStatusMutex);
+  }
+  return res;
+}
+
+int8_t handle_system_event(uint32_t ev, system_status_t* local_system_status) {
+  const uint8_t recv_event = GET_EV_BITS_FROM_EV_VAL(ev);
+  switch (recv_event) {
+    case EV_ID_CHANGE: {
+      const uint32_t id = GET_ID_BITS_FROM_ID_EV(ev);
+      local_system_status->hub_id = id;
+      if (xTaskNotify(fram_manager_task_handle, ev, eSetValueWithOverwrite) == pdTRUE) {
+        update_usb_status(local_system_status);
+      }
+      break;
+    }
+    case EV_START: {
+      if (xTaskNotify(sensor_hypervisor_task_handle, ev, eSetValueWithOverwrite) == pdTRUE) {
+        local_system_status->hub_status = CAPTURING;
+        update_usb_status(local_system_status);
+      }
+      break;
+    }
+    case EV_STOP: {
+      if (xTaskNotify(sensor_hypervisor_task_handle, ev, eSetValueWithOverwrite) == pdTRUE) {
+        local_system_status->hub_status = DRIVERS_INITIALIZED;
+        update_usb_status(local_system_status);
+      }
+      break;
+    }
+    case EV_SAMPLE_RATE_CHANGE: {
+      const uint8_t sample_rate_port_a = GET_SR_PA_BITS_FROM_SR_EV(ev);
+      const uint8_t sample_rate_port_b = GET_SR_PB_BITS_FROM_SR_EV(ev);
+      if (local_system_status->sample_time_a != sample_rate_port_a ||
+          local_system_status->sample_time_b != sample_rate_port_b) {
+        if (xTaskNotify(sensor_hypervisor_task_handle, ev, eSetValueWithOverwrite) == pdTRUE) {
+            update_usb_status(local_system_status);
+        }
+      }
+    }
+  }
+  return 0;
+}
 
 /**
  * @brief This task will function as USB daemon, this had to be a task, as the poll_task func is not compatible with timers :)
@@ -104,67 +167,25 @@ static void usb_proto_task(void* pvArg) {
 
 static void system_monitor_task(void* pvArg) {
   system_status_t local_system_status;
-  /* We already know the hub_type which is hardcoded in the board defines :) */
-  local_system_status.hub_type = BOARD_TYPE;
+  BaseType_t value_received;
   uint32_t recv_data;
+
+  local_system_status = get_default_system_state();
   /* Wait for the FRAM driver to post the Hub's Unique ID */
-  xTaskNotifyWaitIndexed(0, 0x00, ULONG_MAX, &recv_data, portMAX_DELAY);
-  local_system_status.hub_id = (recv_data & 0xFF);
-  /* Fill the local version with some information we already have got! */
-  local_system_status.hub_status = DRIVERS_INITIALIZED;
-  local_system_status.frame_num = 0;
-  local_system_status.memory_status = MEMORY_SPACE_LEFT;
-  local_system_status.sample_time_a = DEFAULT_SAMPLE_RATE;
-  local_system_status.sample_time_b = DEFAULT_SAMPLE_RATE;
-  local_system_status.usb_status = USB_STATUS_INACTIVE;
-  local_system_status.device_type_a = DEVICE_TYPE_NONE;
-  local_system_status.device_type_b = DEVICE_TYPE_NONE;
-  /* Set the shared status object to our local version */
-  if (xSemaphoreTake(USBProtoStatusMutex, 10) == pdTRUE) {
-    status_shared_w_usb = local_system_status;
-    xSemaphoreGive(USBProtoStatusMutex);
+  if (xTaskNotifyWaitIndexed(0, 0x00, ULONG_MAX, &recv_data, portMAX_DELAY) == pdTRUE) {
+    local_system_status.hub_id = (recv_data & 0xFF);
+    /* Set the shared status object to our local version */
+    if (xSemaphoreTake(USBProtoStatusMutex, 10) == pdTRUE) {
+      status_shared_w_usb = local_system_status;
+      BaseType_t semaphore_released = xSemaphoreGive(USBProtoStatusMutex);
+      configASSERT(semaphore_released);
+    }
   }
-   BaseType_t value_received;
   while (1) {
     value_received = xTaskNotifyWait(0, 0x00, &recv_data, portMAX_DELAY);
-    if(value_received == pdPASS) {
-      const uint8_t recv_event = GET_EV_BITS_FROM_EV_VAL(recv_data);
-      switch(recv_event) {
-        case EV_ID_CHANGE:
-        {
-          const uint32_t id = GET_ID_BITS_FROM_ID_EV(recv_data);
-          local_system_status.hub_id = id;
-          if (xTaskNotify(fram_manager_task_handle, recv_data, eSetValueWithOverwrite) == pdTRUE) {
-            if (xSemaphoreTake(USBProtoStatusMutex, 10) == pdTRUE) {
-              status_shared_w_usb = local_system_status;
-              xSemaphoreGive(USBProtoStatusMutex);
-            }
-          }
-          break;
-        }
-        case EV_START:
-        {
-          if(xTaskNotify(sensor_hypervisor_task_handle, recv_data, eSetValueWithOverwrite) == pdTRUE) {
-            local_system_status.hub_status = CAPTURING;
-            if(xSemaphoreTake(USBProtoStatusMutex, 10) == pdTRUE) {
-              status_shared_w_usb = local_system_status;
-              xSemaphoreGive(USBProtoStatusMutex);
-            }
-          }
-          break;
-        }
-        case EV_STOP:
-        {
-          if(xTaskNotify(sensor_hypervisor_task_handle, recv_data, eSetValueWithOverwrite) == pdTRUE) {
-            local_system_status.hub_status = DRIVERS_INITIALIZED;
-            if(xSemaphoreTake(USBProtoStatusMutex, 10) == pdTRUE) {
-              status_shared_w_usb = local_system_status;
-              xSemaphoreGive(USBProtoStatusMutex);
-            }
-          }
-          break;
-        }
-      }
+    if (value_received == pdPASS) {
+      int8_t res = handle_system_event(recv_data, &local_system_status);
+      configASSERT(res);
     }
     vTaskDelay(10 / portTICK_PERIOD_MS);
   }
@@ -220,8 +241,8 @@ int main(void) {
 
   configASSERT(system_monitor_task_handle);
 
-  fram_manager_task_handle = xTaskCreateStatic(fram_manager_task, "fram_manager", configMINIMAL_SECURE_STACK_SIZE,
-                                                            NULL, 2, fram_manager_stack, &fram_manager_taskdef);
+  fram_manager_task_handle = xTaskCreateStatic(fram_manager_task, "fram_manager", configMINIMAL_SECURE_STACK_SIZE, NULL,
+                                               2, fram_manager_stack, &fram_manager_taskdef);
 
   configASSERT(fram_manager_task_handle);
 

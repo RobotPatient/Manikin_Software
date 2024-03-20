@@ -2,31 +2,34 @@
 
 
 Breakpoint=/mnt/3c8641a4-f089-425f-b228-e740a9f7575e/babysim/Manikin_Software/SensorHub_FW_CMake_Logger/lib/Manikin_Software_Libraries_V2/usb_service_protocol/usb_service_protocol.hpp:177:20, State=BP_STATE_DISABLED
+OpenDocument="usb_protocol.h", FilePath="/mnt/3c8641a4-f089-425f-b228-e740a9f7575e/babysim/Manikin_Software/SensorHub_FW_CMake_Logger/src/usb_protocol.h", Line=0
 OpenDocument="startup_samd21.c", FilePath="/mnt/3c8641a4-f089-425f-b228-e740a9f7575e/babysim/Manikin_Software/SensorHub_FW_CMake_Logger/SDK/gcc/startup_samd21.c", Line=193
 OpenDocument="tasks.c", FilePath="/mnt/3c8641a4-f089-425f-b228-e740a9f7575e/babysim/Manikin_Software/SensorHub_FW_CMake_Logger/lib/FreeRTOS/tasks.c", Line=5827
-OpenDocument="main.cpp", FilePath="/mnt/3c8641a4-f089-425f-b228-e740a9f7575e/babysim/Manikin_Software/SensorHub_FW_CMake_Logger/src/main.cpp", Line=121
+OpenDocument="main.cpp", FilePath="/mnt/3c8641a4-f089-425f-b228-e740a9f7575e/babysim/Manikin_Software/SensorHub_FW_CMake_Logger/src/main.cpp", Line=119
 OpenToolbar="File", Floating=0, x=1, y=0
 OpenToolbar="Debug", Floating=0, x=0, y=0
 OpenToolbar="Breakpoints", Floating=0, x=2, y=0
 OpenWindow="Call Stack", DockArea=BOTTOM, x=2, y=0, w=635, h=301, TabPos=0, TopOfStack=0, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Source Files", DockArea=LEFT, x=0, y=1, w=363, h=395, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=1, w=737, h=214, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Source Files", DockArea=LEFT, x=0, y=0, w=363, h=621, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=1, w=737, h=133, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 OpenWindow="Memory 1", DockArea=BOTTOM, x=2, y=0, w=635, h=301, TabPos=1, TopOfStack=1, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0x8A88
-OpenWindow="Local Data", DockArea=RIGHT, x=0, y=2, w=737, h=197, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=0, w=363, h=220, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Functions", DockArea=RIGHT, x=0, y=0, w=737, h=198, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Console", DockArea=BOTTOM, x=1, y=0, w=575, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="FreeRTOS", DockArea=BOTTOM, x=0, y=0, w=698, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, Showing="Task List"
+OpenWindow="Local Data", DockArea=RIGHT, x=0, y=2, w=737, h=123, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Watched Data 1", DockArea=RIGHT, x=0, y=3, w=737, h=224, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Functions", DockArea=RIGHT, x=0, y=0, w=737, h=123, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Terminal", DockArea=BOTTOM, x=0, y=0, w=699, h=301, TabPos=0, TopOfStack=1, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Console", DockArea=BOTTOM, x=1, y=0, w=574, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="FreeRTOS", DockArea=BOTTOM, x=0, y=0, w=699, h=301, TabPos=1, TopOfStack=0, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, Showing="Task List"
 SmartViewPlugin="", Page="", Toolbar="Hidden", Window="SmartView 1"
+TableHeader="Task List", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Name";"Run Count";"Priority";"Status";"Timeout";"Stack Info";"ID";"Mutex Count";"Notified Value";"Notify State"], ColWidths=[118;110;110;110;110;110;110;110;110;410]
 TableHeader="Call Stack", SortCol="Function", SortOrder="ASCENDING", VisibleCols=["Function";"Stack Frame";"Source";"PC";"Return Address";"Stack Used"], ColWidths=[161;112;112;100;168;100]
-TableHeader="Local Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Access";"Scope"], ColWidths=[140;100;100;100;210;27;217]
+TableHeader="Local Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Access";"Scope"], ColWidths=[140;100;100;100;210;27;238]
 TableHeader="Functions", SortCol="Name", SortOrder="DESCENDING", VisibleCols=["Name";"Address";"Size";"#Insts";"Class";"Source"], ColWidths=[1715;100;100;100;27;665]
 TableHeader="Source Files", SortCol="File", SortOrder="ASCENDING", VisibleCols=["File";"Status";"Size";"#Insts";"Path"], ColWidths=[239;100;100;100;1365]
 TableHeader="Power Sampling", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
-TableHeader="Task List", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Name";"Run Count";"Priority";"Status";"Timeout";"Stack Info";"ID";"Mutex Count";"Notified Value";"Notify State"], ColWidths=[118;110;110;110;110;110;110;110;110;410]
-TableHeader="Watched Data 1", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Refresh";"Access"], ColWidths=[100;100;100;100;100]
+TableHeader="Watched Data 1", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Refresh";"Access"], ColWidths=[100;100;100;100;321]
 TableHeader="RegisterSelectionDialog", SortCol="None", SortOrder="ASCENDING", VisibleCols=[], ColWidths=[]
 TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[200;100;100;374]
 WatchedExpression="usb_timer", Window=Watched Data 1
 WatchedExpression="character", Window=Watched Data 1
 WatchedExpression="help_usage_str", Window=Watched Data 1
+WatchedExpression="MessageBuffer", Window=Watched Data 1
